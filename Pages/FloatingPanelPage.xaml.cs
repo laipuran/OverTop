@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using static OverTop.App;
 
 namespace OverTop.Pages
 {
@@ -9,7 +10,7 @@ namespace OverTop.Pages
     /// </summary>
     public partial class FloatingPanelPage : Page
     {
-        List<Window> windows = new List<Window>();
+        List<Window> windows = new();
         public FloatingPanelPage()
         {
             InitializeComponent();
@@ -33,5 +34,6 @@ namespace OverTop.Pages
                 window.Close();
             }
         }
+
     }
 }

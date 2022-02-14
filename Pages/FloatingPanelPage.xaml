@@ -8,15 +8,13 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="FloatingPanelPage">
 
-    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
-        <StackPanel Style="{StaticResource ContentStackPanelStyle}">
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Floating Control Panel"/>
-            <Button Style="{StaticResource ContentButtonStyle}"
-                    Content="Close All"
-                    x:Name="CloseButton"
-                    Click="CloseButton_Click"
-                    Margin="20,0,0,0"/>
-        </StackPanel>
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+        <Button Style="{StaticResource ContentButtonStyle}"
+                Content="Close All"
+                x:Name="CloseButton"
+                Click="CloseButton_Click"
+                Margin="20,0,0,0"
+                HorizontalAlignment="Left"/>
         <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
             <TextBlock Text="Create a Hanger Window: "
                        Style="{StaticResource ContentTextBlockStyle}"

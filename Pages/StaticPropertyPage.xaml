@@ -9,14 +9,11 @@
       Title="StaticPropertyPage">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
-        <StackPanel Style="{StaticResource ContentStackPanelStyle}">
-            <TextBlock Text="Static Properties" 
-                       Style="{StaticResource TitleTextBlockStyle}"/>
-            <Button x:Name="FetchButton" Content="Fetch All Status"
-                    Style="{StaticResource ContentButtonStyle}"
-                    Click="FetchButton_Click"
-                    Margin="20,0,0,0"/>
-        </StackPanel>
+        <Button x:Name="FetchButton" Content="Fetch All Status"
+                Style="{StaticResource ContentButtonStyle}"
+                Click="FetchButton_Click"
+                Margin="20,0,0,0"
+                HorizontalAlignment="Left"/>
 
         <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
             <TextBlock Text="System Glass Brush: "

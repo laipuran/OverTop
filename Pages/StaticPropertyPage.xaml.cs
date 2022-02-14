@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
+using static OverTop.App;
 
 namespace OverTop.Pages
 {
