@@ -7,10 +7,11 @@
         mc:Ignorable="d"
         Height="150" Width="180"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        MouseDoubleClick="Window_MouseDoubleClick"
         Style="{StaticResource FloatingWindowStyle}"
         Topmost="True"
-        KeyDown="Window_KeyDown">
+        KeyDown="Window_KeyDown"
+        MouseEnter="Window_MouseEnter"
+        MouseLeave="Window_MouseLeave">
     <Window.ContextMenu>
         <ContextMenu x:Name="ContextMenu" Style="{StaticResource ContextMenuStyle}">
             <StackPanel Orientation="Horizontal">
@@ -32,7 +33,8 @@
         </ContextMenu>
     </Window.ContextMenu>
     <ScrollViewer Margin="10,10,10,10" CanContentScroll="True"
-                  VerticalScrollBarVisibility="Hidden">
+                  VerticalScrollBarVisibility="Hidden" x:Name="Scroller"
+                  MouseDoubleClick="Window_MouseLeftButtonDown">
         <StackPanel x:Name="ContentStackPanel"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"

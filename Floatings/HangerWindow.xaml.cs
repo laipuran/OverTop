@@ -43,13 +43,12 @@ namespace OverTop.Floatings
 
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            DragMove();
+            if (System.Windows.Input.Mouse.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
         }
 
-        private void ScrollViewer_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
         private void AddTextButton_Click(object sender, RoutedEventArgs e)
         {
             newTextPanel.Visibility = Visibility.Visible;
@@ -75,11 +74,13 @@ namespace OverTop.Floatings
 
         private void AddPictureButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Multiselect = false;
-            openFileDialog.RestoreDirectory = true;
-            openFileDialog.Filter = "图片|*.jpeg; *.jpg; *.png|所有文件|*.*";
-            openFileDialog.FilterIndex = 1;
+            OpenFileDialog openFileDialog = new()
+            {
+                Multiselect = false,
+                RestoreDirectory = true,
+                Filter = "图片|*.jpeg; *.jpg; *.png|所有文件|*.*",
+                FilterIndex = 1
+            };
             if (openFileDialog.ShowDialog() != DialogResult)
             {
                 try
@@ -101,11 +102,6 @@ namespace OverTop.Floatings
             Close();
         }
 
-        private void Window_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            ContextMenu.IsOpen = true;
-        }
-
         private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Escape)
@@ -117,6 +113,16 @@ namespace OverTop.Floatings
         private void ContentStackPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
+        }
+
+        private void Window_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
         }
     }
 }
