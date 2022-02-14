@@ -1,0 +1,37 @@
+﻿<Page x:Class="OverTop.Pages.FloatingPanelPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:OverTop.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="FloatingPanelPage">
+
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+        <StackPanel Style="{StaticResource ContentStackPanelStyle}">
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Floating Control Panel"/>
+            <Button Style="{StaticResource ContentButtonStyle}"
+                    Content="Close All"
+                    x:Name="CloseButton"
+                    Click="CloseButton_Click"
+                    Margin="20,0,0,0"/>
+        </StackPanel>
+        <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
+            <TextBlock Text="Create a Hanger Window: "
+                       Style="{StaticResource ContentTextBlockStyle}"
+                       VerticalAlignment="Center"/>
+            <Button Content="New" x:Name="HangerWindowButton"
+                    Style="{StaticResource ContentButtonStyle}"
+                    Click="HangerWindowButton_Click"/>
+        </StackPanel>
+        <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
+            <TextBlock Text="Create a Recent Window: "
+                       Style="{StaticResource ContentTextBlockStyle}"
+                       VerticalAlignment="Center"/>
+            <Button Content="New" x:Name="RecentWindowButton"
+                    Style="{StaticResource ContentButtonStyle}"
+                    Click="RecentWindowButton_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Page>
