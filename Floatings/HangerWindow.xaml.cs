@@ -124,5 +124,11 @@ namespace OverTop.Floatings
         {
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
         }
+
+        private void Window_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Window propertyWindow = new PropertyWindow();
+            propertyWindow.ShowDialog();
+        }
     }
 }
