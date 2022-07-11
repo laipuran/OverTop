@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-
 namespace OverTop.Floatings
 {
     /// <summary>
@@ -16,7 +15,6 @@ namespace OverTop.Floatings
         TextBox newTextBox = new();
         Button OKButton = new();
         Thickness thickness = new();
-
         public HangerWindow()
         {
             InitializeComponent();
@@ -60,11 +58,13 @@ namespace OverTop.Floatings
         {
             if (newTextBox.Text != string.Empty)
             {
-                TextBlock newTextBlock = new();
-                newTextBlock.TextWrapping = TextWrapping.Wrap;
-                newTextBlock.Width = 160;
-                newTextBlock.Style = (Style)FindResource("ContentTextBlockStyle");
-                newTextBlock.Text = newTextBox.Text;
+                TextBlock newTextBlock = new()
+                {
+                    TextWrapping = TextWrapping.Wrap,
+                    Width = 160,
+                    Style = (Style)FindResource("ContentTextBlockStyle"),
+                    Text = newTextBox.Text
+                };
 
                 newTextPanel.Visibility = Visibility.Collapsed;
                 ContentStackPanel.Children.Add(newTextBlock);
@@ -85,8 +85,10 @@ namespace OverTop.Floatings
             {
                 try
                 {
-                    Image newImage = new();
-                    newImage.Source = new BitmapImage(new System.Uri(openFileDialog.FileName));
+                    Image newImage = new()
+                    {
+                        Source = new BitmapImage(new System.Uri(openFileDialog.FileName))
+                    };
                     ContentStackPanel.Children.Add(newImage);
                 }
                 catch (System.UriFormatException)
@@ -129,6 +131,7 @@ namespace OverTop.Floatings
         {
             Window propertyWindow = new PropertyWindow();
             propertyWindow.ShowDialog();
+            Opacity = App.parameterClass.alpha;
         }
     }
 }

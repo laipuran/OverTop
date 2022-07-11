@@ -6,6 +6,6 @@ namespace OverTop
     /// </summary>
     public partial class App : Application
     {
-
+        public static ParameterClass parameterClass = new();
     }
 }

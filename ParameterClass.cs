@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace OverTop
 {
-    internal class ParameterClass
+    public class ParameterClass
     {
-        Color backGroundColor;
-        int alpha;
-        int width;
-        int height;
+        public Color backGroundColor;
+        public double alpha;
+        public int width;
+        public int height;
     }
 }

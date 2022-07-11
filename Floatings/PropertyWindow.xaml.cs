@@ -19,12 +19,15 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class PropertyWindow : Window
     {
-        ParameterClass parameterClass = new();
-        int alpha;
         public PropertyWindow()
         {
             InitializeComponent();
+        }
 
+        private void AlphaSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            App.parameterClass.alpha = AlphaSlider.Value;
+            alphaTextBlock.Text = AlphaSlider.Value.ToString();
         }
     }
 }

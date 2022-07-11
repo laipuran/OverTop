@@ -8,6 +8,15 @@
         Title="窗口属性" Height="400" Width="250"
         Topmost="True">
     <ScrollViewer Margin="20,20,20,20">
-        <Slider x:Name="AlphaSlider" Maximum="1" SmallChange="0.1" Value="{Binding alpha}"/>
+        <StackPanel>
+            <TextBlock Text="颜色透明度 Alpha通道："/>
+            <Slider x:Name="AlphaSlider"
+                    Maximum="1"
+                    SmallChange="0.1"
+                    Margin="5,10,45,0"
+                    ValueChanged="AlphaSlider_ValueChanged"/>
+            <TextBlock x:Name="alphaTextBlock" Width="30"/>
+
+        </StackPanel>
     </ScrollViewer>
 </Window>
