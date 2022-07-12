@@ -16,22 +16,7 @@
     <!--
     <Window.ContextMenu>
         <ContextMenu x:Name="ContextMenu" Style="{StaticResource ContextMenuStyle}">
-            <StackPanel Orientation="Horizontal">
-                <Button Style="{StaticResource NavigationButtonStyle}"
-                            x:Name="AddTextButton"
-                            Click="AddTextButton_Click"
-                            Content="&#xE70B;"/>
-                <Button Style="{StaticResource NavigationButtonStyle}"
-                            x:Name="AddPictureButton"
-                            Click="AddPictureButton_Click"
-                            Content="&#xE8B9;"/>
-                <Button Style="{StaticResource NavigationButtonStyle}"
-                            x:Name="CloseButton"
-                            Click="CloseButton_Click"
-                            Content="&#xE711;"/>
-                <StackPanel>
-                </StackPanel>
-            </StackPanel>
+            
         </ContextMenu>
     </Window.ContextMenu>
     -->

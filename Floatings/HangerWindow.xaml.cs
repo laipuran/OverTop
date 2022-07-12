@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 namespace OverTop.Floatings
 {
@@ -18,6 +20,11 @@ namespace OverTop.Floatings
         public HangerWindow()
         {
             InitializeComponent();
+            Width = Settings.Default.width;
+            Height = Settings.Default.height;
+            Opacity = Settings.Default.alpha;
+            System.Drawing.Color color = ColorTranslator.FromHtml(Settings.Default.backGroundColor);
+            App.parameterClass.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
             // Add Text
             OKButton.Style = (Style)FindResource("ContentButtonStyle");
             OKButton.Content = "OK";
@@ -85,7 +92,7 @@ namespace OverTop.Floatings
             {
                 try
                 {
-                    Image newImage = new()
+                    System.Windows.Controls.Image newImage = new()
                     {
                         Source = new BitmapImage(new System.Uri(openFileDialog.FileName))
                     };
@@ -129,9 +136,13 @@ namespace OverTop.Floatings
 
         private void Window_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            App.currentWindow = this;
             Window propertyWindow = new PropertyWindow();
             propertyWindow.ShowDialog();
             Opacity = App.parameterClass.alpha;
+            Width = App.parameterClass.width;
+            Height = App.parameterClass.height;
+            Background = new SolidColorBrush(App.parameterClass.backGroundColor);
         }
     }
 }

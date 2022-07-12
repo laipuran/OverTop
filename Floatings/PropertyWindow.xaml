@@ -6,17 +6,37 @@
         xmlns:local="clr-namespace:OverTop.Floatings"
         mc:Ignorable="d"
         Title="窗口属性" Height="400" Width="250"
-        Topmost="True">
+        Topmost="True"
+        Closing="Window_Closing">
     <ScrollViewer Margin="20,20,20,20">
         <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Style="{StaticResource NavigationButtonStyle}"
+                            x:Name="AddTextButton"
+                            Content="&#xE70B;"/>
+                <Button Style="{StaticResource NavigationButtonStyle}"
+                            x:Name="AddPictureButton"
+                            Content="&#xE8B9;"/>
+            </StackPanel>
             <TextBlock Text="颜色透明度 Alpha通道："/>
             <Slider x:Name="AlphaSlider"
                     Maximum="1"
-                    SmallChange="0.1"
-                    Margin="5,10,45,0"
+                    SmallChange="0.01"
+                    Margin="5,10,5,0"
                     ValueChanged="AlphaSlider_ValueChanged"/>
-            <TextBlock x:Name="alphaTextBlock" Width="30"/>
+            <TextBlock x:Name="AlphaTextBlock"/>
 
+            <TextBlock Text="窗口宽度 Width：" Margin="0,10,0,0"/>
+            <TextBox x:Name="WidthTextBox" Style="{StaticResource ContentTextBoxStyle}" Margin="5,10,5,0"/>
+            
+            <TextBlock Text="窗口长度 Height：" Margin="0,10,0,0"/>
+            <TextBox x:Name="HeightTextBox" Style="{StaticResource ContentTextBoxStyle}" Margin="5,10,5,0"/>
+
+
+            <TextBlock Text="窗口颜色 Color：" Margin="0,10,0,0"/>
+            <TextBox x:Name="ColorTextBox" Style="{StaticResource ContentTextBoxStyle}" Margin="5,10,5,0"/>
+            <Button Content="Close" Click="Button_Click" Style="{StaticResource ContentButtonStyle}" FontSize="18" Width="30" Margin="-120,10,0,0"/>
+            <Button Content="Set to Default" x:Name="DefaultButton" Click="DefaultButton_Click" Style="{StaticResource ContentButtonStyle}" FontSize="18" Width="100" Margin="-120,10,0,0"/>
         </StackPanel>
     </ScrollViewer>
 </Window>

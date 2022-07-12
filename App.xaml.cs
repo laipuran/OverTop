@@ -7,5 +7,6 @@ namespace OverTop
     public partial class App : Application
     {
         public static ParameterClass parameterClass = new();
+        public static Window currentWindow = new();
     }
 }

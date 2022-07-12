@@ -8,8 +8,40 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="LuckDraw.Algorithm\**" />
+    <EmbeddedResource Remove="LuckDraw.Algorithm\**" />
+    <None Remove="LuckDraw.Algorithm\**" />
+    <Page Remove="LuckDraw.Algorithm\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Win32.SystemEvents" Version="6.0.0" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="C:\Users\Laifuzhou\source\repos\OverTop\LuckDraw.Algorithm\LuckDraw.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="C:\Users\Laifuzhou\source\repos\OverTop\LuckDraw.Algorithm\LuckDraw.cs" />
+  </ItemGroup>
+
+  <Import Project="LuckDraw.Algorithm\Shared.projitems" Label="Shared" />
 
 </Project>
