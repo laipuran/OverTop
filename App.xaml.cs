@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+
 namespace OverTop
 {
     /// <summary>
@@ -8,5 +10,6 @@ namespace OverTop
     {
         public static ParameterClass parameterClass = new();
         public static Window currentWindow = new();
+        public static StackPanel contentStackPanel = new();
     }
 }

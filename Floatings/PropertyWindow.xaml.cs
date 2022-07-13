@@ -1,9 +1,11 @@
 ﻿using LuckDraw;
+using Microsoft.Win32;
 using System;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace OverTop.Floatings
 {
@@ -12,6 +14,11 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class PropertyWindow : Window
     {
+        Thickness margin = new();
+        Window textWindow = new();
+        StackPanel newTextPanel = new();
+        TextBox newTextBox = new();
+        Button OKButton = new();
         public PropertyWindow()
         {
             InitializeComponent();
@@ -20,12 +27,54 @@ namespace OverTop.Floatings
             HeightTextBox.Text = App.currentWindow.Height.ToString();
             System.Windows.Media.Color color = ((SolidColorBrush)App.currentWindow.Background).Color;
             ColorTextBox.Text = ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
+
+            //Add Text
+            OKButton.Style = (Style)FindResource("ContentButtonStyle");
+            OKButton.Content = "OK";
+            margin.Left = 20;
+            margin.Right = 20;
+            margin.Top = 10;
+            OKButton.Margin = margin;
+            OKButton.Click += OKButton_Click;
+
+            textWindow.Width = 150;
+            textWindow.Height = 150;
+            textWindow.Topmost = true;
+
+            newTextBox.Style = (Style)FindResource("ContentTextBoxStyle");
+            newTextBox.TextWrapping = TextWrapping.Wrap;
+            newTextBox.Width = 300 - 5 - OKButton.Width;
+            newTextBox.Margin = margin;
+            newTextBox.LostKeyboardFocus += OKButton_Click;
+
+            newTextPanel.Children.Add(newTextBox);
+            newTextPanel.Children.Add(OKButton);
+            
+            textWindow.Content = newTextPanel;
+        }
+
+        private void OKButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (newTextBox.Text != string.Empty)
+            {
+                TextBlock newTextBlock = new()
+                {
+                    TextWrapping = TextWrapping.Wrap,
+                    Style = (Style)FindResource("ContentTextBlockStyle"),
+                    Text = newTextBox.Text
+                };
+
+                newTextPanel.Visibility = Visibility.Collapsed;
+                App.contentStackPanel.Children.Add(newTextBlock);
+                newTextBox.Text = "";
+
+                textWindow.Close();
+            }
         }
 
         private void AlphaSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            App.parameterClass.alpha = Math.Round(AlphaSlider.Value, 2);
-            AlphaTextBlock.Text = App.parameterClass.alpha.ToString();
+            AlphaTextBlock.Text = Math.Round(AlphaSlider.Value, 2).ToString();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -54,6 +103,7 @@ namespace OverTop.Floatings
             }
             App.parameterClass.height = Algorithm.Parser(HeightTextBox.Text, 1200).number;
 
+            App.parameterClass.alpha = AlphaSlider.Value;
             System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
             App.parameterClass.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
         }
@@ -78,11 +128,46 @@ namespace OverTop.Floatings
             }
             Settings.Default.height = Algorithm.Parser(HeightTextBox.Text, 1200).number;
 
+            Settings.Default.alpha = AlphaSlider.Value;
+
             System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
             Settings.Default.colorR = color.R;
             Settings.Default.colorG = color.G;
             Settings.Default.colorB = color.B;
             Settings.Default.Save();
+        }
+
+        private void AddTextButton_Click(object sender, RoutedEventArgs e)
+        {
+            textWindow.ShowDialog();
+            Close();
+        }
+
+        private void AddPictureButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new()
+            {
+                Multiselect = false,
+                RestoreDirectory = true,
+                Filter = "图片|*.jpeg; *.jpg; *.png|所有文件|*.*",
+                FilterIndex = 1
+            };
+            if (openFileDialog.ShowDialog() != DialogResult)
+            {
+                try
+                {
+                    System.Windows.Controls.Image newImage = new()
+                    {
+                        Source = new BitmapImage(new Uri(openFileDialog.FileName))
+                    };
+                    App.contentStackPanel.Children.Add(newImage);
+                }
+                catch (UriFormatException)
+                {
+                    return;
+                }
+            }
+            Close();
         }
     }
 }

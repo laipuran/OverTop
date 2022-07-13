@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OverTop"
         mc:Ignorable="d"
-        Topmost="True"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Over Top" Height="450" Width="800">
     <Window.Resources>
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"

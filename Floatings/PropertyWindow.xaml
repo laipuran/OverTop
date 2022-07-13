@@ -13,9 +13,11 @@
             <StackPanel Orientation="Horizontal">
                 <Button Style="{StaticResource NavigationButtonStyle}"
                             x:Name="AddTextButton"
+                            Click="AddTextButton_Click"
                             Content="&#xE70B;"/>
                 <Button Style="{StaticResource NavigationButtonStyle}"
                             x:Name="AddPictureButton"
+                            Click="AddPictureButton_Click"
                             Content="&#xE8B9;"/>
             </StackPanel>
             <TextBlock Text="颜色透明度 Alpha通道："/>
