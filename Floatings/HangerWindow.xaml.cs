@@ -23,8 +23,8 @@ namespace OverTop.Floatings
             Width = Settings.Default.width;
             Height = Settings.Default.height;
             Opacity = Settings.Default.alpha;
-            System.Drawing.Color color = ColorTranslator.FromHtml(Settings.Default.backGroundColor);
-            App.parameterClass.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
+            App.parameterClass.backGroundColor = System.Windows.Media.Color.FromRgb(Settings.Default.colorR, Settings.Default.colorG, Settings.Default.colorB);
+            Background = new SolidColorBrush(App.parameterClass.backGroundColor);
             // Add Text
             OKButton.Style = (Style)FindResource("ContentButtonStyle");
             OKButton.Content = "OK";
@@ -137,7 +137,10 @@ namespace OverTop.Floatings
         private void Window_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             App.currentWindow = this;
-            Window propertyWindow = new PropertyWindow();
+            Window propertyWindow = new PropertyWindow
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
             propertyWindow.ShowDialog();
             Opacity = App.parameterClass.alpha;
             Width = App.parameterClass.width;

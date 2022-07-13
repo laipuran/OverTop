@@ -79,7 +79,9 @@ namespace OverTop.Floatings
             Settings.Default.height = Algorithm.Parser(HeightTextBox.Text, 1200).number;
 
             System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
-            Settings.Default.backGroundColor = ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
+            Settings.Default.colorR = color.R;
+            Settings.Default.colorG = color.G;
+            Settings.Default.colorB = color.B;
             Settings.Default.Save();
         }
     }
