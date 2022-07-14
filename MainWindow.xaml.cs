@@ -8,7 +8,6 @@ namespace OverTop
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    // TODO: Change Main Menu to List Box 
     public partial class MainWindow : Window
     {
         bool MenuClosed = true;
@@ -16,7 +15,7 @@ namespace OverTop
         {
             InitializeComponent();
             PropertyListBoxItem.IsSelected = true;
-            TitleTextBlock.Text = "Static Property";
+            TitleTextBlock.Text = "系统静态属性";
             ContentFrame.NavigationService.Navigate(new Uri("/Pages/StaticPropertyPage.xaml", UriKind.Relative));
         }
 
@@ -50,11 +49,11 @@ namespace OverTop
         {
             if (ContentListBox.SelectedItem == PropertyListBoxItem)
             {
-                TitleTextBlock.Text = "Static Property";
+                TitleTextBlock.Text = "系统静态属性";
             }
             else if (ContentListBox.SelectedItem == FloatingListBoxItem)
             {
-                TitleTextBlock.Text = "Floating Control Panel";
+                TitleTextBlock.Text = "浮窗控制面板";
             }
         }
     }

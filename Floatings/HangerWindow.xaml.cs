@@ -5,8 +5,6 @@ namespace OverTop.Floatings
 {
     /// <summary>
     /// HangerWindow.xaml 的交互逻辑
-    /// OKButton 是编程加入的
-    /// AddTextButton 是 HangerWindow.xaml 中 ContextMenu 的按钮
     /// </summary>
     public partial class HangerWindow : Window
     {
@@ -15,13 +13,9 @@ namespace OverTop.Floatings
             InitializeComponent();
             Width = Settings.Default.width;
             Height = Settings.Default.height;
-            App.parameterClass.backGroundColor = Color.FromRgb(Settings.Default.colorR, Settings.Default.colorG, Settings.Default.colorB);
-            Background = new SolidColorBrush(App.parameterClass.backGroundColor);
-
-            if (App.parameterClass.alpha != 0)
-                Opacity = App.parameterClass.alpha;
-            else
-                Opacity = 0.8;
+            Color color = Color.FromRgb(Settings.Default.color.R, Settings.Default.color.G, Settings.Default.color.B);
+            Background = new SolidColorBrush(color);
+            Opacity = Settings.Default.alpha == 0.0 ? 0.8 : App.parameterClass.alpha;
 
         }
 
@@ -62,7 +56,7 @@ namespace OverTop.Floatings
             App.contentStackPanel = ContentStackPanel;
             Window propertyWindow = new PropertyWindow
             {
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
             propertyWindow.ShowDialog();
             Width = App.parameterClass.width;

@@ -17,6 +17,7 @@ namespace OverTop.Floatings
         Thickness margin = new();
         Window textWindow = new();
         StackPanel newTextPanel = new();
+        ScrollViewer scrollViewer = new ScrollViewer();
         TextBox newTextBox = new();
         Button OKButton = new();
         public PropertyWindow()
@@ -28,7 +29,7 @@ namespace OverTop.Floatings
             System.Windows.Media.Color color = ((SolidColorBrush)App.currentWindow.Background).Color;
             ColorTextBox.Text = ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
 
-            //Add Text
+            //Show AddTextWindow Dialog
             OKButton.Style = (Style)FindResource("ContentButtonStyle");
             OKButton.Content = "OK";
             margin.Left = 20;
@@ -45,12 +46,17 @@ namespace OverTop.Floatings
             newTextBox.TextWrapping = TextWrapping.Wrap;
             newTextBox.Width = 300 - 5 - OKButton.Width;
             newTextBox.Margin = margin;
-            newTextBox.LostKeyboardFocus += OKButton_Click;
-
+            
             newTextPanel.Children.Add(newTextBox);
             newTextPanel.Children.Add(OKButton);
-            
-            textWindow.Content = newTextPanel;
+
+            scrollViewer.Content = newTextPanel;
+            scrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
+            scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
+
+            textWindow.Content = scrollViewer;
+            textWindow.LostFocus += OKButton_Click;
+
         }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
@@ -127,13 +133,9 @@ namespace OverTop.Floatings
                 return;
             }
             Settings.Default.height = Algorithm.Parser(HeightTextBox.Text, 1200).number;
-
             Settings.Default.alpha = AlphaSlider.Value;
+            Settings.Default.color = ColorTranslator.FromHtml(ColorTextBox.Text);
 
-            System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
-            Settings.Default.colorR = color.R;
-            Settings.Default.colorG = color.G;
-            Settings.Default.colorB = color.B;
             Settings.Default.Save();
         }
 

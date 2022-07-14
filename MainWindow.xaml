@@ -58,24 +58,7 @@
                     </StackPanel>
                 </ListBoxItem>
             </ListBox>
-            <!--
-            <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
-                <Button x:Name="StaticPropertyButton" Content="&#xE155;"
-                        Style="{StaticResource NavigationButtonStyle}"
-                        Click="StaticPropertyButton_Click"/>
-                <TextBlock Text="Static Property"
-                           Style="{StaticResource NavigationTextBlockStyle}"
-                           Margin="5,0,0,0"/>
-            </StackPanel>
-            <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
-                <Button x:Name="FloatingMenuButton" Content="&#xE81E;"
-                        Style="{StaticResource NavigationButtonStyle}"
-                        Click="FloatingMenuButton_Click"/>
-                <TextBlock Text="Floating Panel"
-                           Style="{StaticResource NavigationTextBlockStyle}"
-                           Margin="5,0,0,0"/>
-            </StackPanel>
-            -->
+            
         </StackPanel>
         <TextBlock DockPanel.Dock="Top" x:Name="TitleTextBlock" Style="{StaticResource TitleTextBlockStyle}" Margin="20,10,0,0"/>
         <ScrollViewer DockPanel.Dock="Right" Margin="20,20,0,0">

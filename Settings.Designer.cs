@@ -61,37 +61,13 @@ namespace OverTop {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("22")]
-        public byte colorR {
+        [global::System.Configuration.DefaultSettingValueAttribute("242, 154, 92")]
+        public global::System.Drawing.Color color {
             get {
-                return ((byte)(this["colorR"]));
+                return ((global::System.Drawing.Color)(this["color"]));
             }
             set {
-                this["colorR"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("133")]
-        public byte colorG {
-            get {
-                return ((byte)(this["colorG"]));
-            }
-            set {
-                this["colorG"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("160")]
-        public byte colorB {
-            get {
-                return ((byte)(this["colorB"]));
-            }
-            set {
-                this["colorB"] = value;
+                this["color"] = value;
             }
         }
     }

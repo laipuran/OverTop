@@ -11,14 +11,8 @@
     <Setting Name="alpha" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.5</Value>
     </Setting>
-    <Setting Name="colorR" Type="System.Byte" Scope="User">
-      <Value Profile="(Default)">22</Value>
-    </Setting>
-    <Setting Name="colorG" Type="System.Byte" Scope="User">
-      <Value Profile="(Default)">133</Value>
-    </Setting>
-    <Setting Name="colorB" Type="System.Byte" Scope="User">
-      <Value Profile="(Default)">160</Value>
+    <Setting Name="color" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">242, 154, 92</Value>
     </Setting>
   </Settings>
 </SettingsFile>
