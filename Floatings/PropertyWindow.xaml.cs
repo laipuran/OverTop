@@ -17,7 +17,7 @@ namespace OverTop.Floatings
         Thickness margin = new();
         Window textWindow = new();
         StackPanel newTextPanel = new();
-        ScrollViewer scrollViewer = new ScrollViewer();
+        ScrollViewer scrollViewer = new();
         TextBox newTextBox = new();
         Button OKButton = new();
         public PropertyWindow()
@@ -29,7 +29,19 @@ namespace OverTop.Floatings
             System.Windows.Media.Color color = ((SolidColorBrush)App.currentWindow.Background).Color;
             ColorTextBox.Text = ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
 
-            //Show AddTextWindow Dialog
+            if (App.windowType == App.WindowType.Hanger)
+            {
+                InitializeTextWindow();
+                Title += " - Hanger Window";
+            }
+            else
+                Title += " - Recent Window";
+            ToolTip = Title;
+        }
+        private void InitializeTextWindow()
+        {
+            ButtonStackPanel.Visibility = Visibility.Visible;
+
             OKButton.Style = (Style)FindResource("ContentButtonStyle");
             OKButton.Content = "OK";
             margin.Left = 20;
@@ -46,7 +58,7 @@ namespace OverTop.Floatings
             newTextBox.TextWrapping = TextWrapping.Wrap;
             newTextBox.Width = 300 - 5 - OKButton.Width;
             newTextBox.Margin = margin;
-            
+
             newTextPanel.Children.Add(newTextBox);
             newTextPanel.Children.Add(OKButton);
 
@@ -56,9 +68,7 @@ namespace OverTop.Floatings
 
             textWindow.Content = scrollViewer;
             textWindow.LostFocus += OKButton_Click;
-
         }
-
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             if (newTextBox.Text != string.Empty)

@@ -15,8 +15,7 @@ namespace OverTop.Floatings
             Height = Settings.Default.height;
             Color color = Color.FromRgb(Settings.Default.color.R, Settings.Default.color.G, Settings.Default.color.B);
             Background = new SolidColorBrush(color);
-            Opacity = Settings.Default.alpha == 0.0 ? 0.8 : App.parameterClass.alpha;
-
+            Opacity = Settings.Default.alpha == 0.0 ? 0.8 : Settings.Default.alpha;
         }
 
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -54,6 +53,7 @@ namespace OverTop.Floatings
         {
             App.currentWindow = this;
             App.contentStackPanel = ContentStackPanel;
+            App.windowType = App.WindowType.Hanger;
             Window propertyWindow = new PropertyWindow
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen

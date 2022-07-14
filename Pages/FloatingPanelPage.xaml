@@ -10,24 +10,24 @@
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
         <Button Style="{StaticResource ContentButtonStyle}"
-                Content="Close All"
+                Content="关闭全部"
                 x:Name="CloseButton"
                 Click="CloseButton_Click"
                 Margin="20,0,0,0"
                 HorizontalAlignment="Left"/>
         <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
-            <TextBlock Text="Create a Hanger Window: "
+            <TextBlock Text="创建一个 便利贴 窗口: "
                        Style="{StaticResource ContentTextBlockStyle}"
                        VerticalAlignment="Center"/>
-            <Button Content="New" x:Name="HangerWindowButton"
+            <Button Content="新建" x:Name="HangerWindowButton"
                     Style="{StaticResource ContentButtonStyle}"
                     Click="HangerWindowButton_Click"/>
         </StackPanel>
         <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
-            <TextBlock Text="Create a Recent Window: "
+            <TextBlock Text="创建一个 最近 窗口: "
                        Style="{StaticResource ContentTextBlockStyle}"
                        VerticalAlignment="Center"/>
-            <Button Content="New" x:Name="RecentWindowButton"
+            <Button Content="新建" x:Name="RecentWindowButton"
                     Style="{StaticResource ContentButtonStyle}"
                     Click="RecentWindowButton_Click"/>
         </StackPanel>

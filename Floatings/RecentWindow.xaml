@@ -5,13 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OverTop.Floatings"
         mc:Ignorable="d"
-        Title="RecentWindow"
-        Width="100"
-        Height="200"
+        Title="Recent Window"
+        Width="100" Height="200"
         MouseRightButtonDown="Window_MouseRightButtonDown"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Style="{StaticResource FloatingWindowStyle}">
-    <Grid>
-        
-    </Grid>
+        Topmost="True"
+        KeyDown="Window_KeyDown"
+        ShowInTaskbar="False"
+        MouseEnter="Window_MouseEnter"
+        MouseLeave="Window_MouseLeave"
+        Style="{StaticResource FloatingWindowStyle}"
+        ToolTip="Recent Window">
+    <ScrollViewer Margin="10,10,10,10" CanContentScroll="True"
+                  VerticalScrollBarVisibility="Hidden" x:Name="Scroller"
+                  MouseDoubleClick="Window_MouseLeftButtonDown">
+        <StackPanel x:Name="ContentStackPanel"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    MouseLeftButtonDown="ContentStackPanel_MouseLeftButtonDown">
+            
+        </StackPanel>
+    </ScrollViewer>
 </Window>

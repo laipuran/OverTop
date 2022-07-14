@@ -9,7 +9,7 @@
       Title="StaticPropertyPage">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
-        <Button x:Name="FetchButton" Content="Fetch All Status"
+        <Button x:Name="FetchButton" Content="获取全部状态"
                 Style="{StaticResource ContentButtonStyle}"
                 Click="FetchButton_Click"
                 Margin="20,0,0,0"
@@ -19,7 +19,7 @@
             <TextBlock Text="System Glass Brush: "
                        Style="{StaticResource ContentTextBlockStyle}"
                        VerticalAlignment="Center"/>
-            <Button Content="Copy" x:Name="SystemGlassBrushButton"
+            <Button Content="复制" x:Name="SystemGlassBrushButton"
                     Style="{StaticResource ContentButtonStyle}"
                     Foreground="{x:Static SystemParameters.WindowGlassBrush}"
                     Click="SystemGlassBrushButton_Click"/>
@@ -29,7 +29,7 @@
             <TextBlock Text="System Desktop Brush: "
                        Style="{StaticResource ContentTextBlockStyle}"
                        VerticalAlignment="Center"/>
-            <Button Content="Copy" x:Name="DesktopBrushButton"
+            <Button Content="复制" x:Name="DesktopBrushButton"
                     Foreground="{DynamicResource {x:Static SystemColors.DesktopBrush}}"
                     Style="{StaticResource ContentButtonStyle}"
                     Click="DesktopBrushButton_Click"/>

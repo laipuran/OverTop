@@ -10,7 +10,7 @@
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
                                            Storyboard.TargetName="MenuStackPanel">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="170"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="MenuClose">
@@ -40,7 +40,7 @@
                     <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
                         <TextBlock Text="&#xE155;"
                                 Style="{StaticResource IconTextBlockStyle}"/>
-                        <TextBlock Text="Static Property"
+                        <TextBlock Text="系统静态属性"
                            Style="{StaticResource NavigationTextBlockStyle}"
                            Margin="5,0,0,0"/>
                     </StackPanel>
@@ -52,7 +52,7 @@
                     <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
                         <TextBlock Text="&#xE81E;"
                                 Style="{StaticResource IconTextBlockStyle}"/>
-                        <TextBlock Text="Floating Panel"
+                        <TextBlock Text="浮窗控制面板"
                            Style="{StaticResource NavigationTextBlockStyle}"
                            Margin="5,0,0,0"/>
                     </StackPanel>

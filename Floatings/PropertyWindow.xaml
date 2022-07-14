@@ -7,20 +7,24 @@
         mc:Ignorable="d"
         Title="窗口属性" Height="400" Width="250"
         Topmost="True"
-        Closing="Window_Closing">
+        Closing="Window_Closing"
+        ResizeMode="NoResize">
     <ScrollViewer Margin="20,20,20,20">
         <StackPanel>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Visibility="Collapsed" x:Name="ButtonStackPanel">
                 <Button Style="{StaticResource NavigationButtonStyle}"
                             x:Name="AddTextButton"
                             Click="AddTextButton_Click"
-                            Content="&#xE70B;"/>
+                            Content="&#xE70B;"
+                            ToolTip="添加文本"/>
                 <Button Style="{StaticResource NavigationButtonStyle}"
                             x:Name="AddPictureButton"
                             Click="AddPictureButton_Click"
-                            Content="&#xE8B9;"/>
+                            Content="&#xE8B9;"
+                            Margin="10,0,0,0"
+                            ToolTip="添加图片"/>
             </StackPanel>
-            <TextBlock Text="颜色透明度 Alpha通道："/>
+            <TextBlock Text="颜色透明度 Alpha通道：" Margin="0,10,0,0"/>
             <Slider x:Name="AlphaSlider"
                     Maximum="1"
                     SmallChange="0.01"

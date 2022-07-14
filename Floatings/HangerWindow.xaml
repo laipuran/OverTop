@@ -14,7 +14,8 @@
         KeyDown="Window_KeyDown"
         ShowInTaskbar="False"
         MouseEnter="Window_MouseEnter"
-        MouseLeave="Window_MouseLeave">
+        MouseLeave="Window_MouseLeave"
+        ToolTip="Hanger Window">
     <ScrollViewer Margin="10,10,10,10" CanContentScroll="True"
                   VerticalScrollBarVisibility="Hidden" x:Name="Scroller"
                   MouseDoubleClick="Window_MouseLeftButtonDown">
