@@ -44,7 +44,7 @@ namespace OverTop
         {
             ContentFrame.NavigationService.Navigate(new Uri("/Pages/FloatingPanelPage.xaml", UriKind.Relative));
         }
-
+        
         private void ContentListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (ContentListBox.SelectedItem == PropertyListBoxItem)
@@ -54,6 +54,14 @@ namespace OverTop
             else if (ContentListBox.SelectedItem == FloatingListBoxItem)
             {
                 TitleTextBlock.Text = "浮窗控制面板";
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            foreach (Window window in Pages.FloatingPanelPage.windows)
+            {
+                window.Close();
             }
         }
     }

@@ -9,7 +9,7 @@ namespace OverTop.Pages
     /// </summary>
     public partial class FloatingPanelPage : Page
     {
-        List<Window> windows = new();
+        public static List<Window> windows = new();
         public FloatingPanelPage()
         {
             InitializeComponent();

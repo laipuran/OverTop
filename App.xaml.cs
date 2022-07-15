@@ -17,5 +17,6 @@ namespace OverTop
         public static ParameterClass parameterClass = new();
         public static Window currentWindow = new();
         public static StackPanel contentStackPanel = new();
+
     }
 }
