@@ -1,6 +1,7 @@
 ﻿using LuckDraw;
 using Microsoft.Win32;
 using System;
+using System.Configuration;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +21,7 @@ namespace OverTop.Floatings
         ScrollViewer scrollViewer = new();
         TextBox newTextBox = new();
         Button OKButton = new();
+        object Settings;
         public PropertyWindow()
         {
             InitializeComponent();
@@ -33,9 +35,14 @@ namespace OverTop.Floatings
             {
                 InitializeTextWindow();
                 Title += " - Hanger Window";
+                Settings = new HangerSettings();
             }
             else
+            {
                 Title += " - Recent Window";
+                Settings = new RecentSettings();
+            }
+
             ToolTip = Title;
         }
         private void InitializeTextWindow()
@@ -133,7 +140,6 @@ namespace OverTop.Floatings
                 WidthTextBox.Text = App.currentWindow.Width.ToString();
                 return;
             }
-            Settings.Default.width = Algorithm.Parser(WidthTextBox.Text, 1200).number;
 
             union = Algorithm.Parser(HeightTextBox.Text, 800);
             if (union.message != "")
@@ -142,11 +148,23 @@ namespace OverTop.Floatings
                 HeightTextBox.Text = App.currentWindow.Height.ToString();
                 return;
             }
-            Settings.Default.height = Algorithm.Parser(HeightTextBox.Text, 1200).number;
-            Settings.Default.alpha = AlphaSlider.Value;
-            Settings.Default.color = ColorTranslator.FromHtml(ColorTextBox.Text);
+            if (App.windowType == App.WindowType.Hanger)
+            {
+                HangerSettings.Default.width = Algorithm.Parser(WidthTextBox.Text, 1200).number;
+                HangerSettings.Default.height = Algorithm.Parser(HeightTextBox.Text, 1200).number;
+                HangerSettings.Default.alpha = AlphaSlider.Value;
+                HangerSettings.Default.color = ColorTranslator.FromHtml(ColorTextBox.Text);
+                HangerSettings.Default.Save();
+            }
+            else
+            {
+                RecentSettings.Default.width = Algorithm.Parser(WidthTextBox.Text, 1200).number;
+                RecentSettings.Default.height = Algorithm.Parser(HeightTextBox.Text, 1200).number;
+                RecentSettings.Default.alpha = AlphaSlider.Value;
+                RecentSettings.Default.color = ColorTranslator.FromHtml(ColorTextBox.Text);
+                RecentSettings.Default.Save();
+            }
 
-            Settings.Default.Save();
         }
 
         private void AddTextButton_Click(object sender, RoutedEventArgs e)

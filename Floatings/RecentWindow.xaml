@@ -23,7 +23,6 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     MouseLeftButtonDown="ContentStackPanel_MouseLeftButtonDown">
-            
         </StackPanel>
     </ScrollViewer>
 </Window>

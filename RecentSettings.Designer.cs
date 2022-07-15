@@ -13,11 +13,11 @@ namespace OverTop {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    internal sealed partial class RecentSettings : global::System.Configuration.ApplicationSettingsBase {
         
-        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+        private static RecentSettings defaultInstance = ((RecentSettings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new RecentSettings())));
         
-        public static Settings Default {
+        public static RecentSettings Default {
             get {
                 return defaultInstance;
             }
@@ -25,7 +25,7 @@ namespace OverTop {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("150")]
+        [global::System.Configuration.DefaultSettingValueAttribute("350")]
         public int height {
             get {
                 return ((int)(this["height"]));
@@ -37,7 +37,7 @@ namespace OverTop {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("180")]
+        [global::System.Configuration.DefaultSettingValueAttribute("250")]
         public int width {
             get {
                 return ((int)(this["width"]));
@@ -61,7 +61,7 @@ namespace OverTop {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("242, 154, 92")]
+        [global::System.Configuration.DefaultSettingValueAttribute("69, 181, 255")]
         public global::System.Drawing.Color color {
             get {
                 return ((global::System.Drawing.Color)(this["color"]));

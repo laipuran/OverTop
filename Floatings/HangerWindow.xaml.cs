@@ -11,11 +11,11 @@ namespace OverTop.Floatings
         public HangerWindow()
         {
             InitializeComponent();
-            Width = Settings.Default.width;
-            Height = Settings.Default.height;
-            Color color = Color.FromRgb(Settings.Default.color.R, Settings.Default.color.G, Settings.Default.color.B);
+            Width = HangerSettings.Default.width;
+            Height = HangerSettings.Default.height;
+            Color color = Color.FromRgb(HangerSettings.Default.color.R, HangerSettings.Default.color.G, HangerSettings.Default.color.B);
             Background = new SolidColorBrush(color);
-            Opacity = Settings.Default.alpha == 0.0 ? 0.8 : Settings.Default.alpha;
+            Opacity = HangerSettings.Default.alpha == 0.0 ? 0.8 : HangerSettings.Default.alpha;
         }
 
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

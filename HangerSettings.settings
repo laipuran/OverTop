@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="OverTop" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="OverTop" GeneratedClassName="HangerSettings">
   <Profiles />
   <Settings>
     <Setting Name="height" Type="System.Int32" Scope="User">
@@ -12,7 +12,7 @@
       <Value Profile="(Default)">0.5</Value>
     </Setting>
     <Setting Name="color" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">242, 154, 92</Value>
+      <Value Profile="(Default)">255, 161, 46</Value>
     </Setting>
   </Settings>
 </SettingsFile>
