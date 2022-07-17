@@ -30,16 +30,15 @@ namespace OverTop.Floatings
             HeightTextBox.Text = App.currentWindow.Height.ToString();
             System.Windows.Media.Color color = ((SolidColorBrush)App.currentWindow.Background).Color;
             ColorTextBox.Text = ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
+            Title += " - " + App.currentWindow.Title;
 
             if (App.windowType == App.WindowType.Hanger)
             {
                 InitializeTextWindow();
-                Title += " - Hanger Window";
                 Settings = new HangerSettings();
             }
             else
             {
-                Title += " - Recent Window";
                 Settings = new RecentSettings();
             }
 

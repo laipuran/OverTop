@@ -14,9 +14,9 @@ namespace OverTop
         public MainWindow()
         {
             InitializeComponent();
-            PropertyListBoxItem.IsSelected = true;
-            TitleTextBlock.Text = "系统静态属性";
-            ContentFrame.NavigationService.Navigate(new Uri("/Pages/StaticPropertyPage.xaml", UriKind.Relative));
+            FloatingListBoxItem.IsSelected = true;
+            TitleTextBlock.Text = "浮窗控制面板";
+            ContentFrame.NavigationService.Navigate(new Uri("/Pages/FloatingPanelPage.xaml", UriKind.Relative));
         }
 
         private void NavigationButton_Click(object sender, RoutedEventArgs e)

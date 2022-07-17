@@ -14,15 +14,15 @@
         KeyDown="Window_KeyDown"
         ShowInTaskbar="False"
         MouseEnter="Window_MouseEnter"
-        MouseLeave="Window_MouseLeave"
-        ToolTip="Hanger Window">
+        MouseLeave="Window_MouseLeave">
     <ScrollViewer Margin="10,10,10,10" CanContentScroll="True"
                   VerticalScrollBarVisibility="Hidden" x:Name="Scroller"
                   MouseDoubleClick="Window_MouseLeftButtonDown">
         <StackPanel x:Name="ContentStackPanel"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    MouseLeftButtonDown="ContentStackPanel_MouseLeftButtonDown"/>
+                    MouseLeftButtonDown="ContentStackPanel_MouseLeftButtonDown">
+        </StackPanel>
     </ScrollViewer>
 
 </Window>

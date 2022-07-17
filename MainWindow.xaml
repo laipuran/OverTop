@@ -36,6 +36,18 @@
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                      SelectionMode="Single" SelectionChanged="ContentListBox_SelectionChanged"
                      Margin="0,10,0,0">
+                <ListBoxItem x:Name="FloatingListBoxItem"
+                             Style="{StaticResource ContentListBoxItemStyle}"
+                             Selected="FloatingListBoxItem_Selected">
+                    <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
+                        <TextBlock Text="&#xE81E;"
+                                Style="{StaticResource IconTextBlockStyle}"/>
+                        <TextBlock Text="浮窗控制面板"
+                           Style="{StaticResource NavigationTextBlockStyle}"
+                           Margin="5,0,0,0"/>
+                    </StackPanel>
+                </ListBoxItem>
+                
                 <ListBoxItem x:Name="PropertyListBoxItem"
                              Style="{StaticResource ContentListBoxItemStyle}"
                              Selected="PropertyListBoxItem_Selected">
@@ -48,17 +60,6 @@
                     </StackPanel>
                 </ListBoxItem>
 
-                <ListBoxItem x:Name="FloatingListBoxItem"
-                             Style="{StaticResource ContentListBoxItemStyle}"
-                             Selected="FloatingListBoxItem_Selected">
-                    <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
-                        <TextBlock Text="&#xE81E;"
-                                Style="{StaticResource IconTextBlockStyle}"/>
-                        <TextBlock Text="浮窗控制面板"
-                           Style="{StaticResource NavigationTextBlockStyle}"
-                           Margin="5,0,0,0"/>
-                    </StackPanel>
-                </ListBoxItem>
             </ListBox>
             
         </StackPanel>

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-
 namespace OverTop.Floatings
 {
     /// <summary>
@@ -16,6 +18,14 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class RecentWindow : Window
     {
+        public const int HWND_TOP = 0;
+        public const int HWND_BOTTOM = 1;
+        public const int HWND_TOPMOST = -1;
+        public const int HWND_NOTOPMOST = -2;
+        IntPtr hWnd = new();
+        [DllImport("user32.dll")]
+        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndlnsertAfter, int X, int Y, int cx, int cy, uint Flags);
+        private bool isChild = false;
         Dictionary<string, Bitmap> fileInfo = new();
         string Recent = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Microsoft\Windows\Recent\";
         public RecentWindow()
@@ -26,8 +36,7 @@ namespace OverTop.Floatings
             System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(RecentSettings.Default.color.R, RecentSettings.Default.color.G, RecentSettings.Default.color.B);
             Background = new SolidColorBrush(color);
             Opacity = RecentSettings.Default.alpha == 0.0 ? 0.8 : RecentSettings.Default.alpha;
-
-            ProcessRecentFiles();
+            Task.Run(() => Dispatcher.BeginInvoke(new Action(ProcessRecentFiles)));
         }
         // Get system recent files
         private void ProcessRecentFiles()
@@ -119,19 +128,52 @@ namespace OverTop.Floatings
 
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
+            if (isChild)
+            {
+                ToBottom();
+            }
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
         }
 
         private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
+            if (isChild)
+            {
+                ToBottom();
+            }
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
         }
 
+        private void ToBottom()
+        {
+            hWnd = new WindowInteropHelper(this).Handle;
+            SetWindowPos(hWnd, (IntPtr)HWND_BOTTOM, (int)Left, (int)Top, (int)Width, (int)Height, 0);
+        }
+        private void ToTop()
+        {
+            hWnd = new WindowInteropHelper(this).Handle;
+            SetWindowPos(hWnd, (IntPtr)HWND_TOPMOST, (int)Left, (int)Top, (int)Width, (int)Height, 0);
+        }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
                 Close();
+            }
+            else if (e.Key == System.Windows.Input.Key.Tab)
+            {
+                if (!isChild)
+                {
+                    isChild = true;
+                    Topmost = false;
+                    ToBottom();
+                }
+                else
+                {
+                    isChild = false;
+                    Topmost = true;
+                    ToTop();
+                }
             }
         }
 
