@@ -1,0 +1,48 @@
+﻿<Window x:Class="OverTop.Floatings.PropertyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OverTop.Floatings"
+        mc:Ignorable="d"
+        Title="窗口属性" Height="400" Width="250"
+        Topmost="True"
+        Closing="Window_Closing"
+        ResizeMode="NoResize">
+    <ScrollViewer Margin="20,20,20,20">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Visibility="Collapsed" x:Name="ButtonStackPanel">
+                <Button Style="{StaticResource NavigationButtonStyle}"
+                            x:Name="AddTextButton"
+                            Click="AddTextButton_Click"
+                            Content="&#xE70B;"
+                            ToolTip="添加文本"/>
+                <Button Style="{StaticResource NavigationButtonStyle}"
+                            x:Name="AddPictureButton"
+                            Click="AddPictureButton_Click"
+                            Content="&#xE8B9;"
+                            Margin="10,0,0,0"
+                            ToolTip="添加图片"/>
+            </StackPanel>
+            <TextBlock Text="颜色透明度 Alpha通道：" Margin="0,10,0,0"/>
+            <Slider x:Name="AlphaSlider"
+                    Maximum="1"
+                    SmallChange="0.01"
+                    Margin="5,10,5,0"
+                    ValueChanged="AlphaSlider_ValueChanged"/>
+            <TextBlock x:Name="AlphaTextBlock"/>
+
+            <TextBlock Text="窗口宽度 Width：" Margin="0,10,0,0"/>
+            <TextBox x:Name="WidthTextBox" Style="{StaticResource ContentTextBoxStyle}" Margin="5,10,5,0"/>
+            
+            <TextBlock Text="窗口长度 Height：" Margin="0,10,0,0"/>
+            <TextBox x:Name="HeightTextBox" Style="{StaticResource ContentTextBoxStyle}" Margin="5,10,5,0"/>
+
+
+            <TextBlock Text="窗口颜色 Color：" Margin="0,10,0,0"/>
+            <TextBox x:Name="ColorTextBox" Style="{StaticResource ContentTextBoxStyle}" Margin="5,10,5,0"/>
+            <Button Content="关闭" Click="Button_Click" Style="{StaticResource ContentButtonStyle}" FontSize="18" Width="30" Margin="-105,10,0,0"/>
+            <Button Content="设为默认" x:Name="DefaultButton" Click="DefaultButton_Click" Style="{StaticResource ContentButtonStyle}" FontSize="18" Width="120" Margin="5,10,50,0"/>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

@@ -1,0 +1,71 @@
+﻿<Window x:Class="OverTop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OverTop"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Over Top" Height="450" Width="800"
+        Closing="Window_Closing">
+    <Window.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
+                                           Storyboard.TargetName="MenuStackPanel">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="170"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
+                                           Storyboard.TargetName="MenuStackPanel">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="42"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Left" x:Name="MenuStackPanel"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Stretch"
+                    Width="42">
+            <Button x:Name="NavigationButton" Content="&#xE700;"
+                    Style="{StaticResource NavigationButtonStyle}"
+                    Click="NavigationButton_Click"/>
+
+            <ListBox x:Name="ContentListBox" Style="{StaticResource ClearListBoxStyle}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     SelectionMode="Single" SelectionChanged="ContentListBox_SelectionChanged"
+                     Margin="0,10,0,0">
+                <ListBoxItem x:Name="FloatingListBoxItem"
+                             Style="{StaticResource ContentListBoxItemStyle}"
+                             Selected="FloatingListBoxItem_Selected">
+                    <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
+                        <TextBlock Text="&#xE81E;"
+                                Style="{StaticResource IconTextBlockStyle}"/>
+                        <TextBlock Text="浮窗控制面板"
+                           Style="{StaticResource NavigationTextBlockStyle}"
+                           Margin="5,0,0,0"/>
+                    </StackPanel>
+                </ListBoxItem>
+                
+                <ListBoxItem x:Name="PropertyListBoxItem"
+                             Style="{StaticResource ContentListBoxItemStyle}"
+                             Selected="PropertyListBoxItem_Selected">
+                    <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
+                        <TextBlock Text="&#xE155;"
+                                Style="{StaticResource IconTextBlockStyle}"/>
+                        <TextBlock Text="系统静态属性"
+                           Style="{StaticResource NavigationTextBlockStyle}"
+                           Margin="5,0,0,0"/>
+                    </StackPanel>
+                </ListBoxItem>
+
+            </ListBox>
+            
+        </StackPanel>
+        <TextBlock DockPanel.Dock="Top" x:Name="TitleTextBlock" Style="{StaticResource TitleTextBlockStyle}" Margin="20,10,0,0"/>
+        <ScrollViewer DockPanel.Dock="Right" Margin="20,20,0,0">
+            <Frame x:Name="ContentFrame" NavigationUIVisibility="Hidden"></Frame>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

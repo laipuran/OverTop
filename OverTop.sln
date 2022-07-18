@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OverTop", "OverTop.csproj", "{7B204077-7313-4107-8FEF-EC8DD4086E13}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "LuckDraw.Algorithm\Shared.shproj", "{4CD6416B-7EF9-43AD-B7A5-917E2EBBFA2D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A53069D8-BA3D-4A28-B76D-A8C3A769A85F}"
@@ -13,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "OverTop.Package", "OverTop.Package\OverTop.Package.wapproj", "{BE41E405-9002-4D10-BA62-4C6C3657CB58}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OverTop", "OverTop\OverTop.csproj", "{BD801897-E753-46E9-9FA3-6E46E2322CF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,26 +28,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Debug|ARM.Build.0 = Debug|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Debug|x64.Build.0 = Debug|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Debug|x86.Build.0 = Debug|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Release|ARM.ActiveCfg = Release|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Release|ARM.Build.0 = Release|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Release|ARM64.Build.0 = Release|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Release|x64.ActiveCfg = Release|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Release|x64.Build.0 = Release|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Release|x86.ActiveCfg = Release|Any CPU
-		{7B204077-7313-4107-8FEF-EC8DD4086E13}.Release|x86.Build.0 = Release|Any CPU
 		{BE41E405-9002-4D10-BA62-4C6C3657CB58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BE41E405-9002-4D10-BA62-4C6C3657CB58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE41E405-9002-4D10-BA62-4C6C3657CB58}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
@@ -78,6 +58,26 @@ Global
 		{BE41E405-9002-4D10-BA62-4C6C3657CB58}.Release|x86.ActiveCfg = Release|x86
 		{BE41E405-9002-4D10-BA62-4C6C3657CB58}.Release|x86.Build.0 = Release|x86
 		{BE41E405-9002-4D10-BA62-4C6C3657CB58}.Release|x86.Deploy.0 = Release|x86
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Debug|ARM.Build.0 = Debug|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Debug|x64.Build.0 = Debug|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Debug|x86.Build.0 = Debug|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Release|ARM.ActiveCfg = Release|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Release|ARM.Build.0 = Release|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Release|ARM64.Build.0 = Release|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Release|x64.ActiveCfg = Release|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Release|x64.Build.0 = Release|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Release|x86.ActiveCfg = Release|Any CPU
+		{BD801897-E753-46E9-9FA3-6E46E2322CF0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,6 +87,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		LuckDraw.Algorithm\Shared.projitems*{4cd6416b-7ef9-43ad-b7a5-917e2ebbfa2d}*SharedItemsImports = 13
-		LuckDraw.Algorithm\Shared.projitems*{7b204077-7313-4107-8fef-ec8dd4086e13}*SharedItemsImports = 5
+		LuckDraw.Algorithm\Shared.projitems*{bd801897-e753-46e9-9fa3-6e46e2322cf0}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
