@@ -29,33 +29,33 @@
                     VerticalAlignment="Stretch"
                     Width="42">
             <Button x:Name="NavigationButton" Content="&#xE700;"
-                    Style="{StaticResource NavigationButtonStyle}"
+                    Style="{DynamicResource NavigationButtonStyle}"
                     Click="NavigationButton_Click"/>
 
-            <ListBox x:Name="ContentListBox" Style="{StaticResource ClearListBoxStyle}"
+            <ListBox x:Name="ContentListBox" Style="{DynamicResource ClearListBoxStyle}"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                      SelectionMode="Single" SelectionChanged="ContentListBox_SelectionChanged"
-                     Margin="0,10,0,0">
+                     Margin="-1,10,0,0">
                 <ListBoxItem x:Name="FloatingListBoxItem"
-                             Style="{StaticResource ContentListBoxItemStyle}"
+                             Style="{DynamicResource ContentListBoxItemStyle}"
                              Selected="FloatingListBoxItem_Selected">
-                    <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
+                    <StackPanel Style="{DynamicResource NavigationStackPanelStyle}">
                         <TextBlock Text="&#xE81E;"
-                                Style="{StaticResource IconTextBlockStyle}"/>
+                                Style="{DynamicResource IconTextBlockStyle}"/>
                         <TextBlock Text="浮窗控制面板"
-                           Style="{StaticResource NavigationTextBlockStyle}"
+                           Style="{DynamicResource NavigationTextBlockStyle}"
                            Margin="5,0,0,0"/>
                     </StackPanel>
                 </ListBoxItem>
                 
                 <ListBoxItem x:Name="PropertyListBoxItem"
-                             Style="{StaticResource ContentListBoxItemStyle}"
+                             Style="{DynamicResource ContentListBoxItemStyle}"
                              Selected="PropertyListBoxItem_Selected">
-                    <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
+                    <StackPanel Style="{DynamicResource NavigationStackPanelStyle}">
                         <TextBlock Text="&#xE155;"
-                                Style="{StaticResource IconTextBlockStyle}"/>
+                                Style="{DynamicResource IconTextBlockStyle}"/>
                         <TextBlock Text="系统静态属性"
-                           Style="{StaticResource NavigationTextBlockStyle}"
+                           Style="{DynamicResource NavigationTextBlockStyle}"
                            Margin="5,0,0,0"/>
                     </StackPanel>
                 </ListBoxItem>
@@ -63,7 +63,7 @@
             </ListBox>
             
         </StackPanel>
-        <TextBlock DockPanel.Dock="Top" x:Name="TitleTextBlock" Style="{StaticResource TitleTextBlockStyle}" Margin="20,10,0,0"/>
+        <TextBlock DockPanel.Dock="Top" x:Name="TitleTextBlock" Style="{DynamicResource TitleTextBlockStyle}" Margin="20,10,0,0"/>
         <ScrollViewer DockPanel.Dock="Right" Margin="20,20,0,0">
             <Frame x:Name="ContentFrame" NavigationUIVisibility="Hidden"></Frame>
         </ScrollViewer>

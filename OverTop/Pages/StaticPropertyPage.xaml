@@ -23,6 +23,10 @@
                     Style="{StaticResource ContentButtonStyle}"
                     Foreground="{x:Static SystemParameters.WindowGlassBrush}"
                     Click="SystemGlassBrushButton_Click"/>
+            <Button Content="设为主颜色" x:Name="SetOnceButton"
+                    Style="{StaticResource ContentButtonStyle}"
+                    Margin="10,0,0,0"
+                    Click="SetOnceButton_Click"/>
         </StackPanel>
 
         <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
@@ -32,7 +36,7 @@
             <Button Content="复制" x:Name="DesktopBrushButton"
                     Foreground="{DynamicResource {x:Static SystemColors.DesktopBrush}}"
                     Style="{StaticResource ContentButtonStyle}"
-                    Click="DesktopBrushButton_Click"/>
+                    Click="DesktopBrushButton_Click"/>                    
         </StackPanel>
     </StackPanel>
 </Page>
