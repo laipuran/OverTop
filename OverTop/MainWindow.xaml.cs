@@ -28,6 +28,8 @@ namespace OverTop
 #pragma warning restore CS8604 // 引用类型参数可能为 null。
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
             Icon = Imaging.CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+
+            Pages.StaticPropertyPage.ColorChanged();
         }
 
         private void NavigationButton_Click(object sender, RoutedEventArgs e)

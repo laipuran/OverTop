@@ -21,6 +21,7 @@ namespace OverTop.Floatings
         ScrollViewer scrollViewer = new();
         TextBox newTextBox = new();
         Button OKButton = new();
+        bool saveSettings = true;
         object Settings;
         public PropertyWindow()
         {
@@ -107,6 +108,10 @@ namespace OverTop.Floatings
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (!saveSettings)
+            {
+                return;
+            }
             Union union = Algorithm.Parser(WidthTextBox.Text, 800);
             if (union.message != "")
             {
@@ -197,6 +202,15 @@ namespace OverTop.Floatings
                 }
             }
             Close();
+        }
+
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Escape)
+            {
+                saveSettings = false;
+                Close();
+            }
         }
     }
 }
