@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Windows;
-using System.Windows.Media.Animation;
-using System.Resources;
 using System.Drawing;
-using static OverTop.App;
+using System.Resources;
+using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
 namespace OverTop
@@ -57,7 +56,7 @@ namespace OverTop
         {
             ContentFrame.NavigationService.Navigate(new Uri("/Pages/FloatingPanelPage.xaml", UriKind.Relative));
         }
-        
+
         private void ContentListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (ContentListBox.SelectedItem == PropertyListBoxItem)

@@ -83,7 +83,7 @@ namespace OverTop.Floatings
                 };
                 newStackPanel.Children.Add(image);
                 newStackPanel.Children.Add(textBlock);
-                
+
                 IWshRuntimeLibrary.WshShell shell = new();
                 string filePath = Recent + textBlock.Text + ".lnk";
                 IWshRuntimeLibrary.IWshShortcut wshShortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(filePath);

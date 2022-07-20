@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using static OverTop.App;
 
 namespace OverTop.Pages
 {
@@ -16,7 +15,7 @@ namespace OverTop.Pages
             InitializeComponent();
             ColorChanged();
             SystemEvents.UserPreferenceChanged += UserPreferenceChanged;
-            
+
             SystemGlassBrushButton.Foreground = SystemParameters.WindowGlassBrush;
             SystemGlassBrushButton.Content = SystemParameters.WindowGlassBrush.ToString();
             DesktopBrushButton.Foreground = SystemColors.DesktopBrush;

@@ -1,7 +1,6 @@
 ﻿using LuckDraw;
 using Microsoft.Win32;
 using System;
-using System.Configuration;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
@@ -74,8 +73,15 @@ namespace OverTop.Floatings
             scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
 
             textWindow.Content = scrollViewer;
+            textWindow.Loaded += TextWindow_Loaded;
             textWindow.LostFocus += OKButton_Click;
         }
+
+        private void TextWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((StackPanel)((ScrollViewer)textWindow.Content).Content).Children[0].Focus();
+        }
+
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             if (newTextBox.Text != string.Empty)
@@ -212,5 +218,6 @@ namespace OverTop.Floatings
                 Close();
             }
         }
+
     }
 }

@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace OverTop.Floatings
 {
@@ -38,7 +42,6 @@ namespace OverTop.Floatings
                 DragMove();
             }
         }
-
         private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Escape)
@@ -77,9 +80,43 @@ namespace OverTop.Floatings
             {
                 ToBottom();
             }
+            if (System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl))
+            {
+                SaveWindow();
+            }
             DragMove();
         }
+        public void SaveWindow()
+        {
+            WindowClass windowClass = new();
+            System.Windows.Media.Color color = ((SolidColorBrush)Background).Color;
+            windowClass.backgroundColor = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
+            windowClass.width = (int)Width;
+            windowClass.height = (int)Height;
+            windowClass.alpha = Opacity;
+            windowClass.left = Left;
+            windowClass.top = Top;
+            int index = 0;
+            foreach (var item in ContentStackPanel.Children)
+            {
+                if (item is TextBlock)
+                {
+                    windowClass.contents.Add(index, ((TextBlock)item).Text);
+                }
+                else if (item is System.Windows.Controls.Image)
+                {
+                    windowClass.contents.Add(index, ((System.Windows.Controls.Image)item).Source.ToString());
+                }
+                index++;
+            }
+            string json = JsonConvert.SerializeObject(windowClass);
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\" + Guid.NewGuid().ToString() + ".json";
+            Directory.CreateDirectory(Directory.GetParent(filePath).FullName);
+            FileStream fileStream = File.OpenWrite(filePath);
+            fileStream.Write(Encoding.UTF8.GetBytes(json));
+            fileStream.Close();
 
+        }
         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (isChild)
