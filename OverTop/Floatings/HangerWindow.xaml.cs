@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -84,7 +85,10 @@ namespace OverTop.Floatings
             {
                 SaveWindow();
             }
-            DragMove();
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
         }
         public void SaveWindow()
         {
@@ -106,6 +110,7 @@ namespace OverTop.Floatings
                 else if (item is System.Windows.Controls.Image)
                 {
                     windowClass.contents.Add(index, ((System.Windows.Controls.Image)item).Source.ToString());
+                    // TODO: Change sourcep path to base64
                 }
                 index++;
             }

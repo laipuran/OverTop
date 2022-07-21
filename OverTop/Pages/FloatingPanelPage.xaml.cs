@@ -15,6 +15,7 @@ namespace OverTop.Pages
         {
             InitializeComponent();
         }
+        // TODO: Add a button to import hangers from a file.
         private void RecentWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             recents++;

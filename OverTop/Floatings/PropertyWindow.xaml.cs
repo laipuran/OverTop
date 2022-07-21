@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -14,14 +15,8 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class PropertyWindow : Window
     {
-        Thickness margin = new();
         Window textWindow = new();
-        StackPanel newTextPanel = new();
-        ScrollViewer scrollViewer = new();
-        TextBox newTextBox = new();
-        Button OKButton = new();
         bool saveSettings = true;
-        object Settings;
         public PropertyWindow()
         {
             InitializeComponent();
@@ -34,20 +29,24 @@ namespace OverTop.Floatings
 
             if (App.windowType == App.WindowType.Hanger)
             {
-                InitializeTextWindow();
-                Settings = new HangerSettings();
+                InitializeTextWindow("", textWindow, OKButton_Click);
             }
             else
             {
-                Settings = new RecentSettings();
             }
-
+            
             ToolTip = Title;
         }
-        private void InitializeTextWindow()
+        private void InitializeTextWindow(string text, Window textWindow, RoutedEventHandler routedEventHandler)
         {
             ButtonStackPanel.Visibility = Visibility.Visible;
 
+            Thickness margin = new();
+            StackPanel newTextPanel = new();
+            ScrollViewer scrollViewer = new();
+            TextBox newTextBox = new();
+            Button OKButton = new();
+            
             OKButton.Style = (Style)FindResource("ContentButtonStyle");
             OKButton.Content = "OK";
             margin.Left = 20;
@@ -64,6 +63,7 @@ namespace OverTop.Floatings
             newTextBox.TextWrapping = TextWrapping.Wrap;
             newTextBox.Width = 300 - 5 - OKButton.Width;
             newTextBox.Margin = margin;
+            newTextBox.Text = text;
 
             newTextPanel.Children.Add(newTextBox);
             newTextPanel.Children.Add(OKButton);
@@ -74,7 +74,7 @@ namespace OverTop.Floatings
 
             textWindow.Content = scrollViewer;
             textWindow.Loaded += TextWindow_Loaded;
-            textWindow.LostFocus += OKButton_Click;
+            textWindow.LostFocus += routedEventHandler;
         }
 
         private void TextWindow_Loaded(object sender, RoutedEventArgs e)
@@ -84,6 +84,7 @@ namespace OverTop.Floatings
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
+            TextBox newTextBox = (TextBox)((StackPanel)((ScrollViewer)((Window)sender).Content).Content).Children[0];
             if (newTextBox.Text != string.Empty)
             {
                 TextBlock newTextBlock = new()
@@ -92,12 +93,44 @@ namespace OverTop.Floatings
                     Style = (Style)FindResource("ContentTextBlockStyle"),
                     Text = newTextBox.Text
                 };
-
-                newTextPanel.Visibility = Visibility.Collapsed;
+                StackPanel textPanel = new();
+                textPanel.MouseLeftButtonDown += TextPanel_MouseLeftButtonDown;
+                textPanel.Children.Add(newTextBlock);
+                App.contentStackPanel.Children.Add(textPanel);
+                newTextBox.Text = "";
+            }
+            ((Window)sender).Close();
+        }
+        private void OKButton_Click_Modify(object sender, RoutedEventArgs e)
+        {
+            TextBox newTextBox = (TextBox)((StackPanel)((ScrollViewer)((Window)sender).Content).Content).Children[0];
+            if (newTextBox.Text != string.Empty)
+            {
+                TextBlock newTextBlock = new()
+                {
+                    TextWrapping = TextWrapping.Wrap,
+                    Style = (Style)FindResource("ContentTextBlockStyle"),
+                    Text = newTextBox.Text
+                };
+                StackPanel textPanel = new();
                 App.contentStackPanel.Children.Add(newTextBlock);
                 newTextBox.Text = "";
-
-                textWindow.Close();
+            }
+            ((Window)sender).Close();
+        }
+        private void TextPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.M))
+            {
+                Window textWindowModify = new();
+                InitializeTextWindow(((TextBlock)((StackPanel)sender).Children[0]).Text, textWindowModify, OKButton_Click_Modify);
+                ((StackPanel)sender).Children.Clear();
+                App.contentStackPanel = (StackPanel)sender;
+                textWindowModify.ShowDialog();
+            }
+            else if (Keyboard.IsKeyDown(Key.R))
+            {
+                ((StackPanel)((StackPanel)sender).Parent).Children.Remove((StackPanel)sender);
             }
         }
 
@@ -200,7 +233,10 @@ namespace OverTop.Floatings
                     {
                         Source = new BitmapImage(new Uri(openFileDialog.FileName))
                     };
-                    App.contentStackPanel.Children.Add(newImage);
+                    StackPanel imagePanel = new();
+                    imagePanel.Children.Add(newImage);
+                    imagePanel.MouseLeftButtonDown += ImagePanel_MouseLeftButtonDown;
+                    App.contentStackPanel.Children.Add(imagePanel);
                 }
                 catch (UriFormatException)
                 {
@@ -208,6 +244,14 @@ namespace OverTop.Floatings
                 }
             }
             Close();
+        }
+
+        private void ImagePanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.R))
+            {
+                ((StackPanel)((StackPanel)sender).Parent).Children.Remove((StackPanel)sender);
+            }
         }
 
         private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
