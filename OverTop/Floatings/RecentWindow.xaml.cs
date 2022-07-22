@@ -31,11 +31,6 @@ namespace OverTop.Floatings
         public RecentWindow()
         {
             InitializeComponent();
-            Width = RecentSettings.Default.width;
-            Height = RecentSettings.Default.height;
-            System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(RecentSettings.Default.color.R, RecentSettings.Default.color.G, RecentSettings.Default.color.B);
-            Background = new SolidColorBrush(color);
-            Opacity = RecentSettings.Default.alpha == 0.0 ? 0.8 : RecentSettings.Default.alpha;
             Task.Run(() => Dispatcher.BeginInvoke(new Action(ProcessRecentFiles)));
         }
         // Get system recent files

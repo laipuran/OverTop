@@ -6,7 +6,9 @@
       xmlns:local="clr-namespace:OverTop.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="FloatingPanelPage">
+      Title="FloatingPanelPage"
+      DragDrop.Drop="Page_Drop"
+      AllowDrop="True">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
         <Button Style="{StaticResource ContentButtonStyle}"
@@ -22,6 +24,10 @@
             <Button Content="新建" x:Name="HangerWindowButton"
                     Style="{StaticResource ContentButtonStyle}"
                     Click="HangerWindowButton_Click"/>
+            <Button Content="从文件导入" x:Name="ImportButton"
+                    Style="{DynamicResource ContentButtonStyle}"
+                    Click="ImportButton_Click"
+                    Margin="10,0,0,0"/>
         </StackPanel>
         <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
             <TextBlock Text="创建一个 最近 窗口: "

@@ -30,11 +30,6 @@ namespace OverTop.Floatings
         public HangerWindow()
         {
             InitializeComponent();
-            Width = HangerSettings.Default.width;
-            Height = HangerSettings.Default.height;
-            System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(HangerSettings.Default.color.R, HangerSettings.Default.color.G, HangerSettings.Default.color.B);
-            Background = new SolidColorBrush(color);
-            Opacity = HangerSettings.Default.alpha == 0.0 ? 0.8 : HangerSettings.Default.alpha;
         }
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -100,26 +95,25 @@ namespace OverTop.Floatings
             windowClass.alpha = Opacity;
             windowClass.left = Left;
             windowClass.top = Top;
-            int index = 0;
-            foreach (var item in ContentStackPanel.Children)
+            
+            foreach (StackPanel item in ContentStackPanel.Children)
             {
-                if (item is TextBlock)
+                if (item.Children[0] is TextBlock)
                 {
-                    windowClass.contents.Add(index, ((TextBlock)item).Text);
+                    windowClass.contents.Add(WindowClass.ContentType.Text, ((TextBlock)item.Children[0]).Text);
                 }
-                else if (item is System.Windows.Controls.Image)
+                else if (item.Children[0] is System.Windows.Controls.Image)
                 {
-                    windowClass.contents.Add(index, ((System.Windows.Controls.Image)item).Source.ToString());
+                    windowClass.contents.Add(WindowClass.ContentType.Image, ((System.Windows.Controls.Image)item.Children[0]).Source.ToString());
                     // TODO: Change sourcep path to base64
                 }
-                index++;
             }
             string json = JsonConvert.SerializeObject(windowClass);
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\" + Guid.NewGuid().ToString() + ".json";
+#pragma warning disable CS8602 // 解引用可能出现空引用。
             Directory.CreateDirectory(Directory.GetParent(filePath).FullName);
-            FileStream fileStream = File.OpenWrite(filePath);
-            fileStream.Write(Encoding.UTF8.GetBytes(json));
-            fileStream.Close();
+#pragma warning restore CS8602 // 解引用可能出现空引用。
+            File.WriteAllText(filePath, json);
 
         }
         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)

@@ -118,7 +118,7 @@ namespace OverTop.Floatings
             }
             ((Window)sender).Close();
         }
-        private void TextPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        public void TextPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.M))
             {
@@ -136,6 +136,11 @@ namespace OverTop.Floatings
 
         private void AlphaSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            if (AlphaSlider.Value == 0.0)
+            {
+                AlphaSlider.Value = 0.8;
+                return;
+            }
             AlphaTextBlock.Text = Math.Round(AlphaSlider.Value, 2).ToString();
         }
 
@@ -225,7 +230,7 @@ namespace OverTop.Floatings
                 Filter = "图片|*.jpeg; *.jpg; *.png|所有文件|*.*",
                 FilterIndex = 1
             };
-            if (openFileDialog.ShowDialog() != DialogResult)
+            if (openFileDialog.ShowDialog() == true)
             {
                 try
                 {
@@ -245,8 +250,8 @@ namespace OverTop.Floatings
             }
             Close();
         }
-
-        private void ImagePanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        
+        public static void ImagePanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.R))
             {
