@@ -34,7 +34,7 @@ namespace OverTop.Floatings
             else
             {
             }
-            
+
             ToolTip = Title;
         }
         private void InitializeTextWindow(string text, Window textWindow, RoutedEventHandler routedEventHandler)
@@ -46,7 +46,7 @@ namespace OverTop.Floatings
             ScrollViewer scrollViewer = new();
             TextBox newTextBox = new();
             Button OKButton = new();
-            
+
             OKButton.Style = (Style)FindResource("ContentButtonStyle");
             OKButton.Content = "OK";
             margin.Left = 20;
@@ -250,7 +250,7 @@ namespace OverTop.Floatings
             }
             Close();
         }
-        
+
         public static void ImagePanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.R))

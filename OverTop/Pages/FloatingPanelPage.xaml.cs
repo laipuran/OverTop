@@ -1,14 +1,14 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-using Newtonsoft.Json;
-using System.Windows.Media;
-using System.Drawing;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace OverTop.Pages
 {
@@ -24,7 +24,7 @@ namespace OverTop.Pages
             InitializeComponent();
         }
         // TODO: Add a button to import hangers from a file.
-        
+
         private void RecentWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             recents++;
@@ -39,7 +39,7 @@ namespace OverTop.Pages
             newRecent.Show();
             windows.Add(newRecent);
         }
-        
+
         private void HangerWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             hangers++;
@@ -54,7 +54,7 @@ namespace OverTop.Pages
             newHanger.Show();
             windows.Add(newHanger);
         }
-        
+
         private void ImportButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -67,13 +67,13 @@ namespace OverTop.Pages
             };
             if (openFileDialog.ShowDialog() == true)
             {
-                foreach(string fileName in openFileDialog.FileNames)
+                foreach (string fileName in openFileDialog.FileNames)
                 {
                     OpenWindowFromString(File.ReadAllText(openFileDialog.FileName));
                 }
             }
         }
-        
+
         private void OpenWindowFromString(string json)
         {
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
@@ -89,9 +89,9 @@ namespace OverTop.Pages
             newHanger.Background = new SolidColorBrush(color);
             newHanger.Opacity = windowClass.alpha;
 #pragma warning restore CS8602 // 解引用可能出现空引用。
-            
+
             StackPanel ContentStackPanel = (StackPanel)((ScrollViewer)newHanger.Content).Content;
-            foreach(KeyValuePair<WindowClass.ContentType, string> pair in windowClass.contents)
+            foreach (KeyValuePair<WindowClass.ContentType, string> pair in windowClass.contents)
             {
                 if (pair.Key == WindowClass.ContentType.Text)
                 {

@@ -1,15 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace OverTop.Floatings
 {
@@ -95,7 +92,7 @@ namespace OverTop.Floatings
             windowClass.alpha = Opacity;
             windowClass.left = Left;
             windowClass.top = Top;
-            
+
             foreach (StackPanel item in ContentStackPanel.Children)
             {
                 if (item.Children[0] is TextBlock)
