@@ -5,14 +5,15 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "LuckDraw.Algorithm\Shared.shproj", "{4CD6416B-7EF9-43AD-B7A5-917E2EBBFA2D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A53069D8-BA3D-4A28-B76D-A8C3A769A85F}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
-EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "OverTop.Package", "OverTop.Package\OverTop.Package.wapproj", "{BE41E405-9002-4D10-BA62-4C6C3657CB58}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OverTop", "OverTop\OverTop.csproj", "{BD801897-E753-46E9-9FA3-6E46E2322CF0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{A81F0401-31B2-4E93-B281-D59325105FA1}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		ReadMe.md = ReadMe.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -25,7 +25,7 @@
                     Style="{StaticResource ContentButtonStyle}"
                     Click="HangerWindowButton_Click"/>
             <Button Content="从文件导入" x:Name="ImportButton"
-                    Style="{DynamicResource ContentButtonStyle}"
+                    Style="{StaticResource ContentButtonStyle}"
                     Click="ImportButton_Click"
                     Margin="10,0,0,0"/>
         </StackPanel>
