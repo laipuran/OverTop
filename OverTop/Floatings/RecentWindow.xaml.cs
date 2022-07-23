@@ -36,56 +36,62 @@ namespace OverTop.Floatings
         // Get system recent files
         private void ProcessRecentFiles()
         {
-            string[] files = Directory.GetFiles(Recent);
-
-            foreach (string file in files)
+            try
             {
-                string name = System.IO.Path.GetFileName(file);
+                string[] files = Directory.GetFiles(Recent);
+                foreach (string file in files)
+                {
+                    string name = System.IO.Path.GetFileName(file);
 #pragma warning disable CS8602 // 解引用可能出现空引用。
-                Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(file).ToBitmap();
+                    Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(file).ToBitmap();
 #pragma warning restore CS8602 // 解引用可能出现空引用。
-                string filePath = Recent + name;
-                IWshRuntimeLibrary.WshShell shell = new();
-                IWshRuntimeLibrary.IWshShortcut wshShortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(filePath);
-                if (!File.Exists(wshShortcut.TargetPath))
-                {
-                    continue;
+                    string filePath = Recent + name;
+                    IWshRuntimeLibrary.WshShell shell = new();
+                    IWshRuntimeLibrary.IWshShortcut wshShortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(filePath);
+                    if (!File.Exists(wshShortcut.TargetPath))
+                    {
+                        continue;
+                    }
+                    try
+                    {
+                        fileInfo.Add(Path.GetFileName(wshShortcut.TargetPath), icon);
+                    }
+                    catch { }
                 }
-                try
+                foreach (KeyValuePair<string, Bitmap> file in fileInfo)
                 {
-                    fileInfo.Add(Path.GetFileName(wshShortcut.TargetPath), icon);
+                    Thickness margin = new(10, 0, 0, 0);
+                    Thickness margin1 = new(5, 5, 5, 5);
+                    StackPanel newStackPanel = new()
+                    {
+                        Height = 30,
+                        Margin = margin1,
+                        Orientation = Orientation.Horizontal
+                    };
+                    System.Windows.Controls.Image image = new();
+                    BitmapSource bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(file.Value.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                    image.Source = bitmapSource;
+                    TextBlock textBlock = new()
+                    {
+                        Text = file.Key,
+                        Style = (Style)FindResource("ContentTextBlockStyle"),
+                        Margin = margin
+                    };
+                    newStackPanel.Children.Add(image);
+                    newStackPanel.Children.Add(textBlock);
+
+                    IWshRuntimeLibrary.WshShell shell = new();
+                    string filePath = Recent + textBlock.Text + ".lnk";
+                    IWshRuntimeLibrary.IWshShortcut wshShortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(filePath);
+                    newStackPanel.ToolTip = wshShortcut.TargetPath;
+                    newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown;
+
+                    ContentStackPanel.Children.Add(newStackPanel);
                 }
-                catch { }
             }
-            foreach (KeyValuePair<string, Bitmap> file in fileInfo)
+            catch (Exception e)
             {
-                Thickness margin = new(10, 0, 0, 0);
-                Thickness margin1 = new(5, 5, 5, 5);
-                StackPanel newStackPanel = new()
-                {
-                    Height = 30,
-                    Margin = margin1,
-                    Orientation = Orientation.Horizontal
-                };
-                System.Windows.Controls.Image image = new();
-                BitmapSource bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(file.Value.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                image.Source = bitmapSource;
-                TextBlock textBlock = new()
-                {
-                    Text = file.Key,
-                    Style = (Style)FindResource("ContentTextBlockStyle"),
-                    Margin = margin
-                };
-                newStackPanel.Children.Add(image);
-                newStackPanel.Children.Add(textBlock);
-
-                IWshRuntimeLibrary.WshShell shell = new();
-                string filePath = Recent + textBlock.Text + ".lnk";
-                IWshRuntimeLibrary.IWshShortcut wshShortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(filePath);
-                newStackPanel.ToolTip = wshShortcut.TargetPath;
-                newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown;
-
-                ContentStackPanel.Children.Add(newStackPanel);
+                MessageBox.Show(e.Message);
             }
         }
 
