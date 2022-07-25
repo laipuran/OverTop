@@ -60,7 +60,6 @@ namespace OverTop.Floatings
             textWindow.Topmost = true;
 
             newTextBox.Style = (Style)FindResource("ContentTextBoxStyle");
-            newTextBox.TextWrapping = TextWrapping.Wrap;
             newTextBox.Width = 300 - 5 - OKButton.Width;
             newTextBox.Margin = margin;
             newTextBox.Text = text;

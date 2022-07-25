@@ -23,8 +23,6 @@ namespace OverTop.Pages
         {
             InitializeComponent();
         }
-        // TODO: Add a button to import hangers from a file.
-
         private void RecentWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             recents++;
@@ -109,10 +107,20 @@ namespace OverTop.Pages
                     newImage.Source = new BitmapImage(new Uri(pair.Value));
                     StackPanel newStackPanel = new();
                     newStackPanel.Children.Add(newImage);
+                    newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown; ;
                     ContentStackPanel.Children.Add(newStackPanel);
                 }
             }
+            windows.Add(newHanger);
             newHanger.Show();
+        }
+
+        private void NewStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.R))
+            {
+                ((StackPanel)((StackPanel)sender).Parent).Children.Remove((StackPanel)sender);
+            }
         }
 
         private void InitializeTextWindow(string text, Window textWindow, RoutedEventHandler routedEventHandler)

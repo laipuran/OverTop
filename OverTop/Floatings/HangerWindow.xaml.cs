@@ -69,10 +69,6 @@ namespace OverTop.Floatings
         }
         private void ContentStackPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (isChild)
-            {
-                ToBottom();
-            }
             if (System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl))
             {
                 SaveWindow();

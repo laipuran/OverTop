@@ -64,7 +64,7 @@
     <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>F86F36B16313902008710B1EDAD0029D7B8A473E</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>E7D9BE8BE245150C338047007921C97CFD073C71</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">

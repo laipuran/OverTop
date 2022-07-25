@@ -46,6 +46,10 @@ namespace OverTop.Floatings
                     Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(file).ToBitmap();
 #pragma warning restore CS8602 // 解引用可能出现空引用。
                     string filePath = Recent + name;
+                    if (!filePath.EndsWith(".lnk"))
+                    {
+                        continue;
+                    }
                     IWshRuntimeLibrary.WshShell shell = new();
                     IWshRuntimeLibrary.IWshShortcut wshShortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(filePath);
                     if (!File.Exists(wshShortcut.TargetPath))
