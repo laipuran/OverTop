@@ -83,7 +83,7 @@ namespace OverTop.Floatings
                     newStackPanel.Children.Add(image);
                     newStackPanel.Children.Add(textBlock);
 
-                    newStackPanel.ToolTip = file.Key;
+                    newStackPanel.ToolTip = file.Ke
                     newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown;
 
                     ContentStackPanel.Children.Add(newStackPanel);
@@ -121,6 +121,11 @@ namespace OverTop.Floatings
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if (Keyboard.IsKeyDown(Key.R))
+            {
+                ContentStackPanel.Children.Clear();
+                Task.Run(() => Dispatcher.BeginInvoke(new Action(ProcessRecentFiles)));
+            }
             if (Mouse.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();

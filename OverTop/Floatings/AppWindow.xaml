@@ -6,11 +6,13 @@
         xmlns:local="clr-namespace:OverTop.Floatings"
         mc:Ignorable="d"
         Style="{StaticResource FloatingWindowStyle}"
-        Title="AppWindow" Height="80" Width="640"
+        Title="AppWindow" Height="60" Width="560"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        MouseRightButtonDown="Window_MouseRightButtonDown">
+        MouseRightButtonDown="Window_MouseRightButtonDown"
+        Topmost="True" ShowInTaskbar="False">
     <StackPanel x:Name="ContentStackPanel"
                 Orientation="Horizontal"
+                HorizontalAlignment="Center"
                 ToolTip="右键 添加 快捷应用">
     </StackPanel>
 </Window>

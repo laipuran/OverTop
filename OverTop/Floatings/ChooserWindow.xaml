@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OverTop.Floatings"
         mc:Ignorable="d"
-        Title="选择窗口" Height="400" Width="250">
+        Title="选择窗口" Height="400" Width="250"
+        Topmost="True" ShowInTaskbar="False">
+    <ScrollViewer>
+        <StackPanel x:Name="ContentStackPanel">
 
-    <StackPanel x:Name="ContentStackPanel">
-        
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </Window>
