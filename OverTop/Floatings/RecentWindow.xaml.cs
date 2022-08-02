@@ -42,9 +42,6 @@ namespace OverTop.Floatings
                 foreach (string file in files)
                 {
                     string name = System.IO.Path.GetFileName(file);
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-                    Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(file).ToBitmap();
-#pragma warning restore CS8602 // 解引用可能出现空引用。
                     string filePath = Recent + name;
                     if (!filePath.EndsWith(".lnk"))
                     {
@@ -52,6 +49,9 @@ namespace OverTop.Floatings
                     }
                     IWshRuntimeLibrary.WshShell shell = new();
                     IWshRuntimeLibrary.IWshShortcut wshShortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(filePath);
+#pragma warning disable CS8602 // 解引用可能出现空引用。
+                    Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(wshShortcut.TargetPath).ToBitmap();
+#pragma warning restore CS8602 // 解引用可能出现空引用。
                     if (!File.Exists(wshShortcut.TargetPath))
                     {
                         continue;

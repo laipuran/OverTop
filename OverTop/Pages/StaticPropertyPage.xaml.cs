@@ -13,13 +13,14 @@ namespace OverTop.Pages
         public StaticPropertyPage()
         {
             InitializeComponent();
-            ColorChanged();
-            SystemEvents.UserPreferenceChanged += UserPreferenceChanged;
 
             SystemGlassBrushButton.Foreground = SystemParameters.WindowGlassBrush;
             SystemGlassBrushButton.Content = SystemParameters.WindowGlassBrush.ToString();
             DesktopBrushButton.Foreground = SystemColors.DesktopBrush;
             DesktopBrushButton.Content = SystemColors.DesktopBrush.ToString();
+            ColorChanged();
+            SystemEvents.UserPreferenceChanged += UserPreferenceChanged;
+
         }
         public void UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
         {
@@ -37,9 +38,9 @@ namespace OverTop.Pages
                 foreach (var item in mergedDictionaries[i].Keys)
                 {
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-                    string c = item.ToString();
+                    string resourceName = item.ToString();
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-                    if (c == "MainColor")
+                    if (resourceName == "MainColor")
                     {
                         SolidColorBrush brush = new SolidColorBrush(SystemParameters.WindowGlassColor);
                         brush.Opacity = 0.8;

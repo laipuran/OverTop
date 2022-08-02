@@ -25,10 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="C:\Users\Laifuzhou\source\repos\OverTop\LuckDraw.Algorithm\LuckDraw.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="RecentSettings.settings">
       <LastGenOutput>RecentSettings.Designer.cs</LastGenOutput>
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -37,12 +33,16 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>HangerSettings.Designer.cs</LastGenOutput>
     </None>
+    <None Update="Settings\HangerSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>HangerSettings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Settings\RecentSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>RecentSettings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="C:\Users\Laifuzhou\source\repos\OverTop\LuckDraw.Algorithm\LuckDraw.cs" />
-  </ItemGroup>
-
+	
   <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary">
       <WrapperTool>tlbimp</WrapperTool>
@@ -70,6 +70,16 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ResourcesFile.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Settings\HangerSettings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HangerSettings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="Settings\RecentSettings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RecentSettings.settings</DependentUpon>
     </Compile>
   </ItemGroup>
 

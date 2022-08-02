@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OverTop {
+namespace OverTop.Settings {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

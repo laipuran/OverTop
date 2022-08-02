@@ -14,6 +14,8 @@ namespace OverTop
     public partial class MainWindow : Window
     {
         bool MenuClosed = true;
+        Uri PropertyUri = new Uri("/Pages/StaticPropertyPage.xaml", UriKind.Relative);
+        Uri FloatingUri = new Uri("/Pages/FloatingPanelPage.xaml", UriKind.Relative);
         public MainWindow()
         {
             InitializeComponent();
@@ -46,26 +48,15 @@ namespace OverTop
             MenuClosed = !MenuClosed;
         }
 
-        // Naviagtion Part
-        private void PropertyListBoxItem_Selected(object sender, RoutedEventArgs e)
-        {
-            ContentFrame.NavigationService.Navigate(new Uri("/Pages/StaticPropertyPage.xaml", UriKind.Relative));
-        }
-
-        private void FloatingListBoxItem_Selected(object sender, RoutedEventArgs e)
-        {
-            ContentFrame.NavigationService.Navigate(new Uri("/Pages/FloatingPanelPage.xaml", UriKind.Relative));
-        }
-
         private void ContentListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (ContentListBox.SelectedItem == PropertyListBoxItem)
             {
-                TitleTextBlock.Text = "系统静态属性";
+                ContentFrame.NavigationService.Navigate(PropertyUri);
             }
             else if (ContentListBox.SelectedItem == FloatingListBoxItem)
             {
-                TitleTextBlock.Text = "浮窗控制面板";
+                ContentFrame.NavigationService.Navigate(FloatingUri);
             }
         }
 
@@ -74,6 +65,28 @@ namespace OverTop
             foreach (Window window in Pages.FloatingPanelPage.windows)
             {
                 window.Close();
+            }
+        }
+
+        private void ContentFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            if (ContentFrame.Source == PropertyUri)
+            {
+                TitleTextBlock.Text = "系统静态属性";
+                PropertyListBoxItem.IsSelected = true;
+            }
+            else if (ContentFrame.Source == FloatingUri)
+            {
+                TitleTextBlock.Text = "浮窗控制面板";
+                PropertyListBoxItem.IsSelected = true;
+            }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ContentFrame.CanGoBack)
+            {
+                ContentFrame.GoBack();
             }
         }
     }
