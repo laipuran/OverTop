@@ -68,25 +68,35 @@ namespace OverTop
             }
         }
 
-        private void ContentFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
-        {
-            if (ContentFrame.Source == PropertyUri)
-            {
-                TitleTextBlock.Text = "系统静态属性";
-                PropertyListBoxItem.IsSelected = true;
-            }
-            else if (ContentFrame.Source == FloatingUri)
-            {
-                TitleTextBlock.Text = "浮窗控制面板";
-                PropertyListBoxItem.IsSelected = true;
-            }
-        }
-
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             if (ContentFrame.CanGoBack)
             {
                 ContentFrame.GoBack();
+                if ("/" + ContentFrame.Source.ToString() == PropertyUri.ToString())
+                {
+                    TitleTextBlock.Text = "系统静态属性";
+                    PropertyListBoxItem.IsSelected = true;
+                }
+                else if ("/" + ContentFrame.Source.ToString() == FloatingUri.ToString())
+                {
+                    TitleTextBlock.Text = "浮窗控制面板";
+                    FloatingListBoxItem.IsSelected = true;
+                }
+            }
+        }
+
+        private void ContentFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            if ("/" + ContentFrame.Source.ToString() == PropertyUri.ToString())
+            {
+                TitleTextBlock.Text = "系统静态属性";
+                PropertyListBoxItem.IsSelected = true;
+            }
+            else if ("/" + ContentFrame.Source.ToString() == FloatingUri.ToString())
+            {
+                TitleTextBlock.Text = "浮窗控制面板";
+                FloatingListBoxItem.IsSelected = true;
             }
         }
     }

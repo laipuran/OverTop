@@ -24,7 +24,7 @@
                        Style="{StaticResource ContentTextBlockStyle}"
                        VerticalAlignment="Center"/>
             <Button Content="复制" x:Name="DesktopBrushButton"
-                    Foreground="{StaticResource {x:Static SystemColors.DesktopBrush}}"
+                    Foreground="{DynamicResource {x:Static SystemColors.DesktopBrush}}"
                     Style="{StaticResource ContentButtonStyle}"
                     Click="DesktopBrushButton_Click"/>                    
         </StackPanel>
