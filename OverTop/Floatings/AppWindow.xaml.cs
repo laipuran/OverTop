@@ -11,5 +11,17 @@ namespace OverTop.Floatings
         {
             InitializeComponent();
         }
+
+        private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void Window_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Window chooserWindow = new ChooserWindow();
+            App.contentStackPanel = ContentStackPanel;
+            chooserWindow.ShowDialog();
+        }
     }
 }

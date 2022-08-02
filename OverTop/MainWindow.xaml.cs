@@ -19,9 +19,11 @@ namespace OverTop
         public MainWindow()
         {
             InitializeComponent();
+            
             FloatingListBoxItem.IsSelected = true;
             TitleTextBlock.Text = "浮窗控制面板";
             ContentFrame.NavigationService.Navigate(new Uri("/Pages/FloatingPanelPage.xaml", UriKind.Relative));
+            
             ResourceManager Loader = OverTop.Resources.ResourcesFile.ResourceManager;
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
 #pragma warning disable CS8604 // 引用类型参数可能为 null。
@@ -31,6 +33,9 @@ namespace OverTop
             Icon = Imaging.CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
 
             Pages.StaticPropertyPage.ColorChanged();
+
+            Window appWindow = new Floatings.AppWindow();
+            appWindow.Show();
         }
 
         private void NavigationButton_Click(object sender, RoutedEventArgs e)
