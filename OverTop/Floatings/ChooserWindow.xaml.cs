@@ -120,5 +120,10 @@ namespace OverTop.Floatings
             Process.Start("explorer.exe", ((StackPanel)sender).ToolTip.ToString());
 #pragma warning restore CS8604 // 引用类型参数可能为 null。
         }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using OverTop.Settings;
+using OverTop.Floatings;
 
 namespace OverTop.Pages
 {
@@ -28,8 +29,8 @@ namespace OverTop.Pages
         {
             recents++;
             Window newRecent = new Floatings.RecentWindow();
-            newRecent.Title = "Recent Window - " + recents;
-            newRecent.ToolTip = newRecent.Title;
+            newRecent.Title = Guid.NewGuid().ToString();
+            newRecent.ToolTip = "Recent Window - " + recents;
             newRecent.Width = RecentSettings.Default.width;
             newRecent.Height = RecentSettings.Default.height;
             System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(RecentSettings.Default.color.R, RecentSettings.Default.color.G, RecentSettings.Default.color.B);
@@ -43,13 +44,13 @@ namespace OverTop.Pages
         {
             hangers++;
             Window newHanger = new Floatings.HangerWindow();
-            newHanger.Title = "Hanger Window - " + hangers;
+            newHanger.Title = Guid.NewGuid().ToString();
+            newHanger.ToolTip = "Hanger Window - " + hangers;
             newHanger.Width = HangerSettings.Default.width;
             newHanger.Height = HangerSettings.Default.height;
             System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(HangerSettings.Default.color.R, HangerSettings.Default.color.G, HangerSettings.Default.color.B);
             newHanger.Background = new SolidColorBrush(color);
             newHanger.Opacity = HangerSettings.Default.alpha == 0.0 ? 0.8 : HangerSettings.Default.alpha;
-            newHanger.ToolTip = newHanger.Title;
             newHanger.Show();
             windows.Add(newHanger);
         }
@@ -60,7 +61,7 @@ namespace OverTop.Pages
             OpenFileDialog openFileDialog = new()
             {
                 Multiselect = true,
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\HangerWindows\\",
                 Filter = "JSON 文件|*.json",
                 FilterIndex = 1
             };
@@ -68,18 +69,18 @@ namespace OverTop.Pages
             {
                 foreach (string fileName in openFileDialog.FileNames)
                 {
-                    OpenWindowFromString(File.ReadAllText(openFileDialog.FileName));
+                    GetWindowFromString(File.ReadAllText(openFileDialog.FileName));
                 }
             }
         }
 
-        private void OpenWindowFromString(string json)
+        private void GetWindowFromString(string json)
         {
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
             HangerWindowClass windowClass = JsonConvert.DeserializeObject<HangerWindowClass>(json);
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
 
-            Window newHanger = new Floatings.HangerWindow();
+            HangerWindow newHanger = new Floatings.HangerWindow();
 #pragma warning disable CS8602 // 解引用可能出现空引用。
             newHanger.Width = windowClass.width;
             newHanger.Height = windowClass.height;
@@ -227,7 +228,7 @@ namespace OverTop.Pages
                 {
                     if (file.EndsWith(".json"))
                     {
-                        OpenWindowFromString(File.ReadAllText(file));
+                        GetWindowFromString(File.ReadAllText(file));
                     }
                 }
             }

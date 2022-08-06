@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using static OverTop.HangerWindowClass;
 
 namespace OverTop.Floatings
 {
@@ -71,44 +72,14 @@ namespace OverTop.Floatings
         {
             if (System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl))
             {
-                SaveWindow();
+                SaveWindow(this);
             }
             if (Mouse.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
             }
         }
-        public void SaveWindow()
-        {
-            HangerWindowClass windowClass = new();
-            System.Windows.Media.Color color = ((SolidColorBrush)Background).Color;
-            windowClass.backgroundColor = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
-            windowClass.width = (int)Width;
-            windowClass.height = (int)Height;
-            windowClass.alpha = Opacity;
-            windowClass.left = Left;
-            windowClass.top = Top;
-
-            foreach (StackPanel item in ContentStackPanel.Children)
-            {
-                if (item.Children[0] is TextBlock)
-                {
-                    windowClass.contents.Add(HangerWindowClass.ContentType.Text, ((TextBlock)item.Children[0]).Text);
-                }
-                else if (item.Children[0] is System.Windows.Controls.Image)
-                {
-                    windowClass.contents.Add(HangerWindowClass.ContentType.Image, ((System.Windows.Controls.Image)item.Children[0]).Source.ToString());
-                    // TODO: Change sourcep path to base64
-                }
-            }
-            string json = JsonConvert.SerializeObject(windowClass);
-            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\" + Guid.NewGuid().ToString() + ".json";
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-            Directory.CreateDirectory(Directory.GetParent(filePath).FullName);
-#pragma warning restore CS8602 // 解引用可能出现空引用。
-            File.WriteAllText(filePath, json);
-
-        }
+        
         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (isChild)

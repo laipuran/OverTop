@@ -36,63 +36,6 @@ namespace OverTop.Floatings
             chooserWindow.ShowDialog();
         }
 
-        private ScreenPart GetPart(Point point)
-        {
-            // Can automatically change when dpi is changed
-            Point screenSize = new();
-            screenSize.X = SystemParameters.PrimaryScreenWidth;
-            screenSize.Y = SystemParameters.PrimaryScreenHeight;
-
-            if (point.X < screenSize.X / 4)
-            {
-                return ScreenPart.LeftPart;
-            }
-            else if (point.X > screenSize.X * 3 / 4)
-            {
-                return ScreenPart.RightPart;
-            }
-            else if (point.Y < screenSize.Y / 2)
-            {
-                return ScreenPart.TopPart;
-            }
-            else // if (point.Y > screenSize.Y / 2)
-            {
-                return ScreenPart.BottomPart;
-            }
-        }
-
-        private Quadrant GetQuadrant(Point point) // not used
-        {
-            Point middleScreen = new();
-            middleScreen.X = SystemParameters.PrimaryScreenWidth / 2;
-            middleScreen.Y = SystemParameters.PrimaryScreenHeight / 2;
-            if (point.X > middleScreen.X && point.Y < middleScreen.Y)
-            {
-                return Quadrant.Quadrant1;
-            }
-            else if (point.X < middleScreen.X && point.Y < middleScreen.Y)
-            {
-                return Quadrant.Quadrant2;
-            }
-            else if (point.X < middleScreen.X && point.Y > middleScreen.Y)
-            {
-                return Quadrant.Quadrant3;
-            }
-            else // if (point.X > middleScreen.X && point.Y > middleScreen.Y)
-            {
-                return Quadrant.Quadrant4;
-            }
-        }
-        
-        private Point GetMiddlePoint()
-        {
-            Point point = new();
-            point.X = Left + Width / 2;
-            point.Y = Top + Height / 2;
-            
-            return point;
-        }
-
         private void SetWindowPos(ScreenPart part)
         {
             if (part == ScreenPart.TopPart)
@@ -137,7 +80,7 @@ namespace OverTop.Floatings
                     break;
                 }
             }
-            ScreenPart part = GetPart(GetMiddlePoint());
+            ScreenPart part = GetPart(GetMiddlePoint(this));
             // TODO: Automatically change orientation and position when the middle point moves to another part of the screen
 
             SetWindowPos(part);
