@@ -8,10 +8,13 @@
         Title="选择窗口" Height="400" Width="250"
         Topmost="True" ShowInTaskbar="False">
     <ScrollViewer>
-        <StackPanel x:Name="ContentStackPanel">
+        <StackPanel x:Name="ContentStackPanel" Margin="5,5,5,5"
+                    HorizontalAlignment="Left">
             <Button x:Name="AddButton"
                     Style="{StaticResource ContentButtonStyle}"
-                    Click="AddButton_Click"/>
+                    Click="AddButton_Click"
+                    Content="选取文件"
+                    Width="100"/>
         </StackPanel>
     </ScrollViewer>
 </Window>

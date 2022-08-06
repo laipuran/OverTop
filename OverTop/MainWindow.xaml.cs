@@ -79,6 +79,7 @@ namespace OverTop
                 appPanel.MouseLeftButtonDown += AppPanel_MouseLeftButtonDown;
                 appWindow.ContentStackPanel.Children.Add(appPanel);
             }
+            appWindow.Show();
         }
 
         private void AppPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

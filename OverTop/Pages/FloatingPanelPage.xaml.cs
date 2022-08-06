@@ -57,11 +57,15 @@ namespace OverTop.Pages
 
         private void ImportButton_Click(object sender, RoutedEventArgs e)
         {
-
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\HangerWindows\\";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
             OpenFileDialog openFileDialog = new()
             {
                 Multiselect = true,
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\HangerWindows\\",
+                InitialDirectory = path,
                 Filter = "JSON 文件|*.json",
                 FilterIndex = 1
             };
@@ -69,7 +73,7 @@ namespace OverTop.Pages
             {
                 foreach (string fileName in openFileDialog.FileNames)
                 {
-                    GetWindowFromString(File.ReadAllText(openFileDialog.FileName));
+                    GetWindowFromString(File.ReadAllText(fileName));
                 }
             }
         }

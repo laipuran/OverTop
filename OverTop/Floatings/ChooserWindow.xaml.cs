@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -123,7 +124,35 @@ namespace OverTop.Floatings
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
+            OpenFileDialog openFileDialog = new()
+            {
+                Multiselect = true,
+                InitialDirectory = path,
+                Filter = "可运行 文件|*.exe",
+                FilterIndex = 1
+            };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                foreach (string fileName in openFileDialog.FileNames)
+                {
+                    StackPanel appPanel = new();
+                    System.Windows.Controls.Image image = new();
+#pragma warning disable CS8602 // 解引用可能出现空引用。
+                    Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(fileName).ToBitmap();
+#pragma warning restore CS8602 // 解引用可能出现空引用。
+                    image.Source = System.Windows.Interop.Imaging
+                        .CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                    image.Width = 40;
+                    Thickness margin = new(10, 10, 10, 10);
+                    appPanel.Children.Add(image);
+                    appPanel.Margin = margin;
+                    appPanel.ToolTip = fileName;
+                    appPanel.MouseLeftButtonDown += AppPanel_MouseLeftButtonDown;
+                    App.contentStackPanel.Children.Add(appPanel);
+                }
+                Close();
+            }
         }
     }
 }
