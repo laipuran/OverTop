@@ -6,9 +6,26 @@ namespace OverTop
     {
         public enum ContentType
         {
-            Text = 1,
-            Image = 2
+            Text,
+            Image
         }
+        
+        public enum Quadrant // not used
+        {
+            Quadrant1,
+            Quadrant2,
+            Quadrant3,
+            Quadrant4
+        }
+        
+        public enum ScreenPart
+        {
+            TopPart,
+            BottomPart,
+            RightPart,
+            LeftPart
+        }
+
         public Dictionary<ContentType, string> contents = new();
         public string backgroundColor = "";
         public int width;

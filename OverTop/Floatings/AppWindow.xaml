@@ -13,6 +13,7 @@
     <StackPanel x:Name="ContentStackPanel"
                 Orientation="Horizontal"
                 HorizontalAlignment="Center"
+                VerticalAlignment="Center"
                 ToolTip="右键 添加 快捷应用">
     </StackPanel>
 </Window>

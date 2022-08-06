@@ -26,7 +26,6 @@ namespace OverTop.Floatings
         [DllImport("user32.dll")]
         private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndlnsertAfter, int X, int Y, int cx, int cy, uint Flags);
         private bool isChild = false;
-        Dictionary<string, Bitmap> fileInfo = new();
         string Recent = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Microsoft\Windows\Recent\";
         public RecentWindow()
         {
@@ -38,6 +37,7 @@ namespace OverTop.Floatings
         {
             try
             {
+                Dictionary<string, Bitmap> fileInfo = new();
                 string[] files = Directory.GetFiles(Recent);
                 foreach (string filePath in files)
                 {
@@ -83,7 +83,7 @@ namespace OverTop.Floatings
                     newStackPanel.Children.Add(image);
                     newStackPanel.Children.Add(textBlock);
 
-                    newStackPanel.ToolTip = file.Ke
+                    newStackPanel.ToolTip = file.Key;
                     newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown;
 
                     ContentStackPanel.Children.Add(newStackPanel);
@@ -121,11 +121,6 @@ namespace OverTop.Floatings
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (Keyboard.IsKeyDown(Key.R))
-            {
-                ContentStackPanel.Children.Clear();
-                Task.Run(() => Dispatcher.BeginInvoke(new Action(ProcessRecentFiles)));
-            }
             if (Mouse.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
@@ -185,6 +180,11 @@ namespace OverTop.Floatings
 
         private void ContentStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if (Keyboard.IsKeyDown(Key.R))
+            {
+                ContentStackPanel.Children.Clear();
+                Task.Run(() => Dispatcher.BeginInvoke(new Action(ProcessRecentFiles)));
+            }
             DragMove();
         }
     }
