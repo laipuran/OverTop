@@ -30,7 +30,8 @@ namespace OverTop.Floatings
         public RecentWindow()
         {
             InitializeComponent();
-            Task.Run(() => Dispatcher.BeginInvoke(new Action(ProcessRecentFiles)));
+            
+            ProcessRecentFiles();
         }
         // Get system recent files
         private void ProcessRecentFiles()

@@ -36,8 +36,6 @@ namespace OverTop
 
             Window appWindow = new Floatings.AppWindow();
             appWindow.Show();
-            appWindow.Top = 0;
-            appWindow.Left = (SystemParameters.FullPrimaryScreenWidth - appWindow.Width) / 2;
         }
 
         private void NavigationButton_Click(object sender, RoutedEventArgs e)

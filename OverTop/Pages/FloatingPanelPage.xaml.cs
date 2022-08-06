@@ -76,7 +76,7 @@ namespace OverTop.Pages
         private void OpenWindowFromString(string json)
         {
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-            WindowClass windowClass = JsonConvert.DeserializeObject<WindowClass>(json);
+            HangerWindowClass windowClass = JsonConvert.DeserializeObject<HangerWindowClass>(json);
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
 
             Window newHanger = new Floatings.HangerWindow();
@@ -90,9 +90,9 @@ namespace OverTop.Pages
 #pragma warning restore CS8602 // 解引用可能出现空引用。
 
             StackPanel ContentStackPanel = (StackPanel)((ScrollViewer)newHanger.Content).Content;
-            foreach (KeyValuePair<WindowClass.ContentType, string> pair in windowClass.contents)
+            foreach (KeyValuePair<HangerWindowClass.ContentType, string> pair in windowClass.contents)
             {
-                if (pair.Key == WindowClass.ContentType.Text)
+                if (pair.Key == HangerWindowClass.ContentType.Text)
                 {
                     TextBlock newTextBlock = new();
                     newTextBlock.Style = (Style)FindResource("ContentTextBlockStyle");
@@ -102,7 +102,7 @@ namespace OverTop.Pages
                     newStackPanel.MouseLeftButtonDown += TextPanel_MouseLeftButtonDown;
                     ContentStackPanel.Children.Add(newStackPanel);
                 }
-                else if (pair.Key == WindowClass.ContentType.Image)
+                else if (pair.Key == HangerWindowClass.ContentType.Image)
                 {
                     System.Windows.Controls.Image newImage = new();
                     newImage.Source = new BitmapImage(new Uri(pair.Value));

@@ -2,28 +2,12 @@
 
 namespace OverTop
 {
-    internal class WindowClass
+    internal class HangerWindowClass
     {
         public enum ContentType
         {
             Text,
             Image
-        }
-        
-        public enum Quadrant // not used
-        {
-            Quadrant1,
-            Quadrant2,
-            Quadrant3,
-            Quadrant4
-        }
-        
-        public enum ScreenPart
-        {
-            TopPart,
-            BottomPart,
-            RightPart,
-            LeftPart
         }
 
         public Dictionary<ContentType, string> contents = new();
@@ -34,5 +18,24 @@ namespace OverTop
         public double left;
         public double top;
 
+    }
+
+    internal class AppWindowClass
+    {
+        public enum Quadrant // not used
+        {
+            Quadrant1,
+            Quadrant2,
+            Quadrant3,
+            Quadrant4
+        }
+
+        public enum ScreenPart
+        {
+            TopPart,
+            BottomPart,
+            RightPart,
+            LeftPart
+        }
     }
 }

@@ -8,8 +8,8 @@
         Title="选择窗口" Height="400" Width="250"
         Topmost="True" ShowInTaskbar="False">
     <ScrollViewer>
-        <StackPanel x:Name="ContentStackPanel">
+        <StackPanel x:Name="ContentStackPanel"/>
 
-        </StackPanel>
+
     </ScrollViewer>
 </Window>

@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using static OverTop.WindowClass;
+using static OverTop.AppWindowClass;
 
 namespace OverTop.Floatings
 {
@@ -15,6 +15,7 @@ namespace OverTop.Floatings
         public AppWindow()
         {
             InitializeComponent();
+            SetWindowPos(ScreenPart.TopPart);
         }
         
         private async void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -25,7 +26,7 @@ namespace OverTop.Floatings
                 return;
             }
             DragMove();
-            await Task.Run(TrySetPosition);
+            await Task.Run(() => Dispatcher.BeginInvoke(new Action(TrySetPosition)));
         }
 
         private void Window_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

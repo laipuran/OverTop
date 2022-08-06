@@ -107,7 +107,6 @@ namespace OverTop.Floatings
             image.Width = 40;
             Thickness margin = new(10, 10, 10, 10);
             appPanel.Children.Add(image);
-            appPanel.Height = 60;
             appPanel.Margin = margin;
             appPanel.ToolTip = ((TextBlock)((StackPanel)sender).Children[1]).ToolTip;
             appPanel.MouseLeftButtonDown += AppPanel_MouseLeftButtonDown;

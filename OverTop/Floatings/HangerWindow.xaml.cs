@@ -80,7 +80,7 @@ namespace OverTop.Floatings
         }
         public void SaveWindow()
         {
-            WindowClass windowClass = new();
+            HangerWindowClass windowClass = new();
             System.Windows.Media.Color color = ((SolidColorBrush)Background).Color;
             windowClass.backgroundColor = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
             windowClass.width = (int)Width;
@@ -93,11 +93,11 @@ namespace OverTop.Floatings
             {
                 if (item.Children[0] is TextBlock)
                 {
-                    windowClass.contents.Add(WindowClass.ContentType.Text, ((TextBlock)item.Children[0]).Text);
+                    windowClass.contents.Add(HangerWindowClass.ContentType.Text, ((TextBlock)item.Children[0]).Text);
                 }
                 else if (item.Children[0] is System.Windows.Controls.Image)
                 {
-                    windowClass.contents.Add(WindowClass.ContentType.Image, ((System.Windows.Controls.Image)item.Children[0]).Source.ToString());
+                    windowClass.contents.Add(HangerWindowClass.ContentType.Image, ((System.Windows.Controls.Image)item.Children[0]).Source.ToString());
                     // TODO: Change sourcep path to base64
                 }
             }
