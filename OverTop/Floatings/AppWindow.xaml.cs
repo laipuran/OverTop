@@ -85,5 +85,13 @@ namespace OverTop.Floatings
 
             SetWindowPos(part);
         }
+
+        private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+#pragma warning disable CS8602 // 解引用可能出现空引用。
+            App.mainWindow.Visibility = Visibility.Visible;
+            App.mainWindow.Focus();
+#pragma warning restore CS8602 // 解引用可能出现空引用。
+        }
     }
 }

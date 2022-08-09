@@ -4,10 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OverTop"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Over Top" Height="450" Width="750"
+        Keyboard.KeyDown="Window_KeyDown"
         Closing="Window_Closing">
+    
     <Window.Resources>
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"

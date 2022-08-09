@@ -28,7 +28,8 @@ namespace OverTop
         public MainWindow()
         {
             InitializeComponent();
-            
+            App.mainWindow = this;
+
             FloatingListBoxItem.IsSelected = true;
             TitleTextBlock.Text = "浮窗控制面板";
             ContentFrame.NavigationService.Navigate(FloatingUri);
@@ -44,6 +45,8 @@ namespace OverTop
             Pages.StaticPropertyPage.ColorChanged();
             LoadAppWindow();
             // TODO: IMAGESOURCE TO BASE64 PLEASE
+
+            this.Focus();
         }
         
         private void LoadAppWindow()
@@ -154,12 +157,21 @@ namespace OverTop
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            foreach (Window window in Pages.FloatingPanelPage.windows)
+            MessageBoxResult messageBoxResult = MessageBox.Show("是否要退出 Over Top ？", "退出 Over Top", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.No)
             {
-                window.Close();
+                e.Cancel = true;
+                return;
             }
-            SaveWindow(appWindow);
-            appWindow.Close();
+            else
+            {
+                foreach (Window window in Pages.FloatingPanelPage.windows)
+                {
+                    window.Close();
+                }
+                SaveWindow(appWindow);
+                appWindow.Close();
+            }
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -191,6 +203,14 @@ namespace OverTop
             {
                 TitleTextBlock.Text = "浮窗控制面板";
                 FloatingListBoxItem.IsSelected = true;
+            }
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab)
+            {
+                this.Visibility = Visibility.Collapsed;
             }
         }
     }
