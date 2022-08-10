@@ -28,10 +28,10 @@ namespace OverTop.Floatings
         {
             InitializeComponent();
 
-            Task.Run(() => Dispatcher.BeginInvoke(new Action(GetShortCuts)));
+            GetShortCuts();
         }
 
-        private void GetShortCuts()
+        private async void GetShortCuts()
         {
             List<string> filePath = new();
             Dictionary<string, Bitmap> fileInfo = new();
@@ -95,7 +95,7 @@ namespace OverTop.Floatings
 
                 newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown;
 
-                ContentStackPanel.Children.Add(newStackPanel);
+                await Task.Run(() => Dispatcher.BeginInvoke(new Action(() => { ContentStackPanel.Children.Add(newStackPanel); })));
             }
             
         }

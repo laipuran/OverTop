@@ -9,9 +9,8 @@
         Width="100" Height="200"
         MouseRightButtonDown="Window_MouseRightButtonDown"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Topmost="True"
+        Topmost="True" ShowInTaskbar="False"
         KeyDown="Window_KeyDown"
-        ShowInTaskbar="False"
         MouseEnter="Window_MouseEnter"
         MouseLeave="Window_MouseLeave"
         Style="{StaticResource FloatingWindowStyle}">

@@ -16,7 +16,6 @@ namespace OverTop.Floatings
         public AppWindow()
         {
             InitializeComponent();
-            SetWindowPos(ScreenPart.TopPart);
         }
         
         private async void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

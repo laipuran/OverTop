@@ -91,6 +91,7 @@
         <Setter Property="Opacity" Value="0.5"/>
         <Setter Property="AllowsTransparency" Value="True"/>
         <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="ResizeMode" Value="NoResize"/>
         <Setter Property="Background" Value="{DynamicResource MainColor}"/>
         <Style.Resources>
             <Style TargetType="{x:Type Border}">

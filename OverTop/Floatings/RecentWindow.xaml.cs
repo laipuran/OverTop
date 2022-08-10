@@ -34,7 +34,7 @@ namespace OverTop.Floatings
             ProcessRecentFiles();
         }
         // Get system recent files
-        private void ProcessRecentFiles()
+        private async void ProcessRecentFiles()
         {
             try
             {
@@ -87,7 +87,7 @@ namespace OverTop.Floatings
                     newStackPanel.ToolTip = file.Key;
                     newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown;
 
-                    ContentStackPanel.Children.Add(newStackPanel);
+                    await Task.Run(() => Dispatcher.BeginInvoke(new Action(() => { ContentStackPanel.Children.Add(newStackPanel); })));
                 }
             }
             catch (Exception e)

@@ -44,7 +44,6 @@ namespace OverTop
 
             Pages.StaticPropertyPage.ColorChanged();
             LoadAppWindow();
-            // TODO: IMAGESOURCE TO BASE64 PLEASE
 
             this.Focus();
         }
@@ -55,6 +54,7 @@ namespace OverTop
             if (!File.Exists(filePath))
             {
                 appWindow.Show();
+                SetWindowPos(appWindow, ScreenPart.TopPart);
                 return;
             }
             string json = File.ReadAllText(filePath);
@@ -63,26 +63,30 @@ namespace OverTop
             AppWindowClass appWindowClass = JsonConvert.DeserializeObject<AppWindowClass>(json);
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
 #pragma warning disable CS8602 // 解引用可能出现空引用。
-            SetWindowPos(appWindow, appWindowClass.screenPart);
-#pragma warning restore CS8602 // 解引用可能出现空引用。
             foreach (string item in appWindowClass.filePath)
-            {
-                StackPanel appPanel = new();
-                System.Windows.Controls.Image image = new();
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-                Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(item).ToBitmap();
 #pragma warning restore CS8602 // 解引用可能出现空引用。
-                image.Source = System.Windows.Interop.Imaging
-                    .CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                image.Width = 40;
-                Thickness margin = new(10, 10, 10, 10);
-                appPanel.Children.Add(image);
-                appPanel.Margin = margin;
-                appPanel.ToolTip = item;
-                appPanel.MouseLeftButtonDown += AppPanel_MouseLeftButtonDown;
-                appWindow.ContentStackPanel.Children.Add(appPanel);
+            {
+                try
+                {
+                    StackPanel appPanel = new();
+                    System.Windows.Controls.Image image = new();
+#pragma warning disable CS8602 // 解引用可能出现空引用。
+                    Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(item).ToBitmap();
+#pragma warning restore CS8602 // 解引用可能出现空引用。
+                    image.Source = System.Windows.Interop.Imaging
+                        .CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                    image.Width = 40;
+                    Thickness margin = new(10, 10, 10, 10);
+                    appPanel.Children.Add(image);
+                    appPanel.Margin = margin;
+                    appPanel.ToolTip = item;
+                    appPanel.MouseLeftButtonDown += AppPanel_MouseLeftButtonDown;
+                    appWindow.ContentStackPanel.Children.Add(appPanel);
+                }
+                catch { }
             }
             appWindow.Show();
+            SetWindowPos(appWindow, appWindowClass.screenPart);
         }
 
         private void AppPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -100,22 +104,22 @@ namespace OverTop
                 window.Width = 560;
                 window.ContentStackPanel.Orientation = System.Windows.Controls.Orientation.Horizontal;
                 window.Top = 0;
-                window.Left = (SystemParameters.FullPrimaryScreenWidth - Width) / 2;
+                window.Left = (SystemParameters.FullPrimaryScreenWidth - window.Width) / 2;
             }
             else if (part == ScreenPart.BottomPart)
             {
                 window.Height = 60;
                 window.Width = 560;
                 window.ContentStackPanel.Orientation = System.Windows.Controls.Orientation.Horizontal;
-                window.Top = SystemParameters.FullPrimaryScreenHeight - Height;
-                window.Left = (SystemParameters.FullPrimaryScreenWidth - Width) / 2;
+                window.Top = SystemParameters.FullPrimaryScreenHeight - window.Height;
+                window.Left = (SystemParameters.FullPrimaryScreenWidth - window.Width) / 2;
             }
             else if (part == ScreenPart.LeftPart)
             {
                 window.Height = 560;
                 window.Width = 60;
                 window.ContentStackPanel.Orientation = System.Windows.Controls.Orientation.Vertical;
-                window.Top = (SystemParameters.FullPrimaryScreenHeight - Height) / 2;
+                window.Top = (SystemParameters.FullPrimaryScreenHeight - window.Height) / 2;
                 window.Left = 0;
             }
             else
@@ -123,8 +127,8 @@ namespace OverTop
                 window.Height = 560;
                 window.Width = 60;
                 window.ContentStackPanel.Orientation = System.Windows.Controls.Orientation.Vertical;
-                window.Top = (SystemParameters.FullPrimaryScreenHeight - Height) / 2;
-                window.Left = SystemParameters.FullPrimaryScreenWidth - Width;
+                window.Top = (SystemParameters.FullPrimaryScreenHeight - window.Height) / 2;
+                window.Left = SystemParameters.FullPrimaryScreenWidth - window.Width;
             }
         }
         

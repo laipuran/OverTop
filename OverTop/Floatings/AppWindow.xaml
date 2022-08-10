@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Style="{StaticResource FloatingWindowStyle}"
         Title="AppWindow" Height="60" Width="560"
-        x:Name="AppWindowName" ResizeMode="NoResize"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         MouseRightButtonDown="Window_MouseRightButtonDown"
         MouseDoubleClick="Window_MouseDoubleClick"

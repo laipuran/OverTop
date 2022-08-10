@@ -1,8 +1,17 @@
 # Over Top
 ## This is a tool for deep computer users
+### The Way to Run the App
+'''
+git clone https://github.com/laipuran/OverTop
+cd ...(To the folder of the app)
+dotnet restore
+dotnet run
+'''
+Congratulations! You have already started the app.
 ### This App has the features below:
 ### 0. Main Window
 - The Main color of the window will change when the System Glass Brush changes
+- Tab to hide MainWindow
 ### 1. Create Floating Windows
 ### Control Panel
 - Can create the two kinds of floating windows below
@@ -13,7 +22,7 @@
 - Push Key R and left click to remove the item
 - Push Key M and left click to modify the item
 ### Recent
-- It automatically gets the files from the %AppData%/recent folder, and displays them in the list
+- It automatically gets the files from the %AppData%/.../recent folder, and displays them in the list
 - Push Key Left Ctrl and left click to open that file/folder
 ### The Same Features
 - Escape to close the window
@@ -25,6 +34,10 @@
 - And can set the values to default
 - Escape to close the window without saving the settings
 - Close the window to save the settings to window parameters
+### App Window
+- Right Click on the window to add app links
+- Double Click to activate MainWindow
+- AppWindow is like a magnet, it can stick to any side of the screen.
 ### 2. Get some values from SystemParameters
 - Get Window Glass Color
 - Get Desktop Brush
