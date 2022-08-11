@@ -92,8 +92,6 @@ namespace OverTop.Floatings
                 }
             }
             ScreenPart part = GetPart(GetMiddlePoint(this));
-            // TODO: Automatically change orientation and position when the middle point moves to another part of the screen
-
             SetWindowPos(part);
         }
 
