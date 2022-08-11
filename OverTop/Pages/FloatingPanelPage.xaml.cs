@@ -21,6 +21,7 @@ namespace OverTop.Pages
     {
         public static List<Window> windows = new();
         public static int recents = 0, hangers = 0;
+        
         public FloatingPanelPage()
         {
             InitializeComponent();
@@ -45,7 +46,6 @@ namespace OverTop.Pages
             hangers++;
             Window newHanger = new Floatings.HangerWindow();
             newHanger.Title = Guid.NewGuid().ToString();
-            newHanger.ToolTip = "Hanger Window - " + hangers;
             newHanger.Width = HangerSettings.Default.width;
             newHanger.Height = HangerSettings.Default.height;
             System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(HangerSettings.Default.color.R, HangerSettings.Default.color.G, HangerSettings.Default.color.B);
@@ -71,15 +71,16 @@ namespace OverTop.Pages
             };
             if (openFileDialog.ShowDialog() == true)
             {
-                foreach (string fileName in openFileDialog.FileNames)
+                foreach (string filePath in openFileDialog.FileNames)
                 {
-                    GetWindowFromString(File.ReadAllText(fileName));
+                    GetWindowFromString(File.ReadAllText(filePath), Path.GetFileNameWithoutExtension(filePath));
                 }
             }
         }
 
-        private void GetWindowFromString(string json)
+        private void GetWindowFromString(string json, string fileName)
         {
+            hangers++;
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
             HangerWindowClass windowClass = JsonConvert.DeserializeObject<HangerWindowClass>(json);
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
@@ -92,6 +93,8 @@ namespace OverTop.Pages
             System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(tempColor.R, tempColor.G, tempColor.B);
             newHanger.Background = new SolidColorBrush(color);
             newHanger.Opacity = windowClass.alpha;
+            newHanger.ToolTip = "Hanger Window - " + hangers;
+            newHanger.Title = fileName;
 #pragma warning restore CS8602 // 解引用可能出现空引用。
 
             StackPanel ContentStackPanel = (StackPanel)((ScrollViewer)newHanger.Content).Content;
@@ -174,6 +177,10 @@ namespace OverTop.Pages
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
+            if (sender.GetType() != typeof(Window))
+            {
+                return;
+            }
             TextBox newTextBox = (TextBox)((StackPanel)((ScrollViewer)((Window)sender).Content).Content).Children[0];
             if (newTextBox.Text != string.Empty)
             {
@@ -188,11 +195,15 @@ namespace OverTop.Pages
                 textPanel.Children.Add(newTextBlock);
                 App.contentStackPanel.Children.Add(textPanel);
                 newTextBox.Text = "";
+                ((Window)sender).Close();
             }
-            ((Window)sender).Close();
         }
         private void OKButton_Click_Modify(object sender, RoutedEventArgs e)
         {
+            if (sender.GetType() != typeof(Window))
+            {
+                return;
+            }
             TextBox newTextBox = (TextBox)((StackPanel)((ScrollViewer)((Window)sender).Content).Content).Children[0];
             if (newTextBox.Text != string.Empty)
             {
@@ -208,6 +219,7 @@ namespace OverTop.Pages
             }
             ((Window)sender).Close();
         }
+        
         public void TextPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.M))
@@ -223,16 +235,17 @@ namespace OverTop.Pages
                 ((StackPanel)((StackPanel)sender).Parent).Children.Remove((StackPanel)sender);
             }
         }
+        
         private void Page_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                foreach (string file in files)
+                foreach (string filePath in files)
                 {
-                    if (file.EndsWith(".json"))
+                    if (filePath.EndsWith(".json"))
                     {
-                        GetWindowFromString(File.ReadAllText(file));
+                        GetWindowFromString(File.ReadAllText(filePath), Path.GetFileNameWithoutExtension(filePath));
                     }
                 }
             }

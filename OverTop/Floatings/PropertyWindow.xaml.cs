@@ -84,6 +84,27 @@ namespace OverTop.Floatings
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
+            //TextBox newTextBox = (TextBox)((StackPanel)((ScrollViewer)((Window)sender).Content).Content).Children[0];
+            //if (newTextBox.Text != string.Empty)
+            //{
+            //    TextBlock newTextBlock = new()
+            //    {
+            //        TextWrapping = TextWrapping.Wrap,
+            //        Style = (Style)FindResource("ContentTextBlockStyle"),
+            //        Text = newTextBox.Text
+            //    };
+            //    StackPanel textPanel = new();
+            //    textPanel.MouseLeftButtonDown += TextPanel_MouseLeftButtonDown;
+            //    textPanel.Children.Add(newTextBlock);
+            //    App.contentStackPanel.Children.Add(textPanel);
+            //    newTextBox.Text = "";
+            //    ((Window)sender).Close();
+            //}
+
+            if (sender.GetType() != typeof(Window))
+            {
+                return;
+            }
             TextBox newTextBox = (TextBox)((StackPanel)((ScrollViewer)((Window)sender).Content).Content).Children[0];
             if (newTextBox.Text != string.Empty)
             {
@@ -98,11 +119,15 @@ namespace OverTop.Floatings
                 textPanel.Children.Add(newTextBlock);
                 App.contentStackPanel.Children.Add(textPanel);
                 newTextBox.Text = "";
+                ((Window)sender).Close();
             }
-            ((Window)sender).Close();
         }
         private void OKButton_Click_Modify(object sender, RoutedEventArgs e)
         {
+            if (sender.GetType() != typeof(Window))
+            {
+                return;
+            }
             TextBox newTextBox = (TextBox)((StackPanel)((ScrollViewer)((Window)sender).Content).Content).Children[0];
             if (newTextBox.Text != string.Empty)
             {

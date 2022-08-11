@@ -11,7 +11,7 @@ namespace OverTop
 {
     internal class HangerWindowClass
     {
-        public Dictionary<ContentType, string> contents = new();
+        public List<KeyValuePair<ContentType, string>> contents = new();
         public string backgroundColor = "";
         public int width;
         public int height;
@@ -40,11 +40,12 @@ namespace OverTop
             {
                 if (item.Children[0] is TextBlock)
                 {
-                    windowClass.contents.Add(HangerWindowClass.ContentType.Text, ((TextBlock)item.Children[0]).Text);
+                    windowClass.contents.Add(new(HangerWindowClass.ContentType.Text, ((TextBlock)item.Children[0]).Text));
                 }
                 else if (item.Children[0] is System.Windows.Controls.Image)
                 {
-                    windowClass.contents.Add(HangerWindowClass.ContentType.Image, ((System.Windows.Controls.Image)item.Children[0]).Source.ToString());
+                    windowClass.contents.Add(new(HangerWindowClass.ContentType.Image,
+                        ((System.Windows.Controls.Image)item.Children[0]).Source.ToString()));
                 }
             }
             string json = JsonConvert.SerializeObject(windowClass);

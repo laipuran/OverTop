@@ -22,9 +22,10 @@ namespace OverTop.Floatings
         public const int HWND_NOTOPMOST = -2;
         IntPtr hWnd = new();
         [DllImport("user32.dll")]
+        
         private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndlnsertAfter, int X, int Y, int cx, int cy, uint Flags);
-
-        private static bool isChild = false;
+        private static bool isBottom = false;
+        
         public HangerWindow()
         {
             InitializeComponent();
@@ -44,30 +45,33 @@ namespace OverTop.Floatings
             }
             else if (e.Key == System.Windows.Input.Key.Tab)
             {
-                if (!isChild)
+                if (!isBottom)
                 {
-                    isChild = true;
+                    isBottom = true;
                     Topmost = false;
                     ToBottom();
                 }
                 else
                 {
-                    isChild = false;
+                    isBottom = false;
                     Topmost = true;
                     ToTop();
                 }
             }
         }
+        
         private void ToBottom()
         {
             hWnd = new WindowInteropHelper(this).Handle;
             SetWindowPos(hWnd, (IntPtr)HWND_BOTTOM, (int)Left, (int)Top, (int)Width, (int)Height, 0);
         }
+        
         private void ToTop()
         {
             hWnd = new WindowInteropHelper(this).Handle;
             SetWindowPos(hWnd, (IntPtr)HWND_TOPMOST, (int)Left, (int)Top, (int)Width, (int)Height, 0);
         }
+        
         private void ContentStackPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl))
@@ -82,7 +86,7 @@ namespace OverTop.Floatings
         
         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (isChild)
+            if (isBottom)
             {
                 ToBottom();
             }
@@ -91,7 +95,7 @@ namespace OverTop.Floatings
 
         private void Window_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (isChild)
+            if (isBottom)
             {
                 ToBottom();
             }

@@ -12,6 +12,7 @@ Congratulations! You have already started the app.
 ### 0. Main Window
 - The Main color of the window will change when the System Glass Brush changes
 - Tab to hide MainWindow
+- Close Main Window to close all the floatings closed
 ### 1. Create Floating Windows
 ### Control Panel
 - Can create the two kinds of floating windows below
@@ -24,6 +25,7 @@ Congratulations! You have already started the app.
 ### Recent
 - It automatically gets the files from the %AppData%/.../recent folder, and displays them in the list
 - Push Key Left Ctrl and left click to open that file/folder
+- Push Key R and left click to reload the files
 ### The Same Features
 - Escape to close the window
 - Right Click on the window to configure it
@@ -34,10 +36,11 @@ Congratulations! You have already started the app.
 - And can set the values to default
 - Escape to close the window without saving the settings
 - Close the window to save the settings to window parameters
-### App Window
+### App Window (Added Recently)
 - Right Click on the window to add app links
 - Double Click to activate MainWindow
 - AppWindow is like a magnet, it can stick to any side of the screen.
+- It can not be closed, but it shares the same feature(4) as other floatings
 ### 2. Get some values from SystemParameters
 - Get Window Glass Color
 - Get Desktop Brush
