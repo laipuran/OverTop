@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media.Animation;
 using static OverTop.AppWindowClass;
 
 namespace OverTop.Floatings
@@ -23,12 +22,12 @@ namespace OverTop.Floatings
         private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndlnsertAfter, int X, int Y, int cx, int cy, uint Flags);
 
         private static bool isBottom = false;
-        
+
         public AppWindow()
         {
             InitializeComponent();
         }
-        
+
         private async void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.C))
@@ -121,19 +120,41 @@ namespace OverTop.Floatings
                 }
             }
         }
-        
+
         private void ToBottom()
         {
             hWnd = new WindowInteropHelper(this).Handle;
             SetWindowPos(hWnd, (IntPtr)HWND_BOTTOM, (int)Left, (int)Top, (int)Width, (int)Height, 0);
         }
-        
+
         private void ToTop()
         {
             hWnd = new WindowInteropHelper(this).Handle;
             SetWindowPos(hWnd, (IntPtr)HWND_TOPMOST, (int)Left, (int)Top, (int)Width, (int)Height, 0);
         }
 
+        private void Window_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (isBottom)
+            {
+                ToBottom();
+            }
+            else
+            {
+                ToTop();
+            }
+        }
 
+        private void Window_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (isBottom)
+            {
+                ToBottom();
+            }
+            else
+            {
+                ToTop();
+            }
+        }
     }
 }
