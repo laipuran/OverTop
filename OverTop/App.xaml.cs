@@ -18,5 +18,6 @@ namespace OverTop
         public static Window currentWindow = new();
         public static StackPanel contentStackPanel = new();
         public static MainWindow? mainWindow;
+        public static bool isMainWindowClosed = false;
     }
 }

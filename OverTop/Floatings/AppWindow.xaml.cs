@@ -134,9 +134,6 @@ namespace OverTop.Floatings
             SetWindowPos(hWnd, (IntPtr)HWND_TOPMOST, (int)Left, (int)Top, (int)Width, (int)Height, 0);
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            e.Cancel = true;
-        }
+
     }
 }

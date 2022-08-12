@@ -169,12 +169,8 @@ namespace OverTop
             }
             else
             {
-                foreach (Window window in Pages.FloatingPanelPage.windows)
-                {
-                    window.Close();
-                }
                 SaveWindow(appWindow);
-                appWindow.Close();
+                App.Current.Shutdown();
             }
         }
 

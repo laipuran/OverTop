@@ -11,7 +11,7 @@
         MouseRightButtonDown="Window_MouseRightButtonDown"
         MouseDoubleClick="Window_MouseDoubleClick"
         Topmost="True" ShowInTaskbar="False" 
-        KeyDown="Window_KeyDown" Closing="Window_Closing">
+        KeyDown="Window_KeyDown">
     <StackPanel x:Name="ContentStackPanel"
                 Orientation="Horizontal"
                 HorizontalAlignment="Center"
