@@ -8,13 +8,10 @@ namespace OverTop
     /// </summary>
     public partial class App : Application
     {
-        public enum WindowType
-        {
-            Hanger = 0,
-            Recent = 1
-        }
         public static WindowType windowType = new();
-        public static ParameterClass parameterClass = new();
+        public static PropertyClass parameterClass = new(),
+            recentSettingsClass = new(),
+            hangerSettingsClass = new();
         public static Window currentWindow = new();
         public static StackPanel contentStackPanel = new();
         public static MainWindow? mainWindow;

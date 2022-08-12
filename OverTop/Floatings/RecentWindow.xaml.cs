@@ -30,7 +30,7 @@ namespace OverTop.Floatings
         public RecentWindow()
         {
             InitializeComponent();
-            
+
             ProcessRecentFiles();
         }
         // Get system recent files
@@ -109,7 +109,7 @@ namespace OverTop.Floatings
         private void Window_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             App.currentWindow = this;
-            App.windowType = App.WindowType.Recent;
+            App.windowType = WindowType.Recent;
             Window propertyWindow = new PropertyWindow
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen

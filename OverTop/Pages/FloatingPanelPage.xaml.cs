@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
+using OverTop.Floatings;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,8 +10,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using OverTop.Settings;
-using OverTop.Floatings;
 
 namespace OverTop.Pages
 {
@@ -21,7 +20,7 @@ namespace OverTop.Pages
     {
         public static List<Window> windows = new();
         public static int recents = 0, hangers = 0;
-        
+
         public FloatingPanelPage()
         {
             InitializeComponent();
@@ -32,11 +31,10 @@ namespace OverTop.Pages
             Window newRecent = new Floatings.RecentWindow();
             newRecent.Title = Guid.NewGuid().ToString();
             newRecent.ToolTip = "Recent Window - " + recents;
-            newRecent.Width = RecentSettings.Default.width;
-            newRecent.Height = RecentSettings.Default.height;
-            System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(RecentSettings.Default.color.R, RecentSettings.Default.color.G, RecentSettings.Default.color.B);
-            newRecent.Background = new SolidColorBrush(color);
-            newRecent.Opacity = RecentSettings.Default.alpha == 0.0 ? 0.8 : RecentSettings.Default.alpha;
+            newRecent.Width = App.recentSettingsClass.width;
+            newRecent.Height = App.recentSettingsClass.height;
+            newRecent.Background = new SolidColorBrush(App.recentSettingsClass.backGroundColor);
+            newRecent.Opacity = App.recentSettingsClass.alpha == 0.0 ? 0.8 : App.recentSettingsClass.alpha;
             newRecent.Show();
             windows.Add(newRecent);
         }
@@ -46,11 +44,10 @@ namespace OverTop.Pages
             hangers++;
             Window newHanger = new Floatings.HangerWindow();
             newHanger.Title = Guid.NewGuid().ToString();
-            newHanger.Width = HangerSettings.Default.width;
-            newHanger.Height = HangerSettings.Default.height;
-            System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(HangerSettings.Default.color.R, HangerSettings.Default.color.G, HangerSettings.Default.color.B);
-            newHanger.Background = new SolidColorBrush(color);
-            newHanger.Opacity = HangerSettings.Default.alpha == 0.0 ? 0.8 : HangerSettings.Default.alpha;
+            newHanger.Width = App.hangerSettingsClass.width;
+            newHanger.Height = App.hangerSettingsClass.height;
+            newHanger.Background = new SolidColorBrush(App.hangerSettingsClass.backGroundColor);
+            newHanger.Opacity = App.hangerSettingsClass.alpha == 0.0 ? 0.8 : App.hangerSettingsClass.alpha;
             newHanger.Show();
             windows.Add(newHanger);
         }
@@ -219,7 +216,7 @@ namespace OverTop.Pages
             }
             ((Window)sender).Close();
         }
-        
+
         public void TextPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.M))
@@ -235,7 +232,7 @@ namespace OverTop.Pages
                 ((StackPanel)((StackPanel)sender).Parent).Children.Remove((StackPanel)sender);
             }
         }
-        
+
         private void Page_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))

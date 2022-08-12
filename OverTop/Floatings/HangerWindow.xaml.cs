@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.IO;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,10 +20,10 @@ namespace OverTop.Floatings
         public const int HWND_NOTOPMOST = -2;
         IntPtr hWnd = new();
         [DllImport("user32.dll")]
-        
+
         private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndlnsertAfter, int X, int Y, int cx, int cy, uint Flags);
         private static bool isBottom = false;
-        
+
         public HangerWindow()
         {
             InitializeComponent();
@@ -59,19 +57,19 @@ namespace OverTop.Floatings
                 }
             }
         }
-        
+
         private void ToBottom()
         {
             hWnd = new WindowInteropHelper(this).Handle;
             SetWindowPos(hWnd, (IntPtr)HWND_BOTTOM, (int)Left, (int)Top, (int)Width, (int)Height, 0);
         }
-        
+
         private void ToTop()
         {
             hWnd = new WindowInteropHelper(this).Handle;
             SetWindowPos(hWnd, (IntPtr)HWND_TOPMOST, (int)Left, (int)Top, (int)Width, (int)Height, 0);
         }
-        
+
         private void ContentStackPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl))
@@ -83,7 +81,7 @@ namespace OverTop.Floatings
                 DragMove();
             }
         }
-        
+
         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (isBottom)
@@ -106,7 +104,7 @@ namespace OverTop.Floatings
         {
             App.currentWindow = this;
             App.contentStackPanel = ContentStackPanel;
-            App.windowType = App.WindowType.Hanger;
+            App.windowType = WindowType.Hanger;
             Window propertyWindow = new PropertyWindow
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen

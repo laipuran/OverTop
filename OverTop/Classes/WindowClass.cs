@@ -9,7 +9,12 @@ using System.Windows.Media;
 
 namespace OverTop
 {
-    internal class HangerWindowClass
+    public enum WindowType
+    {
+        Hanger = 0,
+        Recent = 1
+    }
+    public class HangerWindowClass
     {
         public List<KeyValuePair<ContentType, string>> contents = new();
         public string backgroundColor = "";
@@ -58,11 +63,11 @@ namespace OverTop
         }
     }
 
-    internal class AppWindowClass
+    public class AppWindowClass
     {
         public ScreenPart screenPart;
         public List<string> filePath = new();
-        
+
         public enum Quadrant // not used
         {
             Quadrant1,
@@ -103,7 +108,7 @@ namespace OverTop
                 return ScreenPart.BottomPart;
             }
         }
-        
+
         public static Quadrant GetQuadrant(Point point) // not used
         {
             Point middleScreen = new();
@@ -135,7 +140,7 @@ namespace OverTop
 
             return point;
         }
-        
+
         public static void SaveWindow(AppWindow window)
         {
             AppWindowClass appWindow = new();

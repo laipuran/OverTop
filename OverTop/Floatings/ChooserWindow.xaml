@@ -14,7 +14,7 @@
                     Style="{StaticResource ContentButtonStyle}"
                     Click="AddButton_Click"
                     Content="选取文件"
-                    Width="100"/>
+                    Width="100" Margin="0,0,0,5"/>
         </StackPanel>
     </ScrollViewer>
 </Window>

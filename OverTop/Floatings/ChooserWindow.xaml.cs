@@ -4,17 +4,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace OverTop.Floatings
 {
@@ -52,7 +46,7 @@ namespace OverTop.Floatings
                 }
             }
             catch { }
-            
+
             foreach (string file in filePath)
             {
                 if (!file.EndsWith(".lnk"))
@@ -68,15 +62,15 @@ namespace OverTop.Floatings
                 fileInfo.Add(wshShortcut.TargetPath, icon);
 
             }
-            
+
             foreach (KeyValuePair<string, Bitmap> keyPair in fileInfo)
             {
                 Thickness margin = new(10, 0, 0, 0);
-                Thickness margin1 = new(5, 5, 5, 5);
+                Thickness panelMargin = new(5, 5, 5, 5);
                 StackPanel newStackPanel = new()
                 {
                     Height = 30,
-                    Margin = margin1,
+                    Margin = panelMargin,
                     Orientation = Orientation.Horizontal
                 };
                 System.Windows.Controls.Image image = new();
@@ -97,7 +91,7 @@ namespace OverTop.Floatings
 
                 await Task.Run(() => Dispatcher.BeginInvoke(new Action(() => { ContentStackPanel.Children.Add(newStackPanel); })));
             }
-            
+
         }
 
         private void NewStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

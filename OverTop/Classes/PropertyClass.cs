@@ -1,6 +1,6 @@
 ﻿namespace OverTop
 {
-    public class ParameterClass
+    public class PropertyClass
     {
         public System.Windows.Media.Color backGroundColor;
         public double alpha;
