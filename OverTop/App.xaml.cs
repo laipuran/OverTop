@@ -1,6 +1,7 @@
 ﻿using OverTop.Floatings;
 using System;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,9 @@ namespace OverTop
     /// </summary>
     public partial class App : Application
     {
+        [DllImport("user32.dll", EntryPoint = "FindWindow")]
+        private extern static IntPtr FindWindow(string? lpClassName, string? lpWindowName);
+        
         public static WindowClass.WindowType windowType = new();
         public static Window currentWindow = new();
         public static StackPanel contentStackPanel = new();
@@ -24,12 +28,11 @@ namespace OverTop
         
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            bool ret;
-            Mutex mutex = new(true, "MyApp", out ret);
-            if (!ret)
+            IntPtr hWnd = FindWindow(null, "Over Top");
+            if (hWnd != IntPtr.Zero)
             {
-                MessageBox.Show("程序已经打开");
-                App.Current.Shutdown();
+                MessageBox.Show("Over Top 已经打开！", "Over Top");
+                Environment.Exit(-1);
             }
         }
     }
