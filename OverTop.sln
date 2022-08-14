@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "LuckDraw.Algorithm\Shared.shproj", "{4CD6416B-7EF9-43AD-B7A5-917E2EBBFA2D}"
-EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "OverTop.Package", "OverTop.Package\OverTop.Package.wapproj", "{BE41E405-9002-4D10-BA62-4C6C3657CB58}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OverTop", "OverTop\OverTop.csproj", "{BD801897-E753-46E9-9FA3-6E46E2322CF0}"
@@ -85,9 +83,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6A82B691-50A2-44B9-8CB0-92CEBEEC4297}
-	EndGlobalSection
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		LuckDraw.Algorithm\Shared.projitems*{4cd6416b-7ef9-43ad-b7a5-917e2ebbfa2d}*SharedItemsImports = 13
-		LuckDraw.Algorithm\Shared.projitems*{bd801897-e753-46e9-9fa3-6e46e2322cf0}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

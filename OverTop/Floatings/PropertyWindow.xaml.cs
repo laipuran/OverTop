@@ -1,4 +1,4 @@
-﻿using LuckDraw;
+﻿using PuranLai;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
@@ -183,23 +183,23 @@ namespace OverTop.Floatings
             {
                 return;
             }
-            Union union = Algorithm.Parser(WidthTextBox.Text, 800);
+            ParsingResult union = Algorithm.ParseIntFromString(WidthTextBox.Text, 800);
             if (union.message != "")
             {
                 MessageBox.Show(union.message);
                 WidthTextBox.Text = App.currentWindow.Width.ToString();
                 e.Cancel = true;
             }
-            App.parameterClass.width = Algorithm.Parser(WidthTextBox.Text, 1200).number;
+            App.parameterClass.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
 
-            union = Algorithm.Parser(HeightTextBox.Text, 800);
+            union = Algorithm.ParseIntFromString(HeightTextBox.Text, 800);
             if (union.message != "")
             {
                 MessageBox.Show(union.message);
                 HeightTextBox.Text = App.currentWindow.Height.ToString();
                 e.Cancel = true;
             }
-            App.parameterClass.height = Algorithm.Parser(HeightTextBox.Text, 1200).number;
+            App.parameterClass.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
 
             App.parameterClass.alpha = AlphaSlider.Value;
             System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
@@ -208,7 +208,7 @@ namespace OverTop.Floatings
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
         {
-            //    Union union = Algorithm.Parser(WidthTextBox.Text, 800);
+            //    ParsingResult union = Algorithm.ParseIntFromString(WidthTextBox.Text, 800);
             //    if (union.message != "")
             //    {
             //        MessageBox.Show(union.message);
@@ -216,7 +216,7 @@ namespace OverTop.Floatings
             //        return;
             //    }
 
-            //    union = Algorithm.Parser(HeightTextBox.Text, 800);
+            //    union = Algorithm.ParseIntFromString(HeightTextBox.Text, 800);
             //    if (union.message != "")
             //    {
             //        MessageBox.Show(union.message);
@@ -225,39 +225,39 @@ namespace OverTop.Floatings
             //    }
             //    if (App.windowType == App.WindowType.Hanger)
             //    {
-            //        HangerSettings.Default.width = Algorithm.Parser(WidthTextBox.Text, 1200).number;
-            //        HangerSettings.Default.height = Algorithm.Parser(HeightTextBox.Text, 1200).number;
+            //        HangerSettings.Default.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
+            //        HangerSettings.Default.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
             //        HangerSettings.Default.alpha = AlphaSlider.Value;
             //        HangerSettings.Default.color = ColorTranslator.FromHtml(ColorTextBox.Text);
             //        HangerSettings.Default.Save();
             //    }
             //    else
             //    {
-            //        RecentSettings.Default.width = Algorithm.Parser(WidthTextBox.Text, 1200).number;
-            //        RecentSettings.Default.height = Algorithm.Parser(HeightTextBox.Text, 1200).number;
+            //        RecentSettings.Default.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
+            //        RecentSettings.Default.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
             //        RecentSettings.Default.alpha = AlphaSlider.Value;
             //        RecentSettings.Default.color = ColorTranslator.FromHtml(ColorTextBox.Text);
             //        RecentSettings.Default.Save();
             //    }
             if (App.windowType == WindowType.Hanger)
             {
-                Union union = Algorithm.Parser(WidthTextBox.Text, 800);
+                ParsingResult union = Algorithm.ParseIntFromString(WidthTextBox.Text, 800);
                 if (union.message != "")
                 {
                     MessageBox.Show(union.message);
                     WidthTextBox.Text = App.currentWindow.Width.ToString();
                     return;
                 }
-                App.hangerSettingsClass.width = Algorithm.Parser(WidthTextBox.Text, 1200).number;
+                App.hangerSettingsClass.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
 
-                union = Algorithm.Parser(HeightTextBox.Text, 800);
+                union = Algorithm.ParseIntFromString(HeightTextBox.Text, 800);
                 if (union.message != "")
                 {
                     MessageBox.Show(union.message);
                     HeightTextBox.Text = App.currentWindow.Height.ToString();
                     return;
                 }
-                App.hangerSettingsClass.height = Algorithm.Parser(HeightTextBox.Text, 1200).number;
+                App.hangerSettingsClass.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
 
                 App.hangerSettingsClass.alpha = AlphaSlider.Value;
                 System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
@@ -265,23 +265,23 @@ namespace OverTop.Floatings
             }
             else
             {
-                Union union = Algorithm.Parser(WidthTextBox.Text, 800);
+                ParsingResult union = Algorithm.ParseIntFromString(WidthTextBox.Text, 800);
                 if (union.message != "")
                 {
                     MessageBox.Show(union.message);
                     WidthTextBox.Text = App.currentWindow.Width.ToString();
                     return;
                 }
-                App.recentSettingsClass.width = Algorithm.Parser(WidthTextBox.Text, 1200).number;
+                App.recentSettingsClass.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
 
-                union = Algorithm.Parser(HeightTextBox.Text, 800);
+                union = Algorithm.ParseIntFromString(HeightTextBox.Text, 800);
                 if (union.message != "")
                 {
                     MessageBox.Show(union.message);
                     HeightTextBox.Text = App.currentWindow.Height.ToString();
                     return;
                 }
-                App.recentSettingsClass.height = Algorithm.Parser(HeightTextBox.Text, 1200).number;
+                App.recentSettingsClass.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
 
                 App.recentSettingsClass.alpha = AlphaSlider.Value;
                 System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
