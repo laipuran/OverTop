@@ -86,23 +86,6 @@ namespace OverTop.Floatings
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
-            //TextBox newTextBox = (TextBox)((StackPanel)((ScrollViewer)((Window)sender).Content).Content).Children[0];
-            //if (newTextBox.Text != string.Empty)
-            //{
-            //    TextBlock newTextBlock = new()
-            //    {
-            //        TextWrapping = TextWrapping.Wrap,
-            //        Style = (Style)FindResource("ContentTextBlockStyle"),
-            //        Text = newTextBox.Text
-            //    };
-            //    StackPanel textPanel = new();
-            //    textPanel.MouseLeftButtonDown += TextPanel_MouseLeftButtonDown;
-            //    textPanel.Children.Add(newTextBlock);
-            //    App.contentStackPanel.Children.Add(textPanel);
-            //    newTextBox.Text = "";
-            //    ((Window)sender).Close();
-            //}
-
             if (sender.GetType() != typeof(Window))
             {
                 return;
@@ -208,37 +191,6 @@ namespace OverTop.Floatings
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
         {
-            //    ParsingResult union = Algorithm.ParseIntFromString(WidthTextBox.Text, 800);
-            //    if (union.message != "")
-            //    {
-            //        MessageBox.Show(union.message);
-            //        WidthTextBox.Text = App.currentWindow.Width.ToString();
-            //        return;
-            //    }
-
-            //    union = Algorithm.ParseIntFromString(HeightTextBox.Text, 800);
-            //    if (union.message != "")
-            //    {
-            //        MessageBox.Show(union.message);
-            //        HeightTextBox.Text = App.currentWindow.Height.ToString();
-            //        return;
-            //    }
-            //    if (App.windowType == App.WindowType.Hanger)
-            //    {
-            //        HangerSettings.Default.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
-            //        HangerSettings.Default.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
-            //        HangerSettings.Default.alpha = AlphaSlider.Value;
-            //        HangerSettings.Default.color = ColorTranslator.FromHtml(ColorTextBox.Text);
-            //        HangerSettings.Default.Save();
-            //    }
-            //    else
-            //    {
-            //        RecentSettings.Default.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
-            //        RecentSettings.Default.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
-            //        RecentSettings.Default.alpha = AlphaSlider.Value;
-            //        RecentSettings.Default.color = ColorTranslator.FromHtml(ColorTextBox.Text);
-            //        RecentSettings.Default.Save();
-            //    }
             if (App.windowType == WindowType.Hanger)
             {
                 ParsingResult union = Algorithm.ParseIntFromString(WidthTextBox.Text, 800);
