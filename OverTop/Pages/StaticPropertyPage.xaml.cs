@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -49,14 +50,15 @@ namespace OverTop.Pages
                 }
             }
         }
-        private void SystemGlassBrushButton_Click(object sender, RoutedEventArgs e)
+        
+        private async void SystemGlassBrushButton_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(SystemGlassBrushButton.Content.ToString());
+            await Task.Run(() => { Clipboard.SetText(SystemGlassBrushButton.Content.ToString()); });
         }
 
-        private void DesktopBrushButton_Click(object sender, RoutedEventArgs e)
+        private async void DesktopBrushButton_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(DesktopBrushButton.Content.ToString());
+            await Task.Run(() => { Clipboard.SetText(DesktopBrushButton.Content.ToString()); });
         }
 
     }
