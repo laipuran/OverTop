@@ -53,12 +53,16 @@ namespace OverTop.Pages
         
         private async void SystemGlassBrushButton_Click(object sender, RoutedEventArgs e)
         {
+            SystemGlassBrushButton.IsEnabled = false;
             await Task.Run(() => { Clipboard.SetText(SystemGlassBrushButton.Content.ToString()); });
+            SystemGlassBrushButton.IsEnabled = true;
         }
 
         private async void DesktopBrushButton_Click(object sender, RoutedEventArgs e)
         {
+            DesktopBrushButton.IsEnabled = false;
             await Task.Run(() => { Clipboard.SetText(DesktopBrushButton.Content.ToString()); });
+            DesktopBrushButton.IsEnabled = true;
         }
 
     }
