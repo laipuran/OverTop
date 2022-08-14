@@ -14,11 +14,6 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class HangerWindow : Window
     {
-        public const int HWND_TOP = 0;
-        public const int HWND_BOTTOM = 1;
-        public const int HWND_TOPMOST = -1;
-        public const int HWND_NOTOPMOST = -2;
-        IntPtr hWnd = new();
         [DllImport("user32.dll")]
 
         private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndlnsertAfter, int X, int Y, int cx, int cy, uint Flags);
@@ -43,31 +38,8 @@ namespace OverTop.Floatings
             }
             else if (e.Key == System.Windows.Input.Key.Tab)
             {
-                if (!isBottom)
-                {
-                    isBottom = true;
-                    Topmost = false;
-                    ToBottom();
-                }
-                else
-                {
-                    isBottom = false;
-                    Topmost = true;
-                    ToTop();
-                }
+                isBottom = WindowClass.ChangeStatus(isBottom, this);
             }
-        }
-
-        private void ToBottom()
-        {
-            hWnd = new WindowInteropHelper(this).Handle;
-            SetWindowPos(hWnd, (IntPtr)HWND_BOTTOM, (int)Left, (int)Top, (int)Width, (int)Height, 0);
-        }
-
-        private void ToTop()
-        {
-            hWnd = new WindowInteropHelper(this).Handle;
-            SetWindowPos(hWnd, (IntPtr)HWND_TOPMOST, (int)Left, (int)Top, (int)Width, (int)Height, 0);
         }
 
         private void ContentStackPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -84,19 +56,13 @@ namespace OverTop.Floatings
 
         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (isBottom)
-            {
-                ToBottom();
-            }
+            WindowClass.ChangeZIndex(isBottom, this);
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
         }
 
         private void Window_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (isBottom)
-            {
-                ToBottom();
-            }
+            WindowClass.ChangeZIndex(isBottom, this);
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
         }
 
@@ -104,7 +70,7 @@ namespace OverTop.Floatings
         {
             App.currentWindow = this;
             App.contentStackPanel = ContentStackPanel;
-            App.windowType = WindowType.Hanger;
+            App.windowType = WindowClass.WindowType.Hanger;
             Window propertyWindow = new PropertyWindow
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen

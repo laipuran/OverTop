@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,13 +14,7 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class AppWindow : Window
     {
-        public const int HWND_TOP = 0;
-        public const int HWND_BOTTOM = 1;
-        public const int HWND_TOPMOST = -1;
-        public const int HWND_NOTOPMOST = -2;
-        IntPtr hWnd = new();
-        [DllImport("user32.dll")]
-        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndlnsertAfter, int X, int Y, int cx, int cy, uint Flags);
+        public Dictionary<string, string> controls = new();
 
         private static bool isBottom = false;
 
@@ -106,55 +101,19 @@ namespace OverTop.Floatings
         {
             if (e.Key == System.Windows.Input.Key.Tab)
             {
-                if (!isBottom)
-                {
-                    isBottom = true;
-                    Topmost = false;
-                    ToBottom();
-                }
-                else
-                {
-                    isBottom = false;
-                    Topmost = true;
-                    ToTop();
-                }
+                isBottom = WindowClass.ChangeStatus(isBottom, this);
             }
-        }
-
-        private void ToBottom()
-        {
-            hWnd = new WindowInteropHelper(this).Handle;
-            SetWindowPos(hWnd, (IntPtr)HWND_BOTTOM, (int)Left, (int)Top, (int)Width, (int)Height, 0);
-        }
-
-        private void ToTop()
-        {
-            hWnd = new WindowInteropHelper(this).Handle;
-            SetWindowPos(hWnd, (IntPtr)HWND_TOPMOST, (int)Left, (int)Top, (int)Width, (int)Height, 0);
         }
 
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (isBottom)
-            {
-                ToBottom();
-            }
-            else
-            {
-                ToTop();
-            }
+            WindowClass.ChangeZIndex(isBottom, this);
         }
 
         private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (isBottom)
-            {
-                ToBottom();
-            }
-            else
-            {
-                ToTop();
-            }
+            WindowClass.ChangeZIndex(isBottom, this);
         }
+
     }
 }

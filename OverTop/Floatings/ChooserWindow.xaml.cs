@@ -106,7 +106,6 @@ namespace OverTop.Floatings
             appPanel.ToolTip = ((TextBlock)((StackPanel)sender).Children[1]).ToolTip;
             appPanel.MouseLeftButtonDown += AppPanel_MouseLeftButtonDown;
             App.contentStackPanel.Children.Add(appPanel);
-            Close();
         }
 
         private void AppPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -145,7 +144,6 @@ namespace OverTop.Floatings
                     appPanel.MouseLeftButtonDown += AppPanel_MouseLeftButtonDown;
                     App.contentStackPanel.Children.Add(appPanel);
                 }
-                Close();
             }
         }
     }

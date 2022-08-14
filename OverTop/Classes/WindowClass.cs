@@ -3,16 +3,73 @@ using OverTop.Floatings;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
 using System.Windows.Media;
 
 namespace OverTop
 {
-    public enum WindowType
+    public class WindowClass
     {
-        Hanger = 0,
-        Recent = 1
+        [DllImport("user32.dll")]
+        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndlnsertAfter, int X, int Y, int cx, int cy, uint Flags);
+        
+        public enum WindowType
+        {
+            Hanger = 0,
+            Recent = 1
+        }
+
+        public enum WindowZIndex
+        {
+            HWND_TOP = 0,
+            HWND_BOTTOM = 1,
+            HWND_TOPMOST = -1,
+            HWND_NOTOPMOST = -2,
+        }
+
+        private static void ToBottom(Window window)
+        {
+            SetWindowPos(new WindowInteropHelper(window).Handle,
+                (IntPtr)WindowZIndex.HWND_BOTTOM, (int)window.Left,
+                (int)window.Top, (int)window.Width, (int)window.Height, 0);
+        }
+
+        private static void ToTop(Window window)
+        {
+            SetWindowPos(new WindowInteropHelper(window).Handle,
+                (IntPtr)WindowZIndex.HWND_TOPMOST, (int)window.Left,
+                (int)window.Top, (int)window.Width, (int)window.Height, 0);
+        }
+
+        public static void ChangeZIndex(bool isBottom, Window window)
+        {
+            if (isBottom)
+            {
+                ToBottom(window);
+            }
+            else
+            {
+                ToTop(window);
+            }
+        }
+        
+        public static bool ChangeStatus(bool isBottom, Window window)
+        {
+            if (isBottom)
+            {
+                ToTop(window);
+                window.Topmost = true;
+            }
+            else
+            {
+                ToBottom(window);
+                window.Topmost = true;
+            }
+            return !isBottom;
+        }
     }
     public class HangerWindowClass
     {

@@ -18,14 +18,7 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class RecentWindow : Window
     {
-        public const int HWND_TOP = 0;
-        public const int HWND_BOTTOM = 1;
-        public const int HWND_TOPMOST = -1;
-        public const int HWND_NOTOPMOST = -2;
-        IntPtr hWnd = new();
-        [DllImport("user32.dll")]
-        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndlnsertAfter, int X, int Y, int cx, int cy, uint Flags);
-        private bool isChild = false;
+        private bool isBottom = false;
         string Recent = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Microsoft\Windows\Recent\";
         public RecentWindow()
         {
@@ -109,7 +102,7 @@ namespace OverTop.Floatings
         private void Window_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             App.currentWindow = this;
-            App.windowType = WindowType.Recent;
+            App.windowType = WindowClass.WindowType.Recent;
             Window propertyWindow = new PropertyWindow
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
@@ -130,32 +123,16 @@ namespace OverTop.Floatings
 
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (isChild)
-            {
-                ToBottom();
-            }
+            WindowClass.ChangeZIndex(isBottom, this);
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
         }
 
         private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (isChild)
-            {
-                ToBottom();
-            }
+            WindowClass.ChangeZIndex(isBottom, this);
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
         }
 
-        private void ToBottom()
-        {
-            hWnd = new WindowInteropHelper(this).Handle;
-            SetWindowPos(hWnd, (IntPtr)HWND_BOTTOM, (int)Left, (int)Top, (int)Width, (int)Height, 0);
-        }
-        private void ToTop()
-        {
-            hWnd = new WindowInteropHelper(this).Handle;
-            SetWindowPos(hWnd, (IntPtr)HWND_TOPMOST, (int)Left, (int)Top, (int)Width, (int)Height, 0);
-        }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
@@ -164,18 +141,7 @@ namespace OverTop.Floatings
             }
             else if (e.Key == System.Windows.Input.Key.Tab)
             {
-                if (!isChild)
-                {
-                    isChild = true;
-                    Topmost = false;
-                    ToBottom();
-                }
-                else
-                {
-                    isChild = false;
-                    Topmost = true;
-                    ToTop();
-                }
+                isBottom = WindowClass.ChangeStatus(isBottom, this);
             }
         }
 
