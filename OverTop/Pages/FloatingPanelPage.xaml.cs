@@ -35,7 +35,7 @@ namespace OverTop.Pages
             newRecent.Height = App.recentSettingsClass.height;
             newRecent.Background = new SolidColorBrush(App.recentSettingsClass.backGroundColor);
             newRecent.Opacity = App.recentSettingsClass.alpha == 0.0 ? 0.8 : App.recentSettingsClass.alpha;
-            newRecent.Show();
+            newRecent.Activate();
             windows.Add(newRecent);
         }
 
@@ -48,7 +48,7 @@ namespace OverTop.Pages
             newHanger.Height = App.hangerSettingsClass.height;
             newHanger.Background = new SolidColorBrush(App.hangerSettingsClass.backGroundColor);
             newHanger.Opacity = App.hangerSettingsClass.alpha == 0.0 ? 0.8 : App.hangerSettingsClass.alpha;
-            newHanger.Show();
+            newHanger.Activate();
             windows.Add(newHanger);
         }
 
@@ -118,7 +118,7 @@ namespace OverTop.Pages
                 }
             }
             windows.Add(newHanger);
-            newHanger.Show();
+            newHanger.Activate();
         }
 
         private void NewStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

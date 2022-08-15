@@ -107,7 +107,7 @@ namespace OverTop.Floatings
         {
 #pragma warning disable CS8602 // 解引用可能出现空引用。
             App.mainWindow.Visibility = Visibility.Visible;
-            App.mainWindow.Focus();
+            App.mainWindow.Activate();
 #pragma warning restore CS8602 // 解引用可能出现空引用。
         }
 
