@@ -39,7 +39,7 @@ namespace OverTop
             Icon = GetIcon();
 
             Pages.StaticPropertyPage.ColorChanged();
-            App.appWindow.Show();
+            App.appWindow.Activate();
             GetSettingsFromFile();
         }
 

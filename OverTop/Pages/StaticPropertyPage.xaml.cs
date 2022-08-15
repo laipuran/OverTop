@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -53,16 +54,32 @@ namespace OverTop.Pages
         
         private async void SystemGlassBrushButton_Click(object sender, RoutedEventArgs e)
         {
-            SystemGlassBrushButton.IsEnabled = false;
-            await Task.Run(() => { Clipboard.SetText(SystemGlassBrushButton.Content.ToString()); });
-            SystemGlassBrushButton.IsEnabled = true;
+            await Task.Run(() => Dispatcher.BeginInvoke(new Action(() =>
+            {
+                try
+                {
+                    Clipboard.SetText(SystemGlassBrushButton.Content.ToString());
+                }
+                catch
+                {
+                    MessageBox.Show("你小子手速还挺快", "Over Top");
+                }
+            })));
         }
 
         private async void DesktopBrushButton_Click(object sender, RoutedEventArgs e)
         {
-            DesktopBrushButton.IsEnabled = false;
-            await Task.Run(() => { Clipboard.SetText(DesktopBrushButton.Content.ToString()); });
-            DesktopBrushButton.IsEnabled = true;
+            await Task.Run(() => Dispatcher.BeginInvoke(new Action(() =>
+            {
+                try
+                {
+                    Clipboard.SetText(DesktopBrushButton.Content.ToString());
+                }
+                catch
+                {
+                    MessageBox.Show("你小子手速还挺快", "Over Top");
+                }
+            })));
         }
 
     }
