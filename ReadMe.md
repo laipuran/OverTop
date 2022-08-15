@@ -1,12 +1,12 @@
 # Over Top
 ## This is a tool for deep computer users
 ### The Way to Run the App
-'''
+```
 git clone https://github.com/laipuran/OverTop
 cd ...(To the folder of the app)
 dotnet restore
 dotnet run
-'''
+```
 Congratulations! You have already started the app.
 ### This App has the features below:
 ### 0. Main Window
