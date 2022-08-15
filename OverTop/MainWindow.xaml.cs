@@ -31,7 +31,7 @@ namespace OverTop
         {
             InitializeComponent();
             App.mainWindow = this;
-
+            
             FloatingListBoxItem.IsSelected = true;
             TitleTextBlock.Text = "浮窗控制面板";
             ContentFrame.NavigationService.Navigate(FloatingUri);
@@ -39,7 +39,7 @@ namespace OverTop
             Icon = GetIcon();
 
             Pages.StaticPropertyPage.ColorChanged();
-            App.appWindow.Activate();
+            App.appWindow.Show();
             GetSettingsFromFile();
         }
 
@@ -53,7 +53,6 @@ namespace OverTop
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
             return Imaging.CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
         }
-
 
         private void GetSettingsFromFile()
         {
@@ -87,42 +86,6 @@ namespace OverTop
                     App.recentSettingsClass = item.Value;
             }
 #pragma warning restore CS8602 // 解引用可能出现空引用。
-        }
-
-        private void SetWindowPos(AppWindow window, ScreenPart part)
-        {
-            if (part == ScreenPart.TopPart)
-            {
-                window.Height = 60;
-                window.Width = 560;
-                window.ContentStackPanel.Orientation = System.Windows.Controls.Orientation.Horizontal;
-                window.Top = 0;
-                window.Left = (SystemParameters.FullPrimaryScreenWidth - window.Width) / 2;
-            }
-            else if (part == ScreenPart.BottomPart)
-            {
-                window.Height = 60;
-                window.Width = 560;
-                window.ContentStackPanel.Orientation = System.Windows.Controls.Orientation.Horizontal;
-                window.Top = SystemParameters.FullPrimaryScreenHeight - window.Height;
-                window.Left = (SystemParameters.FullPrimaryScreenWidth - window.Width) / 2;
-            }
-            else if (part == ScreenPart.LeftPart)
-            {
-                window.Height = 560;
-                window.Width = 60;
-                window.ContentStackPanel.Orientation = System.Windows.Controls.Orientation.Vertical;
-                window.Top = (SystemParameters.FullPrimaryScreenHeight - window.Height) / 2;
-                window.Left = 0;
-            }
-            else
-            {
-                window.Height = 560;
-                window.Width = 60;
-                window.ContentStackPanel.Orientation = System.Windows.Controls.Orientation.Vertical;
-                window.Top = (SystemParameters.FullPrimaryScreenHeight - window.Height) / 2;
-                window.Left = SystemParameters.FullPrimaryScreenWidth - window.Width;
-            }
         }
 
         private void NavigationButton_Click(object sender, RoutedEventArgs e)

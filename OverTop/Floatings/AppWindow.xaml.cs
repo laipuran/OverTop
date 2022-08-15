@@ -20,6 +20,9 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class AppWindow : Window
     {
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+
         private static bool isBottom = false;
         private static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\AppWindow.json";
         public static Dictionary<string, StackPanel> controls = new();
@@ -165,11 +168,25 @@ namespace OverTop.Floatings
                     appPanel.Margin = margin;
                     appPanel.ToolTip = item;
                     appPanel.MouseLeftButtonDown += AppPanel_MouseLeftButtonDown;
+                    appPanel.AllowDrop = true;
+                    appPanel.Drop += AppPanel_Drop;
+                    controls.Add(item, appPanel);
                     ContentStackPanel.Children.Add(appPanel);
                 }
                 catch { }
             }
             SetWindowPos(appWindowClass.screenPart);
+        }
+
+        private void AppPanel_Drop(object sender, DragEventArgs e)
+        {
+            string path = Path.GetFileNameWithoutExtension(((System.Windows.Controls.Image)((StackPanel)sender).Children[0]).ToolTip.ToString());
+            Process[] processes = Process.GetProcessesByName(path);
+            foreach (Process item in processes)
+            {
+                IntPtr hWnd = item.Handle;
+                ShowWindowAsync(hWnd, 5);
+            }
         }
     }
 }

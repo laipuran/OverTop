@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,6 +18,9 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class ChooserWindow : Window
     {
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+
         string startMenu = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
         public ChooserWindow()
         {
@@ -110,8 +114,20 @@ namespace OverTop.Floatings
             appPanel.Margin = margin;
             appPanel.ToolTip = path;
             appPanel.MouseLeftButtonDown += AppPanel_MouseLeftButtonDown;
+            appPanel.AllowDrop = true;
+            appPanel.Drop += AppPanel_Drop;
             AppWindow.controls.Add(path, appPanel);
             App.contentStackPanel.Children.Add(appPanel);
+        }
+
+        private void AppPanel_Drop(object sender, DragEventArgs e)
+        {
+            Process[] processes = Process.GetProcessesByName((Path.GetFileNameWithoutExtension(((System.Windows.Controls.Image)((StackPanel)sender).Children[0]).ToolTip.ToString())));
+            foreach (Process item in processes)
+            {
+                IntPtr hWnd = item.Handle;
+                ShowWindowAsync(hWnd, 5);
+            }
         }
 
         private void AppPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

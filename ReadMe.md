@@ -51,3 +51,4 @@ Congratulations! You have already started the app.
 ### 2. Get some values from SystemParameters
 - Get Window Glass Color
 - Get Desktop Brush
+- Click Fast to find the painted eggshell
