@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:OverTop.Floatings"
         mc:Ignorable="d"
         Title="窗口属性" Height="400" Width="250"
-        Topmost="True"
+        Topmost="True" MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Closing="Window_Closing"
         ResizeMode="NoResize"
         KeyDown="Window_KeyDown">
@@ -38,7 +38,6 @@
             
             <TextBlock Text="窗口长度 Height：" Margin="0,10,0,0"/>
             <TextBox x:Name="HeightTextBox" Style="{StaticResource ContentTextBoxStyle}" Margin="5,10,5,0"/>
-
 
             <TextBlock Text="窗口颜色 Color：" Margin="0,10,0,0"/>
             <TextBox x:Name="ColorTextBox" Style="{StaticResource ContentTextBoxStyle}" Margin="5,10,5,0"/>

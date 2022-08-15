@@ -20,9 +20,9 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class AppWindow : Window
     {
-        public Dictionary<string, string> controls = new();
-        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\AppWindow.json";
         private static bool isBottom = false;
+        private static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\AppWindow.json";
+        public static Dictionary<string, StackPanel> controls = new();
         
         public AppWindow()
         {
@@ -42,6 +42,11 @@ namespace OverTop.Floatings
             if (Keyboard.IsKeyDown(Key.C))
             {
                 ContentStackPanel.Children.Clear();
+                return;
+            }
+            else if (Keyboard.IsKeyDown(Key.R))
+            {
+                ContentStackPanel.Children.Remove((UIElement)sender);
                 return;
             }
             DragMove();

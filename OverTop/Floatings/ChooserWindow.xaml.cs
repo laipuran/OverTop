@@ -96,6 +96,11 @@ namespace OverTop.Floatings
 
         private void NewStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            string path = (string)((TextBlock)((StackPanel)sender).Children[1]).ToolTip;
+            if (AppWindow.controls.ContainsKey(path))
+            {
+                return;
+            }
             StackPanel appPanel = new();
             System.Windows.Controls.Image image = new();
             image.Source = ((System.Windows.Controls.Image)((StackPanel)sender).Children[0]).Source;
@@ -103,8 +108,9 @@ namespace OverTop.Floatings
             Thickness margin = new(10, 10, 10, 10);
             appPanel.Children.Add(image);
             appPanel.Margin = margin;
-            appPanel.ToolTip = ((TextBlock)((StackPanel)sender).Children[1]).ToolTip;
+            appPanel.ToolTip = path;
             appPanel.MouseLeftButtonDown += AppPanel_MouseLeftButtonDown;
+            AppWindow.controls.Add(path, appPanel);
             App.contentStackPanel.Children.Add(appPanel);
         }
 
@@ -122,7 +128,7 @@ namespace OverTop.Floatings
             {
                 Multiselect = true,
                 InitialDirectory = path,
-                Filter = "可运行 文件|*.exe",
+                Filter = "可运行文件|*.exe",
                 FilterIndex = 1
             };
             if (openFileDialog.ShowDialog() == true)
@@ -144,6 +150,23 @@ namespace OverTop.Floatings
                     appPanel.MouseLeftButtonDown += AppPanel_MouseLeftButtonDown;
                     App.contentStackPanel.Children.Add(appPanel);
                 }
+            }
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.R))
+            {
+                ContentStackPanel.Children.Clear();
+            }
+            DragMove();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Close();
             }
         }
     }

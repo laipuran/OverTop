@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OverTop.Floatings"
-        mc:Ignorable="d"
+        mc:Ignorable="d" KeyDown="Window_KeyDown"
         Title="选择窗口" Height="400" Width="250"
-        Topmost="True" ShowInTaskbar="False">
+        Topmost="True" ShowInTaskbar="False"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <ScrollViewer>
         <StackPanel x:Name="ContentStackPanel" Margin="5,5,5,5"
                     HorizontalAlignment="Left">
