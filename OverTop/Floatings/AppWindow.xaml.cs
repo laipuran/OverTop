@@ -40,16 +40,16 @@ namespace OverTop.Floatings
             {
 #pragma warning disable CS8604 // 引用类型参数可能为 null。
                 controls.Remove(((StackPanel)sender).ToolTip.ToString());
-#pragma warning restore CS8604 // 引用类型参数可能为 null。
                 ((StackPanel)((StackPanel)sender).Parent).Children.Remove(sender as UIElement);
-                return;
             }
             else if (Keyboard.IsKeyDown(Key.LeftCtrl))
             {
-#pragma warning disable CS8604 // 引用类型参数可能为 null。
-                MessageBox.Show(Directory.GetDirectoryRoot(((StackPanel)sender).ToolTip.ToString()));
+#pragma warning disable CS8602 // 解引用可能出现空引用。
+                Process.Start("explorer.exe", Directory.GetParent(((StackPanel)sender).ToolTip.ToString()).ToString());
+#pragma warning restore CS8602 // 解引用可能出现空引用。
             }
-            Process.Start("explorer.exe", ((StackPanel)sender).ToolTip.ToString());
+            else
+                Process.Start("explorer.exe", ((StackPanel)sender).ToolTip.ToString());
 #pragma warning restore CS8604 // 引用类型参数可能为 null。
         }
         
@@ -60,8 +60,11 @@ namespace OverTop.Floatings
                 ContentStackPanel.Children.Clear();
                 return;
             }
-            DragMove();
-            await Task.Run(() => Dispatcher.BeginInvoke(new Action(TrySetPosition)));
+            else if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+                await Task.Run(() => Dispatcher.BeginInvoke(new Action(TrySetPosition)));
+            }
         }
 
         private void Window_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
