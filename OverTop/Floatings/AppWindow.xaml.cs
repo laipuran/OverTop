@@ -30,10 +30,10 @@ namespace OverTop.Floatings
         public AppWindow()
         {
             InitializeComponent();
-            LoadIcons();
+            LoadFiles();
         }
 
-        private void AppPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        public static void AppPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 #pragma warning disable CS8604 // 引用类型参数可能为 null。
             Process.Start("explorer.exe", ((StackPanel)sender).ToolTip.ToString());
@@ -45,11 +45,6 @@ namespace OverTop.Floatings
             if (Keyboard.IsKeyDown(Key.C))
             {
                 ContentStackPanel.Children.Clear();
-                return;
-            }
-            else if (Keyboard.IsKeyDown(Key.R))
-            {
-                ContentStackPanel.Children.Remove((UIElement)sender);
                 return;
             }
             DragMove();
@@ -137,7 +132,7 @@ namespace OverTop.Floatings
             WindowClass.ChangeZIndex(isBottom, this);
         }
 
-        private void LoadIcons()
+        private void LoadFiles()
         {
             if (!File.Exists(filePath))
             {
@@ -153,9 +148,9 @@ namespace OverTop.Floatings
             foreach (string item in appWindowClass.filePath)
 #pragma warning restore CS8602 // 解引用可能出现空引用。
             {
+                StackPanel appPanel = new();
                 try
                 {
-                    StackPanel appPanel = new();
                     System.Windows.Controls.Image image = new();
 #pragma warning disable CS8602 // 解引用可能出现空引用。
                     Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(item).ToBitmap();
@@ -169,23 +164,32 @@ namespace OverTop.Floatings
                     appPanel.ToolTip = item;
                     appPanel.MouseLeftButtonDown += AppPanel_MouseLeftButtonDown;
                     appPanel.AllowDrop = true;
-                    appPanel.Drop += AppPanel_Drop;
                     controls.Add(item, appPanel);
-                    ContentStackPanel.Children.Add(appPanel);
                 }
-                catch { }
+                catch
+                {
+                    continue;
+                }
+                ContentStackPanel.Children.Add(appPanel);
             }
             SetWindowPos(appWindowClass.screenPart);
         }
 
-        private void AppPanel_Drop(object sender, DragEventArgs e)
+        public static void AppPanel_Drop(object sender, DragEventArgs e)
         {
-            string path = Path.GetFileNameWithoutExtension(((System.Windows.Controls.Image)((StackPanel)sender).Children[0]).ToolTip.ToString());
-            Process[] processes = Process.GetProcessesByName(path);
-            foreach (Process item in processes)
+            if (sender is StackPanel)
             {
-                IntPtr hWnd = item.Handle;
-                ShowWindowAsync(hWnd, 5);
+                try
+                {
+                    string name = Path.GetFileNameWithoutExtension((String)((System.Windows.Controls.Image)((StackPanel)sender).Children[0]).ToolTip);
+                    Process[] processes = Process.GetProcessesByName(name);
+                    foreach (Process item in processes)
+                    {
+                        IntPtr hWnd = item.Handle;
+                        ShowWindowAsync(hWnd, 5);
+                    }
+                }
+                catch { }
             }
         }
     }

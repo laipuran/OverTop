@@ -21,7 +21,8 @@ namespace OverTop.Floatings
         [DllImport("user32.dll")]
         private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
 
-        string startMenu = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
+        string commonStartMenu = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
+        string startUp = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
         public ChooserWindow()
         {
             InitializeComponent();
@@ -36,17 +37,14 @@ namespace OverTop.Floatings
             try
             {
 
-                foreach (string file in Directory.GetFiles(startMenu))
+                foreach (string file in Directory.GetFiles(commonStartMenu))
                 {
                     filePath.Add(file);
                 }
 
-                foreach (string folder in Directory.GetDirectories(startMenu))
+                foreach (string file in Directory.GetFiles(startUp))
                 {
-                    foreach (string file in Directory.GetFiles(folder))
-                    {
-                        filePath.Add(file);
-                    }
+                    filePath.Add(file);
                 }
             }
             catch { }
@@ -63,8 +61,11 @@ namespace OverTop.Floatings
 #pragma warning disable CS8602 // 解引用可能出现空引用。
                 Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(wshShortcut.TargetPath).ToBitmap();
 #pragma warning restore CS8602 // 解引用可能出现空引用。
-                fileInfo.Add(wshShortcut.TargetPath, icon);
-
+                try
+                {
+                    fileInfo.Add(wshShortcut.TargetPath, icon);
+                }
+                catch { }
             }
 
             foreach (KeyValuePair<string, Bitmap> keyPair in fileInfo)
@@ -113,29 +114,20 @@ namespace OverTop.Floatings
             appPanel.Children.Add(image);
             appPanel.Margin = margin;
             appPanel.ToolTip = path;
-            appPanel.MouseLeftButtonDown += AppPanel_MouseLeftButtonDown;
+            appPanel.MouseLeftButtonDown += AppWindow.AppPanel_MouseLeftButtonDown;
             appPanel.AllowDrop = true;
-            appPanel.Drop += AppPanel_Drop;
-            AppWindow.controls.Add(path, appPanel);
+            appPanel.Drop += AppWindow.AppPanel_Drop;
+            try
+            {
+                AppWindow.controls.Add(path, appPanel);
+            }
+            catch
+            {
+                return;
+            }
             App.contentStackPanel.Children.Add(appPanel);
         }
 
-        private void AppPanel_Drop(object sender, DragEventArgs e)
-        {
-            Process[] processes = Process.GetProcessesByName((Path.GetFileNameWithoutExtension(((System.Windows.Controls.Image)((StackPanel)sender).Children[0]).ToolTip.ToString())));
-            foreach (Process item in processes)
-            {
-                IntPtr hWnd = item.Handle;
-                ShowWindowAsync(hWnd, 5);
-            }
-        }
-
-        private void AppPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-#pragma warning disable CS8604 // 引用类型参数可能为 null。
-            Process.Start("explorer.exe", ((StackPanel)sender).ToolTip.ToString());
-#pragma warning restore CS8604 // 引用类型参数可能为 null。
-        }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
@@ -163,7 +155,7 @@ namespace OverTop.Floatings
                     appPanel.Children.Add(image);
                     appPanel.Margin = margin;
                     appPanel.ToolTip = fileName;
-                    appPanel.MouseLeftButtonDown += AppPanel_MouseLeftButtonDown;
+                    appPanel.MouseLeftButtonDown += AppWindow.AppPanel_MouseLeftButtonDown;
                     App.contentStackPanel.Children.Add(appPanel);
                 }
             }
@@ -174,6 +166,8 @@ namespace OverTop.Floatings
             if (Keyboard.IsKeyDown(Key.R))
             {
                 ContentStackPanel.Children.Clear();
+                GetShortCuts();
+                return;
             }
             DragMove();
         }
