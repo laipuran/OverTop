@@ -16,6 +16,7 @@
             <Button Content="复制" x:Name="SystemGlassBrushButton"
                     Style="{StaticResource ContentButtonStyle}"
                     Foreground="{x:Static SystemParameters.WindowGlassBrush}"
+                    FontWeight="Bold"
                     Click="SystemGlassBrushButton_Click"/>
         </StackPanel>
 
@@ -25,6 +26,7 @@
                        VerticalAlignment="Center"/>
             <Button Content="复制" x:Name="DesktopBrushButton"
                     Foreground="{DynamicResource {x:Static SystemColors.DesktopBrush}}"
+                    FontWeight="Bold"
                     Style="{StaticResource ContentButtonStyle}"
                     Click="DesktopBrushButton_Click"/>                    
         </StackPanel>
