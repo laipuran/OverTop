@@ -21,7 +21,7 @@ namespace OverTop.Floatings
         [DllImport("user32.dll")]
         private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
 
-        string commonStartMenu = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
+        string commonPrograms = Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms);
         string startUp = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
         public ChooserWindow()
         {
@@ -36,28 +36,33 @@ namespace OverTop.Floatings
             Dictionary<string, Bitmap> fileInfo = new();
             try
             {
-
-                foreach (string file in Directory.GetFiles(commonStartMenu))
+                foreach (string file in Directory.GetFiles(commonPrograms))
                 {
                     filePath.Add(file);
                 }
-
-                foreach (string file in Directory.GetFiles(startUp))
+                foreach (string folder in Directory.GetDirectories(commonPrograms))
                 {
-                    filePath.Add(file);
+                    foreach (string file in Directory.GetFiles(folder))
+                    {
+                        filePath.Add(file);
+                    }
                 }
+
             }
             catch { }
 
             foreach (string file in filePath)
             {
-                if (!file.EndsWith(".lnk"))
+                if ((!file.EndsWith(".lnk"))|file.Contains("setup")|file.Contains("ninst")|file.Contains("unins000"))
                 {
                     continue;
                 }
                 IWshRuntimeLibrary.WshShell shell = new();
                 IWshRuntimeLibrary.IWshShortcut wshShortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(file);
-
+                if (!wshShortcut.TargetPath.EndsWith(".exe"))
+                {
+                    continue;
+                }
 #pragma warning disable CS8602 // 解引用可能出现空引用。
                 Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(wshShortcut.TargetPath).ToBitmap();
 #pragma warning restore CS8602 // 解引用可能出现空引用。
@@ -82,9 +87,10 @@ namespace OverTop.Floatings
                 BitmapSource bitmapSource = System.Windows.Interop.Imaging
                     .CreateBitmapSourceFromHBitmap(keyPair.Value.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                 image.Source = bitmapSource;
+                
                 TextBlock textBlock = new()
                 {
-                    Text = System.IO.Path.GetFileName(keyPair.Key),
+                    Text = System.IO.Path.GetFileNameWithoutExtension(keyPair.Key),
                     ToolTip = keyPair.Key,
                     Style = (Style)FindResource("ContentTextBlockStyle"),
                     Margin = margin
@@ -102,30 +108,7 @@ namespace OverTop.Floatings
         private void NewStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             string path = (string)((TextBlock)((StackPanel)sender).Children[1]).ToolTip;
-            if (AppWindow.controls.ContainsKey(path))
-            {
-                return;
-            }
-            StackPanel appPanel = new();
-            System.Windows.Controls.Image image = new();
-            image.Source = ((System.Windows.Controls.Image)((StackPanel)sender).Children[0]).Source;
-            image.Width = 40;
-            Thickness margin = new(10, 10, 10, 10);
-            appPanel.Children.Add(image);
-            appPanel.Margin = margin;
-            appPanel.ToolTip = path;
-            appPanel.MouseLeftButtonDown += AppWindow.AppPanel_MouseLeftButtonDown;
-            appPanel.AllowDrop = true;
-            appPanel.Drop += AppWindow.AppPanel_Drop;
-            try
-            {
-                AppWindow.controls.Add(path, appPanel);
-            }
-            catch
-            {
-                return;
-            }
-            App.contentStackPanel.Children.Add(appPanel);
+            AppWindow.AddFile(path, ((System.Windows.Controls.Image)((StackPanel)sender).Children[0]).Source);
         }
 
 
@@ -143,20 +126,11 @@ namespace OverTop.Floatings
             {
                 foreach (string fileName in openFileDialog.FileNames)
                 {
-                    StackPanel appPanel = new();
-                    System.Windows.Controls.Image image = new();
 #pragma warning disable CS8602 // 解引用可能出现空引用。
                     Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(fileName).ToBitmap();
 #pragma warning restore CS8602 // 解引用可能出现空引用。
-                    image.Source = System.Windows.Interop.Imaging
-                        .CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                    image.Width = 40;
-                    Thickness margin = new(10, 10, 10, 10);
-                    appPanel.Children.Add(image);
-                    appPanel.Margin = margin;
-                    appPanel.ToolTip = fileName;
-                    appPanel.MouseLeftButtonDown += AppWindow.AppPanel_MouseLeftButtonDown;
-                    App.contentStackPanel.Children.Add(appPanel);
+                    AppWindow.AddFile(fileName, System.Windows.Interop.Imaging
+                        .CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()));
                 }
             }
         }

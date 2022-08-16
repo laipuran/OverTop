@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static OverTop.AppWindowClass;
 
@@ -30,12 +31,24 @@ namespace OverTop.Floatings
         public AppWindow()
         {
             InitializeComponent();
-            LoadFiles();
+            LoadFilesFromString();
         }
 
         public static void AppPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if (Keyboard.IsKeyDown(Key.R))
+            {
 #pragma warning disable CS8604 // 引用类型参数可能为 null。
+                controls.Remove(((StackPanel)sender).ToolTip.ToString());
+#pragma warning restore CS8604 // 引用类型参数可能为 null。
+                ((StackPanel)((StackPanel)sender).Parent).Children.Remove(sender as UIElement);
+                return;
+            }
+            else if (Keyboard.IsKeyDown(Key.LeftCtrl))
+            {
+#pragma warning disable CS8604 // 引用类型参数可能为 null。
+                MessageBox.Show(Directory.GetDirectoryRoot(((StackPanel)sender).ToolTip.ToString()));
+            }
             Process.Start("explorer.exe", ((StackPanel)sender).ToolTip.ToString());
 #pragma warning restore CS8604 // 引用类型参数可能为 null。
         }
@@ -132,7 +145,7 @@ namespace OverTop.Floatings
             WindowClass.ChangeZIndex(isBottom, this);
         }
 
-        private void LoadFiles()
+        private void LoadFilesFromString()
         {
             if (!File.Exists(filePath))
             {
@@ -148,49 +161,50 @@ namespace OverTop.Floatings
             foreach (string item in appWindowClass.filePath)
 #pragma warning restore CS8602 // 解引用可能出现空引用。
             {
-                StackPanel appPanel = new();
                 try
                 {
                     System.Windows.Controls.Image image = new();
 #pragma warning disable CS8602 // 解引用可能出现空引用。
                     Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(item).ToBitmap();
 #pragma warning restore CS8602 // 解引用可能出现空引用。
-                    image.Source = System.Windows.Interop.Imaging
-                        .CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                    image.Width = 40;
-                    Thickness margin = new(10, 10, 10, 10);
-                    appPanel.Children.Add(image);
-                    appPanel.Margin = margin;
-                    appPanel.ToolTip = item;
-                    appPanel.MouseLeftButtonDown += AppPanel_MouseLeftButtonDown;
-                    appPanel.AllowDrop = true;
-                    controls.Add(item, appPanel);
+                    App.contentStackPanel = ContentStackPanel;
+                    AddFile(item, System.Windows.Interop.Imaging
+                        .CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()));
                 }
                 catch
                 {
                     continue;
                 }
-                ContentStackPanel.Children.Add(appPanel);
             }
             SetWindowPos(appWindowClass.screenPart);
         }
 
-        public static void AppPanel_Drop(object sender, DragEventArgs e)
+        public static void AddFile(string path, ImageSource source)
         {
-            if (sender is StackPanel)
+            if (AppWindow.controls.ContainsKey(path))
             {
-                try
-                {
-                    string name = Path.GetFileNameWithoutExtension((String)((System.Windows.Controls.Image)((StackPanel)sender).Children[0]).ToolTip);
-                    Process[] processes = Process.GetProcessesByName(name);
-                    foreach (Process item in processes)
-                    {
-                        IntPtr hWnd = item.Handle;
-                        ShowWindowAsync(hWnd, 5);
-                    }
-                }
-                catch { }
+                return;
             }
+            StackPanel appPanel = new();
+            System.Windows.Controls.Image image = new();
+            image.Source = source;
+            image.Width = 40;
+            Thickness margin = new(10, 10, 10, 10);
+            appPanel.Children.Add(image);
+            appPanel.Margin = margin;
+            appPanel.ToolTip = path;
+            appPanel.MouseLeftButtonDown += AppWindow.AppPanel_MouseLeftButtonDown;
+            appPanel.AllowDrop = true;
+            try
+            {
+                AppWindow.controls.Add(path, appPanel);
+            }
+            catch
+            {
+                return;
+            }
+            App.contentStackPanel.Children.Add(appPanel);
         }
+
     }
 }
