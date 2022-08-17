@@ -216,5 +216,32 @@ namespace OverTop
             File.WriteAllText(filePath, json);
 
         }
+
+        public static void AddFile(string path, ImageSource source)
+        {
+            if (AppWindow.controls.ContainsKey(path))
+            {
+                return;
+            }
+            StackPanel appPanel = new();
+            System.Windows.Controls.Image image = new();
+            image.Source = source;
+            image.Width = 40;
+            Thickness margin = new(10, 10, 10, 10);
+            appPanel.Children.Add(image);
+            appPanel.Margin = margin;
+            appPanel.ToolTip = path;
+            appPanel.MouseLeftButtonDown += AppWindow.AppPanel_MouseLeftButtonDown;
+            appPanel.AllowDrop = true;
+            try
+            {
+                AppWindow.controls.Add(path, appPanel);
+            }
+            catch
+            {
+                return;
+            }
+            App.contentStackPanel.Children.Add(appPanel);
+        }
     }
 }
