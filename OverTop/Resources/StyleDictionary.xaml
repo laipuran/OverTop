@@ -30,6 +30,8 @@
         <Setter Property="MinWidth" Value="60"/>
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="FontWeight" Value="Thin"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
         <Style.Triggers>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="FontWeight" Value="Regular"/>
