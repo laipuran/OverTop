@@ -21,65 +21,69 @@ namespace OverTop.Floatings
         [DllImport("user32.dll")]
         private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
 
+        List<String> filePaths = new();
         List<String> folders = new();
-        string programs = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
-        string startMenu = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
+        string commonStartMenu = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
+        string commonPrograms = Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms);
+
         public ChooserWindow()
         {
             InitializeComponent();
+            folders.Add(commonStartMenu);
+            folders.Add(commonPrograms);
             GetShortCuts();
-            folders.Add(programs);
-            folders.Add(startMenu);
+        }
+
+        private void GetFiles(string path)
+        {
+            foreach (string file in Directory.GetFiles(path))
+            {
+                filePaths.Add(file);
+            }
+            string[] directories = Directory.GetDirectories(path);
+            if (directories.Length >=0)
+            {
+                foreach (string directory in directories)
+                {
+                    GetFiles(directory);
+                }
+            }
         }
 
         private async void GetShortCuts()
         {
-            List<string> filePath = new();
-            Dictionary<string, Bitmap> fileInfo = new();
+            SortedDictionary<string, string> fileInfo = new();
             try
             {
                 foreach (string folder in folders)
                 {
-                    foreach (string file in Directory.GetDirectories(folder))
-                    {
-                        filePath.Add(file);
-                    }
+                    GetFiles(folder);
                 }
-
-                foreach (string folder in Directory.GetDirectories(programs))
-                {
-                    foreach (string file in Directory.GetFiles(folder))
-                    {
-                        filePath.Add(file);
-                    }
-                }
-
             }
             catch { }
 
-            foreach (string file in filePath)
+            foreach (string file in filePaths)
             {
-                if ((!file.EndsWith(".lnk"))|file.Contains("setup")|file.Contains("ninst")|file.Contains("unins000"))
+                if (!file.EndsWith(".lnk"))
                 {
                     continue;
                 }
+
                 IWshRuntimeLibrary.WshShell shell = new();
                 IWshRuntimeLibrary.IWshShortcut wshShortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(file);
                 if (!wshShortcut.TargetPath.EndsWith(".exe"))
                 {
                     continue;
                 }
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-                Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(wshShortcut.TargetPath).ToBitmap();
-#pragma warning restore CS8602 // 解引用可能出现空引用。
-                try
+                string fileName = Path.GetFileNameWithoutExtension(wshShortcut.TargetPath);
+                if (fileInfo.ContainsKey(fileName))
                 {
-                    fileInfo.Add(wshShortcut.TargetPath, icon);
+                    continue;
                 }
-                catch { }
+                fileInfo.Add(Path.GetFileNameWithoutExtension(wshShortcut.TargetPath), wshShortcut.TargetPath);
             }
 
-            foreach (KeyValuePair<string, Bitmap> keyPair in fileInfo)
+            foreach (KeyValuePair<string, string> keyPair in fileInfo)
             {
                 Thickness margin = new(10, 0, 0, 0);
                 Thickness panelMargin = new(5, 5, 5, 5);
@@ -90,14 +94,17 @@ namespace OverTop.Floatings
                     Orientation = Orientation.Horizontal
                 };
                 System.Windows.Controls.Image image = new();
+#pragma warning disable CS8602 // 解引用可能出现空引用。
+                Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(keyPair.Value).ToBitmap();
+#pragma warning restore CS8602 // 解引用可能出现空引用。
                 BitmapSource bitmapSource = System.Windows.Interop.Imaging
-                    .CreateBitmapSourceFromHBitmap(keyPair.Value.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                    .CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                 image.Source = bitmapSource;
-                
+
                 TextBlock textBlock = new()
                 {
-                    Text = System.IO.Path.GetFileNameWithoutExtension(keyPair.Key),
-                    ToolTip = keyPair.Key,
+                    Text = keyPair.Key,
+                    ToolTip = keyPair.Value,
                     Style = (Style)FindResource("ContentTextBlockStyle"),
                     Margin = margin
                 };
@@ -160,6 +167,8 @@ namespace OverTop.Floatings
             if (Keyboard.IsKeyDown(Key.R))
             {
                 ContentStackPanel.Children.Clear();
+                filePaths.Clear();
+                //TODO: Remember to clear fileInfo after something
                 GetShortCuts();
                 return;
             }
