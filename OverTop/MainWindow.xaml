@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen"
         Title="Over Top" Height="450" Width="750"
         Keyboard.KeyDown="Window_KeyDown"
-        Closing="Window_Closing">
+        Closing="Window_Closing" WindowStyle="SingleBorderWindow">
     
     <Window.Resources>
         <Storyboard x:Key="MenuOpen">
@@ -30,42 +30,44 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Stretch"
                     Width="42">
-            <Button x:Name="BackButton" Content="&#xE72B;"
+            <StackPanel x:Name="Controller">
+                <Button x:Name="BackButton" Content="&#xE72B;"
                     Style="{StaticResource NavigationButtonStyle}"
                     Click="BackButton_Click"/>
-            
-            <Button x:Name="NavigationButton" Content="&#xE700;"
+
+                <Button x:Name="NavigationButton" Content="&#xE700;"
                     Style="{StaticResource NavigationButtonStyle}"
                     Click="NavigationButton_Click"/>
-            
-            <ListBox x:Name="ContentListBox" Style="{StaticResource ClearListBoxStyle}"
+            </StackPanel>
+            <StackPanel x:Name="Selector">
+                <ListBox x:Name="ContentListBox" Style="{StaticResource ClearListBoxStyle}"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                      SelectionMode="Single" SelectionChanged="ContentListBox_SelectionChanged"
-                     Margin="-1,10,0,0">
-                <ListBoxItem x:Name="FloatingListBoxItem"
+                     Margin="-1,-1,-1,-1">
+                    <ListBoxItem x:Name="FloatingListBoxItem"
                              Style="{StaticResource ContentListBoxItemStyle}">
-                    <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
-                        <TextBlock Text="&#xE81E;"
+                        <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
+                            <TextBlock Text="&#xE81E;"
                                 Style="{StaticResource IconTextBlockStyle}"/>
-                        <TextBlock Text="浮窗控制面板"
+                            <TextBlock Text="浮窗控制面板"
                            Style="{StaticResource NavigationTextBlockStyle}"
                            Margin="5,0,0,0"/>
-                    </StackPanel>
-                </ListBoxItem>
-                
-                <ListBoxItem x:Name="PropertyListBoxItem"
-                             Style="{StaticResource ContentListBoxItemStyle}">
-                    <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
-                        <TextBlock Text="&#xE155;"
-                                Style="{StaticResource IconTextBlockStyle}"/>
-                        <TextBlock Text="系统静态属性"
-                           Style="{StaticResource NavigationTextBlockStyle}"
-                           Margin="5,0,0,0"/>
-                    </StackPanel>
-                </ListBoxItem>
+                        </StackPanel>
+                    </ListBoxItem>
 
-            </ListBox>
-            
+                    <ListBoxItem x:Name="PropertyListBoxItem"
+                             Style="{StaticResource ContentListBoxItemStyle}">
+                        <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
+                            <TextBlock Text="&#xE155;"
+                                Style="{StaticResource IconTextBlockStyle}"/>
+                            <TextBlock Text="系统动态属性"
+                           Style="{StaticResource NavigationTextBlockStyle}"
+                           Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
+            </StackPanel>
+
         </StackPanel>
         <TextBlock DockPanel.Dock="Top" x:Name="TitleTextBlock" Style="{StaticResource TitleTextBlockStyle}" Margin="20,10,0,0"/>
         <ScrollViewer DockPanel.Dock="Right" Margin="20,20,0,0">
