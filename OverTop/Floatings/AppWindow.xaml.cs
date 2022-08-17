@@ -36,23 +36,26 @@ namespace OverTop.Floatings
 
         public static void AppPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (Keyboard.IsKeyDown(Key.R))
+#pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
+            string path = ((StackPanel)sender).ToolTip.ToString();
+#pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
+            if (Keyboard.IsKeyDown(Key.R) | !Directory.Exists(path))
             {
 #pragma warning disable CS8604 // 引用类型参数可能为 null。
-                controls.Remove(((StackPanel)sender).ToolTip.ToString());
+                controls.Remove(path);
                 ((StackPanel)((StackPanel)sender).Parent).Children.Remove(sender as UIElement);
             }
             else if (Keyboard.IsKeyDown(Key.LeftCtrl))
             {
 #pragma warning disable CS8602 // 解引用可能出现空引用。
-                Process.Start("explorer.exe", Directory.GetParent(((StackPanel)sender).ToolTip.ToString()).ToString());
+                Process.Start("explorer.exe", Directory.GetParent(path).ToString());
 #pragma warning restore CS8602 // 解引用可能出现空引用。
             }
             else
-                Process.Start("explorer.exe", ((StackPanel)sender).ToolTip.ToString());
+                Process.Start("explorer.exe", path);
 #pragma warning restore CS8604 // 引用类型参数可能为 null。
         }
-        
+
         private async void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.C))
@@ -182,32 +185,6 @@ namespace OverTop.Floatings
             SetWindowPos(appWindowClass.screenPart);
         }
 
-        public static void AddFile(string path, ImageSource source)
-        {
-            if (AppWindow.controls.ContainsKey(path))
-            {
-                return;
-            }
-            StackPanel appPanel = new();
-            System.Windows.Controls.Image image = new();
-            image.Source = source;
-            image.Width = 40;
-            Thickness margin = new(10, 10, 10, 10);
-            appPanel.Children.Add(image);
-            appPanel.Margin = margin;
-            appPanel.ToolTip = path;
-            appPanel.MouseLeftButtonDown += AppWindow.AppPanel_MouseLeftButtonDown;
-            appPanel.AllowDrop = true;
-            try
-            {
-                AppWindow.controls.Add(path, appPanel);
-            }
-            catch
-            {
-                return;
-            }
-            App.contentStackPanel.Children.Add(appPanel);
-        }
 
     }
 }
