@@ -5,6 +5,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
@@ -51,16 +52,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="HangerSettings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>HangerSettings.settings</DependentUpon>
-    </Compile>
-    <Compile Update="RecentSettings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>RecentSettings.settings</DependentUpon>
-    </Compile>
     <Compile Update="Resources\ResourcesFile.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
