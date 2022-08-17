@@ -143,7 +143,7 @@ namespace OverTop
         {
             if ("/" + ContentFrame.Source.ToString() == PropertyUri.ToString())
             {
-                TitleTextBlock.Text = "系统静态属性";
+                TitleTextBlock.Text = "系统动态属性";
                 PropertyListBoxItem.IsSelected = true;
             }
             else if ("/" + ContentFrame.Source.ToString() == FloatingUri.ToString())
