@@ -21,13 +21,15 @@ namespace OverTop.Floatings
         [DllImport("user32.dll")]
         private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
 
-        string commonPrograms = Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms);
-        string startUp = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
+        List<String> folders = new();
+        string programs = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
+        string startMenu = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
         public ChooserWindow()
         {
             InitializeComponent();
-
             GetShortCuts();
+            folders.Add(programs);
+            folders.Add(startMenu);
         }
 
         private async void GetShortCuts()
@@ -36,11 +38,15 @@ namespace OverTop.Floatings
             Dictionary<string, Bitmap> fileInfo = new();
             try
             {
-                foreach (string file in Directory.GetFiles(commonPrograms))
+                foreach (string folder in folders)
                 {
-                    filePath.Add(file);
+                    foreach (string file in Directory.GetDirectories(folder))
+                    {
+                        filePath.Add(file);
+                    }
                 }
-                foreach (string folder in Directory.GetDirectories(commonPrograms))
+
+                foreach (string folder in Directory.GetDirectories(programs))
                 {
                     foreach (string file in Directory.GetFiles(folder))
                     {
@@ -77,7 +83,7 @@ namespace OverTop.Floatings
             {
                 Thickness margin = new(10, 0, 0, 0);
                 Thickness panelMargin = new(5, 5, 5, 5);
-                StackPanel newStackPanel = new()
+                StackPanel itemStackPanel = new()
                 {
                     Height = 30,
                     Margin = panelMargin,
@@ -95,20 +101,34 @@ namespace OverTop.Floatings
                     Style = (Style)FindResource("ContentTextBlockStyle"),
                     Margin = margin
                 };
-                newStackPanel.Children.Add(image);
-                newStackPanel.Children.Add(textBlock);
+                itemStackPanel.Children.Add(image);
+                itemStackPanel.Children.Add(textBlock);
+                
+                itemStackPanel.MouseLeftButtonDown += ItemStackPanel_MouseLeftButtonDown;
 
-                newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown;
-
-                await Task.Run(() => Dispatcher.BeginInvoke(new Action(() => { ContentStackPanel.Children.Add(newStackPanel); })));
+                await Task.Run(() => Dispatcher.BeginInvoke(new Action(() => { ContentStackPanel.Children.Add(itemStackPanel); })));
             }
 
         }
 
-        private void NewStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void ItemStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             string path = (string)((TextBlock)((StackPanel)sender).Children[1]).ToolTip;
-            AppWindow.AddFile(path, ((System.Windows.Controls.Image)((StackPanel)sender).Children[0]).Source);
+            if (!Directory.Exists(path))
+            {
+                ((StackPanel)((StackPanel)sender).Parent).Children.Remove(sender as UIElement);
+                return;
+            }
+            if (Keyboard.IsKeyDown(Key.LeftCtrl))
+            {
+#pragma warning disable CS8602 // 解引用可能出现空引用。
+                Process.Start("explorer.exe", Directory.GetParent(path).ToString());
+#pragma warning restore CS8602 // 解引用可能出现空引用。
+            }
+            else
+            {
+                AppWindowClass.AddFile(path, ((System.Windows.Controls.Image)((StackPanel)sender).Children[0]).Source);
+            }
         }
 
 
@@ -129,7 +149,7 @@ namespace OverTop.Floatings
 #pragma warning disable CS8602 // 解引用可能出现空引用。
                     Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(fileName).ToBitmap();
 #pragma warning restore CS8602 // 解引用可能出现空引用。
-                    AppWindow.AddFile(fileName, System.Windows.Interop.Imaging
+                    AppWindowClass.AddFile(fileName, System.Windows.Interop.Imaging
                         .CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()));
                 }
             }
