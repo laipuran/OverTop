@@ -23,14 +23,14 @@ namespace OverTop.Floatings
 
         List<String> filePaths = new();
         List<String> folders = new();
-        string commonStartMenu = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
-        string commonPrograms = Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms);
 
         public ChooserWindow()
         {
             InitializeComponent();
-            folders.Add(commonStartMenu);
-            folders.Add(commonPrograms);
+            folders.Add(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu));
+            folders.Add(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu));
+            folders.Add(Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms));
+            folders.Add(Environment.GetFolderPath(Environment.SpecialFolder.Programs));
             GetShortCuts();
         }
 
@@ -124,7 +124,7 @@ namespace OverTop.Floatings
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
             string path = ((StackPanel)sender).ToolTip.ToString();
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-            if (!Directory.Exists(path))
+            if (!File.Exists(path))
             {
                 ((StackPanel)((StackPanel)sender).Parent).Children.Remove(sender as UIElement);
                 return;
