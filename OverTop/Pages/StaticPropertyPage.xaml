@@ -9,26 +9,36 @@
       Title="StaticPropertyPage">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
-        <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,10,0,0">
-            <TextBlock Text="System Glass Brush: "
+        <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,00,0,0">
+            <TextBlock Text="Window Glass Brush: "
                        Style="{StaticResource ContentTextBlockStyle}"
                        VerticalAlignment="Center"/>
             <Button Content="复制" x:Name="SystemGlassBrushButton"
                     Style="{StaticResource ContentButtonStyle}"
                     Foreground="{x:Static SystemParameters.WindowGlassBrush}"
-                    FontWeight="Bold"
+                    FontWeight="Bold" ToolTip="SystemParameters.WindowGlassBrush"
                     Click="SystemGlassBrushButton_Click"/>
         </StackPanel>
 
         <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
-            <TextBlock Text="System Desktop Brush: "
+            <TextBlock Text="Desktop Brush: "
                        Style="{StaticResource ContentTextBlockStyle}"
                        VerticalAlignment="Center"/>
             <Button Content="复制" x:Name="DesktopBrushButton"
                     Foreground="{DynamicResource {x:Static SystemColors.DesktopBrush}}"
-                    FontWeight="Bold"
+                    FontWeight="Bold" ToolTip="SystemColors.DesktopBrush"
                     Style="{StaticResource ContentButtonStyle}"
-                    Click="DesktopBrushButton_Click"/>                    
+                    Click="DesktopBrushButton_Click"/>
+        </StackPanel>
+        
+        <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
+            <TextBlock Text="Caption Font Family: "
+                       Style="{StaticResource ContentTextBlockStyle}"
+                       VerticalAlignment="Center"/>
+            <Button Content="复制" x:Name="FontButton"
+                    FontWeight="Medium" ToolTip="SystemFonts.CaptionFontFamily"
+                    Style="{StaticResource ContentButtonStyle}"
+                    Click="FontButton_Click"/>
         </StackPanel>
     </StackPanel>
 </Page>

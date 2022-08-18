@@ -16,22 +16,28 @@ namespace OverTop.Pages
         {
             InitializeComponent();
 
-            SystemGlassBrushButton.Foreground = SystemParameters.WindowGlassBrush;
-            SystemGlassBrushButton.Content = SystemParameters.WindowGlassBrush.ToString();
-            DesktopBrushButton.Foreground = SystemColors.DesktopBrush;
-            DesktopBrushButton.Content = SystemColors.DesktopBrush.ToString();
+            ChangeContent();
             ColorChanged();
             SystemEvents.UserPreferenceChanged += UserPreferenceChanged;
 
         }
+
         public void UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            ChangeContent();
+            ColorChanged();
+        }
+
+        private void ChangeContent()
         {
             SystemGlassBrushButton.Foreground = SystemParameters.WindowGlassBrush;
             SystemGlassBrushButton.Content = SystemParameters.WindowGlassBrush.ToString();
             DesktopBrushButton.Foreground = SystemColors.DesktopBrush;
             DesktopBrushButton.Content = SystemColors.DesktopBrush.ToString();
-            ColorChanged();
+            FontButton.Content = SystemFonts.CaptionFontFamily.ToString();
+            FontButton.FontFamily = SystemFonts.CaptionFontFamily;
         }
+
         public static void ColorChanged()
         {
             var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
@@ -62,7 +68,7 @@ namespace OverTop.Pages
                 }
                 catch
                 {
-                    MessageBox.Show("你小子手速还挺快", "Over Top");
+                    整花活();
                 }
             })));
         }
@@ -77,10 +83,43 @@ namespace OverTop.Pages
                 }
                 catch
                 {
-                    MessageBox.Show("你小子手速还挺快", "Over Top");
+                    整花活();
                 }
             })));
         }
 
+        private async void FontButton_Click(object sender, RoutedEventArgs e)
+        {
+            await Task.Run(() => Dispatcher.BeginInvoke(new Action(() =>
+            {
+                try
+                {
+                    Clipboard.SetText(FontButton.Content.ToString());
+                }
+                catch
+                {
+                    整花活();
+                }
+            })));
+        }
+
+        private void 整花活()
+        {
+            Random random = new();
+            switch (random.Next(1, 4))
+            {
+                case 1:
+                    MessageBox.Show("你小子手速还挺快", "Over Top");
+                    break;
+                case 2:
+                    MessageBox.Show("点的很快，下次不要再点了", "Over Top");
+                    break;
+                case 3:
+                    MessageBox.Show("就你CPS能到7是吧", "Over Top");
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
