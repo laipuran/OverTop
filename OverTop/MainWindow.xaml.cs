@@ -36,19 +36,19 @@ namespace OverTop
             TitleTextBlock.Text = "浮窗控制面板";
             ContentFrame.NavigationService.Navigate(FloatingUri);
 
-            Icon = GetIcon();
+            Icon = GetIcon("icon");
 
             Pages.StaticPropertyPage.ColorChanged();
             App.appWindow.Show();
             GetSettingsFromFile();
         }
 
-        private ImageSource GetIcon()
+        public static ImageSource GetIcon(string name)
         {
             ResourceManager Loader = OverTop.Resources.ResourcesFile.ResourceManager;
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
 #pragma warning disable CS8604 // 引用类型参数可能为 null。
-            Bitmap icon = new((System.Drawing.Image)Loader.GetObject("icon"));
+            Bitmap icon = new((System.Drawing.Image)Loader.GetObject(name));
 #pragma warning restore CS8604 // 引用类型参数可能为 null。
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
             return Imaging.CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
