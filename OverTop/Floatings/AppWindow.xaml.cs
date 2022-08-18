@@ -40,7 +40,7 @@ namespace OverTop.Floatings
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
             string path = ((StackPanel)sender).ToolTip.ToString();
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-            if (Keyboard.IsKeyDown(Key.R) || !Directory.Exists(path))
+            if (Keyboard.IsKeyDown(Key.R) || !File.Exists(path))
             {
 #pragma warning disable CS8604 // 引用类型参数可能为 null。
                 controls.Remove(path);
