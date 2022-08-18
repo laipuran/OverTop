@@ -76,7 +76,9 @@ namespace OverTop.Floatings
                     continue;
                 }
                 string fileName = Path.GetFileNameWithoutExtension(wshShortcut.TargetPath);
-                if (fileInfo.ContainsKey(fileName))
+                if (fileInfo.ContainsKey(fileName) || fileName.StartsWith("unins") ||
+                    fileName.StartsWith("Unins") || fileName.EndsWith("ninstall") ||
+                    fileName.EndsWith("ninst") || fileName.EndsWith("ninstaller"))
                 {
                     continue;
                 }
@@ -104,13 +106,12 @@ namespace OverTop.Floatings
                 TextBlock textBlock = new()
                 {
                     Text = keyPair.Key,
-                    ToolTip = keyPair.Value,
                     Style = (Style)FindResource("ContentTextBlockStyle"),
                     Margin = margin
                 };
                 itemStackPanel.Children.Add(image);
                 itemStackPanel.Children.Add(textBlock);
-                
+                itemStackPanel.ToolTip = keyPair.Value;
                 itemStackPanel.MouseLeftButtonDown += ItemStackPanel_MouseLeftButtonDown;
 
                 await Task.Run(() => Dispatcher.BeginInvoke(new Action(() => { ContentStackPanel.Children.Add(itemStackPanel); })));
@@ -120,7 +121,9 @@ namespace OverTop.Floatings
 
         private void ItemStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            string path = (string)((TextBlock)((StackPanel)sender).Children[1]).ToolTip;
+#pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
+            string path = ((StackPanel)sender).ToolTip.ToString();
+#pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
             if (!Directory.Exists(path))
             {
                 ((StackPanel)((StackPanel)sender).Parent).Children.Remove(sender as UIElement);
