@@ -23,7 +23,14 @@
                        VerticalAlignment="Center"/>
             <Button Content="新建" x:Name="HangerWindowButton"
                     Style="{StaticResource ContentButtonStyle}"
-                    Click="HangerWindowButton_Click"/>
+                    Click="HangerWindowButton_Click">
+                <Button.ToolTip>
+                    <StackPanel>
+                        <TextBlock>实例窗口</TextBlock>
+                        <Image x:Name="HangerToolTipImage"/>
+                    </StackPanel>
+                </Button.ToolTip>
+            </Button>
             <Button Content="从文件导入" x:Name="ImportButton"
                     Style="{StaticResource ContentButtonStyle}"
                     Click="ImportButton_Click"
@@ -35,7 +42,14 @@
                        VerticalAlignment="Center"/>
             <Button Content="新建" x:Name="RecentWindowButton"
                     Style="{StaticResource ContentButtonStyle}"
-                    Click="RecentWindowButton_Click"/>
+                    Click="RecentWindowButton_Click">
+                <Button.ToolTip>
+                    <StackPanel>
+                        <TextBlock>实例窗口</TextBlock>
+                        <Image x:Name="RecentToolTipImage"/>
+                    </StackPanel>
+                </Button.ToolTip>
+            </Button>
         </StackPanel>
     </StackPanel>
 </Page>

@@ -24,6 +24,8 @@ namespace OverTop.Pages
         public FloatingPanelPage()
         {
             InitializeComponent();
+            HangerToolTipImage.Source = MainWindow.GetIcon("HangerWindow");
+            RecentToolTipImage.Source = MainWindow.GetIcon("RecentWindow");
         }
         private void RecentWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
