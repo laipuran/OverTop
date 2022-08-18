@@ -26,8 +26,9 @@ namespace OverTop.Floatings
 
         private static bool isBottom = false;
         private static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\AppWindow.json";
+
         public static Dictionary<string, StackPanel> controls = new();
-        
+
         public AppWindow()
         {
             InitializeComponent();
@@ -77,41 +78,6 @@ namespace OverTop.Floatings
             chooserWindow.ShowDialog();
         }
 
-        private void SetWindowPos(ScreenPart part)
-        {
-            if (part == ScreenPart.TopPart)
-            {
-                Height = 60;
-                Width = 560;
-                ContentStackPanel.Orientation = System.Windows.Controls.Orientation.Horizontal;
-                Top = 0;
-                Left = (SystemParameters.FullPrimaryScreenWidth - Width) / 2;
-            }
-            else if (part == ScreenPart.BottomPart)
-            {
-                Height = 60;
-                Width = 560;
-                ContentStackPanel.Orientation = System.Windows.Controls.Orientation.Horizontal;
-                Top = SystemParameters.FullPrimaryScreenHeight - Height;
-                Left = (SystemParameters.FullPrimaryScreenWidth - Width) / 2;
-            }
-            else if (part == ScreenPart.LeftPart)
-            {
-                Height = 560;
-                Width = 60;
-                ContentStackPanel.Orientation = System.Windows.Controls.Orientation.Vertical;
-                Top = (SystemParameters.FullPrimaryScreenHeight - Height) / 2;
-                Left = 0;
-            }
-            else
-            {
-                Height = 560;
-                Width = 60;
-                ContentStackPanel.Orientation = System.Windows.Controls.Orientation.Vertical;
-                Top = (SystemParameters.FullPrimaryScreenHeight - Height) / 2;
-                Left = SystemParameters.FullPrimaryScreenWidth - Width;
-            }
-        }
         private void TrySetPosition()
         {
             while (true)
@@ -122,7 +88,7 @@ namespace OverTop.Floatings
                 }
             }
             ScreenPart part = GetPart(GetMiddlePoint(this));
-            SetWindowPos(part);
+            SetWindowPos(this, part);
         }
 
         private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -155,7 +121,7 @@ namespace OverTop.Floatings
         {
             if (!File.Exists(filePath))
             {
-                SetWindowPos(ScreenPart.TopPart);
+                SetWindowPos(this, ScreenPart.TopPart);
                 return;
             }
             string json = File.ReadAllText(filePath);
@@ -182,7 +148,7 @@ namespace OverTop.Floatings
                     continue;
                 }
             }
-            SetWindowPos(appWindowClass.screenPart);
+            SetWindowPos(this, appWindowClass.screenPart);
         }
 
 
