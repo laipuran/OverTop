@@ -160,5 +160,6 @@ namespace OverTop
                 this.Visibility = Visibility.Collapsed;
             }
         }
+
     }
 }

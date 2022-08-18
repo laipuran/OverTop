@@ -41,9 +41,9 @@
             </StackPanel>
             <StackPanel x:Name="Selector">
                 <ListBox x:Name="ContentListBox" Style="{StaticResource ClearListBoxStyle}"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     SelectionMode="Single" SelectionChanged="ContentListBox_SelectionChanged"
-                     Margin="-1,-1,-1,-1">
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        SelectionMode="Single" SelectionChanged="ContentListBox_SelectionChanged"
+                        Margin="-1,-1,-1,-1">
                     <ListBoxItem x:Name="FloatingListBoxItem"
                              Style="{StaticResource ContentListBoxItemStyle}">
                         <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
