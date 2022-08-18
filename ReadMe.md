@@ -1,5 +1,5 @@
-# Over Top
-## This is a tool for deep computer users
+# Over Top (New Appearance!)
+## This is a tool for deep computer users (Developers)
 ### The Way to Run the App
 ```
 git clone https://github.com/laipuran/OverTop
@@ -36,19 +36,26 @@ Congratulations! You have already started the app.
 - And can set the values to default
 - Escape to close the window without saving the settings
 - Close the window to save the settings to window parameters
+- Click Close Button to close this Hanger/Recent Window
 ### App Window
 - Right Click on the window to add app links
 - Double Click to activate MainWindow
 - Push Key R and left click an element to remove it
 - Push Key C and left click to remove all the elements in the window
-- AppWindow is like a magnet, it can stick to any side of the screen.
+- AppWindow is like a magnet, it can stick to any side of the screen
+- Push Key Left Ctrl and left click to open the directory
 - It can not be closed, but it shares the same feature(3, 4) as other floatings
+- Can contain at most 9 icons (maybe, qwq)
+- Can Automatically save all the paths and position in a .json file
 ### Chooser Window
 - Left click the icons to add them to the App Window
 - Push Key R and left click the window to refresh all the items
+- Push Key Left Ctrl and left click to open the directory
 - It shares the same feature(1, 3, 4)
 - Click the button to add any other link to the App Window
+- Now Contains all the links in StarMenu, CommonStartMenu, Programs, CommonPrograms
 ### 2. Get some values from SystemParameters
 - Get Window Glass Color
 - Get Desktop Brush
+- Get the Default Font
 - Click Fast to find the painted eggshell
