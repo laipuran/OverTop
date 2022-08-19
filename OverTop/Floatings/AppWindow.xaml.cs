@@ -75,7 +75,11 @@ namespace OverTop.Floatings
         {
             Window chooserWindow = new ChooserWindow();
             App.contentStackPanel = ContentStackPanel;
-            chooserWindow.ShowDialog();
+            try
+            {
+                chooserWindow.ShowDialog();
+            }
+            catch { }
         }
 
         private void TrySetPosition()

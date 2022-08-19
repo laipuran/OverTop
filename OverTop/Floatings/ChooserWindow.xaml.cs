@@ -36,18 +36,26 @@ namespace OverTop.Floatings
 
         private void GetFiles(string path)
         {
-            foreach (string file in Directory.GetFiles(path))
+            try
             {
-                filePaths.Add(file);
-            }
-            string[] directories = Directory.GetDirectories(path);
-            if (directories.Length >=0)
-            {
-                foreach (string directory in directories)
+                foreach (string file in Directory.GetFiles(path))
                 {
-                    GetFiles(directory);
+                    if (!file.EndsWith(".lnk"))
+                    {
+                        continue;
+                    }
+                    filePaths.Add(file);
+                }
+                string[] directories = Directory.GetDirectories(path);
+                if (directories.Length >= 0)
+                {
+                    foreach (string directory in directories)
+                    {
+                        GetFiles(directory);
+                    }
                 }
             }
+            catch { }
         }
 
         private async void GetShortCuts()
@@ -60,11 +68,6 @@ namespace OverTop.Floatings
 
             foreach (string file in filePaths)
             {
-                if (!file.EndsWith(".lnk"))
-                {
-                    continue;
-                }
-
                 IWshRuntimeLibrary.WshShell shell = new();
                 IWshRuntimeLibrary.IWshShortcut wshShortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(file);
                 if (!wshShortcut.TargetPath.EndsWith(".exe") || !File.Exists(wshShortcut.TargetPath))
@@ -92,16 +95,26 @@ namespace OverTop.Floatings
                     Orientation = Orientation.Horizontal
                 };
                 System.Windows.Controls.Image image = new();
+                if (!File.Exists(keyPair.Value))
+                {
+                    continue;
+                }
                 try
                 {
+#pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
+                    System.Drawing.Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(keyPair.Value);
+#pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
 #pragma warning disable CS8602 // 解引用可能出现空引用。
-                    Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(keyPair.Value).ToBitmap();
+                    Bitmap bitmap = icon.ToBitmap();
 #pragma warning restore CS8602 // 解引用可能出现空引用。
                     BitmapSource bitmapSource = System.Windows.Interop.Imaging
-                        .CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                        .CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                     image.Source = bitmapSource;
                 }
-                catch { }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message, keyPair.Key);
+                }
 
                 TextBlock textBlock = new()
                 {
