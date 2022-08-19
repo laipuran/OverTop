@@ -3,7 +3,10 @@ using OverTop.Floatings;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
@@ -283,6 +286,63 @@ namespace OverTop
                 return;
             }
             App.contentStackPanel.Children.Add(appPanel);
+        }
+    }
+
+    public class WeatherWindowClass
+    {
+        // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+        public class Location
+        {
+#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+            public string country { get; set; }
+            public string short_name { get; set; }
+            public string province { get; set; }
+            public string city { get; set; }
+            public string area { get; set; }
+            public string isp { get; set; }
+            public string net { get; set; }
+            public string ip { get; set; }
+            public int code { get; set; }
+            public string desc { get; set; }
+#pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+        }
+
+        public static string GetData(string url)
+        {
+            HttpClient client = new HttpClient();
+#pragma warning disable SYSLIB0014 // 类型或成员已过时
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+#pragma warning restore SYSLIB0014 // 类型或成员已过时
+            request.Method = "GET";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            StreamReader myStreamReader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+            string data = myStreamReader.ReadToEnd();
+            return data;
+        }
+
+        public static string GetHostIp()
+        {
+            string ip = GetData("https://ip.useragentinfo.com/myip");
+            return ip.Substring(0, ip.Length - 1);
+        }
+
+        public static string GetLocationByIP(string IP)
+        {
+            string url = "https://ip.useragentinfo.com/json?ip=" + IP;
+            string json = GetData(url);
+#pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
+            Location location= JsonConvert.DeserializeObject<Location>(json);
+#pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
+
+#pragma warning disable CS8602 // 解引用可能出现空引用。
+            if (location.province.EndsWith("省"))
+            {
+                return location.province.Substring(0, location.province.Length - 1);
+            }
+#pragma warning restore CS8602 // 解引用可能出现空引用。
+
+            return location.province;
         }
     }
 }
