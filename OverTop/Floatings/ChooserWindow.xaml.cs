@@ -53,14 +53,10 @@ namespace OverTop.Floatings
         private async void GetShortCuts()
         {
             SortedDictionary<string, string> fileInfo = new();
-            try
+            foreach (string folder in folders)
             {
-                foreach (string folder in folders)
-                {
-                    GetFiles(folder);
-                }
+                GetFiles(folder);
             }
-            catch { }
 
             foreach (string file in filePaths)
             {
@@ -71,7 +67,7 @@ namespace OverTop.Floatings
 
                 IWshRuntimeLibrary.WshShell shell = new();
                 IWshRuntimeLibrary.IWshShortcut wshShortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(file);
-                if (!wshShortcut.TargetPath.EndsWith(".exe"))
+                if (!wshShortcut.TargetPath.EndsWith(".exe") || !File.Exists(wshShortcut.TargetPath))
                 {
                     continue;
                 }
@@ -96,12 +92,16 @@ namespace OverTop.Floatings
                     Orientation = Orientation.Horizontal
                 };
                 System.Windows.Controls.Image image = new();
+                try
+                {
 #pragma warning disable CS8602 // 解引用可能出现空引用。
-                Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(keyPair.Value).ToBitmap();
+                    Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(keyPair.Value).ToBitmap();
 #pragma warning restore CS8602 // 解引用可能出现空引用。
-                BitmapSource bitmapSource = System.Windows.Interop.Imaging
-                    .CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                image.Source = bitmapSource;
+                    BitmapSource bitmapSource = System.Windows.Interop.Imaging
+                        .CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                    image.Source = bitmapSource;
+                }
+                catch { }
 
                 TextBlock textBlock = new()
                 {
@@ -140,7 +140,6 @@ namespace OverTop.Floatings
                 AppWindowClass.AddFile(path, ((System.Windows.Controls.Image)((StackPanel)sender).Children[0]).Source);
             }
         }
-
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {

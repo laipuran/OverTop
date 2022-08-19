@@ -8,6 +8,8 @@ dotnet restore
 dotnet run
 ```
 Congratulations! You have already started the app.
+### Notice
+#### Debug the project OverTop.Package instead of OverTop
 ### This App has the features below:
 ### 0. Main Window
 - The Main color of the window will change when the System Glass Brush changes
