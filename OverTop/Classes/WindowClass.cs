@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
@@ -308,17 +309,14 @@ namespace OverTop
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
         }
 
+
+
         public static string GetData(string url)
         {
             HttpClient client = new HttpClient();
-#pragma warning disable SYSLIB0014 // 类型或成员已过时
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-#pragma warning restore SYSLIB0014 // 类型或成员已过时
-            request.Method = "GET";
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            StreamReader myStreamReader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
-            string data = myStreamReader.ReadToEnd();
-            return data;
+            Task<string> @string = client.GetStringAsync(url);
+            @string.RunSynchronously();
+            return @string.Result;
         }
 
         public static string GetHostIp()
@@ -327,10 +325,16 @@ namespace OverTop
             return ip.Substring(0, ip.Length - 1);
         }
 
-        public static string GetLocationByIP(string IP)
+        public static string GetLocationByIP()
         {
-            string url = "https://ip.useragentinfo.com/json?ip=" + IP;
+            string url = "https://ip.useragentinfo.com/json";
             string json = GetData(url);
+
+            if (json == "")
+            {
+                return "";
+            }
+
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
             Location location= JsonConvert.DeserializeObject<Location>(json);
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
