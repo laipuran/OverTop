@@ -41,6 +41,9 @@ namespace OverTop
             Pages.StaticPropertyPage.ColorChanged();
             App.appWindow.Show();
             GetSettingsFromFile();
+
+            //MessageBox.Show(WeatherWindowClass.GetHostIp());
+            //MessageBox.Show(WeatherWindowClass.GetLocationByIP());
         }
 
         public static ImageSource GetIcon(string name)
@@ -71,21 +74,25 @@ namespace OverTop
 
                 return;
             }
-            string json = File.ReadAllText(filePath);
+            try
+            {
+                string json = File.ReadAllText(filePath);
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-            Dictionary<WindowType, PropertyClass> settings = JsonConvert.DeserializeObject<Dictionary<WindowType, PropertyClass>>(json);
+                Dictionary<WindowType, PropertyClass> settings = JsonConvert.DeserializeObject<Dictionary<WindowType, PropertyClass>>(json);
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
 #pragma warning disable CS8602 // 解引用可能出现空引用。
-            foreach (KeyValuePair<WindowType, PropertyClass> item in settings)
-            {
-                if (item.Key == WindowType.Hanger)
+                foreach (KeyValuePair<WindowType, PropertyClass> item in settings)
                 {
-                    App.hangerSettingsClass = item.Value;
+                    if (item.Key == WindowType.Hanger)
+                    {
+                        App.hangerSettingsClass = item.Value;
+                    }
+                    else
+                        App.recentSettingsClass = item.Value;
                 }
-                else
-                    App.recentSettingsClass = item.Value;
-            }
 #pragma warning restore CS8602 // 解引用可能出现空引用。
+            }
+            catch { }
         }
 
         private void NavigationButton_Click(object sender, RoutedEventArgs e)
