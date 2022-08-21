@@ -41,9 +41,6 @@ namespace OverTop
             Pages.StaticPropertyPage.ColorChanged();
             App.appWindow.Show();
             GetSettingsFromFile();
-
-            //MessageBox.Show(WeatherWindowClass.GetHostIp());
-            //MessageBox.Show(WeatherWindowClass.GetLocationByIP());
         }
 
         public static ImageSource GetIcon(string name)

@@ -26,6 +26,7 @@ namespace OverTop.Pages
             InitializeComponent();
             HangerToolTipImage.Source = MainWindow.GetIcon("HangerWindow");
             RecentToolTipImage.Source = MainWindow.GetIcon("RecentWindow");
+
         }
         private void RecentWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
@@ -52,6 +53,7 @@ namespace OverTop.Pages
             newHanger.Opacity = App.hangerSettingsClass.alpha == 0.0 ? 0.8 : App.hangerSettingsClass.alpha;
             newHanger.Show();
             windows.Add(newHanger);
+
         }
 
         private void ImportButton_Click(object sender, RoutedEventArgs e)
