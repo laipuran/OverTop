@@ -25,7 +25,6 @@ namespace OverTop
             recentSettingsClass = new(),
             hangerSettingsClass = new();
         public static AppWindow appWindow = new Floatings.AppWindow();
-        
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             IntPtr hWnd = FindWindow(null, "Over Top");
