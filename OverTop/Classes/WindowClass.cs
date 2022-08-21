@@ -293,60 +293,63 @@ namespace OverTop
     public class WeatherWindowClass
     {
         // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-        public class Location
+        public class IpInformation
         {
 #pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
-            public string country { get; set; }
-            public string short_name { get; set; }
-            public string province { get; set; }
-            public string city { get; set; }
-            public string area { get; set; }
-            public string isp { get; set; }
-            public string net { get; set; }
             public string ip { get; set; }
-            public int code { get; set; }
-            public string desc { get; set; }
+            public string pro { get; set; }
+            public string proCode { get; set; }
+            public string city { get; set; }
+            public string cityCode { get; set; }
+            public string region { get; set; }
+            public string regionCode { get; set; }
+            public string addr { get; set; }
+            public string regionNames { get; set; }
+            public string err { get; set; }
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
         }
 
 
-
-        public static string GetData(string url)
+        public static string? GetData(string url)
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            Encoding unicode = Encoding.Unicode;
+            Encoding gbk = Encoding.GetEncoding(936);
             HttpClient client = new HttpClient();
-            Task<string> @string = client.GetStringAsync(url);
-            @string.RunSynchronously();
-            return @string.Result;
+            byte[] result = client.GetByteArrayAsync(url).Result;
+            if (result is null)
+                return null;
+            string fine = unicode.GetString(Encoding.Convert(gbk, unicode, result));
+            
+            return fine;
         }
 
         public static string GetHostIp()
         {
-            string ip = GetData("https://ip.useragentinfo.com/myip");
-            return ip.Substring(0, ip.Length - 1);
+            string? ip = GetData("https://ip.useragentinfo.com/myip");
+            if (ip is not null)
+                return ip.Substring(0, ip.Length - 1);
+            return "";
         }
 
         public static string GetLocationByIP()
         {
-            string url = "https://ip.useragentinfo.com/json";
-            string json = GetData(url);
-
-            if (json == "")
-            {
+            string? json = GetData("http://whois.pconline.com.cn/ipJson.jsp?&json=true");
+            if (json is null)
                 return "";
-            }
 
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-            Location location= JsonConvert.DeserializeObject<Location>(json);
+            IpInformation ip = JsonConvert.DeserializeObject<IpInformation>(json);
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
 
 #pragma warning disable CS8602 // 解引用可能出现空引用。
-            if (location.province.EndsWith("省"))
+            if (ip.pro.EndsWith("省"))
             {
-                return location.province.Substring(0, location.province.Length - 1);
+                return ip.pro.Substring(0, ip.pro.Length - 1);
             }
 #pragma warning restore CS8602 // 解引用可能出现空引用。
 
-            return location.province;
+            return ip.pro;
         }
     }
 }
