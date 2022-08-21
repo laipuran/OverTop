@@ -81,5 +81,6 @@ namespace OverTop.Floatings
             Background = new SolidColorBrush(App.parameterClass.backGroundColor);
             Opacity = App.parameterClass.alpha;
         }
+
     }
 }
