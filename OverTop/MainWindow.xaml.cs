@@ -27,6 +27,7 @@ namespace OverTop
         bool MenuClosed = true;
         Uri PropertyUri = new Uri("/Pages/StaticPropertyPage.xaml", UriKind.Relative);
         Uri FloatingUri = new Uri("/Pages/FloatingPanelPage.xaml", UriKind.Relative);
+        public static string ip = "";
         public MainWindow()
         {
             InitializeComponent();
@@ -41,6 +42,7 @@ namespace OverTop
             Pages.StaticPropertyPage.ColorChanged();
             App.appWindow.Show();
             GetSettingsFromFile();
+            ip = WeatherClass.GetHostIp();
         }
 
         public static ImageSource GetIcon(string name)

@@ -308,5 +308,9 @@ namespace OverTop.Floatings
         {
             DragMove();
         }
+
+        private void AddWeatherButton_Click(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }

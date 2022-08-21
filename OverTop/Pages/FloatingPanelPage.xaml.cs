@@ -5,11 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using static OverTop.WeatherClass;
 
 namespace OverTop.Pages
 {
@@ -28,6 +30,8 @@ namespace OverTop.Pages
             RecentToolTipImage.Source = MainWindow.GetIcon("RecentWindow");
 
         }
+
+
         private void RecentWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             recents++;
@@ -250,6 +254,11 @@ namespace OverTop.Pages
                     }
                 }
             }
+        }
+
+        private void WeatherStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ShowWeatherOnce();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
