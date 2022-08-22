@@ -240,7 +240,7 @@ namespace OverTop.Floatings
                 System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
                 App.recentSettingsClass.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
             }
-            Dictionary<WindowType, PropertyClass> settings = new();
+            Dictionary<WindowType, Property> settings = new();
             settings.Add(WindowType.Hanger, App.hangerSettingsClass);
             settings.Add(WindowType.Recent, App.recentSettingsClass);
             string json = JsonConvert.SerializeObject(settings);

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OverTop.Classes
+namespace OverTop
 {
-    internal class SettingsClass
+    internal class Settings
     {
     }
 }

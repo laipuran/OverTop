@@ -76,10 +76,10 @@ namespace OverTop
             {
                 string json = File.ReadAllText(filePath);
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-                Dictionary<WindowType, PropertyClass> settings = JsonConvert.DeserializeObject<Dictionary<WindowType, PropertyClass>>(json);
+                Dictionary<WindowType, Property> settings = JsonConvert.DeserializeObject<Dictionary<WindowType, Property>>(json);
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
 #pragma warning disable CS8602 // 解引用可能出现空引用。
-                foreach (KeyValuePair<WindowType, PropertyClass> item in settings)
+                foreach (KeyValuePair<WindowType, Property> item in settings)
                 {
                     if (item.Key == WindowType.Hanger)
                     {

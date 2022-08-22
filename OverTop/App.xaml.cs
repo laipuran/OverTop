@@ -25,7 +25,7 @@ namespace OverTop
 
         public static MainWindow? mainWindow;
 
-        public static PropertyClass parameterClass = new(),
+        public static Property parameterClass = new(),
             recentSettingsClass = new(),
             hangerSettingsClass = new();
 

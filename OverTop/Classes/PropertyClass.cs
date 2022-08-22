@@ -1,6 +1,6 @@
-﻿namespace OverTop
+﻿namespace OverTop.Floatings
 {
-    public class PropertyClass
+    public class Property
     {
         public System.Windows.Media.Color backGroundColor;
         public double alpha;
