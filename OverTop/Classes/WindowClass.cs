@@ -15,7 +15,7 @@ using System.Windows.Media;
 
 namespace OverTop
 {
-    public class WindowClass
+    public class CommonWindowOps
     {
         [DllImport("user32.dll")]
         private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndlnsertAfter, int X, int Y, int cx, int cy, uint Flags);
@@ -75,7 +75,7 @@ namespace OverTop
             return !isBottom;
         }
     }
-    public class HangerWindowClass
+    public class HangerWindowOps
     {
         public List<KeyValuePair<ContentType, string>> contents = new();
         public string backgroundColor = "";
@@ -93,7 +93,7 @@ namespace OverTop
 
         public static void SaveWindow(HangerWindow window)
         {
-            HangerWindowClass windowClass = new();
+            HangerWindowOps windowClass = new();
             System.Windows.Media.Color color = ((SolidColorBrush)window.Background).Color;
             windowClass.backgroundColor = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
             windowClass.width = (int)window.Width;
@@ -106,11 +106,11 @@ namespace OverTop
             {
                 if (item.Children[0] is TextBlock)
                 {
-                    windowClass.contents.Add(new(HangerWindowClass.ContentType.Text, ((TextBlock)item.Children[0]).Text));
+                    windowClass.contents.Add(new(HangerWindowOps.ContentType.Text, ((TextBlock)item.Children[0]).Text));
                 }
                 else if (item.Children[0] is System.Windows.Controls.Image)
                 {
-                    windowClass.contents.Add(new(HangerWindowClass.ContentType.Image,
+                    windowClass.contents.Add(new(HangerWindowOps.ContentType.Image,
                         ((System.Windows.Controls.Image)item.Children[0]).Source.ToString()));
                 }
             }
@@ -124,7 +124,7 @@ namespace OverTop
         }
     }
 
-    public class AppWindowClass
+    public class AppWindowOps
     {
         public ScreenPart screenPart;
         public List<string> filePath = new();
@@ -240,7 +240,7 @@ namespace OverTop
 
         public static void SaveWindow(AppWindow window)
         {
-            AppWindowClass appWindow = new();
+            AppWindowOps appWindow = new();
             appWindow.screenPart = GetPart(GetMiddlePoint(window));
             foreach (StackPanel item in window.ContentStackPanel.Children)
             {
@@ -290,7 +290,7 @@ namespace OverTop
         }
     }
 
-    public class WeatherClass
+    public class AmapWeather
     {
         private static string key = "ad768f25db9eb67e3883c2a16f59295b";
         private static string ipSrc = "https://ip.useragentinfo.com/myip";

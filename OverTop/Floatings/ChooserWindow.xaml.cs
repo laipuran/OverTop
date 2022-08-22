@@ -150,7 +150,7 @@ namespace OverTop.Floatings
             }
             else
             {
-                AppWindowClass.AddFile(path, ((System.Windows.Controls.Image)((StackPanel)sender).Children[0]).Source);
+                AppWindowOps.AddFile(path, ((System.Windows.Controls.Image)((StackPanel)sender).Children[0]).Source);
             }
         }
 
@@ -171,7 +171,7 @@ namespace OverTop.Floatings
 #pragma warning disable CS8602 // 解引用可能出现空引用。
                     Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(fileName).ToBitmap();
 #pragma warning restore CS8602 // 解引用可能出现空引用。
-                    AppWindowClass.AddFile(fileName, System.Windows.Interop.Imaging
+                    AppWindowOps.AddFile(fileName, System.Windows.Interop.Imaging
                         .CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()));
                 }
             }

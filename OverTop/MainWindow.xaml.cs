@@ -14,8 +14,8 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using static OverTop.AppWindowClass;
-using static OverTop.WindowClass;
+using static OverTop.AppWindowOps;
+using static OverTop.CommonWindowOps;
 
 namespace OverTop
 {
@@ -42,7 +42,6 @@ namespace OverTop
             Pages.StaticPropertyPage.ColorChanged();
             App.appWindow.Show();
             GetSettingsFromFile();
-            ip = WeatherClass.GetHostIp();
         }
 
         public static ImageSource GetIcon(string name)

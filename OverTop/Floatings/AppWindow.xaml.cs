@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using static OverTop.AppWindowClass;
+using static OverTop.AppWindowOps;
 
 namespace OverTop.Floatings
 {
@@ -107,18 +107,18 @@ namespace OverTop.Floatings
         {
             if (e.Key == System.Windows.Input.Key.Tab)
             {
-                isBottom = WindowClass.ChangeStatus(isBottom, this);
+                isBottom = CommonWindowOps.ChangeStatus(isBottom, this);
             }
         }
 
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
-            WindowClass.ChangeZIndex(isBottom, this);
+            CommonWindowOps.ChangeZIndex(isBottom, this);
         }
 
         private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
-            WindowClass.ChangeZIndex(isBottom, this);
+            CommonWindowOps.ChangeZIndex(isBottom, this);
         }
 
         private void LoadFilesFromString()
@@ -131,7 +131,7 @@ namespace OverTop.Floatings
             string json = File.ReadAllText(filePath);
 
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-            AppWindowClass appWindowClass = JsonConvert.DeserializeObject<AppWindowClass>(json);
+            AppWindowOps appWindowClass = JsonConvert.DeserializeObject<AppWindowOps>(json);
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
 #pragma warning disable CS8602 // 解引用可能出现空引用。
             foreach (string item in appWindowClass.filePath)

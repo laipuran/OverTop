@@ -102,7 +102,7 @@ namespace OverTop.Floatings
         private void Window_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             App.currentWindow = this;
-            App.windowType = WindowClass.WindowType.Recent;
+            App.windowType = CommonWindowOps.WindowType.Recent;
             Window propertyWindow = new PropertyWindow
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
@@ -123,13 +123,13 @@ namespace OverTop.Floatings
 
         private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
-            WindowClass.ChangeZIndex(isBottom, this);
+            CommonWindowOps.ChangeZIndex(isBottom, this);
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
         }
 
         private void Window_MouseLeave(object sender, MouseEventArgs e)
         {
-            WindowClass.ChangeZIndex(isBottom, this);
+            CommonWindowOps.ChangeZIndex(isBottom, this);
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
         }
 
@@ -141,7 +141,7 @@ namespace OverTop.Floatings
             }
             else if (e.Key == System.Windows.Input.Key.Tab)
             {
-                isBottom = WindowClass.ChangeStatus(isBottom, this);
+                isBottom = CommonWindowOps.ChangeStatus(isBottom, this);
             }
         }
 

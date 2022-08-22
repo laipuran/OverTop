@@ -10,7 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using static OverTop.WindowClass;
+using static OverTop.CommonWindowOps;
 
 namespace OverTop.Floatings
 {
@@ -309,8 +309,5 @@ namespace OverTop.Floatings
             DragMove();
         }
 
-        private void AddWeatherButton_Click(object sender, RoutedEventArgs e)
-        {
-        }
     }
 }

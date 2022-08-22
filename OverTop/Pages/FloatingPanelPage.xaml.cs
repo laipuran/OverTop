@@ -11,7 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using static OverTop.WeatherClass;
+using static OverTop.AmapWeather;
 
 namespace OverTop.Pages
 {
@@ -87,7 +87,7 @@ namespace OverTop.Pages
         {
             hangers++;
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-            HangerWindowClass windowClass = JsonConvert.DeserializeObject<HangerWindowClass>(json);
+            HangerWindowOps windowClass = JsonConvert.DeserializeObject<HangerWindowOps>(json);
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
 
             HangerWindow newHanger = new Floatings.HangerWindow();
@@ -103,9 +103,9 @@ namespace OverTop.Pages
 #pragma warning restore CS8602 // 解引用可能出现空引用。
 
             StackPanel ContentStackPanel = (StackPanel)((ScrollViewer)newHanger.Content).Content;
-            foreach (KeyValuePair<HangerWindowClass.ContentType, string> pair in windowClass.contents)
+            foreach (KeyValuePair<HangerWindowOps.ContentType, string> pair in windowClass.contents)
             {
-                if (pair.Key == HangerWindowClass.ContentType.Text)
+                if (pair.Key == HangerWindowOps.ContentType.Text)
                 {
                     TextBlock newTextBlock = new();
                     newTextBlock.Style = (Style)FindResource("ContentTextBlockStyle");
@@ -115,7 +115,7 @@ namespace OverTop.Pages
                     newStackPanel.MouseLeftButtonDown += TextPanel_MouseLeftButtonDown;
                     ContentStackPanel.Children.Add(newStackPanel);
                 }
-                else if (pair.Key == HangerWindowClass.ContentType.Image)
+                else if (pair.Key == HangerWindowOps.ContentType.Image)
                 {
                     System.Windows.Controls.Image newImage = new();
                     newImage.Source = new BitmapImage(new Uri(pair.Value));
@@ -254,11 +254,6 @@ namespace OverTop.Pages
                     }
                 }
             }
-        }
-
-        private void WeatherStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            ShowWeatherOnce();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

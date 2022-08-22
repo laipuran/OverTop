@@ -22,18 +22,6 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     MouseLeftButtonDown="ContentStackPanel_MouseLeftButtonDown">
-            <StackPanel x:Name="WeatherStackPanel" Visibility="Collapsed"
-                        MouseLeftButtonDown="WeatherStackPanel_MouseLeftButtonDown">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock x:Name="TempTextBlock" FontSize="40"
-                       Style="{StaticResource ContentTextBlockStyle}"/>
-                    <TextBlock x:Name="LocationTextBlock" FontSize="18"
-                           Margin="5,5,0,0"
-                       Style="{StaticResource ContentTextBlockStyle}"/>
-                </StackPanel>
-                <TextBlock x:Name="WeatherTextBlock" FontSize="28"
-                       Style="{StaticResource ContentTextBlockStyle}"/>
-            </StackPanel>
         </StackPanel>
     </ScrollViewer>
 

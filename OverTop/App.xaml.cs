@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using static OverTop.AmapWeather;
 
 namespace OverTop
 {
@@ -17,22 +18,33 @@ namespace OverTop
         [DllImport("user32.dll", EntryPoint = "FindWindow")]
         private extern static IntPtr FindWindow(string? lpClassName, string? lpWindowName);
         
-        public static WindowClass.WindowType windowType = new();
+        public static CommonWindowOps.WindowType windowType = new();
+
         public static Window currentWindow = new();
         public static StackPanel contentStackPanel = new();
+
         public static MainWindow? mainWindow;
+
         public static PropertyClass parameterClass = new(),
             recentSettingsClass = new(),
             hangerSettingsClass = new();
+
         public static AppWindow appWindow = new Floatings.AppWindow();
+
+        public static string ip = "";
+        public static IpInformation i2 = new();
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            IntPtr hWnd = FindWindow(null, "Over Top");
+            IntPtr hWnd = FindWindow(null, "Over Top");                     //Avoiding opening this many times
             if (hWnd != IntPtr.Zero)
             {
-                MessageBox.Show("Over Top 已经打开！", "Over Top");
+                MessageBox.Show("Over Top 存在运行中的实例！", "Over Top");
                 Environment.Exit(-1);
             }
+
+            ip = AmapWeather.GetHostIp();
+            i2 = GetIpInformation(ip);
         }
     }
 }

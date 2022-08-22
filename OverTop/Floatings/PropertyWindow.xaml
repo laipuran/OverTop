@@ -25,12 +25,6 @@
                             Content="&#xE8B9;"
                             Margin="10,0,0,0"
                             ToolTip="添加图片"/>
-                <Button Style="{StaticResource NavigationButtonStyle}"
-                            x:Name="AddWeatherButton"
-                            Click="AddWeatherButton_Click"
-                            Content="&#xEDE4;"
-                            Margin="10,0,0,0"
-                            ToolTip="启用天气"/>
             </StackPanel>
             <TextBlock Text="颜色透明度 Alpha通道：" Margin="0,10,0,0"/>
             <Slider x:Name="AlphaSlider"

@@ -1,0 +1,22 @@
+﻿<Window x:Class="OverTop.Floatings.WeatherWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OverTop.Floatings"
+        mc:Ignorable="d" 
+        Title="WeatherWindow" Height="450" Width="800">
+
+    <StackPanel x:Name="WeatherStackPanel"
+                        MouseLeftButtonDown="WeatherStackPanel_MouseLeftButtonDown">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock x:Name="TempTextBlock" FontSize="40"
+                       Style="{StaticResource ContentTextBlockStyle}"/>
+            <TextBlock x:Name="LocationTextBlock" FontSize="18"
+                           Margin="5,5,0,0"
+                       Style="{StaticResource ContentTextBlockStyle}"/>
+        </StackPanel>
+        <TextBlock x:Name="WeatherTextBlock" FontSize="28"
+                       Style="{StaticResource ContentTextBlockStyle}"/>
+    </StackPanel>
+</Window>
