@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using static OverTop.AmapWeather;
+using static OverTop.Apis;
 
 namespace OverTop
 {
@@ -36,14 +36,14 @@ namespace OverTop
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            IntPtr hWnd = FindWindow(null, "Over Top");                     //Avoiding opening this many times
+            IntPtr hWnd = FindWindow(null, "Over Top");                     //Avoiding opening this app twice
             if (hWnd != IntPtr.Zero)
             {
                 MessageBox.Show("Over Top 存在运行中的实例！", "Over Top");
                 Environment.Exit(-1);
             }
 
-            ip = AmapWeather.GetHostIp();
+            ip = Apis.GetHostIp();
             i2 = GetIpInformation(ip);
         }
     }
