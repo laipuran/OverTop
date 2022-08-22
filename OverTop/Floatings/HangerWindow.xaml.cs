@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using static OverTop.CommonWindowOps;
 using static OverTop.HangerWindowOps;
 
 namespace OverTop.Floatings
@@ -15,9 +16,6 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class HangerWindow : Window
     {
-        [DllImport("user32.dll")]
-
-        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndlnsertAfter, int X, int Y, int cx, int cy, uint Flags);
         private static bool isBottom = false;
 
         public HangerWindow()
