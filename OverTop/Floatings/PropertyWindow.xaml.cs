@@ -36,13 +36,11 @@ namespace OverTop.Floatings
             {
                 InitializeTextWindow("", textWindow, OKButton_Click);
             }
-            else
-            {
-
-            }
+            else { }
 
             ToolTip = Title;
         }
+
         private void InitializeTextWindow(string text, Window textWindow, RoutedEventHandler routedEventHandler)
         {
             ButtonStackPanel.Visibility = Visibility.Visible;

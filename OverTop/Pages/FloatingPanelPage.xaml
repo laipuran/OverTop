@@ -10,7 +10,7 @@
       DragDrop.Drop="Page_Drop"
       AllowDrop="True">
 
-    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" >
         <Button Style="{StaticResource ContentButtonStyle}"
                 Content="关闭全部"
                 x:Name="CloseButton"
@@ -18,9 +18,8 @@
                 Margin="20,0,0,0"
                 HorizontalAlignment="Left"/>
         <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
-            <TextBlock Text="创建一个 便利贴 窗口: "
-                       Style="{StaticResource ContentTextBlockStyle}"
-                       VerticalAlignment="Center"/>
+            <TextBlock Text="创建一个 便利贴 窗口："
+                       Style="{StaticResource ContentTextBlockStyle}"/>
             <Button Content="新建" x:Name="HangerWindowButton"
                     Style="{StaticResource ContentButtonStyle}"
                     Click="HangerWindowButton_Click">
@@ -38,9 +37,8 @@
         </StackPanel>
         
         <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
-            <TextBlock Text="创建一个 最近 窗口: "
-                       Style="{StaticResource ContentTextBlockStyle}"
-                       VerticalAlignment="Center"/>
+            <TextBlock Text="创建一个 最近 窗口："
+                       Style="{StaticResource ContentTextBlockStyle}"/>
             <Button Content="新建" x:Name="RecentWindowButton"
                     Style="{StaticResource ContentButtonStyle}"
                     Click="RecentWindowButton_Click">
@@ -51,6 +49,14 @@
                     </StackPanel>
                 </Button.ToolTip>
             </Button>
+        </StackPanel>
+
+        <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
+            <TextBlock Text="打开 天气 窗口（实验性功能）："
+                       Style="{StaticResource ContentTextBlockStyle}"/>
+            <Button Content="打开" x:Name="WeatherWindowButton"
+                    Style="{StaticResource ContentButtonStyle}"
+                    Click="WeatherWindowButton_Click"/>
         </StackPanel>
 
     </StackPanel>

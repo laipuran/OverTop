@@ -255,6 +255,11 @@ namespace OverTop.Pages
             }
         }
 
+        private void WeatherWindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.weatherWindow.Show();
+        }
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             foreach (Window window in windows)
