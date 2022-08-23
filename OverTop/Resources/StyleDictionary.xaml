@@ -16,6 +16,7 @@
         <Setter Property="FontSize" Value="32"/>
     </Style>
     <Style x:Key="ContentTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="FontWeight" Value="Thin"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
