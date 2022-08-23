@@ -30,7 +30,8 @@ namespace OverTop
         public static StackPanel contentStackPanel = new();
 
         public static MainWindow? mainWindow;
-        public static AppWindow appWindow = new Floatings.AppWindow();
+        public static AppWindow appWindow = new();
+        public static WeatherWindow weatherWindow = new();
 
         public static Property tempProperty = new();
         public static Settings settings = new();
@@ -51,5 +52,9 @@ namespace OverTop
             settings = GetSettingsFromFile(ip);
         }
 
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            SaveSettings(App.settings);
+        }
     }
 }
