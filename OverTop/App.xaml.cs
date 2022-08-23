@@ -23,6 +23,7 @@ namespace OverTop
         [DllImport("user32.dll", EntryPoint = "FindWindow")]
         private extern static IntPtr FindWindow(string? lpClassName, string? lpWindowName);
         
+        // The Variables needed in the whole application
         public static CommonWindowOps.WindowType currentWindowType = new();
 
         public static Window currentWindow = new();
@@ -32,7 +33,6 @@ namespace OverTop
         public static AppWindow appWindow = new Floatings.AppWindow();
 
         public static Property tempProperty = new();
-
         public static Settings settings = new();
 
         public static string ip = "";
