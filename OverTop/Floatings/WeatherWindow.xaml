@@ -5,21 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OverTop.Floatings"
         mc:Ignorable="d" 
-        Title="WeatherWindow" Height="300" Width="300"
-        Style="{StaticResource FloatingWindowStyle}"
-        Loaded="Window_Loaded"
-        Closing="Window_Closing">
+        Title="WeatherWindow" Height="100" Width="160" Topmost="True"
+        Style="{StaticResource FloatingWindowStyle}" ShowInTaskbar="False"
+        Loaded="Window_Loaded" MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Closing="Window_Closing" MouseDoubleClick="Window_MouseDoubleClick"
+        Background="White" Opacity="0.8">
 
-    <StackPanel x:Name="WeatherStackPanel"
-                        MouseLeftButtonDown="WeatherStackPanel_MouseLeftButtonDown">
+    <StackPanel x:Name="WeatherStackPanel" Margin="5,5,5,5"
+                MouseLeftButtonDown="WeatherStackPanel_MouseLeftButtonDown">
         <StackPanel Orientation="Horizontal">
             <TextBlock x:Name="TempTextBlock" FontSize="40"
                        Style="{StaticResource ContentTextBlockStyle}"/>
             <TextBlock x:Name="LocationTextBlock" FontSize="18"
-                           Margin="5,5,0,0"
+                           Margin="10,5,0,0"
                        Style="{StaticResource ContentTextBlockStyle}"/>
         </StackPanel>
-        <TextBlock x:Name="WeatherTextBlock" FontSize="28"
+        <TextBlock x:Name="WeatherTextBlock" FontSize="26"
                        Style="{StaticResource ContentTextBlockStyle}"/>
     </StackPanel>
 </Window>

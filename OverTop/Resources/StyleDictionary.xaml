@@ -103,6 +103,7 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
     <Style x:Key="FloatingWindowStyle" TargetType="Window">
+        <Setter Property="ShowInTaskbar" Value="False"/>
         <Setter Property="Opacity" Value="0.5"/>
         <Setter Property="AllowsTransparency" Value="True"/>
         <Setter Property="WindowStyle" Value="None"/>

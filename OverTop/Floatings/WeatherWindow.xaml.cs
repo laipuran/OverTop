@@ -22,6 +22,7 @@ namespace OverTop.Floatings
     public partial class WeatherWindow : Window
     {
         public static bool changeWeather = false;
+
         public WeatherWindow()
         {
             InitializeComponent();
@@ -43,18 +44,18 @@ namespace OverTop.Floatings
 
         private void ShowWeatherOnce()
         {
-            WeatherInformation wi = GetWeatherInformation(i2.adcode);
+            WeatherInformation wi = GetWeatherInformation(settings.i2.adcode);
 
             WeatherTextBlock.Text = wi.lives[0].weather +
                 " " + wi.lives[0].winddirection +
                 " " + wi.lives[0].windpower + "级";
             TempTextBlock.Text = wi.lives[0].temperature + "℃";
-            LocationTextBlock.Text = i2.province + "\n" + i2.city;
+            LocationTextBlock.Text = settings.i2.province + "\n" + settings.i2.city;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Task.Run(() => Dispatcher.BeginInvoke(new Action(() => { ShowWeather(); })));
+            await Task.Run(() => Dispatcher.BeginInvoke(new Action(() => { ShowWeather(); })));
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -62,6 +63,16 @@ namespace OverTop.Floatings
             e.Cancel = true;
             changeWeather = false;
             Visibility = Visibility.Collapsed;
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove(); 
+        }
+
+        private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ShowWeatherOnce();
         }
     }
 }
