@@ -32,7 +32,6 @@ namespace OverTop.Floatings
         public AppWindow()
         {
             InitializeComponent();
-            LoadFilesFromString();
         }
 
         public static void AppPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -121,7 +120,7 @@ namespace OverTop.Floatings
             CommonWindowOps.ChangeZIndex(isBottom, this);
         }
 
-        private void LoadFilesFromString()
+        private void LoadFilesFromString(string filePath)
         {
             if (!File.Exists(filePath))
             {
@@ -155,6 +154,9 @@ namespace OverTop.Floatings
             SetWindowPos(this, appWindowClass.screenPart);
         }
 
-
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadFilesFromString(filePath);
+        }
     }
 }
