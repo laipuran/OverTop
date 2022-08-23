@@ -37,10 +37,10 @@ namespace OverTop.Pages
             Window newRecent = new Floatings.RecentWindow();
             newRecent.Title = Guid.NewGuid().ToString();
             newRecent.ToolTip = "Recent Window - " + recents;
-            newRecent.Width = App.recentProperty.width;
-            newRecent.Height = App.recentProperty.height;
-            newRecent.Background = new SolidColorBrush(App.recentProperty.backGroundColor);
-            newRecent.Opacity = App.recentProperty.alpha == 0.0 ? 0.8 : App.recentProperty.alpha;
+            newRecent.Width = App.settings.HangerWindowSettings.width;
+            newRecent.Height = App.settings.HangerWindowSettings.height;
+            newRecent.Background = new SolidColorBrush(App.settings.HangerWindowSettings.backGroundColor);
+            newRecent.Opacity = App.settings.HangerWindowSettings.alpha == 0.0 ? 0.8 : App.settings.HangerWindowSettings.alpha;
             newRecent.Show();
             windows.Add(newRecent);
         }
@@ -51,10 +51,10 @@ namespace OverTop.Pages
             Window newHanger = new Floatings.HangerWindow();
             newHanger.Title = Guid.NewGuid().ToString();
             newHanger.ToolTip = "Hanger Window - " + recents;
-            newHanger.Width = App.hangerProperty.width;
-            newHanger.Height = App.hangerProperty.height;
-            newHanger.Background = new SolidColorBrush(App.hangerProperty.backGroundColor);
-            newHanger.Opacity = App.hangerProperty.alpha == 0.0 ? 0.8 : App.hangerProperty.alpha;
+            newHanger.Width = App.settings.RecentWindowSettings.width;
+            newHanger.Height = App.settings.RecentWindowSettings.height;
+            newHanger.Background = new SolidColorBrush(App.settings.RecentWindowSettings.backGroundColor);
+            newHanger.Opacity = App.settings.RecentWindowSettings.alpha == 0.0 ? 0.8 : App.settings.RecentWindowSettings.alpha;
             newHanger.Show();
             windows.Add(newHanger);
         }

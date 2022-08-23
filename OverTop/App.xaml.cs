@@ -30,9 +30,7 @@ namespace OverTop
 
         public static MainWindow? mainWindow;
 
-        public static Property parameterClass = new(),
-            recentProperty = new(),
-            hangerProperty = new();
+        public static Property parameterClass = new();
 
         public static Settings settings = new();
 
