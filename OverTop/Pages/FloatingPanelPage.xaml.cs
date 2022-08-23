@@ -11,7 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using static OverTop.Apis;
+using static OverTop.API;
 
 namespace OverTop.Pages
 {
@@ -28,7 +28,6 @@ namespace OverTop.Pages
             InitializeComponent();
             HangerToolTipImage.Source = MainWindow.GetIcon("HangerWindow");
             RecentToolTipImage.Source = MainWindow.GetIcon("RecentWindow");
-
         }
 
 
@@ -38,10 +37,10 @@ namespace OverTop.Pages
             Window newRecent = new Floatings.RecentWindow();
             newRecent.Title = Guid.NewGuid().ToString();
             newRecent.ToolTip = "Recent Window - " + recents;
-            newRecent.Width = App.recentSettingsClass.width;
-            newRecent.Height = App.recentSettingsClass.height;
-            newRecent.Background = new SolidColorBrush(App.recentSettingsClass.backGroundColor);
-            newRecent.Opacity = App.recentSettingsClass.alpha == 0.0 ? 0.8 : App.recentSettingsClass.alpha;
+            newRecent.Width = App.recentProperty.width;
+            newRecent.Height = App.recentProperty.height;
+            newRecent.Background = new SolidColorBrush(App.recentProperty.backGroundColor);
+            newRecent.Opacity = App.recentProperty.alpha == 0.0 ? 0.8 : App.recentProperty.alpha;
             newRecent.Show();
             windows.Add(newRecent);
         }
@@ -51,13 +50,13 @@ namespace OverTop.Pages
             hangers++;
             Window newHanger = new Floatings.HangerWindow();
             newHanger.Title = Guid.NewGuid().ToString();
-            newHanger.Width = App.hangerSettingsClass.width;
-            newHanger.Height = App.hangerSettingsClass.height;
-            newHanger.Background = new SolidColorBrush(App.hangerSettingsClass.backGroundColor);
-            newHanger.Opacity = App.hangerSettingsClass.alpha == 0.0 ? 0.8 : App.hangerSettingsClass.alpha;
+            newHanger.ToolTip = "Hanger Window - " + recents;
+            newHanger.Width = App.hangerProperty.width;
+            newHanger.Height = App.hangerProperty.height;
+            newHanger.Background = new SolidColorBrush(App.hangerProperty.backGroundColor);
+            newHanger.Opacity = App.hangerProperty.alpha == 0.0 ? 0.8 : App.hangerProperty.alpha;
             newHanger.Show();
             windows.Add(newHanger);
-
         }
 
         private void ImportButton_Click(object sender, RoutedEventArgs e)
