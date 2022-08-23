@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static OverTop.App;
-using static OverTop.Apis;
+using static OverTop.API;
 
 namespace OverTop.Floatings
 {
