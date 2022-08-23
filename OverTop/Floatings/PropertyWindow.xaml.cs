@@ -31,7 +31,7 @@ namespace OverTop.Floatings
             ColorTextBox.Text = ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
             Title += " - " + App.currentWindow.Title;
 
-            if (App.windowType == WindowType.Hanger)
+            if (App.currentWindowType == WindowType.Hanger)
             {
                 InitializeTextWindow("", textWindow, OKButton_Click);
             }
@@ -192,7 +192,7 @@ namespace OverTop.Floatings
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
         {
-            if (App.windowType == WindowType.Hanger)
+            if (App.currentWindowType == WindowType.Hanger)
             {
                 ParsingResult union = Algorithm.ParseIntFromString(WidthTextBox.Text, 800);
                 if (union.message != "")
@@ -201,7 +201,7 @@ namespace OverTop.Floatings
                     WidthTextBox.Text = App.currentWindow.Width.ToString();
                     return;
                 }
-                App.hangerSettingsClass.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
+                App.hangerProperty.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
 
                 union = Algorithm.ParseIntFromString(HeightTextBox.Text, 800);
                 if (union.message != "")
@@ -210,11 +210,11 @@ namespace OverTop.Floatings
                     HeightTextBox.Text = App.currentWindow.Height.ToString();
                     return;
                 }
-                App.hangerSettingsClass.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
+                App.hangerProperty.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
 
-                App.hangerSettingsClass.alpha = AlphaSlider.Value;
+                App.hangerProperty.alpha = AlphaSlider.Value;
                 System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
-                App.hangerSettingsClass.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
+                App.hangerProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
             }
             else
             {
@@ -225,7 +225,7 @@ namespace OverTop.Floatings
                     WidthTextBox.Text = App.currentWindow.Width.ToString();
                     return;
                 }
-                App.recentSettingsClass.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
+                App.recentProperty.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
 
                 union = Algorithm.ParseIntFromString(HeightTextBox.Text, 800);
                 if (union.message != "")
@@ -234,15 +234,15 @@ namespace OverTop.Floatings
                     HeightTextBox.Text = App.currentWindow.Height.ToString();
                     return;
                 }
-                App.recentSettingsClass.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
+                App.recentProperty.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
 
-                App.recentSettingsClass.alpha = AlphaSlider.Value;
+                App.recentProperty.alpha = AlphaSlider.Value;
                 System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
-                App.recentSettingsClass.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
+                App.recentProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
             }
             Dictionary<WindowType, Property> settings = new();
-            settings.Add(WindowType.Hanger, App.hangerSettingsClass);
-            settings.Add(WindowType.Recent, App.recentSettingsClass);
+            settings.Add(WindowType.Hanger, App.hangerProperty);
+            settings.Add(WindowType.Recent, App.recentProperty);
             string json = JsonConvert.SerializeObject(settings);
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\Settings.json";
 #pragma warning disable CS8602 // 解引用可能出现空引用。

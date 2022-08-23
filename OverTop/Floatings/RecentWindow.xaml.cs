@@ -102,7 +102,7 @@ namespace OverTop.Floatings
         private void Window_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             App.currentWindow = this;
-            App.windowType = CommonWindowOps.WindowType.Recent;
+            App.currentWindowType = CommonWindowOps.WindowType.Recent;
             Window propertyWindow = new PropertyWindow
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen

@@ -69,7 +69,7 @@ namespace OverTop.Floatings
         {
             App.currentWindow = this;
             App.contentStackPanel = ContentStackPanel;
-            App.windowType = CommonWindowOps.WindowType.Hanger;
+            App.currentWindowType = CommonWindowOps.WindowType.Hanger;
             Window propertyWindow = new PropertyWindow
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
