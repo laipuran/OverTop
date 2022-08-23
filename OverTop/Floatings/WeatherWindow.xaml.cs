@@ -21,7 +21,7 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class WeatherWindow : Window
     {
-        public static bool showWeather = false;
+        public static bool changeWeather = false;
         public WeatherWindow()
         {
             InitializeComponent();
@@ -34,7 +34,7 @@ namespace OverTop.Floatings
 
         private async void ShowWeather()
         {
-            while (showWeather)
+            while (changeWeather)
             {
                 ShowWeatherOnce();
                 await Task.Delay(10 * 60 * 1000);
@@ -55,6 +55,13 @@ namespace OverTop.Floatings
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Task.Run(() => Dispatcher.BeginInvoke(new Action(() => { ShowWeather(); })));
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            changeWeather = false;
+            Visibility = Visibility.Collapsed;
         }
     }
 }
