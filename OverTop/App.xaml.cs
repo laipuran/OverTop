@@ -29,12 +29,11 @@ namespace OverTop
         public static StackPanel contentStackPanel = new();
 
         public static MainWindow? mainWindow;
+        public static AppWindow appWindow = new Floatings.AppWindow();
 
-        public static Property parameterClass = new();
+        public static Property tempProperty = new();
 
         public static Settings settings = new();
-
-        public static AppWindow appWindow = new Floatings.AppWindow();
 
         public static string ip = "";
         public static IpInformation i2 = new();

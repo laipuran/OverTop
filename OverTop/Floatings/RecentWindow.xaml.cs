@@ -108,10 +108,10 @@ namespace OverTop.Floatings
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
             propertyWindow.ShowDialog();
-            Width = App.parameterClass.width;
-            Height = App.parameterClass.height;
-            Background = new SolidColorBrush(App.parameterClass.backGroundColor);
-            Opacity = App.parameterClass.alpha;
+            Width = App.tempProperty.width;
+            Height = App.tempProperty.height;
+            Background = new SolidColorBrush(App.tempProperty.backGroundColor);
+            Opacity = App.tempProperty.alpha;
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

@@ -176,7 +176,7 @@ namespace OverTop.Floatings
                 WidthTextBox.Text = App.currentWindow.Width.ToString();
                 e.Cancel = true;
             }
-            App.parameterClass.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
+            App.tempProperty.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
 
             union = Algorithm.ParseIntFromString(HeightTextBox.Text, 800);
             if (union.message != "")
@@ -185,11 +185,11 @@ namespace OverTop.Floatings
                 HeightTextBox.Text = App.currentWindow.Height.ToString();
                 e.Cancel = true;
             }
-            App.parameterClass.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
+            App.tempProperty.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
 
-            App.parameterClass.alpha = AlphaSlider.Value;
+            App.tempProperty.alpha = AlphaSlider.Value;
             System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
-            App.parameterClass.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
+            App.tempProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
         }
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
