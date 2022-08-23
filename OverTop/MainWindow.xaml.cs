@@ -41,7 +41,6 @@ namespace OverTop
 
             Pages.StaticPropertyPage.ColorChanged();
             App.appWindow.Show();
-            GetSettingsFromFile();
         }
 
         public static ImageSource GetIcon(string name)
@@ -53,44 +52,6 @@ namespace OverTop
 #pragma warning restore CS8604 // 引用类型参数可能为 null。
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
             return Imaging.CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-        }
-
-        private void GetSettingsFromFile()
-        {
-            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\Settings.json";
-            if (!File.Exists(filePath))
-            {
-                App.hangerSettingsClass.height = 150;
-                App.hangerSettingsClass.width = 200;
-                App.hangerSettingsClass.alpha = 0.7;
-                App.hangerSettingsClass.backGroundColor = System.Windows.Media.Color.FromRgb(255, 161, 46);
-
-                App.recentSettingsClass.height = 350;
-                App.recentSettingsClass.width = 250;
-                App.recentSettingsClass.alpha = 0.8;
-                App.recentSettingsClass.backGroundColor = System.Windows.Media.Color.FromRgb(69, 181, 255);
-
-                return;
-            }
-            try
-            {
-                string json = File.ReadAllText(filePath);
-#pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-                Dictionary<WindowType, Property> settings = JsonConvert.DeserializeObject<Dictionary<WindowType, Property>>(json);
-#pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-                foreach (KeyValuePair<WindowType, Property> item in settings)
-                {
-                    if (item.Key == WindowType.Hanger)
-                    {
-                        App.hangerSettingsClass = item.Value;
-                    }
-                    else
-                        App.recentSettingsClass = item.Value;
-                }
-#pragma warning restore CS8602 // 解引用可能出现空引用。
-            }
-            catch { }
         }
 
         private void NavigationButton_Click(object sender, RoutedEventArgs e)

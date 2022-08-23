@@ -1,12 +1,17 @@
-﻿using OverTop.Floatings;
+﻿using Newtonsoft.Json;
+using OverTop.Floatings;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using static OverTop.Apis;
+using static OverTop.API;
+using static OverTop.CommonWindowOps;
+using static OverTop.Settings;
 
 namespace OverTop
 {
@@ -18,7 +23,7 @@ namespace OverTop
         [DllImport("user32.dll", EntryPoint = "FindWindow")]
         private extern static IntPtr FindWindow(string? lpClassName, string? lpWindowName);
         
-        public static CommonWindowOps.WindowType windowType = new();
+        public static CommonWindowOps.WindowType currentWindowType = new();
 
         public static Window currentWindow = new();
         public static StackPanel contentStackPanel = new();
@@ -26,8 +31,10 @@ namespace OverTop
         public static MainWindow? mainWindow;
 
         public static Property parameterClass = new(),
-            recentSettingsClass = new(),
-            hangerSettingsClass = new();
+            recentProperty = new(),
+            hangerProperty = new();
+
+        public static Settings settings = new();
 
         public static AppWindow appWindow = new Floatings.AppWindow();
 
@@ -43,8 +50,9 @@ namespace OverTop
                 Environment.Exit(-1);
             }
 
-            ip = Apis.GetHostIp();
-            i2 = GetIpInformation(ip);
+            ip = API.GetHostIp();
+            settings = GetSettingsFromFile(ip);
         }
+
     }
 }
