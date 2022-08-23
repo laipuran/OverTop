@@ -49,7 +49,10 @@ namespace OverTop
 
             string IP = API.GetHostIp();
             if (IP != settings.ip)
+            {
                 settings.i2 = API.GetIpInformation(ip);
+                settings.ip = IP;
+            }
             return settings;
         }
 
@@ -71,6 +74,7 @@ namespace OverTop
             settings.HangerWindowSettings = hanger;
             settings.RecentWindowSettings = recent;
             settings.i2 = GetIpInformation(ip);
+            settings.ip = ip;
             return settings;
         }
 
