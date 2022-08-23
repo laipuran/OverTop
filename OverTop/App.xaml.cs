@@ -37,7 +37,6 @@ namespace OverTop
         public static Settings settings = new();
 
         public static string ip = "";
-        public static IpInformation i2 = new();
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
