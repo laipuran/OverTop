@@ -25,7 +25,6 @@ namespace OverTop.Floatings
         public WeatherWindow()
         {
             InitializeComponent();
-            Task.Run(() => Dispatcher.BeginInvoke(new Action(() => { ShowWeather(); })));
         }
 
         private void WeatherStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -51,6 +50,11 @@ namespace OverTop.Floatings
                 " " + wi.lives[0].windpower + "级";
             TempTextBlock.Text = wi.lives[0].temperature + "℃";
             LocationTextBlock.Text = i2.province + "\n" + i2.city;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Task.Run(() => Dispatcher.BeginInvoke(new Action(() => { ShowWeather(); })));
         }
     }
 }

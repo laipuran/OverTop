@@ -15,8 +15,8 @@ namespace OverTop
 #pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
         public string ip;
         public IpInformation i2;
-        public Property HangerWindowSetting;
-        public Property RecentWindowSetting;
+        public Property HangerWindowSettings;
+        public Property RecentWindowSettings;
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 
         public static Settings GetSettingsFromFile(string ip)
@@ -57,26 +57,31 @@ namespace OverTop
         {
             Settings settings = new();
 
-            Property hangerProperty = new(), recentProperty = new();
-            hangerProperty.height = 150;
-            hangerProperty.width = 200;
-            hangerProperty.alpha = 0.7;
-            hangerProperty.backGroundColor = System.Windows.Media.Color.FromRgb(255, 161, 46);
+            Property hanger = new(), recent = new();
+            hanger.height = 150;
+            hanger.width = 200;
+            hanger.alpha = 0.7;
+            hanger.backGroundColor = System.Windows.Media.Color.FromRgb(255, 161, 46);
 
-            recentProperty.height = 350;
-            recentProperty.width = 250;
-            recentProperty.alpha = 0.8;
-            recentProperty.backGroundColor = System.Windows.Media.Color.FromRgb(69, 181, 255);
+            recent.height = 350;
+            recent.width = 250;
+            recent.alpha = 0.8;
+            recent.backGroundColor = System.Windows.Media.Color.FromRgb(69, 181, 255);
 
-            settings.HangerWindowSetting = hangerProperty;
-            settings.RecentWindowSetting = recentProperty;
+            settings.HangerWindowSettings = hanger;
+            settings.RecentWindowSettings = recent;
             settings.i2 = GetIpInformation(ip);
             return settings;
         }
 
-        public static void SaveSettings()
+        public static void SaveSettings(Settings settings)
         {
-
+            string json = JsonConvert.SerializeObject(settings);
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\Settings.json";
+#pragma warning disable CS8602 // 解引用可能出现空引用。
+            Directory.CreateDirectory(Directory.GetParent(filePath).FullName);
+#pragma warning restore CS8602 // 解引用可能出现空引用。
+            File.WriteAllText(filePath, json);
         }
     }
 }

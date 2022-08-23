@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static OverTop.CommonWindowOps;
+using static OverTop.Settings;
 
 namespace OverTop.Floatings
 {
@@ -37,6 +38,7 @@ namespace OverTop.Floatings
             }
             else
             {
+
             }
 
             ToolTip = Title;
@@ -192,6 +194,7 @@ namespace OverTop.Floatings
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
         {
+            Property hangerProperty = new(), recentProperty = new();
             if (App.currentWindowType == WindowType.Hanger)
             {
                 ParsingResult union = Algorithm.ParseIntFromString(WidthTextBox.Text, 800);
@@ -201,7 +204,7 @@ namespace OverTop.Floatings
                     WidthTextBox.Text = App.currentWindow.Width.ToString();
                     return;
                 }
-                App.hangerProperty.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
+                hangerProperty.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
 
                 union = Algorithm.ParseIntFromString(HeightTextBox.Text, 800);
                 if (union.message != "")
@@ -210,11 +213,11 @@ namespace OverTop.Floatings
                     HeightTextBox.Text = App.currentWindow.Height.ToString();
                     return;
                 }
-                App.hangerProperty.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
+                hangerProperty.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
 
-                App.hangerProperty.alpha = AlphaSlider.Value;
+                hangerProperty.alpha = AlphaSlider.Value;
                 System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
-                App.hangerProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
+                hangerProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
             }
             else
             {
@@ -225,7 +228,7 @@ namespace OverTop.Floatings
                     WidthTextBox.Text = App.currentWindow.Width.ToString();
                     return;
                 }
-                App.recentProperty.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
+                recentProperty.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
 
                 union = Algorithm.ParseIntFromString(HeightTextBox.Text, 800);
                 if (union.message != "")
@@ -234,21 +237,16 @@ namespace OverTop.Floatings
                     HeightTextBox.Text = App.currentWindow.Height.ToString();
                     return;
                 }
-                App.recentProperty.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
+                recentProperty.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
 
-                App.recentProperty.alpha = AlphaSlider.Value;
+                recentProperty.alpha = AlphaSlider.Value;
                 System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
-                App.recentProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
+                recentProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
             }
-            Dictionary<WindowType, Property> settings = new();
-            settings.Add(WindowType.Hanger, App.hangerProperty);
-            settings.Add(WindowType.Recent, App.recentProperty);
-            string json = JsonConvert.SerializeObject(settings);
-            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\Settings.json";
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-            Directory.CreateDirectory(Directory.GetParent(filePath).FullName);
-#pragma warning restore CS8602 // 解引用可能出现空引用。
-            File.WriteAllText(filePath, json);
+            App.settings.HangerWindowSettings = hangerProperty;
+            App.settings.RecentWindowSettings = recentProperty;
+
+            SaveSettings(App.settings);
         }
 
         private void AddTextButton_Click(object sender, RoutedEventArgs e)

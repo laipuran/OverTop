@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:OverTop.Floatings"
         mc:Ignorable="d" 
         Title="WeatherWindow" Height="300" Width="300"
-        Style="{StaticResource FloatingWindowStyle}">
+        Style="{StaticResource FloatingWindowStyle}"
+        Loaded="Window_Loaded">
 
     <StackPanel x:Name="WeatherStackPanel"
                         MouseLeftButtonDown="WeatherStackPanel_MouseLeftButtonDown">
