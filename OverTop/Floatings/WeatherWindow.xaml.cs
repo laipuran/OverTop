@@ -55,6 +55,7 @@ namespace OverTop.Floatings
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            changeWeather = true;
             await Task.Run(() => Dispatcher.BeginInvoke(new Action(() => { ShowWeather(); })));
         }
 
