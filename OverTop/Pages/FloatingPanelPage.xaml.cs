@@ -35,7 +35,7 @@ namespace OverTop.Pages
             hangers++;
             Window newHanger = new Floatings.HangerWindow();
             newHanger.Title = Guid.NewGuid().ToString();
-            newHanger.ToolTip = "Hanger Window - " + recents;
+            newHanger.ToolTip = "Hanger Window - " + hangers;
             newHanger.Width = App.settings.HangerWindowSettings.width;
             newHanger.Height = App.settings.HangerWindowSettings.height;
             newHanger.Background = new SolidColorBrush(App.settings.HangerWindowSettings.backGroundColor);
