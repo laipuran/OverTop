@@ -216,6 +216,7 @@ namespace OverTop.Floatings
                 hangerProperty.alpha = AlphaSlider.Value;
                 System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
                 hangerProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
+                App.settings.HangerWindowSettings = hangerProperty;
             }
             else
             {
@@ -240,9 +241,8 @@ namespace OverTop.Floatings
                 recentProperty.alpha = AlphaSlider.Value;
                 System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
                 recentProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
+                App.settings.RecentWindowSettings = recentProperty;
             }
-            App.settings.HangerWindowSettings = hangerProperty;
-            App.settings.RecentWindowSettings = recentProperty;
 
             SaveSettings(App.settings);
         }

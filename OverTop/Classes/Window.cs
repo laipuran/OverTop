@@ -278,14 +278,8 @@ namespace OverTop
             {
                 return;
             }
-            try
-            {
-                AppWindow.controls.Add(path, appPanel);
-            }
-            catch
-            {
-                return;
-            }
+
+            AppWindow.controls.Add(path, appPanel);
             App.contentStackPanel.Children.Add(appPanel);
         }
     }
