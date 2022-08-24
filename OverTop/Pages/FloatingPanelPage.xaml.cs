@@ -30,6 +30,19 @@ namespace OverTop.Pages
             RecentToolTipImage.Source = MainWindow.GetIcon("RecentWindow");
         }
 
+        private void HangerWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            hangers++;
+            Window newHanger = new Floatings.HangerWindow();
+            newHanger.Title = Guid.NewGuid().ToString();
+            newHanger.ToolTip = "Hanger Window - " + recents;
+            newHanger.Width = App.settings.HangerWindowSettings.width;
+            newHanger.Height = App.settings.HangerWindowSettings.height;
+            newHanger.Background = new SolidColorBrush(App.settings.HangerWindowSettings.backGroundColor);
+            newHanger.Opacity = App.settings.HangerWindowSettings.alpha == 0.0 ? 0.8 : App.settings.HangerWindowSettings.alpha;
+            newHanger.Show();
+            windows.Add(newHanger);
+        }
 
         private void RecentWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
@@ -37,26 +50,12 @@ namespace OverTop.Pages
             Window newRecent = new Floatings.RecentWindow();
             newRecent.Title = Guid.NewGuid().ToString();
             newRecent.ToolTip = "Recent Window - " + recents;
-            newRecent.Width = App.settings.HangerWindowSettings.width;
-            newRecent.Height = App.settings.HangerWindowSettings.height;
-            newRecent.Background = new SolidColorBrush(App.settings.HangerWindowSettings.backGroundColor);
-            newRecent.Opacity = App.settings.HangerWindowSettings.alpha == 0.0 ? 0.8 : App.settings.HangerWindowSettings.alpha;
+            newRecent.Width = App.settings.RecentWindowSettings.width;
+            newRecent.Height = App.settings.RecentWindowSettings.height;
+            newRecent.Background = new SolidColorBrush(App.settings.RecentWindowSettings.backGroundColor);
+            newRecent.Opacity = App.settings.RecentWindowSettings.alpha == 0.0 ? 0.8 : App.settings.RecentWindowSettings.alpha;
             newRecent.Show();
             windows.Add(newRecent);
-        }
-
-        private void HangerWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            hangers++;
-            Window newHanger = new Floatings.HangerWindow();
-            newHanger.Title = Guid.NewGuid().ToString();
-            newHanger.ToolTip = "Hanger Window - " + recents;
-            newHanger.Width = App.settings.RecentWindowSettings.width;
-            newHanger.Height = App.settings.RecentWindowSettings.height;
-            newHanger.Background = new SolidColorBrush(App.settings.RecentWindowSettings.backGroundColor);
-            newHanger.Opacity = App.settings.RecentWindowSettings.alpha == 0.0 ? 0.8 : App.settings.RecentWindowSettings.alpha;
-            newHanger.Show();
-            windows.Add(newHanger);
         }
 
         private void ImportButton_Click(object sender, RoutedEventArgs e)
