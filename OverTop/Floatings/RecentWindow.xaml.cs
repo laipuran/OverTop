@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OverTop.Pages;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -163,6 +164,11 @@ namespace OverTop.Floatings
                 Task.Run(() => Dispatcher.BeginInvoke(new Action(ProcessRecentFiles)));
             }
             DragMove();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            FloatingPanelPage.windows.Remove(this);
         }
     }
 }

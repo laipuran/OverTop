@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OverTop.Pages;
+using System;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -7,7 +8,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using static OverTop.CommonWindowOps;
-using static OverTop.HangerWindowOps;
+using static OverTop.Floatings.HangerWindowProperty;
 
 namespace OverTop.Floatings
 {
@@ -22,6 +23,7 @@ namespace OverTop.Floatings
         {
             InitializeComponent();
         }
+
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (System.Windows.Input.Mouse.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
@@ -29,6 +31,7 @@ namespace OverTop.Floatings
                 DragMove();
             }
         }
+
         private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Tab)

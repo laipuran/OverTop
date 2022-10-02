@@ -183,7 +183,6 @@ namespace OverTop.Floatings
             {
                 ContentStackPanel.Children.Clear();
                 filePaths.Clear();
-                //TODO: Remember to clear fileInfo after something
                 GetShortCuts();
                 return;
             }
