@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using OverTop.Floatings;
+using OverTop.Pages;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,7 +23,7 @@ namespace OverTop
     {
         [DllImport("user32.dll", EntryPoint = "FindWindow")]
         private extern static IntPtr FindWindow(string? lpClassName, string? lpWindowName);
-        
+
         // The Variables needed in the whole application
         public static CommonWindowOps.WindowType currentWindowType = new();
 
@@ -49,10 +50,32 @@ namespace OverTop
 
             ip = API.GetHostIp();
             settings = GetSettingsFromFile(ip);
+            weatherWindow = (WeatherWindow)settings.WeatherWindow.GetWindow();
+            if (settings.WeatherWindow.isVisible == true)
+            {
+                weatherWindow.Show();
+            }
+            foreach (HangerWindowProperty windowClass in settings.HangerWindows)
+            {
+
+            }
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
+            foreach (Window window in FloatingPanelPage.windows)
+            {
+                if (window is HangerWindow)
+                {
+                    settings.HangerWindows.Add(((HangerWindow)window).Save());
+                }
+                else if (window is RecentWindow)
+                {
+                    settings.RecentWindow = ((RecentWindow)window).Save();
+                }
+                settings.WeatherWindow = weatherWindow.Save();
+            }
+
             App.settings.Save();
         }
     }
