@@ -2,6 +2,7 @@
 using OverTop.Floatings;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -14,11 +15,41 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using static OverTop.AppWindowOps;
 using static OverTop.CommonWindowOps;
+using Point = System.Windows.Point;
 
 namespace OverTop
 {
-    public static class ExtensionMethods
+    public static class ExtentedOperations
     {
+        public static WeatherWindowProperty Save(this WeatherWindow window)
+        {
+            WeatherWindowProperty windowClass = new();
+            windowClass.width = (int)window.Width;
+            windowClass.height = (int)window.Height;
+            windowClass.left = window.Left;
+            windowClass.top = window.Top;
+            if (window.Visibility == Visibility.Visible)
+            {
+                windowClass.isVisible = true;
+            }
+            else windowClass.isVisible = false;
+
+            return windowClass;
+        }
+
+        public static RecentWindowProperty Save(this RecentWindow window)
+        {
+            RecentWindowProperty windowClass = new();
+            System.Windows.Media.Color color = ((SolidColorBrush)window.Background).Color;
+            windowClass.backgroundColor = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
+            windowClass.width = (int)window.Width;
+            windowClass.height = (int)window.Height;
+            windowClass.alpha = window.Opacity;
+            windowClass.left = window.Left;
+            windowClass.top = window.Top;
+            return windowClass;
+        }
+
         public static void ToBottom(this Window window)
         {
             CommonWindowOps.SetWindowPos(new WindowInteropHelper(window).Handle,
@@ -33,9 +64,9 @@ namespace OverTop
                 (int)window.Top, (int)window.Width, (int)window.Height, 0);
         }
 
-        public static void Save(this HangerWindow window)
+        public static HangerWindowProperty Save(this HangerWindow window)
         {
-            HangerWindowOps windowClass = new();
+            HangerWindowProperty windowClass = new();
             System.Windows.Media.Color color = ((SolidColorBrush)window.Background).Color;
             windowClass.backgroundColor = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
             windowClass.width = (int)window.Width;
@@ -48,11 +79,11 @@ namespace OverTop
             {
                 if (item.Children[0] is TextBlock)
                 {
-                    windowClass.contents.Add(new(HangerWindowOps.ContentType.Text, ((TextBlock)item.Children[0]).Text));
+                    windowClass.contents.Add(new(HangerWindowProperty.ContentType.Text, ((TextBlock)item.Children[0]).Text));
                 }
                 else if (item.Children[0] is System.Windows.Controls.Image)
                 {
-                    windowClass.contents.Add(new(HangerWindowOps.ContentType.Image,
+                    windowClass.contents.Add(new(HangerWindowProperty.ContentType.Image,
                         ((System.Windows.Controls.Image)item.Children[0]).Source.ToString()));
                 }
             }
@@ -62,6 +93,7 @@ namespace OverTop
             Directory.CreateDirectory(Directory.GetParent(filePath).FullName);
 #pragma warning restore CS8602 // 解引用可能出现空引用。
             File.WriteAllText(filePath, json);
+            return windowClass;
         }
 
         public static void Save(this AppWindow window)
@@ -198,24 +230,6 @@ namespace OverTop
             }
             return !isBottom;
         }
-    }
-
-    public class HangerWindowOps
-    {
-        public List<KeyValuePair<ContentType, string>> contents = new();
-        public string backgroundColor = "";
-        public int width;
-        public int height;
-        public double alpha;
-        public double left;
-        public double top;
-
-        public enum ContentType
-        {
-            Text,
-            Image
-        }
-
     }
 
     public class AppWindowOps

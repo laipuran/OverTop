@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using OverTop.Floatings;
@@ -15,6 +16,7 @@ namespace OverTop
     {
         void Save();
     }
+
     public class Settings : ISettings
     {
 #pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
@@ -22,6 +24,9 @@ namespace OverTop
         public IpInformation i2;
         public Property HangerWindowSettings;
         public Property RecentWindowSettings;
+        public List<HangerWindowProperty> HangerWindows;
+        public RecentWindowProperty RecentWindow;
+        public WeatherWindowProperty WeatherWindow;
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 
         public static Settings GetSettingsFromFile(string ip)
