@@ -84,9 +84,17 @@ namespace OverTop.Pages
         private void GetWindowFromString(string json, string fileName)
         {
             hangers++;
+            HangerWindowProperty windowClass = new();
+            try
+            {
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
             HangerWindowOps windowClass = JsonConvert.DeserializeObject<HangerWindowOps>(json);
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
+            }
+            catch
+            {
+                throw new PuranLai.CustomException("Not the right JSON structure!");
+            }
 
             HangerWindow newHanger = new Floatings.HangerWindow();
 #pragma warning disable CS8602 // 解引用可能出现空引用。
@@ -121,6 +129,11 @@ namespace OverTop.Pages
                     newStackPanel.Children.Add(newImage);
                     newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown; ;
                     ContentStackPanel.Children.Add(newStackPanel);
+                }
+                    catch
+                    {
+                        throw new PuranLai.CustomException("Image not exists!");
+                    }
                 }
             }
             windows.Add(newHanger);
