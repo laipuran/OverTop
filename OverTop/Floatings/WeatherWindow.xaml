@@ -9,6 +9,7 @@
         Style="{StaticResource FloatingWindowStyle}" ShowInTaskbar="False"
         Loaded="Window_Loaded" MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Closing="Window_Closing" MouseDoubleClick="Window_MouseDoubleClick"
+        KeyDown="Window_KeyDown"
         Background="White" Opacity="0.8">
 
     <StackPanel x:Name="WeatherStackPanel" Margin="5,5,5,5"

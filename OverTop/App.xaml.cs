@@ -53,7 +53,7 @@ namespace OverTop
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            SaveSettings(App.settings);
+            App.settings.Save();
         }
     }
 }

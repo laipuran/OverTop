@@ -75,5 +75,22 @@ namespace OverTop.Floatings
         {
             ShowWeatherOnce();
         }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                switch (e.Key)
+                {
+                    case Key.Left: Left -= 1; break;
+                    case Key.Right: Left += 1; break;
+                    case Key.Up: Top -= 1; break;
+                    case Key.Down: Top += 1; break;
+                    case Key.Escape: Close(); break;
+                    default: break;
+                }
+            }
+            catch { }
+        }
     }
 }

@@ -244,7 +244,7 @@ namespace OverTop.Floatings
                 App.settings.RecentWindowSettings = recentProperty;
             }
 
-            SaveSettings(App.settings);
+            App.settings.Save();
         }
 
         private void AddTextButton_Click(object sender, RoutedEventArgs e)

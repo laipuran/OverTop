@@ -135,14 +135,24 @@ namespace OverTop.Floatings
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape)
-            {
-                Close();
-            }
-            else if (e.Key == System.Windows.Input.Key.Tab)
+            if (e.Key == System.Windows.Input.Key.Tab)
             {
                 isBottom = CommonWindowOps.ChangeStatus(isBottom, this);
+                return;
             }
+            try
+            {
+                switch (e.Key)
+                {
+                    case Key.Left: Left -= 1; break;
+                    case Key.Right: Left += 1; break;
+                    case Key.Up: Top -= 1; break;
+                    case Key.Down: Top += 1; break;
+                    case Key.Escape: Close(); break;
+                    default: break;
+                }
+            }
+            catch { }
         }
 
         private void ContentStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

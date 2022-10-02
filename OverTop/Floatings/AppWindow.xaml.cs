@@ -90,8 +90,8 @@ namespace OverTop.Floatings
                     break;
                 }
             }
-            ScreenPart part = GetPart(GetMiddlePoint(this));
-            SetWindowPos(this, part);
+            ScreenPart part = this.GetMiddlePoint().GetPart();
+            this.SetWindowPos(part);
         }
 
         private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -124,7 +124,7 @@ namespace OverTop.Floatings
         {
             if (!File.Exists(filePath))
             {
-                SetWindowPos(this, ScreenPart.TopPart);
+                this.SetWindowPos(ScreenPart.TopPart);
                 return;
             }
             string json = File.ReadAllText(filePath);
@@ -151,7 +151,7 @@ namespace OverTop.Floatings
                     continue;
                 }
             }
-            SetWindowPos(this, appWindowClass.screenPart);
+            this.SetWindowPos(appWindowClass.screenPart);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

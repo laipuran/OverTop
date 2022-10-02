@@ -91,7 +91,7 @@ namespace OverTop
             }
             else
             {
-                SaveWindow(App.appWindow);
+                App.appWindow.Save();
                 App.Current.Shutdown();
             }
         }
