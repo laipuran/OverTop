@@ -88,7 +88,7 @@ namespace OverTop.Pages
             try
             {
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-            HangerWindowOps windowClass = JsonConvert.DeserializeObject<HangerWindowOps>(json);
+                windowClass = JsonConvert.DeserializeObject<HangerWindowProperty>(json);
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
             }
             catch
@@ -109,9 +109,9 @@ namespace OverTop.Pages
 #pragma warning restore CS8602 // 解引用可能出现空引用。
 
             StackPanel ContentStackPanel = (StackPanel)((ScrollViewer)newHanger.Content).Content;
-            foreach (KeyValuePair<HangerWindowOps.ContentType, string> pair in windowClass.contents)
+            foreach (KeyValuePair<HangerWindowProperty.ContentType, string> pair in windowClass.contents)
             {
-                if (pair.Key == HangerWindowOps.ContentType.Text)
+                if (pair.Key == HangerWindowProperty.ContentType.Text)
                 {
                     TextBlock newTextBlock = new();
                     newTextBlock.Style = (Style)FindResource("ContentTextBlockStyle");
@@ -121,15 +121,17 @@ namespace OverTop.Pages
                     newStackPanel.MouseLeftButtonDown += TextPanel_MouseLeftButtonDown;
                     ContentStackPanel.Children.Add(newStackPanel);
                 }
-                else if (pair.Key == HangerWindowOps.ContentType.Image)
+                else if (pair.Key == HangerWindowProperty.ContentType.Image)
                 {
-                    System.Windows.Controls.Image newImage = new();
-                    newImage.Source = new BitmapImage(new Uri(pair.Value));
-                    StackPanel newStackPanel = new();
-                    newStackPanel.Children.Add(newImage);
-                    newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown; ;
-                    ContentStackPanel.Children.Add(newStackPanel);
-                }
+                    try
+                    {
+                        System.Windows.Controls.Image newImage = new();
+                        newImage.Source = new BitmapImage(new Uri(pair.Value));
+                        StackPanel newStackPanel = new();
+                        newStackPanel.Children.Add(newImage);
+                        newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown; ;
+                        ContentStackPanel.Children.Add(newStackPanel);
+                    }
                     catch
                     {
                         throw new PuranLai.CustomException("Image not exists!");
@@ -270,6 +272,7 @@ namespace OverTop.Pages
         private void WeatherWindowButton_Click(object sender, RoutedEventArgs e)
         {
             App.weatherWindow.Show();
+            windows.Add(App.weatherWindow);
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -279,6 +282,5 @@ namespace OverTop.Pages
                 window.Close();
             }
         }
-
     }
 }
