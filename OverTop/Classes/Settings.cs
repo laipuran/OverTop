@@ -4,13 +4,18 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 using OverTop.Floatings;
 using static OverTop.API;
 
 namespace OverTop
 {
-    public class Settings
+    interface ISettings
+    {
+        void Save();
+    }
+    public class Settings : ISettings
     {
 #pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
         public string ip;
@@ -78,9 +83,9 @@ namespace OverTop
             return settings;
         }
 
-        public static void SaveSettings(Settings settings)
+        public void Save()
         {
-            string json = JsonConvert.SerializeObject(settings);
+            string json = JsonConvert.SerializeObject(this);
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\Settings.json";
 #pragma warning disable CS8602 // 解引用可能出现空引用。
             Directory.CreateDirectory(Directory.GetParent(filePath).FullName);

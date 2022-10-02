@@ -12,86 +12,28 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
+using static OverTop.AppWindowOps;
+using static OverTop.CommonWindowOps;
 
 namespace OverTop
 {
-    public class CommonWindowOps
+    public static class ExtensionMethods
     {
-        [DllImport("user32.dll")]
-        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndlnsertAfter, int X, int Y, int cx, int cy, uint Flags);
-        
-        public enum WindowType
+        public static void ToBottom(this Window window)
         {
-            Hanger = 0,
-            Recent = 1
-        }
-
-        public enum WindowZIndex
-        {
-            HWND_TOP = 0,
-            HWND_BOTTOM = 1,
-            HWND_TOPMOST = -1,
-            HWND_NOTOPMOST = -2,
-        }
-
-        private static void ToBottom(Window window)
-        {
-            SetWindowPos(new WindowInteropHelper(window).Handle,
+            CommonWindowOps.SetWindowPos(new WindowInteropHelper(window).Handle,
                 (IntPtr)WindowZIndex.HWND_BOTTOM, (int)window.Left,
                 (int)window.Top, (int)window.Width, (int)window.Height, 0);
         }
 
-        private static void ToTop(Window window)
+        public static void ToTop(this Window window)
         {
-            SetWindowPos(new WindowInteropHelper(window).Handle,
+            CommonWindowOps.SetWindowPos(new WindowInteropHelper(window).Handle,
                 (IntPtr)WindowZIndex.HWND_TOPMOST, (int)window.Left,
                 (int)window.Top, (int)window.Width, (int)window.Height, 0);
         }
 
-        public static void ChangeZIndex(bool isBottom, Window window)
-        {
-            if (isBottom)
-            {
-                ToBottom(window);
-            }
-            else
-            {
-                ToTop(window);
-            }
-        }
-        
-        public static bool ChangeStatus(bool isBottom, Window window)
-        {
-            if (isBottom)
-            {
-                ToTop(window);
-                window.Topmost = true;
-            }
-            else
-            {
-                ToBottom(window);
-                window.Topmost = true;
-            }
-            return !isBottom;
-        }
-    }
-    public class HangerWindowOps
-    {
-        public List<KeyValuePair<ContentType, string>> contents = new();
-        public string backgroundColor = "";
-        public int width;
-        public int height;
-        public double alpha;
-        public double left;
-        public double top;
-
-        public enum ContentType
-        {
-            Text,
-            Image
-        }
-
-        public static void SaveWindow(HangerWindow window)
+        public static void Save(this HangerWindow window)
         {
             HangerWindowOps windowClass = new();
             System.Windows.Media.Color color = ((SolidColorBrush)window.Background).Color;
@@ -120,32 +62,36 @@ namespace OverTop
             Directory.CreateDirectory(Directory.GetParent(filePath).FullName);
 #pragma warning restore CS8602 // 解引用可能出现空引用。
             File.WriteAllText(filePath, json);
-
         }
-    }
 
-    public class AppWindowOps
-    {
-        public ScreenPart screenPart;
-        public List<string> filePath = new();
-
-        public enum Quadrant // not used
+        public static void Save(this AppWindow window)
         {
-            Quadrant1,
-            Quadrant2,
-            Quadrant3,
-            Quadrant4
+            AppWindowOps appWindow = new();
+            appWindow.screenPart = window.GetMiddlePoint().GetPart();
+            foreach (StackPanel item in window.ContentStackPanel.Children)
+            {
+#pragma warning disable CS8604 // 引用类型参数可能为 null。
+                appWindow.filePath.Add(item.ToolTip.ToString());
+#pragma warning restore CS8604 // 引用类型参数可能为 null。
+            }
+            string json = JsonConvert.SerializeObject(appWindow);
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\AppWindow.json";
+#pragma warning disable CS8602 // 解引用可能出现空引用。
+            Directory.CreateDirectory(Directory.GetParent(filePath).FullName);
+#pragma warning restore CS8602 // 解引用可能出现空引用。
+            File.WriteAllText(filePath, json);
         }
 
-        public enum ScreenPart
+        public static Point GetMiddlePoint(this Window window)
         {
-            TopPart,
-            BottomPart,
-            RightPart,
-            LeftPart
+            Point point = new();
+            point.X = window.Left + window.Width / 2;
+            point.Y = window.Top + window.Height / 2;
+
+            return point;
         }
 
-        public static ScreenPart GetPart(Point point)
+        public static AppWindowOps.ScreenPart GetPart(this Point point)
         {
             // Can automatically change when dpi is changed
             Point screenSize = new();
@@ -170,30 +116,7 @@ namespace OverTop
             }
         }
 
-        public static Quadrant GetQuadrant(Point point) // not used
-        {
-            Point middleScreen = new();
-            middleScreen.X = SystemParameters.PrimaryScreenWidth / 2;
-            middleScreen.Y = SystemParameters.PrimaryScreenHeight / 2;
-            if (point.X > middleScreen.X && point.Y < middleScreen.Y)
-            {
-                return Quadrant.Quadrant1;
-            }
-            else if (point.X < middleScreen.X && point.Y < middleScreen.Y)
-            {
-                return Quadrant.Quadrant2;
-            }
-            else if (point.X < middleScreen.X && point.Y > middleScreen.Y)
-            {
-                return Quadrant.Quadrant3;
-            }
-            else // if (point.X > middleScreen.X && point.Y > middleScreen.Y)
-            {
-                return Quadrant.Quadrant4;
-            }
-        }
-
-        public static void SetWindowPos(AppWindow window, ScreenPart part)
+        public static void SetWindowPos(this AppWindow window, ScreenPart part)
         {
             if (part == ScreenPart.TopPart)
             {
@@ -228,32 +151,115 @@ namespace OverTop
                 window.Left = SystemParameters.FullPrimaryScreenWidth - window.Width;
             }
         }
+    }
 
-        public static Point GetMiddlePoint(AppWindow window)
+    public class CommonWindowOps
+    {
+        [DllImport("user32.dll")]
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndlnsertAfter, int X, int Y, int cx, int cy, uint Flags);
+        
+        public enum WindowType
         {
-            Point point = new();
-            point.X = window.Left + window.Width / 2;
-            point.Y = window.Top + window.Height / 2;
-
-            return point;
+            Hanger = 0,
+            Recent = 1
         }
 
-        public static void SaveWindow(AppWindow window)
+        public enum WindowZIndex
         {
-            AppWindowOps appWindow = new();
-            appWindow.screenPart = GetPart(GetMiddlePoint(window));
-            foreach (StackPanel item in window.ContentStackPanel.Children)
+            HWND_TOP = 0,
+            HWND_BOTTOM = 1,
+            HWND_TOPMOST = -1,
+            HWND_NOTOPMOST = -2,
+        }
+
+        public static void ChangeZIndex(bool isBottom, Window window)
+        {
+            if (isBottom)
             {
-#pragma warning disable CS8604 // 引用类型参数可能为 null。
-                appWindow.filePath.Add(item.ToolTip.ToString());
-#pragma warning restore CS8604 // 引用类型参数可能为 null。
+                window.ToBottom();
             }
-            string json = JsonConvert.SerializeObject(appWindow);
-            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\AppWindow.json";
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-            Directory.CreateDirectory(Directory.GetParent(filePath).FullName);
-#pragma warning restore CS8602 // 解引用可能出现空引用。
-            File.WriteAllText(filePath, json);
+            else
+            {
+                window.ToTop();
+            }
+        }
+        
+        public static bool ChangeStatus(bool isBottom, Window window)
+        {
+            if (isBottom)
+            {
+                window.ToTop();
+                window.Topmost = true;
+            }
+            else
+            {
+                window.ToBottom();
+                window.Topmost = true;
+            }
+            return !isBottom;
+        }
+    }
+
+    public class HangerWindowOps
+    {
+        public List<KeyValuePair<ContentType, string>> contents = new();
+        public string backgroundColor = "";
+        public int width;
+        public int height;
+        public double alpha;
+        public double left;
+        public double top;
+
+        public enum ContentType
+        {
+            Text,
+            Image
+        }
+
+    }
+
+    public class AppWindowOps
+    {
+        public ScreenPart screenPart;
+        public List<string> filePath = new();
+
+        public enum Quadrant // not used
+        {
+            Quadrant1,
+            Quadrant2,
+            Quadrant3,
+            Quadrant4
+        }
+
+        public enum ScreenPart
+        {
+            TopPart,
+            BottomPart,
+            RightPart,
+            LeftPart
+        }
+
+        public static Quadrant GetQuadrant(Point point) // not used
+        {
+            Point middleScreen = new();
+            middleScreen.X = SystemParameters.PrimaryScreenWidth / 2;
+            middleScreen.Y = SystemParameters.PrimaryScreenHeight / 2;
+            if (point.X > middleScreen.X && point.Y < middleScreen.Y)
+            {
+                return Quadrant.Quadrant1;
+            }
+            else if (point.X < middleScreen.X && point.Y < middleScreen.Y)
+            {
+                return Quadrant.Quadrant2;
+            }
+            else if (point.X < middleScreen.X && point.Y > middleScreen.Y)
+            {
+                return Quadrant.Quadrant3;
+            }
+            else // if (point.X > middleScreen.X && point.Y > middleScreen.Y)
+            {
+                return Quadrant.Quadrant4;
+            }
         }
 
         public static void AddFile(string path, ImageSource source)
