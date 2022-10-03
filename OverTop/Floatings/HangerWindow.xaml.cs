@@ -1,5 +1,9 @@
-﻿using OverTop.Pages;
+﻿using Newtonsoft.Json;
+using OverTop.Pages;
 using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -7,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using static OverTop.CommonWindowOps;
 using static OverTop.Floatings.HangerWindowProperty;
 
@@ -23,14 +28,16 @@ namespace OverTop.Floatings
         {
             InitializeComponent();
 
+            this.Top = property.top == 0 ? Top : property.top;
+            this.Left = property.left == 0 ? Left : property.left;
             this.Width = property.width;
             this.Height = property.height;
             System.Drawing.Color tempColor = ColorTranslator.FromHtml(property.backgroundColor);
             System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(tempColor.R, tempColor.G, tempColor.B);
             this.Background = new SolidColorBrush(color);
-            this.Opacity = property.alpha;
+            this.Opacity = property.alpha == 0.0 ? 0.8 : App.settings.HangerWindowSettings.alpha;
             this.ToolTip = "Hanger Window - " + FloatingPanelPage.hangers;
-            this.Title = property.guid.ToString();
+            this.Title = property.guid;
 
             StackPanel ContentStackPanel = (StackPanel)((ScrollViewer)this.Content).Content;
             foreach (KeyValuePair<HangerWindowProperty.ContentType, string> pair in property.contents)

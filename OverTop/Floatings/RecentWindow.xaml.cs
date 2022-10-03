@@ -21,10 +21,19 @@ namespace OverTop.Floatings
     {
         private bool isBottom = false;
         string Recent = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Microsoft\Windows\Recent\";
-        public RecentWindow()
+        public RecentWindow(RecentWindowProperty property)
         {
             InitializeComponent();
-
+            this.Top = property.top == 0 ? Top : property.top;
+            this.Left = property.left == 0 ? Left : property.left;
+            this.Width = property.width;
+            this.Height = property.height;
+            System.Drawing.Color tempColor = ColorTranslator.FromHtml(property.backgroundColor);
+            System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(tempColor.R, tempColor.G, tempColor.B);
+            this.Background = new SolidColorBrush(color);
+            this.Opacity = property.alpha == 0.0 ? 0.8 : App.settings.RecentWindowSettings.alpha;
+            this.ToolTip = "Recent Window - " + FloatingPanelPage.recents;
+            this.Title = "Recent Window";
             ProcessRecentFiles();
         }
         // Get system recent files

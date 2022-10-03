@@ -23,9 +23,12 @@ namespace OverTop.Floatings
     {
         public static bool changeWeather = false;
 
-        public WeatherWindow()
+        public WeatherWindow(WeatherWindowProperty property)
         {
             InitializeComponent();
+
+            this.Top = property.top == 0 ? Top : property.top;
+            this.Left = property.left == 0 ? Left : property.left;
         }
 
         private void WeatherStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
