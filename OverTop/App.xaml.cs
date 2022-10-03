@@ -32,7 +32,7 @@ namespace OverTop
 
         public static MainWindow? mainWindow;
         public static AppWindow appWindow = new();
-        public static WeatherWindow weatherWindow = new();
+        public static WeatherWindow weatherWindow = new(WeatherWindowProperty.GetDefaultProperty());
 
         public static Property tempProperty = new();
         public static Settings settings = new();
@@ -50,32 +50,37 @@ namespace OverTop
 
             ip = API.GetHostIp();
             settings = GetSettingsFromFile(ip);
-            weatherWindow = (WeatherWindow)settings.WeatherWindow.GetWindow();
-            if (settings.WeatherWindow.isVisible == true)
-            {
-                weatherWindow.Show();
-            }
-            foreach (HangerWindowProperty windowClass in settings.HangerWindows)
-            {
 
+            if (settings.WeatherWindow is not null)
+            {
+                weatherWindow = (WeatherWindow)settings.WeatherWindow.GetWindow();
+                if (settings.WeatherWindow.isVisible == true)
+                {
+                    weatherWindow.Show();
+                }
+            }
+            if (settings.RecentWindow is not null)
+            {
+                FloatingPanelPage.recents++;
+                RecentWindow newRecent = (RecentWindow)settings.RecentWindow.GetWindow();
+                newRecent.Show();
+                FloatingPanelPage.windows.Add(newRecent);
+            }
+
+            if (settings.HangerWindows is not null)
+            {
+                foreach (HangerWindowProperty windowClass in settings.HangerWindows)
+                {
+                    FloatingPanelPage.hangers++;
+                    HangerWindow newHanger = (HangerWindow)windowClass.GetWindow();
+                    newHanger.Show();
+                    FloatingPanelPage.windows.Add(newHanger);
+                }
             }
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            foreach (Window window in FloatingPanelPage.windows)
-            {
-                if (window is HangerWindow)
-                {
-                    settings.HangerWindows.Add(((HangerWindow)window).Save());
-                }
-                else if (window is RecentWindow)
-                {
-                    settings.RecentWindow = ((RecentWindow)window).Save();
-                }
-                settings.WeatherWindow = weatherWindow.Save();
-            }
-
             App.settings.Save();
         }
     }
