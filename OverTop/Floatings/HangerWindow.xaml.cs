@@ -19,9 +19,162 @@ namespace OverTop.Floatings
     {
         private static bool isBottom = false;
 
-        public HangerWindow()
+        public HangerWindow(HangerWindowProperty property)
         {
             InitializeComponent();
+
+            this.Width = property.width;
+            this.Height = property.height;
+            System.Drawing.Color tempColor = ColorTranslator.FromHtml(property.backgroundColor);
+            System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(tempColor.R, tempColor.G, tempColor.B);
+            this.Background = new SolidColorBrush(color);
+            this.Opacity = property.alpha;
+            this.ToolTip = "Hanger Window - " + FloatingPanelPage.hangers;
+            this.Title = property.guid.ToString();
+
+            StackPanel ContentStackPanel = (StackPanel)((ScrollViewer)this.Content).Content;
+            foreach (KeyValuePair<HangerWindowProperty.ContentType, string> pair in property.contents)
+            {
+                if (pair.Key == HangerWindowProperty.ContentType.Text)
+                {
+                    TextBlock newTextBlock = new();
+                    newTextBlock.Style = (Style)FindResource("ContentTextBlockStyle");
+                    newTextBlock.Text = pair.Value;
+                    StackPanel newStackPanel = new();
+                    newStackPanel.Children.Add(newTextBlock);
+                    newStackPanel.MouseLeftButtonDown += TextPanel_MouseLeftButtonDown;
+                    ContentStackPanel.Children.Add(newStackPanel);
+                }
+                else if (pair.Key == HangerWindowProperty.ContentType.Image)
+                {
+                    try
+                    {
+                        System.Windows.Controls.Image newImage = new();
+                        newImage.Source = new BitmapImage(new Uri(pair.Value));
+                        StackPanel newStackPanel = new();
+                        newStackPanel.Children.Add(newImage);
+                        newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown; ;
+                        ContentStackPanel.Children.Add(newStackPanel);
+                    }
+                    catch
+                    {
+                        throw new PuranLai.CustomException("Image not exists!");
+                    }
+                }
+            }
+        }
+
+        private void NewStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.R))
+            {
+                ((StackPanel)((StackPanel)sender).Parent).Children.Remove((StackPanel)sender);
+            }
+        }
+
+        public void TextPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.M))
+            {
+                Window textWindowModify = new();
+                InitializeTextWindow(((TextBlock)((StackPanel)sender).Children[0]).Text, textWindowModify, OKButton_Click_Modify);
+                ((StackPanel)sender).Children.Clear();
+                App.contentStackPanel = (StackPanel)sender;
+                textWindowModify.ShowDialog();
+            }
+            else if (Keyboard.IsKeyDown(Key.R))
+            {
+                ((StackPanel)((StackPanel)sender).Parent).Children.Remove((StackPanel)sender);
+            }
+        }
+
+        private void InitializeTextWindow(string text, Window textWindow, RoutedEventHandler routedEventHandler)
+        {
+            Thickness margin = new();
+            StackPanel newTextPanel = new();
+            ScrollViewer scrollViewer = new();
+            TextBox newTextBox = new();
+            Button OKButton = new();
+
+            OKButton.Style = (Style)FindResource("ContentButtonStyle");
+            OKButton.Content = "OK";
+            margin.Left = 20;
+            margin.Right = 20;
+            margin.Top = 10;
+            OKButton.Margin = margin;
+            OKButton.Click += OKButton_Click;
+
+            textWindow.Width = 150;
+            textWindow.Height = 150;
+            textWindow.Topmost = true;
+
+            newTextBox.Style = (Style)FindResource("ContentTextBoxStyle");
+            newTextBox.TextWrapping = TextWrapping.Wrap;
+            newTextBox.Width = 300 - 5 - OKButton.Width;
+            newTextBox.Margin = margin;
+            newTextBox.Text = text;
+
+            newTextPanel.Children.Add(newTextBox);
+            newTextPanel.Children.Add(OKButton);
+
+            scrollViewer.Content = newTextPanel;
+            scrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
+            scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
+
+            textWindow.Content = scrollViewer;
+            textWindow.Loaded += TextWindow_Loaded;
+            textWindow.LostFocus += routedEventHandler;
+        }
+
+        private void TextWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((StackPanel)((ScrollViewer)((Window)sender).Content).Content).Children[0].Focus();
+        }
+
+        private void OKButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender.GetType() != typeof(Window))
+            {
+                return;
+            }
+            TextBox newTextBox = (TextBox)((StackPanel)((ScrollViewer)((Window)sender).Content).Content).Children[0];
+            if (newTextBox.Text != string.Empty)
+            {
+                TextBlock newTextBlock = new()
+                {
+                    TextWrapping = TextWrapping.Wrap,
+                    Style = (Style)FindResource("ContentTextBlockStyle"),
+                    Text = newTextBox.Text
+                };
+                StackPanel textPanel = new();
+                textPanel.MouseLeftButtonDown += TextPanel_MouseLeftButtonDown;
+                textPanel.Children.Add(newTextBlock);
+                App.contentStackPanel.Children.Add(textPanel);
+                newTextBox.Text = "";
+                ((Window)sender).Close();
+            }
+        }
+
+        private void OKButton_Click_Modify(object sender, RoutedEventArgs e)
+        {
+            if (sender.GetType() != typeof(Window))
+            {
+                return;
+            }
+            TextBox newTextBox = (TextBox)((StackPanel)((ScrollViewer)((Window)sender).Content).Content).Children[0];
+            if (newTextBox.Text != string.Empty)
+            {
+                TextBlock newTextBlock = new()
+                {
+                    TextWrapping = TextWrapping.Wrap,
+                    Style = (Style)FindResource("ContentTextBlockStyle"),
+                    Text = newTextBox.Text
+                };
+                StackPanel textPanel = new();
+                App.contentStackPanel.Children.Add(newTextBlock);
+                newTextBox.Text = "";
+            }
+            ((Window)sender).Close();
         }
 
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
