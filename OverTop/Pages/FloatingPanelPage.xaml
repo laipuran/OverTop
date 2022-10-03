@@ -11,16 +11,17 @@
       AllowDrop="True">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Left" >
-        <Button Style="{StaticResource ContentButtonStyle}"
+        <!--<Button Style="{StaticResource ContentButtonStyle}"
                 Content="关闭全部"
                 x:Name="CloseButton"
                 Click="CloseButton_Click"
                 Margin="20,0,0,0"
-                HorizontalAlignment="Left"/>
+                HorizontalAlignment="Left"/>-->
         <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
             <TextBlock Text="创建一个 便利贴 窗口："
                        Style="{StaticResource ContentTextBlockStyle}"/>
-            <Button Content="新建" x:Name="HangerWindowButton"
+            <Button Content="＋" x:Name="HangerWindowButton"
+                    FontSize="20" Height="40"
                     Style="{StaticResource ContentButtonStyle}"
                     Click="HangerWindowButton_Click">
                 <Button.ToolTip>
@@ -39,7 +40,8 @@
         <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
             <TextBlock Text="创建一个 最近 窗口："
                        Style="{StaticResource ContentTextBlockStyle}"/>
-            <Button Content="新建" x:Name="RecentWindowButton"
+            <Button Content="+" x:Name="RecentWindowButton"
+                    FontSize="20" Height="40"
                     Style="{StaticResource ContentButtonStyle}"
                     Click="RecentWindowButton_Click">
                 <Button.ToolTip>

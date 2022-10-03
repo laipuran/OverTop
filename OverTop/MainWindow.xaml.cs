@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Resources;
 using System.Threading.Tasks;
 using System.Windows;
@@ -107,7 +108,7 @@ namespace OverTop
                         {
                             continue;
                         }
-                        App.settings.HangerWindows.Add(property);
+                        App.settings.HangerWindows.Append(property);
                     }
                 }
                 App.settings.WeatherWindow = App.weatherWindow.Save();
