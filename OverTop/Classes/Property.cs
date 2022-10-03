@@ -1,4 +1,6 @@
 ﻿using Hardcodet.Wpf.TaskbarNotification.Interop;
+using Microsoft.Windows.Themes;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
@@ -9,6 +11,7 @@ namespace OverTop.Floatings
     interface IProperty
     {
         Window GetWindow();
+        void FromProperty(Property property);
     }
 
     public class Property
@@ -21,25 +24,35 @@ namespace OverTop.Floatings
 
     public class WeatherWindowProperty : IProperty
     {
-        public int width;
-        public int height;
         public double left;
         public double top;
         public bool isVisible;
 
         public Window GetWindow()
         {
-            WeatherWindow window = new();
-            window.Width = this.width;
-            window.Height = this.height;
-            window.Left = this.left;
-            window.Top = this.top;
-            // TODO: Add file name
-            return window;
+            if (this is null)
+            {
+                return GetDefaultProperty().GetWindow();
+            }
+            return new WeatherWindow(this);
+        }
+
+        public void FromProperty(Property property)
+        {
+            // Empty
+        }
+
+        public static WeatherWindowProperty GetDefaultProperty()
+        {
+            WeatherWindowProperty property = new();
+            property.left = 30;
+            property.top = 30;
+            property.isVisible = false;
+            return property;
         }
     }
 
-    public class RecentWindowProperty
+    public class RecentWindowProperty : IProperty
     {
         public string backgroundColor = "";
         public int width;
@@ -50,26 +63,42 @@ namespace OverTop.Floatings
 
         public Window GetWindow()
         {
-            RecentWindow window = new();
-            window.Width = this.width;
-            window.Height = this.height;
-            window.Left = this.left;
-            window.Top = this.top;
-            System.Drawing.Color tempColor = ColorTranslator.FromHtml(this.backgroundColor);
-            window.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(tempColor.R, tempColor.G, tempColor.B));
-            return window;
+            if (this is null)
+            {
+                return GetDefaultProperty().GetWindow();
+            }
+            return new RecentWindow(this);
+        }
+
+        public void FromProperty(Property property)
+        {
+            this.width = property.width;
+            this.height = property.height;
+            this.alpha = property.alpha;
+            System.Windows.Media.Color tempColor = property.backGroundColor;
+            this.backgroundColor = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(tempColor.R, tempColor.G, tempColor.B));
+        }
+
+        public static RecentWindowProperty GetDefaultProperty()
+        {
+            RecentWindowProperty property = new();
+            property.FromProperty(App.settings.RecentWindowSettings);
+            return property;
         }
     }
 
-    public class HangerWindowProperty
+    public class HangerWindowProperty : IProperty
     {
         public List<KeyValuePair<ContentType, string>> contents = new();
-        public string backgroundColor = "";
+#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+        public string backgroundColor;
         public int width;
         public int height;
         public double alpha;
         public double left;
         public double top;
+        public string guid;
+#pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 
         public enum ContentType
         {
@@ -77,17 +106,30 @@ namespace OverTop.Floatings
             Image
         }
 
+        public void FromProperty(Property property)
+        {
+            this.width = property.width;
+            this.height = property.height;
+            this.alpha = property.alpha;
+            System.Windows.Media.Color tempColor = property.backGroundColor;
+            this.backgroundColor = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(tempColor.R, tempColor.G, tempColor.B));
+        }
+
+        public static HangerWindowProperty GetDefaultProperty()
+        {
+            HangerWindowProperty property = new();
+            property.FromProperty(App.settings.HangerWindowSettings);
+            property.guid = Guid.NewGuid().ToString();
+            return property;
+        }
+
         public Window GetWindow()
         {
-            RecentWindow window = new();
-            window.Width = this.width;
-            window.Height = this.height;
-            window.Left = this.left;
-            window.Top = this.top;
-            System.Drawing.Color tempColor = ColorTranslator.FromHtml(this.backgroundColor);
-            window.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(tempColor.R, tempColor.G, tempColor.B));
-            // TODO: Move methods to add new hanger window here
-            return window;
+            if (this is null)
+            {
+                return GetDefaultProperty().GetWindow();
+            }
+            return new HangerWindow(this);
         }
     }
 }
