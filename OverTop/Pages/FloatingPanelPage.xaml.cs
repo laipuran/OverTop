@@ -33,13 +33,7 @@ namespace OverTop.Pages
         private void HangerWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             hangers++;
-            Window newHanger = new Floatings.HangerWindow();
-            newHanger.Title = Guid.NewGuid().ToString();
-            newHanger.ToolTip = "Hanger Window - " + hangers;
-            newHanger.Width = App.settings.HangerWindowSettings.width;
-            newHanger.Height = App.settings.HangerWindowSettings.height;
-            newHanger.Background = new SolidColorBrush(App.settings.HangerWindowSettings.backGroundColor);
-            newHanger.Opacity = App.settings.HangerWindowSettings.alpha == 0.0 ? 0.8 : App.settings.HangerWindowSettings.alpha;
+            Window newHanger = new Floatings.HangerWindow(HangerWindowProperty.GetDefaultProperty());
             newHanger.Show();
             windows.Add(newHanger);
         }
@@ -47,13 +41,7 @@ namespace OverTop.Pages
         private void RecentWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             recents++;
-            Window newRecent = new Floatings.RecentWindow();
-            newRecent.Title = Guid.NewGuid().ToString();
-            newRecent.ToolTip = "Recent Window - " + recents;
-            newRecent.Width = App.settings.RecentWindowSettings.width;
-            newRecent.Height = App.settings.RecentWindowSettings.height;
-            newRecent.Background = new SolidColorBrush(App.settings.RecentWindowSettings.backGroundColor);
-            newRecent.Opacity = App.settings.RecentWindowSettings.alpha == 0.0 ? 0.8 : App.settings.RecentWindowSettings.alpha;
+            Window newRecent = new Floatings.RecentWindow(RecentWindowProperty.GetDefaultProperty());
             newRecent.Show();
             windows.Add(newRecent);
         }
@@ -96,48 +84,11 @@ namespace OverTop.Pages
                 throw new PuranLai.CustomException("Not the right JSON structure!");
             }
 
-            HangerWindow newHanger = new Floatings.HangerWindow();
 #pragma warning disable CS8602 // 解引用可能出现空引用。
-            newHanger.Width = windowClass.width;
-            newHanger.Height = windowClass.height;
-            System.Drawing.Color tempColor = ColorTranslator.FromHtml(windowClass.backgroundColor);
-            System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(tempColor.R, tempColor.G, tempColor.B);
-            newHanger.Background = new SolidColorBrush(color);
-            newHanger.Opacity = windowClass.alpha;
-            newHanger.ToolTip = "Hanger Window - " + hangers;
-            newHanger.Title = fileName;
+            windowClass.guid = fileName;
 #pragma warning restore CS8602 // 解引用可能出现空引用。
+            HangerWindow newHanger = new Floatings.HangerWindow(windowClass);
 
-            StackPanel ContentStackPanel = (StackPanel)((ScrollViewer)newHanger.Content).Content;
-            foreach (KeyValuePair<HangerWindowProperty.ContentType, string> pair in windowClass.contents)
-            {
-                if (pair.Key == HangerWindowProperty.ContentType.Text)
-                {
-                    TextBlock newTextBlock = new();
-                    newTextBlock.Style = (Style)FindResource("ContentTextBlockStyle");
-                    newTextBlock.Text = pair.Value;
-                    StackPanel newStackPanel = new();
-                    newStackPanel.Children.Add(newTextBlock);
-                    newStackPanel.MouseLeftButtonDown += TextPanel_MouseLeftButtonDown;
-                    ContentStackPanel.Children.Add(newStackPanel);
-                }
-                else if (pair.Key == HangerWindowProperty.ContentType.Image)
-                {
-                    try
-                    {
-                        System.Windows.Controls.Image newImage = new();
-                        newImage.Source = new BitmapImage(new Uri(pair.Value));
-                        StackPanel newStackPanel = new();
-                        newStackPanel.Children.Add(newImage);
-                        newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown; ;
-                        ContentStackPanel.Children.Add(newStackPanel);
-                    }
-                    catch
-                    {
-                        throw new PuranLai.CustomException("Image not exists!");
-                    }
-                }
-            }
             windows.Add(newHanger);
             newHanger.Show();
         }

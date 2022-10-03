@@ -211,7 +211,12 @@ namespace OverTop.Floatings
         {
             if (System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl))
             {
-                this.Save();
+                string json = JsonConvert.SerializeObject(this.Save());
+                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\HangerWindows\\" + Title + ".json";
+#pragma warning disable CS8602 // 解引用可能出现空引用。
+                Directory.CreateDirectory(Directory.GetParent(filePath).FullName);
+#pragma warning restore CS8602 // 解引用可能出现空引用。
+                File.WriteAllText(filePath, json);
             }
             if (Mouse.LeftButton == MouseButtonState.Pressed)
             {

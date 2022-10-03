@@ -19,13 +19,11 @@ using Point = System.Windows.Point;
 
 namespace OverTop
 {
-    public static class ExtentedOperations
+    public static class ExtentedWindowOps
     {
         public static WeatherWindowProperty Save(this WeatherWindow window)
         {
             WeatherWindowProperty windowClass = new();
-            windowClass.width = (int)window.Width;
-            windowClass.height = (int)window.Height;
             windowClass.left = window.Left;
             windowClass.top = window.Top;
             if (window.Visibility == Visibility.Visible)
@@ -64,7 +62,7 @@ namespace OverTop
                 (int)window.Top, (int)window.Width, (int)window.Height, 0);
         }
 
-        public static HangerWindowProperty Save(this HangerWindow window)
+        public static HangerWindowProperty? Save(this HangerWindow window)
         {
             HangerWindowProperty windowClass = new();
             System.Windows.Media.Color color = ((SolidColorBrush)window.Background).Color;
@@ -74,6 +72,12 @@ namespace OverTop
             windowClass.alpha = window.Opacity;
             windowClass.left = window.Left;
             windowClass.top = window.Top;
+            windowClass.guid = window.Title;
+
+            if (window.ContentStackPanel.Children.Count == 0)
+            {
+                return null;
+            }
 
             foreach (StackPanel item in window.ContentStackPanel.Children)
             {
@@ -87,12 +91,6 @@ namespace OverTop
                         ((System.Windows.Controls.Image)item.Children[0]).Source.ToString()));
                 }
             }
-            string json = JsonConvert.SerializeObject(windowClass);
-            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\HangerWindows\\" + window.Title + ".json";
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-            Directory.CreateDirectory(Directory.GetParent(filePath).FullName);
-#pragma warning restore CS8602 // 解引用可能出现空引用。
-            File.WriteAllText(filePath, json);
             return windowClass;
         }
 
