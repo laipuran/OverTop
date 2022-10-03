@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using OverTop.Floatings;
+using OverTop.Pages;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -92,6 +93,25 @@ namespace OverTop
             else
             {
                 App.appWindow.Save();
+
+                foreach (Window window in FloatingPanelPage.windows)
+                {
+                    if (window is RecentWindow)
+                    {
+                        App.settings.RecentWindow = ((RecentWindow)window).Save();
+                    }
+                    else if (window is HangerWindow)
+                    {
+                        HangerWindowProperty? property = ((HangerWindow)window).Save();
+                        if (property is null)
+                        {
+                            continue;
+                        }
+                        App.settings.HangerWindows.Add(property);
+                    }
+                }
+                App.settings.WeatherWindow = App.weatherWindow.Save();
+
                 App.Current.Shutdown();
             }
         }

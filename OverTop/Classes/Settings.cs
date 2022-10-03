@@ -24,7 +24,7 @@ namespace OverTop
         public IpInformation i2;
         public Property HangerWindowSettings;
         public Property RecentWindowSettings;
-        public List<HangerWindowProperty> HangerWindows;
+        public List<HangerWindowProperty> HangerWindows = new();
         public RecentWindowProperty RecentWindow;
         public WeatherWindowProperty WeatherWindow;
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
