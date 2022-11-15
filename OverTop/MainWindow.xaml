@@ -8,7 +8,9 @@
         WindowStartupLocation="CenterScreen"
         Title="Over Top" Height="450" Width="750"
         Keyboard.KeyDown="Window_KeyDown"
-        Closing="Window_Closing" WindowStyle="SingleBorderWindow">
+        Closing="Window_Closing"
+        Background="#3c3c3c"
+        WindowStyle="SingleBorderWindow">
     
     <Window.Resources>
         <Storyboard x:Key="MenuOpen">
