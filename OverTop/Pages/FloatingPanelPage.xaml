@@ -20,34 +20,42 @@
         <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
             <TextBlock Text="创建一个 便利贴 窗口："
                        Style="{StaticResource ContentTextBlockStyle}"/>
-            <Button Content="＋" x:Name="HangerWindowButton"
-                    FontSize="20" Height="40"
-                    Style="{StaticResource ContentButtonStyle}"
-                    Click="HangerWindowButton_Click">
+            <Button x:Name="HangerWindowButton"
+                    FontSize="20"
+                    Click="HangerWindowButton_Click"
+                    Style="{StaticResource IconButton}">
+                <Image Margin="5" x:Name="HangerContentImage"/>
                 <Button.ToolTip>
                     <StackPanel>
-                        <TextBlock>实例窗口</TextBlock>
-                        <Image x:Name="HangerToolTipImage"/>
+                        <TextBlock Margin="5">新建窗口</TextBlock>
+                        <Image Margin="5"
+                               x:Name="HangerToolTipImage"
+                               Visibility="Collapsed"/>
                     </StackPanel>
                 </Button.ToolTip>
             </Button>
-            <Button Content="从文件导入" x:Name="ImportButton"
+            <Button x:Name="ImportButton"
                     Style="{StaticResource ContentButtonStyle}"
                     Click="ImportButton_Click"
-                    Margin="10,0,0,0"/>
+                    Margin="10,0,0,0">
+                <Image Margin="5" x:Name="ImportContentImage"/>
+            </Button>
         </StackPanel>
         
         <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
             <TextBlock Text="创建一个 最近 窗口："
                        Style="{StaticResource ContentTextBlockStyle}"/>
-            <Button Content="+" x:Name="RecentWindowButton"
-                    FontSize="20" Height="40"
+            <Button x:Name="RecentWindowButton"
+                    FontSize="20"
                     Style="{StaticResource ContentButtonStyle}"
                     Click="RecentWindowButton_Click">
+                <Image Margin="5" x:Name="RecentContentImage"/>
                 <Button.ToolTip>
                     <StackPanel>
-                        <TextBlock>实例窗口</TextBlock>
-                        <Image x:Name="RecentToolTipImage"/>
+                        <TextBlock Margin="5">实例窗口</TextBlock>
+                        <Image Margin="5"
+                               x:Name="RecentToolTipImage"
+                               Visibility="Collapsed"/>
                     </StackPanel>
                 </Button.ToolTip>
             </Button>
@@ -56,9 +64,11 @@
         <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
             <TextBlock Text="打开 天气 窗口："
                        Style="{StaticResource ContentTextBlockStyle}"/>
-            <Button Content="打开" x:Name="WeatherWindowButton"
+            <Button x:Name="WeatherWindowButton"
                     Style="{StaticResource ContentButtonStyle}"
-                    Click="WeatherWindowButton_Click"/>
+                    Click="WeatherWindowButton_Click">
+                <Image Margin="5" x:Name="WeatherContentImage"/>
+            </Button>
         </StackPanel>
 
     </StackPanel>
