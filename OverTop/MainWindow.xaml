@@ -33,38 +33,40 @@
                     VerticalAlignment="Stretch"
                     Width="42">
             <StackPanel x:Name="Controller">
-                <Button x:Name="BackButton" Content="&#xE72B;"
-                    Style="{StaticResource NavigationButtonStyle}"
-                    Click="BackButton_Click"/>
+                <Button x:Name="BackButton"
+                        Style="{StaticResource NavigationButtonStyle}"
+                        Click="BackButton_Click">
+                    <Image x:Name="BackContentImage"/>
+                </Button>
 
-                <Button x:Name="NavigationButton" Content="&#xE700;"
-                    Style="{StaticResource NavigationButtonStyle}"
-                    Click="NavigationButton_Click"/>
+                <Button x:Name="NavigationButton"
+                        Style="{StaticResource NavigationButtonStyle}"
+                        Click="NavigationButton_Click">
+                    <Image x:Name="MenuContentImage"/>
+                </Button>
             </StackPanel>
             <StackPanel x:Name="Selector">
                 <ListBox x:Name="ContentListBox" Style="{StaticResource ClearListBoxStyle}"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                        SelectionMode="Single" SelectionChanged="ContentListBox_SelectionChanged"
-                        Margin="-1,-1,-1,-1">
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         SelectionMode="Single" SelectionChanged="ContentListBox_SelectionChanged"
+                         Margin="-1,-1,-1,-1">
                     <ListBoxItem x:Name="FloatingListBoxItem"
-                             Style="{StaticResource ContentListBoxItemStyle}">
+                                 Style="{StaticResource ContentListBoxItemStyle}">
                         <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
-                            <TextBlock Text="&#xE81E;"
-                                Style="{StaticResource IconTextBlockStyle}"/>
+                            <Image x:Name="FloatingsContentImage" Margin="-3,0,0,0"/>
                             <TextBlock Text="浮窗控制面板"
-                           Style="{StaticResource NavigationTextBlockStyle}"
-                           Margin="5,0,0,0"/>
+                                       Style="{StaticResource NavigationTextBlockStyle}"
+                                       Margin="5,0,0,0"/>
                         </StackPanel>
                     </ListBoxItem>
 
                     <ListBoxItem x:Name="PropertyListBoxItem"
-                             Style="{StaticResource ContentListBoxItemStyle}">
+                                 Style="{StaticResource ContentListBoxItemStyle}">
                         <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
-                            <TextBlock Text="&#xE155;"
-                                Style="{StaticResource IconTextBlockStyle}"/>
+                            <Image x:Name="PropertiesContentImage" Margin="-3,0,0,0"/>
                             <TextBlock Text="系统动态属性"
-                           Style="{StaticResource NavigationTextBlockStyle}"
-                           Margin="5,0,0,0"/>
+                                       Style="{StaticResource NavigationTextBlockStyle}"
+                                       Margin="5,0,0,0"/>
                         </StackPanel>
                     </ListBoxItem>
                 </ListBox>

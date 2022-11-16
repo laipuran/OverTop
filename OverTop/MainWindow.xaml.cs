@@ -40,6 +40,10 @@ namespace OverTop
             ContentFrame.NavigationService.Navigate(FloatingUri);
 
             Icon = GetIcon("icon");
+            BackContentImage.Source = GetIcon("Back");
+            MenuContentImage.Source = GetIcon("Menu");
+            FloatingsContentImage.Source = GetIcon("Floatings");
+            PropertiesContentImage.Source = GetIcon("Properties");
 
             Pages.StaticPropertyPage.ColorChanged();
             App.appWindow.Show();
