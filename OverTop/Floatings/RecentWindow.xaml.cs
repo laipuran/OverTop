@@ -34,6 +34,10 @@ namespace OverTop.Floatings
             this.Opacity = property.alpha == 0.0 ? 0.8 : App.settings.RecentWindowSettings.alpha;
             this.ToolTip = "Recent Window - " + FloatingPanelPage.recents;
             this.Title = "Recent Window";
+            if (!property.isTop)
+            {
+                this.ToBottom();
+            }
             LoadRecentFiles();
         }
 
@@ -155,6 +159,7 @@ namespace OverTop.Floatings
             {
                 switch (e.Key)
                 {
+                    //TODO: Fix Needed
                     case Key.Left: Left -= 1; break;
                     case Key.Right: Left += 1; break;
                     case Key.Up: Top -= 1; break;

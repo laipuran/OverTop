@@ -38,7 +38,10 @@ namespace OverTop.Floatings
             this.Opacity = property.alpha == 0.0 ? 0.8 : App.settings.HangerWindowSettings.alpha;
             this.ToolTip = "Hanger Window - " + FloatingPanelPage.hangers;
             this.Title = property.guid;
-
+            if (!property.isTop)
+            {
+                this.ToBottom();
+            }
             StackPanel ContentStackPanel = (StackPanel)((ScrollViewer)this.Content).Content;
             foreach (KeyValuePair<HangerWindowProperty.ContentType, string> pair in property.contents)
             {

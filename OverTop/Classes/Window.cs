@@ -45,6 +45,7 @@ namespace OverTop
             windowClass.alpha = window.Opacity;
             windowClass.left = window.Left;
             windowClass.top = window.Top;
+            windowClass.isTop = window.Topmost;
             return windowClass;
         }
 
@@ -73,6 +74,7 @@ namespace OverTop
             windowClass.left = window.Left;
             windowClass.top = window.Top;
             windowClass.guid = window.Title;
+            windowClass.isTop = window.Topmost;
 
             if (window.ContentStackPanel.Children.Count == 0)
             {
