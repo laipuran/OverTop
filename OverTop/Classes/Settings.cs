@@ -24,8 +24,8 @@ namespace OverTop
         public IpInformation i2;
         public Property HangerWindowSettings;
         public Property RecentWindowSettings;
-        public HangerWindowProperty?[] HangerWindows;
-        public RecentWindowProperty RecentWindow;
+        public List<HangerWindowProperty?> HangerWindows = new();
+        public RecentWindowProperty? RecentWindow;
         public WeatherWindowProperty WeatherWindow;
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 
@@ -74,7 +74,7 @@ namespace OverTop
             hanger.height = 150;
             hanger.width = 200;
             hanger.alpha = 0.7;
-            hanger.backGroundColor = System.Windows.Media.Color.FromRgb(255, 161, 46);
+            hanger.backGroundColor = System.Windows.Media.Color.FromRgb(102, 111, 255);
 
             recent.height = 350;
             recent.width = 250;

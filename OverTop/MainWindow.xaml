@@ -10,6 +10,7 @@
         Keyboard.KeyDown="Window_KeyDown"
         Closing="Window_Closing"
         Background="#3c3c3c"
+        ResizeMode="CanMinimize"
         WindowStyle="SingleBorderWindow">
     
     <Window.Resources>

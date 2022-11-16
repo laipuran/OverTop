@@ -28,6 +28,7 @@ namespace OverTop.Pages
             InitializeComponent();
             HangerToolTipImage.Source = MainWindow.GetIcon("HangerWindow");
             RecentToolTipImage.Source = MainWindow.GetIcon("RecentWindow");
+            WeatherToolTipImage.Source = MainWindow.GetIcon("WeatherWindow");
             HangerContentImage.Source = MainWindow.GetIcon("New");
             RecentContentImage.Source = MainWindow.GetIcon("New");
             WeatherContentImage.Source = MainWindow.GetIcon("Open");

@@ -32,6 +32,7 @@ namespace OverTop.Floatings
             folders.Add(Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms));
             folders.Add(Environment.GetFolderPath(Environment.SpecialFolder.Programs));
             GetShortCuts();
+            //TODO: Choose Icon
         }
 
         private void GetFiles(string path)

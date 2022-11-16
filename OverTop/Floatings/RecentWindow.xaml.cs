@@ -34,10 +34,11 @@ namespace OverTop.Floatings
             this.Opacity = property.alpha == 0.0 ? 0.8 : App.settings.RecentWindowSettings.alpha;
             this.ToolTip = "Recent Window - " + FloatingPanelPage.recents;
             this.Title = "Recent Window";
-            ProcessRecentFiles();
+            LoadRecentFiles();
         }
+
         // Get system recent files
-        private async void ProcessRecentFiles()
+        private async void LoadRecentFiles()
         {
             try
             {
@@ -170,7 +171,7 @@ namespace OverTop.Floatings
             if (Keyboard.IsKeyDown(Key.R))
             {
                 ContentStackPanel.Children.Clear();
-                Task.Run(() => Dispatcher.BeginInvoke(new Action(ProcessRecentFiles)));
+                Task.Run(() => Dispatcher.BeginInvoke(new Action(LoadRecentFiles)));
             }
             DragMove();
         }

@@ -31,14 +31,14 @@
                     <StackPanel>
                         <TextBlock Margin="5">新建窗口</TextBlock>
                         <Image Margin="5"
-                               x:Name="HangerToolTipImage"
-                               Visibility="Collapsed"/>
+                               x:Name="HangerToolTipImage"/>
                     </StackPanel>
                 </Button.ToolTip>
             </Button>
             <Button x:Name="ImportButton"
                     Click="ImportButton_Click"
                     Margin="10,0,0,0"
+                    ToolTip="从文件夹中导入 .json 文件"
                     Style="{StaticResource IconButton}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource ContentTextBlockStyle}" Text="导入"/>
@@ -62,8 +62,7 @@
                     <StackPanel>
                         <TextBlock Margin="5">实例窗口</TextBlock>
                         <Image Margin="5"
-                               x:Name="RecentToolTipImage"
-                               Visibility="Collapsed"/>
+                               x:Name="RecentToolTipImage"/>
                     </StackPanel>
                 </Button.ToolTip>
             </Button>
@@ -79,6 +78,13 @@
                     <TextBlock Style="{StaticResource ContentTextBlockStyle}" Text="打开"/>
                     <Image Margin="5,0,0,0" x:Name="WeatherContentImage"/>
                 </StackPanel>
+                <Button.ToolTip>
+                    <StackPanel>
+                        <TextBlock Margin="5">天气窗口</TextBlock>
+                        <Image Margin="5"
+                               x:Name="WeatherToolTipImage"/>
+                    </StackPanel>
+                </Button.ToolTip>
             </Button>
         </StackPanel>
 
