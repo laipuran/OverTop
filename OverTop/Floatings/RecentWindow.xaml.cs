@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using static OverTop.CommonWindowOps;
+
 namespace OverTop.Floatings
 {
     /// <summary>
@@ -36,7 +38,7 @@ namespace OverTop.Floatings
             this.Title = "Recent Window";
             if (!property.isTop)
             {
-                this.ToBottom();
+                ChangeStatus(false, this);
             }
             LoadRecentFiles();
         }

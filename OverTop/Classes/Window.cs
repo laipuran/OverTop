@@ -226,7 +226,7 @@ namespace OverTop
             else
             {
                 window.ToBottom();
-                window.Topmost = true;
+                window.Topmost = false;
             }
             return !isBottom;
         }

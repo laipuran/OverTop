@@ -40,7 +40,7 @@ namespace OverTop.Floatings
             this.Title = property.guid;
             if (!property.isTop)
             {
-                this.ToBottom();
+                isBottom = ChangeStatus(false, this);
             }
             StackPanel ContentStackPanel = (StackPanel)((ScrollViewer)this.Content).Content;
             foreach (KeyValuePair<HangerWindowProperty.ContentType, string> pair in property.contents)
