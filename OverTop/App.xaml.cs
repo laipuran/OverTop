@@ -69,13 +69,17 @@ namespace OverTop
 
             if (settings.HangerWindows is not null)
             {
+#pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
                 foreach (HangerWindowProperty windowClass in settings.HangerWindows)
                 {
                     FloatingPanelPage.hangers++;
+#pragma warning disable CS8602 // 解引用可能出现空引用。
                     HangerWindow newHanger = (HangerWindow)windowClass.GetWindow();
+#pragma warning restore CS8602 // 解引用可能出现空引用。
                     newHanger.Show();
                     FloatingPanelPage.windows.Add(newHanger);
                 }
+#pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
             }
         }
 

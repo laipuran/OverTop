@@ -99,10 +99,12 @@ namespace OverTop
             {
                 App.appWindow.Save();
 
+                int RecentWindows = 0, HangerWindows = 0;
                 foreach (Window window in FloatingPanelPage.windows)
                 {
                     if (window is RecentWindow)
                     {
+                        RecentWindows++;
                         App.settings.RecentWindow = ((RecentWindow)window).Save();
                     }
                     else if (window is HangerWindow)
@@ -112,9 +114,15 @@ namespace OverTop
                         {
                             continue;
                         }
-                        App.settings.HangerWindows.Append(property);
+                        HangerWindows++;
+                        App.settings.HangerWindows = new();
+#pragma warning disable CS8602 // 解引用可能出现空引用。
+                        App.settings.HangerWindows.Add(property);
+#pragma warning restore CS8602 // 解引用可能出现空引用。
                     }
                 }
+                if (RecentWindows == 0) App.settings.RecentWindow = null;
+                if (HangerWindows == 0) App.settings.HangerWindows = null;
                 App.settings.WeatherWindow = App.weatherWindow.Save();
 
                 App.Current.Shutdown();
