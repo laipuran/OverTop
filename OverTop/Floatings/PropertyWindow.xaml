@@ -18,14 +18,16 @@
                 <Button Style="{StaticResource NavigationButtonStyle}"
                             x:Name="AddTextButton"
                             Click="AddTextButton_Click"
-                            Content="&#xE70B;"
-                            ToolTip="添加文本"/>
+                            ToolTip="添加文本">
+                    <Image x:Name="AddTextContentImage"/>
+                </Button>
                 <Button Style="{StaticResource NavigationButtonStyle}"
                             x:Name="AddPictureButton"
                             Click="AddPictureButton_Click"
-                            Content="&#xE8B9;"
                             Margin="10,0,0,0"
-                            ToolTip="添加图片"/>
+                            ToolTip="添加图片">
+                    <Image x:Name="AddImageContentImage"/>
+                </Button>
             </StackPanel>
             <TextBlock Text="颜色透明度 Alpha通道：" Margin="0,10,0,0" Foreground="White"/>
             <Slider x:Name="AlphaSlider"

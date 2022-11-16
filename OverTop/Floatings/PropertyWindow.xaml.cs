@@ -39,6 +39,9 @@ namespace OverTop.Floatings
             else { }
 
             ToolTip = Title;
+
+            AddTextContentImage.Source = MainWindow.GetIcon("Text");
+            AddImageContentImage.Source = MainWindow.GetIcon("Image");
         }
 
         private void InitializeTextWindow(string text, Window textWindow, RoutedEventHandler routedEventHandler)
