@@ -151,4 +151,10 @@
   <data name="RecentWindow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>screenshots\recentwindow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="图片" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\图片.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="文本" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\文本.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
