@@ -113,6 +113,16 @@ namespace OverTop.Resources {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap Image {
+            get {
+                object obj = ResourceManager.GetObject("Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap Import {
             get {
                 object obj = ResourceManager.GetObject("Import", resourceCulture);
@@ -173,19 +183,9 @@ namespace OverTop.Resources {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap 图片 {
+        internal static System.Drawing.Bitmap Text {
             get {
-                object obj = ResourceManager.GetObject("图片", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap 文本 {
-            get {
-                object obj = ResourceManager.GetObject("文本", resourceCulture);
+                object obj = ResourceManager.GetObject("Text", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
