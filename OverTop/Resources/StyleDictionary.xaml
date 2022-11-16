@@ -48,7 +48,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="ContentListBoxItemStyle" TargetType="ListBoxItem">            <!--内容下拉菜单-->
+    <Style x:Key="ContentListBoxItemStyle" TargetType="ListBoxItem">            <!--列表项-->
         <Setter Property="Height" Value="42"/>
         <Setter Property="BorderThickness" Value="2.5"/>
         <!--<Setter Property="BorderBrush" Value="{DynamicResource ThemeColor}"/>-->
@@ -56,14 +56,12 @@
         <Setter Property="Background" Value="Transparent"/>
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <!--<Setter Property="Background" Value="{DynamicResource ThemeColor}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource ThemeColor}"/>-->
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="BorderBrush" Value="Transparent"/>
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="ClearListBoxStyle" TargetType="ListBox">          <!--无主题下拉菜单-->
+    <Style x:Key="ClearListBoxStyle" TargetType="ListBox">          <!--列表-->
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
     </Style>
@@ -120,7 +118,7 @@
             </Style>
         </Style.Resources>
     </Style>
-    <Style x:Key="ContextMenuStyle" TargetType="ContextMenu">               <!--上下文菜单-->
+    <Style x:Key="ContextMenuStyle" TargetType="ContextMenu">               <!--上下文菜单：弃用的-->
         <Setter Property="HasDropShadow" Value="True"/>
         <Setter Property="StaysOpen" Value="True"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -128,7 +126,7 @@
     </Style>
 
     <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource BaseControlStyle}">
-        <Setter Property="Height" Value="45"/>
+        <Setter Property="Height" Value="45"/>                              <!--图标按钮-->
         <Setter Property="MinWidth" Value="60"/>
         <Setter Property="Padding" Value="10,0,10,0"/>
         <Setter Property="FontSize" Value="18"/>
