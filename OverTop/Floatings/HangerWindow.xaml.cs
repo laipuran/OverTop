@@ -63,7 +63,7 @@ namespace OverTop.Floatings
                         newImage.Source = new BitmapImage(new Uri(pair.Value));
                         StackPanel newStackPanel = new();
                         newStackPanel.Children.Add(newImage);
-                        newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown; ;
+                        newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown;
                         ContentStackPanel.Children.Add(newStackPanel);
                     }
                     catch
@@ -117,6 +117,9 @@ namespace OverTop.Floatings
             textWindow.Width = 150;
             textWindow.Height = 150;
             textWindow.Topmost = true;
+            System.Windows.Media.Color color = new();
+            color.R = color.G = color.B = 60;
+            textWindow.Background = new SolidColorBrush(color);
 
             newTextBox.Style = (Style)FindResource("ContentTextBoxStyle");
             newTextBox.TextWrapping = TextWrapping.Wrap;

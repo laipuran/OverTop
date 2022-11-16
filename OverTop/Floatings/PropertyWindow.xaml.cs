@@ -65,6 +65,9 @@ namespace OverTop.Floatings
             textWindow.Width = 150;
             textWindow.Height = 150;
             textWindow.Topmost = true;
+            System.Windows.Media.Color color = new();
+            color.R = color.G = color.B = 60;
+            textWindow.Background = new SolidColorBrush(color);
 
             newTextBox.Style = (Style)FindResource("ContentTextBoxStyle");
             newTextBox.Width = 300 - 5 - OKButton.Width;

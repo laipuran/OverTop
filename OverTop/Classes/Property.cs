@@ -84,6 +84,7 @@ namespace OverTop.Floatings
         {
             RecentWindowProperty property = new();
             property.FromProperty(App.settings.RecentWindowSettings);
+            property.isTop = true;
             return property;
         }
     }
@@ -122,6 +123,7 @@ namespace OverTop.Floatings
             HangerWindowProperty property = new();
             property.FromProperty(App.settings.HangerWindowSettings);
             property.guid = Guid.NewGuid().ToString();
+            property.isTop = true;
             return property;
         }
 
