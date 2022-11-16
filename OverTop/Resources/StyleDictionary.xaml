@@ -31,7 +31,6 @@
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
     </Style>
     <Style x:Key="ContentButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseControlStyle}">          <!--内容按钮-->
-        <Setter Property="BorderBrush" Value="{DynamicResource ThemeColor}"/>
         <Setter Property="MinWidth" Value="60"/>
         <Setter Property="Padding" Value="10,1.5,10,1.5"/>
         <Setter Property="FontSize" Value="18"/>
@@ -128,7 +127,22 @@
         <Setter Property="Width" Value="170"/>
     </Style>
 
-    <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource ContentButtonStyle}">
-        <Setter Property="Height" Value="80"/>
+    <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource BaseControlStyle}">
+        <Setter Property="Height" Value="45"/>
+        <Setter Property="MinWidth" Value="60"/>
+        <Setter Property="Padding" Value="10,0,10,0"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="FontWeight" Value="Regular"/>
+            </Trigger>
+            <Trigger Property="IsMouseDirectlyOver" Value="True">
+                <Setter Property="FontStyle" Value="Italic"/>
+                <Setter Property="Background" Value="#cccccc"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>
