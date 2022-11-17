@@ -52,45 +52,46 @@ namespace OverTop
 
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 
-        public static string GetData(string url)
+        public static string? GetData(string url)
         {
-            HttpClient client = new HttpClient();
-            string result = client.GetStringAsync(url).Result;
+            string? result = null;
+            try
+            {
+                HttpClient client = new HttpClient();
+                result = client.GetStringAsync(url).Result;
+            }
+            catch { }
             return result;
         }
 
-        public static string GetHostIp()
+        public static string? GetHostIp()
         {
             string? ip = GetData(ipSrc);
             if (ip is not null)
-                return ip.Substring(0, ip.Length - 1);
-            return "";
+                return ip.Substring(0, ip.Length);
+            return null;
         }
 
-        public static IpInformation GetIpInformation(string ip)
+        public static IpInformation? GetIpInformation(string ip)
         {
-            string json = GetData(amapBase + "ip?key=" + key + "&ip=" + ip);
-
+            string? json = GetData(amapBase + "ip?key=" + key + "&ip=" + ip);
+            if (json is null) return null;
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
             IpInformation iP = JsonConvert.DeserializeObject<IpInformation>(json);
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
 
-#pragma warning disable CS8603 // 可能返回 null 引用。
             return iP;
-#pragma warning restore CS8603 // 可能返回 null 引用。
         }
 
-        public static WeatherInformation GetWeatherInformation(string adcode)
+        public static WeatherInformation? GetWeatherInformation(string adcode)
         {
-            string json = GetData(amapBase + "weather/weatherInfo?key=" + key + "&city=" + adcode);
-
+            string? json = GetData(amapBase + "weather/weatherInfo?key=" + key + "&city=" + adcode);
+            if (json is null) return null;
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
             WeatherInformation weather = JsonConvert.DeserializeObject<WeatherInformation>(json);
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
 
-#pragma warning disable CS8603 // 可能返回 null 引用。
             return weather;
-#pragma warning restore CS8603 // 可能返回 null 引用。
         }
     }
 }

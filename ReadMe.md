@@ -61,3 +61,6 @@ Congratulations! You have already started the app.
 - Get Desktop Brush
 - Get the Default Font
 - Click Fast to find the painted eggshell
+
+### 1.Listed warnings
+- NS0001: The place you are in is not supported.

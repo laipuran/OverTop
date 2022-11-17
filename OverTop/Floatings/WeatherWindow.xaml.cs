@@ -29,6 +29,7 @@ namespace OverTop.Floatings
 
             this.Top = property.top == 0 ? Top : property.top;
             this.Left = property.left == 0 ? Left : property.left;
+
         }
 
         private void WeatherStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -47,7 +48,18 @@ namespace OverTop.Floatings
 
         private void ShowWeatherOnce()
         {
-            WeatherInformation wi = GetWeatherInformation(settings.i2.adcode);
+            if (App.settings.ip is null || settings.i2 is null)
+            {
+                this.Visibility = Visibility.Collapsed;
+                return;
+            }
+            WeatherInformation? wi = GetWeatherInformation(settings.i2.adcode);
+
+            if (wi is null)
+            {
+                WeatherTextBlock.Text = "NS00001";
+                return;
+            }
 
             WeatherTextBlock.Text = wi.lives[0].weather +
                 " " + wi.lives[0].winddirection +

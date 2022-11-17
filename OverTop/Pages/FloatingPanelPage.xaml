@@ -68,7 +68,9 @@
             </Button>
         </StackPanel>
 
-        <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
+        <StackPanel Style="{StaticResource ContentStackPanelStyle}"
+                    x:Name="WeatherStackPanel"
+                    Margin="0,20,0,0">
             <TextBlock Text="天气组件："
                        Style="{StaticResource ContentTextBlockStyle}"/>
             <Button x:Name="WeatherWindowButton"

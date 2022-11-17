@@ -37,7 +37,7 @@ namespace OverTop
         public static Property tempProperty = new();
         public static Settings settings = new();
 
-        public static string ip = "";
+        public static string? ip = "";
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -49,7 +49,10 @@ namespace OverTop
             }
 
             ip = API.GetHostIp();
-            settings = GetSettingsFromFile(ip);
+            if (ip is not null)
+                settings = GetSettingsFromFile(ip);
+            else
+                settings = GetDefaultSettings(ip);
 
             if (settings.WeatherWindow is not null)
             {

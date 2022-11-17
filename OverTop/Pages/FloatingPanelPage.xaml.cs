@@ -33,6 +33,11 @@ namespace OverTop.Pages
             RecentContentImage.Source = MainWindow.GetIcon("New");
             WeatherContentImage.Source = MainWindow.GetIcon("Open");
             ImportContentImage.Source = MainWindow.GetIcon("Import");
+
+            if (App.settings.ip is null)
+            {
+                WeatherStackPanel.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void HangerWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)

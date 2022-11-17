@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms.ComponentModel.Com2Interop;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using OverTop.Floatings;
@@ -20,8 +21,8 @@ namespace OverTop
     public class Settings : ISettings
     {
 #pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
-        public string ip;
-        public IpInformation i2;
+        public string? ip;
+        public IpInformation? i2;
         public Property HangerWindowSettings;
         public Property RecentWindowSettings;
         public List<HangerWindowProperty>? HangerWindows = new();
@@ -57,16 +58,16 @@ namespace OverTop
                 return GetDefaultSettings(ip);
             }
 
-            string IP = API.GetHostIp();
-            if (IP != settings.ip)
+            if (ip != settings.ip && ip is not null)
             {
                 settings.i2 = API.GetIpInformation(ip);
-                settings.ip = IP;
+                settings.ip = ip;
             }
+
             return settings;
         }
 
-        public static Settings GetDefaultSettings(string ip)
+        public static Settings GetDefaultSettings(string? ip)
         {
             Settings settings = new();
 
@@ -83,7 +84,8 @@ namespace OverTop
 
             settings.HangerWindowSettings = hanger;
             settings.RecentWindowSettings = recent;
-            settings.i2 = GetIpInformation(ip);
+            if (ip is not null)
+                settings.i2 = GetIpInformation(ip);
             settings.ip = ip;
             return settings;
         }
