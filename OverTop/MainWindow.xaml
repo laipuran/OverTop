@@ -13,21 +13,6 @@
         ResizeMode="CanMinimize"
         WindowStyle="SingleBorderWindow">
     
-    <!--<Window.Resources>
-        <Storyboard x:Key="MenuOpen">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
-                                           Storyboard.TargetName="MenuStackPanel">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="MenuClose">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
-                                           Storyboard.TargetName="MenuStackPanel">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="42"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-    </Window.Resources>-->
-
     <DockPanel>
         <StackPanel DockPanel.Dock="Left" x:Name="MenuStackPanel"
                     HorizontalAlignment="Left"
