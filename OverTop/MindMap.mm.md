@@ -8,7 +8,7 @@
     - To be continued...
 ## Floatings
 - Features:
-- Gaussion Blur
+- Gaussion Blur(Not Used)
 - All Contain Two Floating Modes
     - Over All
     - Over Desktop
