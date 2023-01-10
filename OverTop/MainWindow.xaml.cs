@@ -166,6 +166,47 @@ namespace OverTop
             }
         }
 
+        private async void WhenCloseAnimation()
+        {
+            Topmost = true;
+            int time = 500;
+            double speedX = Left / time;
+            double speedY = Top / time;
+            double speedWidth = Width / time;
+            double speedHeight = Height / time;
+            double speedOpacity = 1.00 / time;
+            double left = Left;
+            double top = Top;
+            double width = Width;
+            double height = Height;
+            double opacity = 1;
+            DateTime start = DateTime.Now;
+            TimeSpan span = new();
+            Debug.WriteLine("START: " + span.TotalMilliseconds + " L: " + Left + " Top: " + Top + " W: " + Width + " H: " + Height + " O: " + Opacity);
+            while (span.TotalMilliseconds < time)
+            {
+                span = DateTime.Now - start;
+                await Task.Run(() => Dispatcher.BeginInvoke(new Action(() => {
+                    try
+                    {
+                        double l = left - span.TotalMilliseconds * speedX;
+                        double t = top - span.TotalMilliseconds * speedY;
+                        double w = width - span.TotalMilliseconds * speedWidth;
+                        double h = height - span.TotalMilliseconds * speedHeight;
+                        double o = opacity - span.TotalMilliseconds * speedOpacity;
+                        Debug.WriteLine("T: " + Math.Round(span.TotalMilliseconds, 2) + " L: " + Math.Round(l, 2) + " Top: " + Math.Round(t, 2) + " W: " + Math.Round(w, 2) + " H: " + Math.Round(h, 2) + " O: " + Math.Round(o, 2));
+                        Left = l;
+                        Top = t;
+                        Width = w;
+                        Height = h;
+                        Opacity = o;
+                    }
+                    catch { }
+                })));
+            }
+            Topmost = false;
+        }
+
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             if (!ContentFrame.CanGoBack)
@@ -189,13 +230,14 @@ namespace OverTop
             }
         }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
+        private async void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Tab)
             {
+                WhenCloseAnimation();
+                await Task.Delay(500);
                 this.Visibility = Visibility.Collapsed;
             }
         }
-
     }
 }

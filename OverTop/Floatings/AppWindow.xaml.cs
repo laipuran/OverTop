@@ -97,8 +97,19 @@ namespace OverTop.Floatings
         private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 #pragma warning disable CS8602 // 解引用可能出现空引用。
-            App.mainWindow.Visibility = Visibility.Visible;
-            App.mainWindow.Activate();
+            try
+            {
+                App.mainWindow.Visibility = Visibility.Visible;
+                App.mainWindow.Activate();
+
+                App.mainWindow.Height = 450;
+                App.mainWindow.Width = 750;
+                App.mainWindow.Opacity = 1;
+                App.mainWindow.Left = (SystemParameters.PrimaryScreenWidth - 750) / 2;
+                App.mainWindow.Top = (SystemParameters.PrimaryScreenHeight - 450) / 2;
+                App.mainWindow.Focus();
+            }
+            catch { }
 #pragma warning restore CS8602 // 解引用可能出现空引用。
         }
 
