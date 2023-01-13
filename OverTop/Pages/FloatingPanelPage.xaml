@@ -37,6 +37,7 @@
             </Button>
             <Button x:Name="ImportButton"
                     Click="ImportButton_Click"
+                    MouseRightButtonDown="ImportButton_MouseRightButtonDown"
                     Margin="10,0,0,0"
                     ToolTip="从文件夹中导入 .json 文件"
                     Style="{StaticResource IconButton}">

@@ -9,6 +9,8 @@
         Width="180"
         Height="200"
         Background="#3c3c3c"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
         Loaded="Window_Loaded"
         LostFocus="Window_LostFocus"
         Topmost="True">

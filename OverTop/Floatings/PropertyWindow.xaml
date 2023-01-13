@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:OverTop.Floatings"
         mc:Ignorable="d"
         Title="窗口属性" Height="400" Width="250"
-        Topmost="True" MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Topmost="True"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Closing="Window_Closing"
-        ResizeMode="NoResize"
         Background="#3c3c3c"
+        WindowStartupLocation="CenterOwner"
         KeyDown="Window_KeyDown">
     
     <ScrollViewer Margin="20,20,20,20">

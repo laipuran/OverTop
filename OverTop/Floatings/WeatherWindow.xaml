@@ -5,12 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OverTop.Floatings"
         mc:Ignorable="d" 
-        Title="WeatherWindow" Height="100" Width="160" Topmost="True"
-        Style="{StaticResource FloatingWindowStyle}" ShowInTaskbar="False"
-        Loaded="Window_Loaded" MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Closing="Window_Closing" MouseDoubleClick="Window_MouseDoubleClick"
+        Title="WeatherWindow"
+        Height="100"
+        Width="160"
+        Topmost="True"
+        Style="{StaticResource FloatingWindowStyle}"
+        ShowInTaskbar="False"
+        Loaded="Window_Loaded"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Closing="Window_Closing"
+        MouseDoubleClick="Window_MouseDoubleClick"
         KeyDown="Window_KeyDown"
-        Background="#3c3c3c" Opacity="0.8">
+        Background="#3c3c3c"
+        Opacity="0.8">
 
     <StackPanel x:Name="WeatherStackPanel" Margin="5,5,5,5"
                 MouseLeftButtonDown="WeatherStackPanel_MouseLeftButtonDown">

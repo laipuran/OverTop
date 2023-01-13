@@ -8,6 +8,7 @@
         Title="选择窗口" Height="400" Width="250"
         Topmost="True" ShowInTaskbar="False"
         Background="#3c3c3c"
+        WindowStartupLocation="CenterOwner"
         MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <ScrollViewer>
         <StackPanel x:Name="ContentStackPanel" Margin="5,5,5,5"
