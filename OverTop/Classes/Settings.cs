@@ -38,6 +38,14 @@ namespace OverTop
             if (!File.Exists(filePath))
             {
                 settings = GetDefaultSettings(ip);
+                
+                HangerWindowProperty? welcomeWindow = WindowLoader.OpenFromInternet("https://laipuran.github.io/Products/OverTop/welcome.json");
+
+                if (welcomeWindow is not null)
+                {
+                    settings.HangerWindows = new();
+                    settings.HangerWindows.Add(welcomeWindow);
+                }
                 return settings;
             }
             string json = File.ReadAllText(filePath);

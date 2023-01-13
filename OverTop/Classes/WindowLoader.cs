@@ -12,19 +12,14 @@ namespace OverTop
 {
     internal class WindowLoader
     {
-        public static void OpenFromInternet(string site)
+        public static HangerWindowProperty? OpenFromInternet(string site)
         {
-            string json = API.GetData(site);
-            if (json is null) return;
+            string? json = API.GetData(site);
+            if (json is null) return null;
 
-#pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-            HangerWindowProperty windowClass= JsonConvert.DeserializeObject<Floatings.HangerWindowProperty>(json);
-#pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
+            HangerWindowProperty? windowClass= JsonConvert.DeserializeObject<Floatings.HangerWindowProperty>(json);
 
-            FloatingPanelPage.hangers++;
-            HangerWindow newHanger = (HangerWindow)windowClass.GetWindow();
-            newHanger.Show();
-            FloatingPanelPage.windows.Add(newHanger);
+            return windowClass;
         }
     }
 }
