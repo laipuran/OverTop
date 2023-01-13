@@ -28,6 +28,9 @@ namespace OverTop.Floatings
         {
             InitializeComponent();
 
+            FloatingPanelPage.hangers++;
+            FloatingPanelPage.windows.Add(this);
+
             this.Top = property.top == 0 ? Top : property.top;
             this.Left = property.left == 0 ? Left : property.left;
             this.Width = property.width;
@@ -123,6 +126,7 @@ namespace OverTop.Floatings
                     case Key.Down: Top += 1; break;
                     case Key.Escape: Close(); break;
                     default: break;
+                    //TODO: Fix needed!
                 }
             }
             catch { }
@@ -175,6 +179,7 @@ namespace OverTop.Floatings
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            FloatingPanelPage.hangers--;
             FloatingPanelPage.windows.Remove(this);
         }
     }

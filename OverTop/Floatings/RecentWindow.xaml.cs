@@ -26,6 +26,10 @@ namespace OverTop.Floatings
         public RecentWindow(RecentWindowProperty property)
         {
             InitializeComponent();
+
+            FloatingPanelPage.recents++;
+            FloatingPanelPage.windows.Add(this);
+
             this.Top = property.top == 0 ? Top : property.top;
             this.Left = property.left == 0 ? Left : property.left;
             this.Width = property.width;
@@ -185,6 +189,7 @@ namespace OverTop.Floatings
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            FloatingPanelPage.recents--;
             FloatingPanelPage.windows.Remove(this);
         }
     }

@@ -68,7 +68,6 @@ namespace OverTop
                 FloatingPanelPage.recents++;
                 RecentWindow newRecent = (RecentWindow)settings.RecentWindow.GetWindow();
                 newRecent.Show();
-                FloatingPanelPage.windows.Add(newRecent);
             }
 
             if (settings.HangerWindows is not null)
@@ -78,7 +77,6 @@ namespace OverTop
                     FloatingPanelPage.hangers++;
                     HangerWindow newHanger = (HangerWindow)windowClass.GetWindow();
                     newHanger.Show();
-                    FloatingPanelPage.windows.Add(newHanger);
                 }
             }
         }

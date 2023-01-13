@@ -45,7 +45,6 @@ namespace OverTop.Pages
             hangers++;
             Window newHanger = new Floatings.HangerWindow(HangerWindowProperty.GetDefaultProperty());
             newHanger.Show();
-            windows.Add(newHanger);
         }
 
         private void RecentWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -53,7 +52,6 @@ namespace OverTop.Pages
             recents++;
             Window newRecent = new Floatings.RecentWindow(RecentWindowProperty.GetDefaultProperty());
             newRecent.Show();
-            windows.Add(newRecent);
         }
 
         private void ImportButton_Click(object sender, RoutedEventArgs e)
@@ -99,7 +97,6 @@ namespace OverTop.Pages
 #pragma warning restore CS8602 // 解引用可能出现空引用。
             HangerWindow newHanger = new Floatings.HangerWindow(windowClass);
 
-            windows.Add(newHanger);
             newHanger.Show();
         }
 
@@ -121,7 +118,11 @@ namespace OverTop.Pages
         private void WeatherWindowButton_Click(object sender, RoutedEventArgs e)
         {
             App.weatherWindow.Show();
-            windows.Add(App.weatherWindow);
+        }
+
+        private void ImportButton_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

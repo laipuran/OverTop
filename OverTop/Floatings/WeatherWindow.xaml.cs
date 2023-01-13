@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static OverTop.App;
 using static OverTop.API;
+using OverTop.Pages;
 
 namespace OverTop.Floatings
 {
@@ -26,6 +27,8 @@ namespace OverTop.Floatings
         public WeatherWindow(WeatherWindowProperty property)
         {
             InitializeComponent();
+
+            FloatingPanelPage.windows.Add(this);
 
             this.Top = property.top == 0 ? Top : property.top;
             this.Left = property.left == 0 ? Left : property.left;
