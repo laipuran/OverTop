@@ -84,110 +84,18 @@ namespace OverTop.Floatings
 
         public void TextPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            StackPanel currentStackPanel = (StackPanel)sender;
+            TextBlock currentTextBlock = (TextBlock)currentStackPanel.Children[0];
             if (Keyboard.IsKeyDown(Key.M))
             {
-                Window textWindowModify = new();
-                InitializeTextWindow(((TextBlock)((StackPanel)sender).Children[0]).Text, textWindowModify, OKButton_Click_Modify);
-                ((StackPanel)sender).Children.Clear();
-                App.contentStackPanel = (StackPanel)sender;
-                textWindowModify.ShowDialog();
+                TextWindow textWindow = new("请输入文本：", currentTextBlock.Text);
+                textWindow.ShowDialog();
+                currentTextBlock.Text = textWindow.result;
             }
             else if (Keyboard.IsKeyDown(Key.R))
             {
-                ((StackPanel)((StackPanel)sender).Parent).Children.Remove((StackPanel)sender);
+                ((StackPanel)currentStackPanel.Parent).Children.Remove(currentStackPanel);
             }
-        }
-
-        private void InitializeTextWindow(string text, Window textWindow, RoutedEventHandler routedEventHandler)
-        {
-            Thickness margin = new();
-            StackPanel newTextPanel = new();
-            ScrollViewer scrollViewer = new();
-            TextBox newTextBox = new();
-            Button OKButton = new();
-
-            OKButton.Style = (Style)FindResource("ContentButtonStyle");
-            OKButton.Content = "OK";
-            margin.Left = 20;
-            margin.Right = 20;
-            margin.Top = 10;
-            OKButton.Margin = margin;
-            OKButton.Click += OKButton_Click;
-
-            textWindow.Width = 150;
-            textWindow.Height = 150;
-            textWindow.Topmost = true;
-            System.Windows.Media.Color color = new();
-            color.R = color.G = color.B = 60;
-            textWindow.Background = new SolidColorBrush(color);
-
-            newTextBox.Style = (Style)FindResource("ContentTextBoxStyle");
-            newTextBox.TextWrapping = TextWrapping.Wrap;
-            newTextBox.Width = 300 - 5 - OKButton.Width;
-            newTextBox.Margin = margin;
-            newTextBox.Text = text;
-
-            newTextPanel.Children.Add(newTextBox);
-            newTextPanel.Children.Add(OKButton);
-
-            scrollViewer.Content = newTextPanel;
-            scrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
-            scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
-
-            textWindow.Content = scrollViewer;
-            textWindow.Loaded += TextWindow_Loaded;
-            textWindow.LostFocus += routedEventHandler;
-        }
-
-        private void TextWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            ((StackPanel)((ScrollViewer)((Window)sender).Content).Content).Children[0].Focus();
-        }
-
-        private void OKButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender.GetType() != typeof(Window))
-            {
-                return;
-            }
-            TextBox newTextBox = (TextBox)((StackPanel)((ScrollViewer)((Window)sender).Content).Content).Children[0];
-            if (newTextBox.Text != string.Empty)
-            {
-                TextBlock newTextBlock = new()
-                {
-                    TextWrapping = TextWrapping.Wrap,
-                    Style = (Style)FindResource("ContentTextBlockStyle"),
-                    Text = newTextBox.Text
-                };
-                StackPanel textPanel = new();
-                textPanel.MouseLeftButtonDown += TextPanel_MouseLeftButtonDown;
-                textPanel.Children.Add(newTextBlock);
-                App.contentStackPanel.Children.Add(textPanel);
-                newTextBox.Text = "";
-                ((Window)sender).Close();
-            }
-        }
-
-        private void OKButton_Click_Modify(object sender, RoutedEventArgs e)
-        {
-            if (sender.GetType() != typeof(Window))
-            {
-                return;
-            }
-            TextBox newTextBox = (TextBox)((StackPanel)((ScrollViewer)((Window)sender).Content).Content).Children[0];
-            if (newTextBox.Text != string.Empty)
-            {
-                TextBlock newTextBlock = new()
-                {
-                    TextWrapping = TextWrapping.Wrap,
-                    Style = (Style)FindResource("ContentTextBlockStyle"),
-                    Text = newTextBox.Text
-                };
-                StackPanel textPanel = new();
-                App.contentStackPanel.Children.Add(newTextBlock);
-                newTextBox.Text = "";
-            }
-            ((Window)sender).Close();
         }
 
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
