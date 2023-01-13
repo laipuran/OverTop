@@ -122,7 +122,11 @@ namespace OverTop.Pages
 
         private void ImportButton_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            TextWindow textWindow = new("请输入网址：", null);
+            textWindow.ShowDialog();
+            if (string.IsNullOrEmpty(textWindow.result))
+                return;
+            WindowLoader.OpenFromInternet(textWindow.result);
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
