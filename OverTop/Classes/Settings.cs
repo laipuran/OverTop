@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using OverTop.Floatings;
+using PuranLai.Algorithms;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -51,7 +52,7 @@ namespace OverTop
 
                 if (settings is null)
                 {
-                    Exception ex = new PuranLai.CustomException("You are using the settings file in old version!");
+                    Exception ex = new CustomException("You are using the settings file in old version!");
                     throw ex;
                 }
             }

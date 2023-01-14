@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using PuranLai.Algorithms;
 
 namespace OverTop
 {
@@ -65,22 +66,27 @@ namespace OverTop
             MenuClosed = !MenuClosed;
         }
 
-        private async void MenuOpen()
+        private /*async*/ void MenuOpen()
         {
-            DateTime start = DateTime.Now;
-            TimeSpan span = new();
-            double k = (170 - 45) / Math.Sin(GetX(200, 150));
-            while (span.TotalMilliseconds < 200)
+            //DateTime start = DateTime.Now;
+            //TimeSpan span = new();
+            //double k = (170 - 45) / Math.Sin(GetX(200, 150));
+            //while (span.TotalMilliseconds < 200)
+            //{
+            //    span = DateTime.Now - start;
+            //    await Task.Run(() => Dispatcher.BeginInvoke(new Action(() =>
+            //    {
+            //        double x = span.TotalMilliseconds;
+            //        double value = Math.Sin(GetX(x, 150)) * k + 45;
+            //        MenuStackPanel.Width = value;
+            //    })));
+            //}
+            //MenuStackPanel.Width = 170;
+            unsafe
             {
-                span = DateTime.Now - start;
-                await Task.Run(() => Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    double x = span.TotalMilliseconds;
-                    double value = Math.Sin(GetX(x, 150)) * k + 45;
-                    MenuStackPanel.Width = value;
-                })));
+                Animation open = new Animation(500, 150, 45, 170, Animation.GetLinearValue);
+                open.StartAnimationAsync();
             }
-            MenuStackPanel.Width = 170;
         }
 
         private async void MenuClose()

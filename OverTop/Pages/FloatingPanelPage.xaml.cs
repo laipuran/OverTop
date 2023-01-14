@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
 using OverTop.Floatings;
+using PuranLai.Algorithms;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -84,7 +85,7 @@ namespace OverTop.Pages
             }
             catch
             {
-                throw new PuranLai.CustomException("Not the right JSON structure!");
+                throw new CustomException("Not the right JSON structure!");
             }
 
 #pragma warning disable CS8602 // 解引用可能出现空引用。

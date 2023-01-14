@@ -1,5 +1,5 @@
 ﻿using Microsoft.Win32;
-using PuranLai;
+using PuranLai.Algorithms;
 using System;
 using System.Drawing;
 using System.Windows;
@@ -76,23 +76,23 @@ namespace OverTop.Floatings
             {
                 return;
             }
-            ParsingResult union = Algorithm.ParseIntFromString(WidthTextBox.Text, 800);
+            ParsingResult union = Parse.ParseFromString(WidthTextBox.Text, 800);
             if (union.message != "")
             {
                 MessageBox.Show(union.message);
                 WidthTextBox.Text = App.currentWindow.Width.ToString();
                 e.Cancel = true;
             }
-            App.tempProperty.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
+            App.tempProperty.width = Parse.ParseFromString(WidthTextBox.Text, 1200).number;
 
-            union = Algorithm.ParseIntFromString(HeightTextBox.Text, 800);
+            union = Parse.ParseFromString(HeightTextBox.Text, 800);
             if (union.message != "")
             {
                 MessageBox.Show(union.message);
                 HeightTextBox.Text = App.currentWindow.Height.ToString();
                 e.Cancel = true;
             }
-            App.tempProperty.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
+            App.tempProperty.height = Parse.ParseFromString(HeightTextBox.Text, 1200).number;
 
             App.tempProperty.alpha = AlphaSlider.Value;
             System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
@@ -104,23 +104,23 @@ namespace OverTop.Floatings
             Property hangerProperty = new(), recentProperty = new();
             if (App.currentWindowType == WindowType.Hanger)
             {
-                ParsingResult union = Algorithm.ParseIntFromString(WidthTextBox.Text, 800);
+                ParsingResult union = Parse.ParseFromString(WidthTextBox.Text, 800);
                 if (union.message != "")
                 {
                     MessageBox.Show(union.message);
                     WidthTextBox.Text = App.currentWindow.Width.ToString();
                     return;
                 }
-                hangerProperty.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
+                hangerProperty.width = Parse.ParseFromString(WidthTextBox.Text, 1200).number;
 
-                union = Algorithm.ParseIntFromString(HeightTextBox.Text, 800);
+                union = Parse.ParseFromString(HeightTextBox.Text, 800);
                 if (union.message != "")
                 {
                     MessageBox.Show(union.message);
                     HeightTextBox.Text = App.currentWindow.Height.ToString();
                     return;
                 }
-                hangerProperty.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
+                hangerProperty.height = Parse.ParseFromString(HeightTextBox.Text, 1200).number;
 
                 hangerProperty.alpha = AlphaSlider.Value;
                 System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
@@ -129,23 +129,23 @@ namespace OverTop.Floatings
             }
             else
             {
-                ParsingResult union = Algorithm.ParseIntFromString(WidthTextBox.Text, 800);
+                ParsingResult union = Parse.ParseFromString(WidthTextBox.Text, 800);
                 if (union.message != "")
                 {
                     MessageBox.Show(union.message);
                     WidthTextBox.Text = App.currentWindow.Width.ToString();
                     return;
                 }
-                recentProperty.width = Algorithm.ParseIntFromString(WidthTextBox.Text, 1200).number;
+                recentProperty.width = Parse.ParseFromString(WidthTextBox.Text, 1200).number;
 
-                union = Algorithm.ParseIntFromString(HeightTextBox.Text, 800);
+                union = Parse.ParseFromString(HeightTextBox.Text, 800);
                 if (union.message != "")
                 {
                     MessageBox.Show(union.message);
                     HeightTextBox.Text = App.currentWindow.Height.ToString();
                     return;
                 }
-                recentProperty.height = Algorithm.ParseIntFromString(HeightTextBox.Text, 1200).number;
+                recentProperty.height = Parse.ParseFromString(HeightTextBox.Text, 1200).number;
 
                 recentProperty.alpha = AlphaSlider.Value;
                 System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);

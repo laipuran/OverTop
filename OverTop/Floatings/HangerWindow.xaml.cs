@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using OverTop.Pages;
+using PuranLai.Algorithms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -67,7 +68,7 @@ namespace OverTop.Floatings
                     }
                     catch
                     {
-                        throw new PuranLai.CustomException("Image not exists!");
+                        throw new CustomException("Image not exists!");
                     }
                 }
             }
