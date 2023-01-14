@@ -2,13 +2,8 @@
 using OverTop.Floatings;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Net;
-using System.Net.Http;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
@@ -189,7 +184,7 @@ namespace OverTop
     {
         [DllImport("user32.dll")]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndlnsertAfter, int X, int Y, int cx, int cy, uint Flags);
-        
+
         public enum WindowType
         {
             Hanger = 0,
@@ -215,7 +210,7 @@ namespace OverTop
                 window.ToTop();
             }
         }
-        
+
         public static bool ChangeStatus(bool isBottom, Window window)
         {
             if (isBottom)

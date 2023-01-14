@@ -3,15 +3,10 @@ using Newtonsoft.Json;
 using OverTop.Floatings;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using static OverTop.API;
 
 namespace OverTop.Pages
 {

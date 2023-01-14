@@ -1,23 +1,15 @@
-﻿using Newtonsoft.Json;
-using OverTop.Floatings;
+﻿using OverTop.Floatings;
 using OverTop.Pages;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Resources;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using static OverTop.AppWindowOps;
-using static OverTop.CommonWindowOps;
 
 namespace OverTop
 {
@@ -34,7 +26,7 @@ namespace OverTop
         {
             InitializeComponent();
             App.mainWindow = this;
-            
+
             FloatingListBoxItem.IsSelected = true;
             TitleTextBlock.Text = "浮窗控制面板";
             ContentFrame.NavigationService.Navigate(FloatingUri);
@@ -72,7 +64,7 @@ namespace OverTop
             }
             MenuClosed = !MenuClosed;
         }
-        
+
         private async void MenuOpen()
         {
             DateTime start = DateTime.Now;
@@ -81,7 +73,8 @@ namespace OverTop
             while (span.TotalMilliseconds < 200)
             {
                 span = DateTime.Now - start;
-                await Task.Run(() => Dispatcher.BeginInvoke(new Action(() => {
+                await Task.Run(() => Dispatcher.BeginInvoke(new Action(() =>
+                {
                     double x = span.TotalMilliseconds;
                     double value = Math.Sin(GetX(x, 150)) * k + 45;
                     MenuStackPanel.Width = value;
@@ -98,7 +91,8 @@ namespace OverTop
             while (span.TotalMilliseconds < 200)
             {
                 span = DateTime.Now - start;
-                await Task.Run(() => Dispatcher.BeginInvoke(new Action(() => {
+                await Task.Run(() => Dispatcher.BeginInvoke(new Action(() =>
+                {
                     double x = span.TotalMilliseconds;
                     double value = 170 - Math.Sin(GetX(x, 150)) * k;
                     MenuStackPanel.Width = value;
@@ -186,7 +180,8 @@ namespace OverTop
             while (span.TotalMilliseconds < time)
             {
                 span = DateTime.Now - start;
-                await Task.Run(() => Dispatcher.BeginInvoke(new Action(() => {
+                await Task.Run(() => Dispatcher.BeginInvoke(new Action(() =>
+                {
                     try
                     {
                         double l = left - span.TotalMilliseconds * speedX;

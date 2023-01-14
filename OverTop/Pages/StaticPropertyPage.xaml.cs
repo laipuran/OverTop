@@ -57,7 +57,7 @@ namespace OverTop.Pages
                 }
             }
         }
-        
+
         private async void SystemGlassBrushButton_Click(object sender, RoutedEventArgs e)
         {
             await Task.Run(() => Dispatcher.BeginInvoke(new Action(() =>

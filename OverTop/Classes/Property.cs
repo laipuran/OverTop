@@ -1,10 +1,6 @@
-﻿using Hardcodet.Wpf.TaskbarNotification.Interop;
-using Microsoft.Windows.Themes;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows;
-using System.Windows.Media;
 
 namespace OverTop.Floatings
 {

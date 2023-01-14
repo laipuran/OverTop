@@ -1,12 +1,5 @@
-﻿using Hardcodet.Wpf.TaskbarNotification.Interop;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using OverTop.Floatings;
-using OverTop.Pages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OverTop
 {
@@ -17,7 +10,7 @@ namespace OverTop
             string? json = API.GetData(site);
             if (json is null) return null;
 
-            HangerWindowProperty? windowClass= JsonConvert.DeserializeObject<Floatings.HangerWindowProperty>(json);
+            HangerWindowProperty? windowClass = JsonConvert.DeserializeObject<Floatings.HangerWindowProperty>(json);
 
             return windowClass;
         }

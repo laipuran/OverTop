@@ -1,14 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using OverTop.Floatings;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Forms.ComponentModel.Com2Interop;
-using Microsoft.Win32;
-using Newtonsoft.Json;
-using OverTop.Floatings;
 using static OverTop.API;
 
 namespace OverTop
@@ -38,7 +32,7 @@ namespace OverTop
             if (!File.Exists(filePath))
             {
                 settings = GetDefaultSettings(ip);
-                
+
                 HangerWindowProperty? welcomeWindow = WindowLoader.OpenFromInternet("https://laipuran.github.io/Products/OverTop/welcome.json");
 
                 if (welcomeWindow is not null)
