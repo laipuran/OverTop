@@ -8,6 +8,8 @@
     <UseWindowsForms>False</UseWindowsForms>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <Title>Luck Draw</Title>
+    <Version>1.7.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

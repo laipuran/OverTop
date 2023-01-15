@@ -47,14 +47,14 @@ namespace OverTop
         public static void ToBottom(this Window window)
         {
             CommonWindowOps.SetWindowPos(new WindowInteropHelper(window).Handle,
-                (IntPtr)WindowZIndex.HWND_BOTTOM, (int)window.Left,
+                (IntPtr)WindowZIndex.Bottom, (int)window.Left,
                 (int)window.Top, (int)window.Width, (int)window.Height, 0);
         }
 
         public static void ToTop(this Window window)
         {
             CommonWindowOps.SetWindowPos(new WindowInteropHelper(window).Handle,
-                (IntPtr)WindowZIndex.HWND_TOPMOST, (int)window.Left,
+                (IntPtr)WindowZIndex.TopMost, (int)window.Left,
                 (int)window.Top, (int)window.Width, (int)window.Height, 0);
         }
 
@@ -193,10 +193,10 @@ namespace OverTop
 
         public enum WindowZIndex
         {
-            HWND_TOP = 0,
-            HWND_BOTTOM = 1,
-            HWND_TOPMOST = -1,
-            HWND_NOTOPMOST = -2,
+            Top = 0,
+            Bottom = 1,
+            TopMost = -1,
+            NoTopMost = -2,
         }
 
         public static void ChangeZIndex(bool isBottom, Window window)

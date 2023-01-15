@@ -11,6 +11,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using PuranLai.Algorithms;
+using Newtonsoft.Json;
 
 namespace OverTop
 {
@@ -20,7 +21,6 @@ namespace OverTop
     public partial class MainWindow : Window
     {
         bool MenuClosed = true;
-        Action<double> SetPanelWidth;
 
         Uri PropertyUri = new Uri("/Pages/StaticPropertyPage.xaml", UriKind.Relative);
         Uri FloatingUri = new Uri("/Pages/FloatingPanelPage.xaml", UriKind.Relative);
@@ -40,13 +40,6 @@ namespace OverTop
             PropertiesContentImage.Source = GetIcon("Properties");
 
             Pages.StaticPropertyPage.ColorChanged();
-
-            SetPanelWidth = new((double value) =>
-            {
-                double width = value;
-                Action<double> set = new((double value) => { MenuStackPanel.Width = value; });
-                Dispatcher.Invoke(set, width);
-            });
 
             App.appWindow.Show();
         }
@@ -77,14 +70,26 @@ namespace OverTop
 
         private void MenuOpen()
         {
-            Animation open = new Animation(150, 45, 170, Animation.GetSineValue, 50);
-            open.StartAnimationAsync(SetPanelWidth);
+            Action<double> SetPanelWidth = new((double value) =>
+            {
+                double width = value;
+                Action<double> set = new((double value) => { MenuStackPanel.Width = value; });
+                Dispatcher.Invoke(set, width);
+            });
+            Animation open = new Animation(150, 45, 170, Animation.GetSineValue, SetPanelWidth, 50);
+            open.StartAnimationAsync();
         }
 
         private void MenuClose()
         {
-            Animation open = new Animation(150, 170, 45, Animation.GetSineValue, 50);
-            open.StartAnimationAsync(SetPanelWidth);
+            Action<double> SetPanelWidth = new((double value) =>
+            {
+                double width = value;
+                Action<double> set = new((double value) => { MenuStackPanel.Width = value; });
+                Dispatcher.Invoke(set, width);
+            });
+            Animation open = new Animation(150, 170, 45, Animation.GetSineValue, SetPanelWidth, 50);
+            open.StartAnimationAsync();
         }
 
         private void ContentListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -139,46 +144,40 @@ namespace OverTop
             }
         }
 
-        private async void WhenCloseAnimation()
+        private void WhenCloseAnimation()
         {
-            Topmost = true;
-            int time = 500;
-            double speedX = Left / time;
-            double speedY = Top / time;
-            double speedWidth = Width / time;
-            double speedHeight = Height / time;
-            double speedOpacity = 1.00 / time;
-            double left = Left;
-            double top = Top;
-            double width = Width;
-            double height = Height;
-            double opacity = 1;
-            DateTime start = DateTime.Now;
-            TimeSpan span = new();
-            Debug.WriteLine("START: " + span.TotalMilliseconds + " L: " + Left + " Top: " + Top + " W: " + Width + " H: " + Height + " O: " + Opacity);
-            while (span.TotalMilliseconds < time)
+            Action<double> SetWidth = new((double value) =>
             {
-                span = DateTime.Now - start;
-                await Task.Run(() => Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    try
-                    {
-                        double l = left - span.TotalMilliseconds * speedX;
-                        double t = top - span.TotalMilliseconds * speedY;
-                        double w = width - span.TotalMilliseconds * speedWidth;
-                        double h = height - span.TotalMilliseconds * speedHeight;
-                        double o = opacity - span.TotalMilliseconds * speedOpacity;
-                        Debug.WriteLine("T: " + Math.Round(span.TotalMilliseconds, 2) + " L: " + Math.Round(l, 2) + " Top: " + Math.Round(t, 2) + " W: " + Math.Round(w, 2) + " H: " + Math.Round(h, 2) + " O: " + Math.Round(o, 2));
-                        Left = l;
-                        Top = t;
-                        Width = w;
-                        Height = h;
-                        Opacity = o;
-                    }
-                    catch { }
-                })));
-            }
-            Topmost = false;
+                double width = value;
+                Action<double> set = new((double value) => { Width = value; });
+                Dispatcher.Invoke(set, width);
+            });
+            Action<double> SetHeight = new((double value) =>
+            {
+                double height = value;
+                Action<double> set = new((double value) => { Height = value; });
+                Dispatcher.Invoke(set, height);
+            });
+            Action<double> SetTop = new((double value) =>
+            {
+                double top = value;
+                Action<double> set = new((double value) => { Top = value; });
+                Dispatcher.Invoke(set, top);
+            });
+            Action<double> SetLeft = new((double value) =>
+            {
+                double left = value;
+                Action<double> set = new((double value) => { Left = value; });
+                Dispatcher.Invoke(set, left);
+            });
+            AnimationPool pool = new();
+
+            pool.Add(500, Width, 0, Animation.GetLinearValue, SetWidth);
+            pool.Add(500, Height, 0, Animation.GetLinearValue, SetHeight);
+            pool.Add(500, Top, 0, Animation.GetLinearValue, SetTop);
+            pool.Add(500, Left, 0, Animation.GetLinearValue, SetLeft);
+
+            pool.StartAllAnimations();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -208,7 +207,7 @@ namespace OverTop
         {
             if (e.Key == Key.Tab)
             {
-                WhenCloseAnimation();
+                Task.Run(() => Dispatcher.BeginInvoke(() => { WhenCloseAnimation(); }));
                 await Task.Delay(500);
                 this.Visibility = Visibility.Collapsed;
             }

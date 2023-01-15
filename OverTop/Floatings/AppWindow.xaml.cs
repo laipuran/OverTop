@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static OverTop.AppWindowOps;
+using static OverTop.CommonWindowOps;
 
 namespace OverTop.Floatings
 {
