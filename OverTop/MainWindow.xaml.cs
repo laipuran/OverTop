@@ -20,9 +20,10 @@ namespace OverTop
     public partial class MainWindow : Window
     {
         bool MenuClosed = true;
+        Action<double> SetPanelWidth;
+
         Uri PropertyUri = new Uri("/Pages/StaticPropertyPage.xaml", UriKind.Relative);
         Uri FloatingUri = new Uri("/Pages/FloatingPanelPage.xaml", UriKind.Relative);
-        public static string ip = "";
         public MainWindow()
         {
             InitializeComponent();
@@ -39,6 +40,14 @@ namespace OverTop
             PropertiesContentImage.Source = GetIcon("Properties");
 
             Pages.StaticPropertyPage.ColorChanged();
+
+            SetPanelWidth = new((double value) =>
+            {
+                double width = value;
+                Action<double> set = new((double value) => { MenuStackPanel.Width = value; });
+                Dispatcher.Invoke(set, width);
+            });
+
             App.appWindow.Show();
         }
 
@@ -66,52 +75,16 @@ namespace OverTop
             MenuClosed = !MenuClosed;
         }
 
-        private /*async*/ void MenuOpen()
+        private void MenuOpen()
         {
-            //DateTime start = DateTime.Now;
-            //TimeSpan span = new();
-            //double k = (170 - 45) / Math.Sin(GetX(200, 150));
-            //while (span.TotalMilliseconds < 200)
-            //{
-            //    span = DateTime.Now - start;
-            //    await Task.Run(() => Dispatcher.BeginInvoke(new Action(() =>
-            //    {
-            //        double x = span.TotalMilliseconds;
-            //        double value = Math.Sin(GetX(x, 150)) * k + 45;
-            //        MenuStackPanel.Width = value;
-            //    })));
-            //}
-            //MenuStackPanel.Width = 170;
-            unsafe
-            {
-                Animation open = new Animation(500, 150, 45, 170, Animation.GetLinearValue);
-                open.StartAnimationAsync();
-            }
+            Animation open = new Animation(150, 45, 170, Animation.GetSineValue, 50);
+            open.StartAnimationAsync(SetPanelWidth);
         }
 
-        private async void MenuClose()
+        private void MenuClose()
         {
-            DateTime start = DateTime.Now;
-            TimeSpan span = new();
-            double k = (170 - 45) / Math.Sin(GetX(200, 150));
-            while (span.TotalMilliseconds < 200)
-            {
-                span = DateTime.Now - start;
-                await Task.Run(() => Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    double x = span.TotalMilliseconds;
-                    double value = 170 - Math.Sin(GetX(x, 150)) * k;
-                    MenuStackPanel.Width = value;
-                })));
-            }
-            MenuStackPanel.Width = 45;
-        }
-
-        private static double GetX(double time, int T)
-        {
-            double x = Math.PI * time / T / 2;
-
-            return x;
+            Animation open = new Animation(150, 170, 45, Animation.GetSineValue, 50);
+            open.StartAnimationAsync(SetPanelWidth);
         }
 
         private void ContentListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

@@ -8,7 +8,6 @@
     <SolidColorBrush x:Key="ThemeColor" Color="#0091ff" Opacity="1"/>
 
     <Style x:Key="BaseControlStyle" TargetType="ContentControl">
-        <!--<Setter Property="Template" Value="{Binding NoMaskContentControl}"/>-->
         <Setter Property="BorderBrush" Value="{DynamicResource ThemeColor}"/>
         <Setter Property="BorderThickness" Value="3"/>
         <Setter Property="Background" Value="#0091ff"/>
@@ -54,7 +53,6 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="Foreground" Value="White"/>
-        <!--<Setter Property="FontWeight" Value="Thin"/>-->
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
@@ -67,12 +65,12 @@
     </Style>
 
     <Style x:Key="ContentButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseControlStyle}">
-        <Setter Property="MinWidth" Value="60"/>
         <!--内容按钮-->
+        <Setter Property="MinWidth" Value="60"/>
         <Setter Property="Padding" Value="10,1.5,10,1.5"/>
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="MaxHeight" Value="50"/>
-        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
@@ -166,8 +164,8 @@
     </Style>
 
     <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource BaseControlStyle}">
-        <Setter Property="Height" Value="45"/>
         <!--图标按钮-->
+        <Setter Property="Height" Value="45"/>
         <Setter Property="MinWidth" Value="60"/>
         <Setter Property="Padding" Value="10,0,10,0"/>
         <Setter Property="FontSize" Value="18"/>
@@ -177,8 +175,8 @@
     </Style>
 
     <Style x:Key="ContentToggleButtonStyle" TargetType="ToggleButton" BasedOn="{StaticResource BaseControlStyle}">
-        <Setter Property="MinWidth" Value="60"/>
         <!--内容ToggleButton-->
+        <Setter Property="MinWidth" Value="60"/>
         <Setter Property="Padding" Value="10,1.5,10,1.5"/>
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="MaxHeight" Value="50"/>

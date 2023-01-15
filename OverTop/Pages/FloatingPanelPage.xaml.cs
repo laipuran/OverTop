@@ -127,10 +127,17 @@ namespace OverTop.Pages
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (Window window in windows)
+            List<Window> copy = new();
+            copy.AddRange(windows);
+            try
             {
-                window.Close();
+                foreach (Window window in copy)
+                {
+                    window.Close();
+                }
+
             }
+            catch { }
         }
     }
 }
