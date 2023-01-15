@@ -26,8 +26,10 @@
                 Style="{StaticResource ContentTextBlockStyle}"/>
             <TextBox
                 Height="80"
+                Width="135"
                 Margin="0,10,0,0"
                 x:Name="ContentTextBox"
+                TextWrapping="Wrap"
                 Style="{StaticResource ContentTextBoxStyle}"/>
             <Button
                 Margin="0,10,0,0"

@@ -30,7 +30,11 @@ namespace OverTop.Floatings
         private void Window_LostFocus(object sender, RoutedEventArgs e)
         {
             result = ContentTextBox.Text;
-            this.Close();
+            try
+            {
+                this.Close();
+            }
+            catch { }
         }
     }
 }
