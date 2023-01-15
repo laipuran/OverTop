@@ -42,7 +42,7 @@ namespace OverTop.Floatings
             {
                 ChangeStatus(false, this);
             }
-            LoadRecentFiles();
+            Task.Run(() => Dispatcher.BeginInvoke(() => { LoadRecentFiles(); }));
         }
 
         // Get system recent files

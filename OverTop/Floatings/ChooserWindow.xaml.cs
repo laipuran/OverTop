@@ -31,7 +31,7 @@ namespace OverTop.Floatings
             folders.Add(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu));
             folders.Add(Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms));
             folders.Add(Environment.GetFolderPath(Environment.SpecialFolder.Programs));
-            GetShortCuts();
+            Task.Run(() => Dispatcher.BeginInvoke(() => { GetShortCuts(); }));
         }
 
         private void GetFiles(string path)
