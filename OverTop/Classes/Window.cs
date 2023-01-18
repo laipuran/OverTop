@@ -2,6 +2,7 @@
 using OverTop.Floatings;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -84,8 +85,19 @@ namespace OverTop
                 }
                 else if (item.Children[0] is System.Windows.Controls.Image)
                 {
-                    windowClass.contents.Add(new(HangerWindowProperty.ContentType.Image,
-                        ((System.Windows.Controls.Image)item.Children[0]).Source.ToString()));
+                    try
+                    {
+                        MemoryStream ms = new MemoryStream();
+                        string source = ((System.Windows.Controls.Image)item.Children[0]).Source.ToString();
+                        Bitmap bmp = new(source);
+                        bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        byte[] arr = new byte[ms.Length];
+                        ms.Position = 0;
+                        ms.Read(arr, 0, (int)ms.Length);
+                        ms.Close();
+                        windowClass.contents.Add(new(HangerWindowProperty.ContentType.Image, Convert.ToBase64String(arr)));
+                    }
+                    catch { }
                 }
             }
             return windowClass;

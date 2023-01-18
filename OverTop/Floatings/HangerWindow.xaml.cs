@@ -19,6 +19,8 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class HangerWindow : Window
     {
+        List<KeyValuePair<HangerWindowProperty, string>> contents = new();
+
         private static bool isBottom = false;
 
         public HangerWindow(HangerWindowProperty property)
@@ -123,7 +125,7 @@ namespace OverTop.Floatings
                     case Key.Down: Top += 1; break;
                     case Key.Escape: Close(); break;
                     default: break;
-                        //TODO: Fix needed!
+                        //TODO: Fix needed
                 }
             }
             catch { }

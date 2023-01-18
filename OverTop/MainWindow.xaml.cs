@@ -172,10 +172,10 @@ namespace OverTop
             });
             AnimationPool pool = new();
 
-            pool.Add(500, Width, 0, Animation.GetLinearValue, SetWidth);
-            pool.Add(500, Height, 0, Animation.GetLinearValue, SetHeight);
-            pool.Add(500, Top, 0, Animation.GetLinearValue, SetTop);
-            pool.Add(500, Left, 0, Animation.GetLinearValue, SetLeft);
+            pool.Add(5000, Width, 0, Animation.GetLinearValue, SetWidth);
+            pool.Add(5000, Height, 0, Animation.GetLinearValue, SetHeight);
+            pool.Add(5000, Top, 0, Animation.GetLinearValue, SetTop);
+            pool.Add(5000, Left, 0, Animation.GetLinearValue, SetLeft);
 
             pool.StartAllAnimations();
         }
@@ -207,8 +207,8 @@ namespace OverTop
         {
             if (e.Key == Key.Tab)
             {
-                Task.Run(() => Dispatcher.BeginInvoke(() => { WhenCloseAnimation(); }));
-                await Task.Delay(500);
+                WhenCloseAnimation();
+                await Task.Delay(5000);
                 this.Visibility = Visibility.Collapsed;
             }
         }

@@ -2,12 +2,14 @@
 using PuranLai.Algorithms;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static OverTop.CommonWindowOps;
+using static System.Windows.Forms.DataFormats;
 
 namespace OverTop.Floatings
 {
@@ -193,19 +195,14 @@ namespace OverTop.Floatings
             {
                 try
                 {
-                    System.Windows.Controls.Image newImage = new()
-                    {
-                        Source = new BitmapImage(new Uri(openFileDialog.FileName))
-                    };
+                    System.Windows.Controls.Image newImage = new();
+
                     StackPanel imagePanel = new();
                     imagePanel.Children.Add(newImage);
                     imagePanel.MouseLeftButtonDown += ImagePanel_MouseLeftButtonDown;
                     App.contentStackPanel.Children.Add(imagePanel);
                 }
-                catch (UriFormatException)
-                {
-                    return;
-                }
+                catch { }
             }
             Close();
         }

@@ -163,7 +163,7 @@ namespace OverTop.Floatings
             {
                 switch (e.Key)
                 {
-                    //TODO: Fix Needed
+                    //TODO: Fix needed
                     case Key.Left: Left -= 5; break;
                     case Key.Right: Left += 5; break;
                     case Key.Up: Top -= 5; break;
