@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using PuranLai.Algorithms;
+using PuranLai.Tools;
 using System;
 using System.Drawing;
 using System.IO;
