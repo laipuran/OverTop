@@ -68,7 +68,7 @@ namespace OverTop
             MenuClosed = !MenuClosed;
         }
 
-        private void MenuOpen()
+        private unsafe void MenuOpen()
         {
             Action<double> SetPanelWidth = new((double value) =>
             {
@@ -76,11 +76,14 @@ namespace OverTop
                 Action<double> set = new((double value) => { MenuStackPanel.Width = value; });
                 Dispatcher.Invoke(set, width);
             });
-            Animation open = new Animation(150, 45, 170, Animation.GetSineValue, SetPanelWidth, 50);
-            open.StartAnimationAsync();
+            fixed(bool* isOpened = &MenuClosed)
+            {
+                Animation open = new Animation(250, 45, 150, Animation.GetSineValue, SetPanelWidth, 50, Flag: isOpened);
+                open.StartAnimationAsync();
+            }
         }
 
-        private void MenuClose()
+        private unsafe void MenuClose()
         {
             Action<double> SetPanelWidth = new((double value) =>
             {
@@ -88,8 +91,11 @@ namespace OverTop
                 Action<double> set = new((double value) => { MenuStackPanel.Width = value; });
                 Dispatcher.Invoke(set, width);
             });
-            Animation open = new Animation(150, 170, 45, Animation.GetSineValue, SetPanelWidth, 50);
-            open.StartAnimationAsync();
+            fixed (bool* isOpened = &MenuClosed)
+            {
+                Animation open = new Animation(250, 150, 45, Animation.GetSineValue, SetPanelWidth, 50, Flag: isOpened);
+                open.StartAnimationAsync();
+            }
         }
 
         private void ContentListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -151,31 +157,35 @@ namespace OverTop
                 double width = value;
                 Action<double> set = new((double value) => { Width = value; });
                 Dispatcher.Invoke(set, width);
+                return;
             });
             Action<double> SetHeight = new((double value) =>
             {
                 double height = value;
                 Action<double> set = new((double value) => { Height = value; });
                 Dispatcher.Invoke(set, height);
+                return;
             });
             Action<double> SetTop = new((double value) =>
             {
                 double top = value;
                 Action<double> set = new((double value) => { Top = value; });
                 Dispatcher.Invoke(set, top);
+                return;
             });
             Action<double> SetLeft = new((double value) =>
             {
                 double left = value;
                 Action<double> set = new((double value) => { Left = value; });
                 Dispatcher.Invoke(set, left);
+                return;
             });
             AnimationPool pool = new();
 
-            pool.Add(5000, Width, 0, Animation.GetLinearValue, SetWidth);
-            pool.Add(5000, Height, 0, Animation.GetLinearValue, SetHeight);
-            pool.Add(5000, Top, 0, Animation.GetLinearValue, SetTop);
-            pool.Add(5000, Left, 0, Animation.GetLinearValue, SetLeft);
+            pool.Add(500, Width, 0, Animation.GetLinearValue, SetWidth);
+            pool.Add(500, Height, 0, Animation.GetLinearValue, SetHeight);
+            pool.Add(500, Top, 0, Animation.GetLinearValue, SetTop);
+            pool.Add(500, Left, 0, Animation.GetLinearValue, SetLeft);
 
             pool.StartAllAnimations();
         }
@@ -208,7 +218,7 @@ namespace OverTop
             if (e.Key == Key.Tab)
             {
                 WhenCloseAnimation();
-                await Task.Delay(5000);
+                await Task.Delay(500);
                 this.Visibility = Visibility.Collapsed;
             }
         }

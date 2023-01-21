@@ -65,7 +65,7 @@
   </ItemGroup>
 	
   <ItemGroup>
-    <ProjectReference Include="..\..\PuranLai.Algorithm\PuranLai.Algorithm.csproj" />
+    <ProjectReference Include="..\..\PuranLai\PuranLai.Algorithm\PuranLai.Algorithm.csproj" />
   </ItemGroup>
 
   <ItemGroup>
