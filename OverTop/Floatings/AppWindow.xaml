@@ -11,7 +11,8 @@
         MouseRightButtonDown="Window_MouseRightButtonDown"
         MouseDoubleClick="Window_MouseDoubleClick"
         Topmost="True" ShowInTaskbar="False"
-        MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave"
+        MouseEnter="Window_MouseEnter"
+        MouseLeave="Window_MouseLeave"
         KeyDown="Window_KeyDown" Loaded="Window_Loaded">
     <StackPanel x:Name="ContentStackPanel"
                 Orientation="Horizontal"

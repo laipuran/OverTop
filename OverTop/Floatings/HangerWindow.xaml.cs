@@ -2,6 +2,7 @@
 using OverTop.Pages;
 using PuranLai.Algorithms;
 using PuranLai.Tools;
+using PuranLai.Tools.Classes;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -20,6 +21,7 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class HangerWindow : Window
     {
+        public bool isMouseIn = false;
         List<KeyValuePair<HangerWindowProperty, string>> contents = new();
 
         private static bool isBottom = false;
@@ -149,16 +151,24 @@ namespace OverTop.Floatings
             }
         }
 
-        private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        private unsafe void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             CommonWindowOps.ChangeZIndex(isBottom, this);
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
+            fixed (bool* MouseIn = &isMouseIn)
+            {
+                WindowOperations.ToWhite(MouseIn, this);
+            }
         }
 
-        private void Window_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        private unsafe void Window_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             CommonWindowOps.ChangeZIndex(isBottom, this);
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
+            fixed (bool* MouseIn = &isMouseIn)
+            {
+                WindowOperations.ToTransparent(MouseIn, this);
+            }
         }
 
         private void Window_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

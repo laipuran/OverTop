@@ -1,4 +1,5 @@
 ﻿using OverTop.Pages;
+using PuranLai.Tools.Classes;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,7 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class WeatherWindow : Window
     {
+        public bool isMouseIn = false;
         public static bool changeWeather = false;
 
         public WeatherWindow(WeatherWindowProperty property)
@@ -100,6 +102,22 @@ namespace OverTop.Floatings
                 }
             }
             catch { }
+        }
+
+        private unsafe void Window_MouseEnter(object sender, MouseEventArgs e)
+        {
+            fixed (bool* MouseIn = &isMouseIn)
+            {
+                WindowOperations.ToWhite(MouseIn, this);
+            }
+        }
+
+        private unsafe void Window_MouseLeave(object sender, MouseEventArgs e)
+        {
+            fixed (bool* MouseIn = &isMouseIn)
+            {
+                WindowOperations.ToTransparent(MouseIn, this);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using OverTop.Pages;
+using PuranLai.Tools.Classes;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,6 +20,7 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class RecentWindow : Window
     {
+        public bool isMouseIn = false;
         private bool isBottom = false;
         string Recent = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Microsoft\Windows\Recent\";
         public RecentWindow(RecentWindowProperty property)
@@ -140,16 +142,24 @@ namespace OverTop.Floatings
             }
         }
 
-        private void Window_MouseEnter(object sender, MouseEventArgs e)
+        private unsafe void Window_MouseEnter(object sender, MouseEventArgs e)
         {
             CommonWindowOps.ChangeZIndex(isBottom, this);
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
+            fixed (bool* MouseIn = &isMouseIn)
+            {
+                WindowOperations.ToWhite(MouseIn, this);
+            }
         }
 
-        private void Window_MouseLeave(object sender, MouseEventArgs e)
+        private unsafe void Window_MouseLeave(object sender, MouseEventArgs e)
         {
             CommonWindowOps.ChangeZIndex(isBottom, this);
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
+            fixed (bool* MouseIn = &isMouseIn)
+            {
+                WindowOperations.ToTransparent(MouseIn, this);
+            }
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

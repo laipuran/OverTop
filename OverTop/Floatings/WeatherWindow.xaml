@@ -16,6 +16,8 @@
         Closing="Window_Closing"
         MouseDoubleClick="Window_MouseDoubleClick"
         KeyDown="Window_KeyDown"
+        MouseEnter="Window_MouseEnter"
+        MouseLeave="Window_MouseLeave"
         Background="#3c3c3c"
         Opacity="0.8">
 

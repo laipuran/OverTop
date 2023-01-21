@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PuranLai.Tools.Classes;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,6 +21,7 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class AppWindow : Window
     {
+        public bool isMouseIn = false;
         [DllImport("user32.dll")]
         private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
 
@@ -120,14 +122,22 @@ namespace OverTop.Floatings
             }
         }
 
-        private void Window_MouseEnter(object sender, MouseEventArgs e)
+        private unsafe void Window_MouseEnter(object sender, MouseEventArgs e)
         {
             CommonWindowOps.ChangeZIndex(isBottom, this);
+            fixed (bool* MouseIn = &isMouseIn)
+            {
+                WindowOperations.ToWhite(MouseIn, this);
+            }
         }
 
-        private void Window_MouseLeave(object sender, MouseEventArgs e)
+        private unsafe void Window_MouseLeave(object sender, MouseEventArgs e)
         {
             CommonWindowOps.ChangeZIndex(isBottom, this);
+            fixed (bool* MouseIn = &isMouseIn)
+            {
+                WindowOperations.ToTransparent(MouseIn, this);
+            }
         }
 
         private void LoadFilesFromString(string filePath)
