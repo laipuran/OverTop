@@ -7,10 +7,10 @@ namespace OverTop.Floatings
     interface IProperty
     {
         Window GetWindow();
-        void FromProperty(Property property);
+        void FromProperty(WindowProperty property);
     }
 
-    public class Property
+    public class WindowProperty
     {
         public System.Windows.Media.Color backGroundColor;
         public int width;
@@ -32,7 +32,7 @@ namespace OverTop.Floatings
             return new WeatherWindow(this);
         }
 
-        public void FromProperty(Property property)
+        public void FromProperty(WindowProperty property)
         {
             // Empty
         }
@@ -66,7 +66,7 @@ namespace OverTop.Floatings
             return new RecentWindow(this);
         }
 
-        public void FromProperty(Property property)
+        public void FromProperty(WindowProperty property)
         {
             this.width = property.width;
             this.height = property.height;
@@ -103,7 +103,7 @@ namespace OverTop.Floatings
             Image
         }
 
-        public void FromProperty(Property property)
+        public void FromProperty(WindowProperty property)
         {
             this.width = property.width;
             this.height = property.height;

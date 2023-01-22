@@ -18,8 +18,8 @@ namespace OverTop
 #pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
         public string? ip;
         public IpInformation? i2;
-        public Property HangerWindowSettings;
-        public Property RecentWindowSettings;
+        public WindowProperty HangerWindowSettings;
+        public WindowProperty RecentWindowSettings;
         public List<HangerWindowProperty>? HangerWindows = new();
         public RecentWindowProperty? RecentWindow;
         public WeatherWindowProperty WeatherWindow;
@@ -74,7 +74,7 @@ namespace OverTop
         {
             Settings settings = new();
 
-            Property hanger = new(), recent = new();
+            WindowProperty hanger = new(), recent = new();
             hanger.height = 150;
             hanger.width = 200;
             hanger.backGroundColor = System.Windows.Media.Color.FromRgb(102, 111, 255);
