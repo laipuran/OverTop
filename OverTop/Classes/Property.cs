@@ -13,7 +13,6 @@ namespace OverTop.Floatings
     public class Property
     {
         public System.Windows.Media.Color backGroundColor;
-        public double alpha;
         public int width;
         public int height;
     }
@@ -71,7 +70,6 @@ namespace OverTop.Floatings
         {
             this.width = property.width;
             this.height = property.height;
-            this.alpha = property.alpha;
             System.Windows.Media.Color tempColor = property.backGroundColor;
             this.backgroundColor = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(tempColor.R, tempColor.G, tempColor.B));
         }
@@ -109,7 +107,6 @@ namespace OverTop.Floatings
         {
             this.width = property.width;
             this.height = property.height;
-            this.alpha = property.alpha;
             System.Windows.Media.Color tempColor = property.backGroundColor;
             this.backgroundColor = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(tempColor.R, tempColor.G, tempColor.B));
         }

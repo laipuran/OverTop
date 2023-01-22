@@ -77,12 +77,10 @@ namespace OverTop
             Property hanger = new(), recent = new();
             hanger.height = 150;
             hanger.width = 200;
-            hanger.alpha = 0.7;
             hanger.backGroundColor = System.Windows.Media.Color.FromRgb(102, 111, 255);
 
             recent.height = 350;
             recent.width = 250;
-            recent.alpha = 0.8;
             recent.backGroundColor = System.Windows.Media.Color.FromRgb(69, 181, 255);
 
             settings.HangerWindowSettings = hanger;
