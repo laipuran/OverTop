@@ -28,11 +28,13 @@
                     <Image Margin="5,0,0,0" x:Name="HangerContentImage"/>
                 </StackPanel>
                 <Button.ToolTip>
-                    <StackPanel>
-                        <TextBlock Margin="5">新建窗口</TextBlock>
-                        <Image Margin="5"
+                    <ToolTip Style="{StaticResource RoundToolTipStyle}">
+                        <StackPanel>
+                            <TextBlock Margin="2">新建窗口</TextBlock>
+                            <Image Margin="2"
                                x:Name="HangerToolTipImage"/>
-                    </StackPanel>
+                        </StackPanel>
+                    </ToolTip>
                 </Button.ToolTip>
             </Button>
             <Button x:Name="ImportButton"
@@ -60,11 +62,13 @@
                     <Image Margin="5,0,0,0" x:Name="RecentContentImage"/>
                 </StackPanel>
                 <Button.ToolTip>
-                    <StackPanel>
-                        <TextBlock Margin="5">实例窗口</TextBlock>
-                        <Image Margin="5"
+                    <ToolTip Style="{StaticResource RoundToolTipStyle}">
+                        <StackPanel>
+                            <TextBlock Margin="2">实例窗口</TextBlock>
+                            <Image Margin="2"
                                x:Name="RecentToolTipImage"/>
-                    </StackPanel>
+                        </StackPanel>
+                    </ToolTip>
                 </Button.ToolTip>
             </Button>
         </StackPanel>
