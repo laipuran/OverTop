@@ -79,32 +79,31 @@ namespace OverTop.Floatings
             {
                 return;
             }
-            ParsingResult union = Parse.ParseFromString(WidthTextBox.Text, 800);
-            if (union.message != "")
+            ParsingResult result = Parse.ParseFromString(WidthTextBox.Text, 800);
+            if (result.message != "")
             {
-                MessageBox.Show(union.message);
+                MessageBox.Show(result.message);
                 WidthTextBox.Text = App.currentWindow.Width.ToString();
                 e.Cancel = true;
             }
             App.tempProperty.width = Parse.ParseFromString(WidthTextBox.Text, 1200).number;
 
-            union = Parse.ParseFromString(HeightTextBox.Text, 800);
-            if (union.message != "")
+            result = Parse.ParseFromString(HeightTextBox.Text, 800);
+            if (result.message != "")
             {
-                MessageBox.Show(union.message);
+                MessageBox.Show(result.message);
                 HeightTextBox.Text = App.currentWindow.Height.ToString();
                 e.Cancel = true;
             }
             App.tempProperty.height = Parse.ParseFromString(HeightTextBox.Text, 1200).number;
 
-            App.tempProperty.alpha = AlphaSlider.Value;
             System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
             App.tempProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
         }
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
         {
-            Property hangerProperty = new(), recentProperty = new();
+            WindowProperty hangerProperty = new(), recentProperty = new();
             if (App.currentWindowType == WindowType.Hanger)
             {
                 ParsingResult union = Parse.ParseFromString(WidthTextBox.Text, 800);
@@ -125,7 +124,6 @@ namespace OverTop.Floatings
                 }
                 hangerProperty.height = Parse.ParseFromString(HeightTextBox.Text, 1200).number;
 
-                hangerProperty.alpha = AlphaSlider.Value;
                 System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
                 hangerProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
                 App.settings.HangerWindowSettings = hangerProperty;
@@ -150,7 +148,6 @@ namespace OverTop.Floatings
                 }
                 recentProperty.height = Parse.ParseFromString(HeightTextBox.Text, 1200).number;
 
-                recentProperty.alpha = AlphaSlider.Value;
                 System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
                 recentProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
                 App.settings.RecentWindowSettings = recentProperty;

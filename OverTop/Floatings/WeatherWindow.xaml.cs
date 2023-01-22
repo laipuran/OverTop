@@ -1,11 +1,11 @@
 ﻿using OverTop.Pages;
-using PuranLai.Tools.Classes;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using static OverTop.API;
 using static OverTop.App;
+using static PuranLai.Tools.ExtendedWindowOps;
 
 namespace OverTop.Floatings
 {
@@ -108,7 +108,7 @@ namespace OverTop.Floatings
         {
             fixed (bool* MouseIn = &isMouseIn)
             {
-                WindowOperations.ToWhite(MouseIn, this);
+                this.ChangeOpacity(OpacityOptions._75, MouseIn);
             }
         }
 
@@ -116,7 +116,7 @@ namespace OverTop.Floatings
         {
             fixed (bool* MouseIn = &isMouseIn)
             {
-                WindowOperations.ToTransparent(MouseIn, this);
+                this.ChangeOpacity(OpacityOptions._25, MouseIn);
             }
         }
     }

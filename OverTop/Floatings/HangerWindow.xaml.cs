@@ -2,7 +2,6 @@
 using OverTop.Pages;
 using PuranLai.Algorithms;
 using PuranLai.Tools;
-using PuranLai.Tools.Classes;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -40,7 +39,6 @@ namespace OverTop.Floatings
             System.Drawing.Color tempColor = ColorTranslator.FromHtml(property.backgroundColor);
             System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(tempColor.R, tempColor.G, tempColor.B);
             this.Background = new SolidColorBrush(color);
-            this.Opacity = property.alpha == 0.0 ? 0.8 : App.settings.HangerWindowSettings.alpha;
             this.ToolTip = "Hanger Window - " + FloatingPanelPage.hangers;
             this.Title = property.guid;
             if (!property.isTop)
@@ -157,7 +155,7 @@ namespace OverTop.Floatings
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
             fixed (bool* MouseIn = &isMouseIn)
             {
-                WindowOperations.ToWhite(MouseIn, this);
+                this.ChangeOpacity(ExtendedWindowOps.OpacityOptions._75, MouseIn);
             }
         }
 
@@ -167,7 +165,7 @@ namespace OverTop.Floatings
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
             fixed (bool* MouseIn = &isMouseIn)
             {
-                WindowOperations.ToTransparent(MouseIn, this);
+                this.ChangeOpacity(ExtendedWindowOps.OpacityOptions._25, MouseIn);
             }
         }
 
@@ -184,7 +182,6 @@ namespace OverTop.Floatings
             Width = App.tempProperty.width;
             Height = App.tempProperty.height;
             Background = new SolidColorBrush(App.tempProperty.backGroundColor);
-            Opacity = App.tempProperty.alpha;
         }
 
         private void Window_Closed(object sender, EventArgs e)

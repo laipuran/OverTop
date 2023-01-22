@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using PuranLai.Tools.Classes;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,9 +9,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static OverTop.AppWindowOps;
 using static OverTop.CommonWindowOps;
+using static PuranLai.Tools.ExtendedWindowOps;
+using Color = System.Windows.Media.Color;
 
 namespace OverTop.Floatings
 {
@@ -100,14 +102,11 @@ namespace OverTop.Floatings
 #pragma warning disable CS8602 // 解引用可能出现空引用。
             try
             {
+                Color color = ((SolidColorBrush)App.mainWindow.Background).Color;
+                color.A = 255;
+                App.mainWindow.Background = new SolidColorBrush(color);
                 App.mainWindow.Visibility = Visibility.Visible;
                 App.mainWindow.Activate();
-
-                App.mainWindow.Height = 450;
-                App.mainWindow.Width = 750;
-                App.mainWindow.Opacity = 1;
-                App.mainWindow.Left = (SystemParameters.PrimaryScreenWidth - 750) / 2;
-                App.mainWindow.Top = (SystemParameters.PrimaryScreenHeight - 450) / 2;
                 App.mainWindow.Focus();
             }
             catch { }
@@ -127,7 +126,7 @@ namespace OverTop.Floatings
             CommonWindowOps.ChangeZIndex(isBottom, this);
             fixed (bool* MouseIn = &isMouseIn)
             {
-                WindowOperations.ToWhite(MouseIn, this);
+                this.ChangeOpacity(OpacityOptions._75, MouseIn);
             }
         }
 
@@ -136,7 +135,7 @@ namespace OverTop.Floatings
             CommonWindowOps.ChangeZIndex(isBottom, this);
             fixed (bool* MouseIn = &isMouseIn)
             {
-                WindowOperations.ToTransparent(MouseIn, this);
+                this.ChangeOpacity(OpacityOptions._25, MouseIn);
             }
         }
 

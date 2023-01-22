@@ -1,5 +1,4 @@
 ﻿using OverTop.Pages;
-using PuranLai.Tools.Classes;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static OverTop.CommonWindowOps;
+using static PuranLai.Tools.ExtendedWindowOps;
 
 namespace OverTop.Floatings
 {
@@ -37,7 +37,6 @@ namespace OverTop.Floatings
             System.Drawing.Color tempColor = ColorTranslator.FromHtml(property.backgroundColor);
             System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(tempColor.R, tempColor.G, tempColor.B);
             this.Background = new SolidColorBrush(color);
-            this.Opacity = property.alpha == 0.0 ? 0.8 : App.settings.RecentWindowSettings.alpha;
             this.ToolTip = "Recent Window - " + FloatingPanelPage.recents;
             this.Title = "Recent Window";
             if (!property.isTop)
@@ -132,7 +131,6 @@ namespace OverTop.Floatings
             Width = App.tempProperty.width;
             Height = App.tempProperty.height;
             Background = new SolidColorBrush(App.tempProperty.backGroundColor);
-            Opacity = App.tempProperty.alpha;
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -148,7 +146,7 @@ namespace OverTop.Floatings
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
             fixed (bool* MouseIn = &isMouseIn)
             {
-                WindowOperations.ToWhite(MouseIn, this);
+                this.ChangeOpacity(OpacityOptions._75, MouseIn);
             }
         }
 
@@ -158,7 +156,7 @@ namespace OverTop.Floatings
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
             fixed (bool* MouseIn = &isMouseIn)
             {
-                WindowOperations.ToTransparent(MouseIn, this);
+                this.ChangeOpacity(OpacityOptions._25, MouseIn);
             }
         }
 
