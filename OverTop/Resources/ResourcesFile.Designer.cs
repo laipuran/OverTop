@@ -83,6 +83,16 @@ namespace OverTop.Resources {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap Disappear {
+            get {
+                object obj = ResourceManager.GetObject("Disappear", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap Floatings {
             get {
                 object obj = ResourceManager.GetObject("Floatings", resourceCulture);
@@ -143,6 +153,16 @@ namespace OverTop.Resources {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap Minimize {
+            get {
+                object obj = ResourceManager.GetObject("Minimize", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap New {
             get {
                 object obj = ResourceManager.GetObject("New", resourceCulture);
@@ -196,6 +216,16 @@ namespace OverTop.Resources {
         internal static System.Drawing.Bitmap WeatherWindow {
             get {
                 object obj = ResourceManager.GetObject("WeatherWindow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Window_Close {
+            get {
+                object obj = ResourceManager.GetObject("Window_Close", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
