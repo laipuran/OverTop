@@ -2,14 +2,17 @@
 using PuranLai.Algorithms;
 using PuranLai.Tools;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Net.Mime;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static OverTop.CommonWindowOps;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.DataFormats;
 
 namespace OverTop.Floatings
@@ -37,6 +40,7 @@ namespace OverTop.Floatings
             AddTextContentImage.Source = MainWindow.GetIcon("Text");
             AddImageContentImage.Source = MainWindow.GetIcon("Image");
         }
+
         public PropertyWindow(RecentWindow window)
         {
             InitializeComponent();
@@ -51,22 +55,6 @@ namespace OverTop.Floatings
 
             AddTextContentImage.Source = MainWindow.GetIcon("Text");
             AddImageContentImage.Source = MainWindow.GetIcon("Image");
-        }
-
-        public void TextPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            StackPanel currentStackPanel = (StackPanel)sender;
-            TextBlock currentTextBlock = (TextBlock)currentStackPanel.Children[0];
-            if (Keyboard.IsKeyDown(Key.M))
-            {
-                TextWindow textWindow = new("请输入文本：", currentTextBlock.Text);
-                textWindow.ShowDialog();
-                currentTextBlock.Text = textWindow.result;
-            }
-            else if (Keyboard.IsKeyDown(Key.R))
-            {
-                ((StackPanel)currentStackPanel.Parent).Children.Remove(currentStackPanel);
-            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -102,6 +90,9 @@ namespace OverTop.Floatings
             System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
             var mediaColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
             CurrentWindow.Background = new SolidColorBrush(mediaColor);
+
+            ReloadWindow(CurrentWindow, ((HangerWindow)CurrentWindow).Property);
+            
         }
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
@@ -168,17 +159,7 @@ namespace OverTop.Floatings
             if (string.IsNullOrEmpty(text))
                 return;
 
-            TextBlock newTextBlock = new()
-            {
-                TextWrapping = TextWrapping.Wrap,
-                Style = (Style)FindResource("ContentTextBlockStyle"),
-                Text = text
-            };
-
-            StackPanel textPanel = new();
-            textPanel.MouseLeftButtonDown += TextPanel_MouseLeftButtonDown;
-            textPanel.Children.Add(newTextBlock);
-            ((HangerWindow)CurrentWindow).ContentPanel.Children.Add(textPanel);
+            ((HangerWindow)CurrentWindow).Property.contents.Add(new(HangerWindowProperty.ContentType.Text, text));
 
             Close();
         }
@@ -196,12 +177,7 @@ namespace OverTop.Floatings
             {
                 try
                 {
-                    System.Windows.Controls.Image newImage = new();
-
-                    StackPanel imagePanel = new();
-                    imagePanel.Children.Add(newImage);
-                    imagePanel.MouseLeftButtonDown += ImagePanel_MouseLeftButtonDown;
-                    ((HangerWindow)CurrentWindow).ContentPanel.Children.Add(imagePanel);
+                    ((HangerWindow)CurrentWindow).Property.contents.Add(new(HangerWindowProperty.ContentType.Image, openFileDialog.FileName));
                 }
                 catch { }
             }

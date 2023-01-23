@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using OverTop.Floatings;
+using PuranLai.Algorithms;
+using PuranLai.Tools;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,8 +9,10 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using static OverTop.AppWindowOps;
 using static OverTop.CommonWindowOps;
 using Point = System.Windows.Point;
@@ -60,46 +64,7 @@ namespace OverTop
 
         public static HangerWindowProperty? Save(this HangerWindow window)
         {
-            HangerWindowProperty windowClass = new();
-            System.Windows.Media.Color color = ((SolidColorBrush)window.Background).Color;
-            windowClass.backgroundColor = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
-            windowClass.width = (int)window.Width;
-            windowClass.height = (int)window.Height;
-            windowClass.alpha = window.Opacity;
-            windowClass.left = window.Left;
-            windowClass.top = window.Top;
-            windowClass.guid = window.Title;
-            windowClass.isTop = window.Topmost;
-
-            if (window.ContentStackPanel.Children.Count == 0)
-            {
-                return null;
-            }
-
-            foreach (StackPanel item in window.ContentStackPanel.Children)
-            {
-                if (item.Children[0] is TextBlock)
-                {
-                    windowClass.contents.Add(new(HangerWindowProperty.ContentType.Text, ((TextBlock)item.Children[0]).Text));
-                }
-                else if (item.Children[0] is System.Windows.Controls.Image)
-                {
-                    try
-                    {
-                        MemoryStream ms = new MemoryStream();
-                        string source = ((System.Windows.Controls.Image)item.Children[0]).Source.ToString();
-                        Bitmap bmp = new(source);
-                        bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                        byte[] arr = new byte[ms.Length];
-                        ms.Position = 0;
-                        ms.Read(arr, 0, (int)ms.Length);
-                        ms.Close();
-                        windowClass.contents.Add(new(HangerWindowProperty.ContentType.Image, Convert.ToBase64String(arr)));
-                    }
-                    catch { }
-                }
-            }
-            return windowClass;
+            return window.Property;
         }
 
         public static void Save(this AppWindow window)
@@ -210,32 +175,102 @@ namespace OverTop
             NoTopMost = -2,
         }
 
-        public static void ChangeZIndex(bool isBottom, Window window)
+        public static void ChangeZIndex(bool isTop, Window window)
         {
-            if (isBottom)
+            if (isTop)
+            {
+                window.ToTop();
+            }
+            else
             {
                 window.ToBottom();
             }
-            else
-            {
-                window.ToTop();
-            }
         }
 
-        public static bool ChangeStatus(bool isBottom, Window window)
+        public static bool ChangeStatus(bool isTop, Window window)
         {
-            if (isBottom)
-            {
-                window.ToTop();
-                window.Topmost = true;
-            }
-            else
+            if (isTop)
             {
                 window.ToBottom();
                 window.Topmost = false;
             }
-            return !isBottom;
+            else
+            {
+                window.ToTop();
+                window.Topmost = true;
+            }
+            return !isTop;
         }
+
+        public static void ReloadWindow(Window window, ContentWindowProperty property)
+        {
+            window.Top = property.top == 0 ? window.Top : property.top;
+            window.Left = property.left == 0 ? window.Left : property.left;
+            window.Width = property.width;
+            window.Height = property.height;
+            System.Drawing.Color tempColor = ColorTranslator.FromHtml(property.backgroundColor);
+            System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(tempColor.R, tempColor.G, tempColor.B);
+            window.Background = new SolidColorBrush(color);
+            if (window is HangerWindow)
+            {
+                window.Title = ((HangerWindowProperty)property).guid;
+                ((HangerWindow)window).ContentPanel.Children.RemoveRange(0, ((HangerWindow)window).ContentPanel.Children.Count);
+                foreach (KeyValuePair<HangerWindowProperty.ContentType, string> pair in ((HangerWindowProperty)property).contents)
+                {
+                    if (pair.Key == HangerWindowProperty.ContentType.Text)
+                    {
+                        TextBlock newTextBlock = new();
+                        newTextBlock.Style = (Style)window.FindResource("ContentTextBlockStyle");
+                        newTextBlock.Text = pair.Value;
+                        StackPanel newStackPanel = new();
+                        newStackPanel.Children.Add(newTextBlock);
+                        newStackPanel.MouseLeftButtonDown += TextPanel_MouseLeftButtonDown;
+                        ((HangerWindow)window).ContentPanel.Children.Add(newStackPanel);
+                    }
+                    else if (pair.Key == HangerWindowProperty.ContentType.Image)
+                    {
+                        try
+                        {
+                            System.Windows.Controls.Image newImage = new();
+                            newImage.Source = new BitmapImage(new Uri(pair.Value));
+                            StackPanel newStackPanel = new();
+                            newStackPanel.Children.Add(newImage);
+                            newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown;
+                            ((HangerWindow)window).ContentPanel.Children.Add(newStackPanel);
+                        }
+                        catch
+                        {
+                            throw new CustomException("Image not exists!");
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void NewStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.R))
+            {
+                ((StackPanel)((StackPanel)sender).Parent).Children.Remove((StackPanel)sender);
+            }
+        }
+
+        public static void TextPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            StackPanel currentStackPanel = (StackPanel)sender;
+            TextBlock currentTextBlock = (TextBlock)currentStackPanel.Children[0];
+            if (Keyboard.IsKeyDown(Key.M))
+            {
+                TextWindow textWindow = new("请输入文本：", currentTextBlock.Text);
+                textWindow.ShowDialog();
+                currentTextBlock.Text = textWindow.result;
+            }
+            else if (Keyboard.IsKeyDown(Key.R))
+            {
+                ((StackPanel)currentStackPanel.Parent).Children.Remove(currentStackPanel);
+            }
+        }
+
     }
 
     public class AppWindowOps
@@ -306,7 +341,7 @@ namespace OverTop
             }
 
             AppWindow.controls.Add(path, appPanel);
-            App.contentStackPanel.Children.Add(appPanel);
+            App.AppWindow.ContentPanel.Children.Add(appPanel);
         }
     }
 

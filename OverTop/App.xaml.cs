@@ -17,19 +17,14 @@ namespace OverTop
         private extern static IntPtr FindWindow(string? lpClassName, string? lpWindowName);
 
         // The Variables needed in the whole application
-        public static CommonWindowOps.WindowType currentWindowType = new();
 
-        public static Window currentWindow = new();
-        public static StackPanel contentStackPanel = new();
+        public static new MainWindow? MainWindow;
+        public static AppWindow AppWindow = new();
+        public static WeatherWindow WeatherWindow = new(WeatherWindowProperty.GetDefaultProperty());
 
-        public static MainWindow? mainWindow;
-        public static AppWindow appWindow = new();
-        public static WeatherWindow weatherWindow = new(WeatherWindowProperty.GetDefaultProperty());
+        public static Settings AppSettings = new();
 
-        public static Property tempProperty = new();
-        public static Settings settings = new();
-
-        public static string? ip = "";
+        public static string? CurrentIP = "";
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -40,31 +35,31 @@ namespace OverTop
                 Environment.Exit(-1);
             }
 
-            ip = API.GetHostIp();
-            if (ip is not null)
-                settings = GetSettingsFromFile(ip);
+            CurrentIP = API.GetHostIp();
+            if (CurrentIP is not null)
+                AppSettings = GetSettingsFromFile(CurrentIP);
             else
-                settings = GetDefaultSettings(ip);
+                AppSettings = GetDefaultSettings(CurrentIP);
 
-            if (settings.WeatherWindow is not null)
+            if (AppSettings.WeatherWindow is not null)
             {
-                weatherWindow = (WeatherWindow)settings.WeatherWindow.GetWindow();
-                if (settings.WeatherWindow.isVisible == true)
+                WeatherWindow = (WeatherWindow)AppSettings.WeatherWindow.GetWindow();
+                if (AppSettings.WeatherWindow.isVisible == true)
                 {
-                    weatherWindow.Show();
+                    WeatherWindow.Show();
                 }
             }
 
-            if (settings.RecentWindow is not null)
+            if (AppSettings.RecentWindow is not null)
             {
                 FloatingPanelPage.recents++;
-                RecentWindow newRecent = (RecentWindow)settings.RecentWindow.GetWindow();
+                RecentWindow newRecent = (RecentWindow)AppSettings.RecentWindow.GetWindow();
                 newRecent.Show();
             }
 
-            if (settings.HangerWindows is not null)
+            if (AppSettings.HangerWindows is not null)
             {
-                foreach (HangerWindowProperty windowClass in settings.HangerWindows)
+                foreach (HangerWindowProperty windowClass in AppSettings.HangerWindows)
                 {
                     FloatingPanelPage.hangers++;
                     HangerWindow newHanger = (HangerWindow)windowClass.GetWindow();
@@ -75,7 +70,7 @@ namespace OverTop
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            App.settings.Save();
+            App.AppSettings.Save();
         }
     }
 }

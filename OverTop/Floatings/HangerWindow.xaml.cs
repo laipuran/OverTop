@@ -21,86 +21,24 @@ namespace OverTop.Floatings
     public partial class HangerWindow : Window
     {
         public bool isMouseIn = false;
-        List<KeyValuePair<HangerWindowProperty, string>> contents = new();
-        private static bool isBottom = false;
-
+        public HangerWindowProperty Property;
         public StackPanel ContentPanel;
 
         public HangerWindow(HangerWindowProperty property)
         {
             InitializeComponent();
-            
+            Property = property;
             FloatingPanelPage.hangers++;
             FloatingPanelPage.windows.Add(this);
+            this.ToolTip = "Hanger Window - " + FloatingPanelPage.windows.IndexOf(this);
 
-            this.Top = property.top == 0 ? Top : property.top;
-            this.Left = property.left == 0 ? Left : property.left;
-            this.Width = property.width;
-            this.Height = property.height;
-            System.Drawing.Color tempColor = ColorTranslator.FromHtml(property.backgroundColor);
-            System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(tempColor.R, tempColor.G, tempColor.B);
-            this.Background = new SolidColorBrush(color);
-            this.ToolTip = "Hanger Window - " + FloatingPanelPage.hangers;
-            this.Title = property.guid;
-            if (!property.isTop)
+            if (!Property.isTop)
             {
-                isBottom = ChangeStatus(false, this);
-            }
-            StackPanel ContentStackPanel = (StackPanel)((ScrollViewer)this.Content).Content;
-            foreach (KeyValuePair<HangerWindowProperty.ContentType, string> pair in property.contents)
-            {
-                if (pair.Key == HangerWindowProperty.ContentType.Text)
-                {
-                    TextBlock newTextBlock = new();
-                    newTextBlock.Style = (Style)FindResource("ContentTextBlockStyle");
-                    newTextBlock.Text = pair.Value;
-                    StackPanel newStackPanel = new();
-                    newStackPanel.Children.Add(newTextBlock);
-                    newStackPanel.MouseLeftButtonDown += TextPanel_MouseLeftButtonDown;
-                    ContentStackPanel.Children.Add(newStackPanel);
-                }
-                else if (pair.Key == HangerWindowProperty.ContentType.Image)
-                {
-                    try
-                    {
-                        System.Windows.Controls.Image newImage = new();
-                        newImage.Source = new BitmapImage(new Uri(pair.Value));
-                        StackPanel newStackPanel = new();
-                        newStackPanel.Children.Add(newImage);
-                        newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown;
-                        ContentStackPanel.Children.Add(newStackPanel);
-                    }
-                    catch
-                    {
-                        throw new CustomException("Image not exists!");
-                    }
-                }
+                Property.isTop = ChangeStatus(Property.isTop, this);
             }
             ContentPanel = ContentStackPanel;
-        }
 
-        private void NewStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (Keyboard.IsKeyDown(Key.R))
-            {
-                ((StackPanel)((StackPanel)sender).Parent).Children.Remove((StackPanel)sender);
-            }
-        }
-
-        public void TextPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            StackPanel currentStackPanel = (StackPanel)sender;
-            TextBlock currentTextBlock = (TextBlock)currentStackPanel.Children[0];
-            if (Keyboard.IsKeyDown(Key.M))
-            {
-                TextWindow textWindow = new("请输入文本：", currentTextBlock.Text);
-                textWindow.ShowDialog();
-                currentTextBlock.Text = textWindow.result;
-            }
-            else if (Keyboard.IsKeyDown(Key.R))
-            {
-                ((StackPanel)currentStackPanel.Parent).Children.Remove(currentStackPanel);
-            }
+            ReloadWindow(this, this.Property);
         }
 
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -115,14 +53,14 @@ namespace OverTop.Floatings
         {
             if (e.Key == System.Windows.Input.Key.Tab)
             {
-                isBottom = CommonWindowOps.ChangeStatus(isBottom, this);
+                Property.isTop = CommonWindowOps.ChangeStatus(Property.isTop, this);
                 return;
             }
             try
             {
                 switch (e.Key)
                 {
-                    case Key.Left: Left -= 1; break;
+                    case Key.Left: this.Left -= 1; break;
                     case Key.Right: Left += 1; break;
                     case Key.Up: Top -= 1; break;
                     case Key.Down: Top += 1; break;
@@ -153,7 +91,7 @@ namespace OverTop.Floatings
 
         private unsafe void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            CommonWindowOps.ChangeZIndex(isBottom, this);
+            CommonWindowOps.ChangeZIndex(Property.isTop, this);
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
             fixed (bool* MouseIn = &isMouseIn)
             {
@@ -163,7 +101,7 @@ namespace OverTop.Floatings
 
         private unsafe void Window_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            CommonWindowOps.ChangeZIndex(isBottom, this);
+            CommonWindowOps.ChangeZIndex(Property.isTop, this);
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
             fixed (bool* MouseIn = &isMouseIn)
             {

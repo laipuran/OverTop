@@ -21,14 +21,16 @@ namespace OverTop.Floatings
     public partial class RecentWindow : Window
     {
         public bool isMouseIn = false;
-        private bool isBottom = false;
-        string Recent = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Microsoft\Windows\Recent\";
+        public RecentWindowProperty Property;
+        public StackPanel ContentPanel;
+        string RecentPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Microsoft\Windows\Recent\";
         public RecentWindow(RecentWindowProperty property)
         {
             InitializeComponent();
-
+            Property = property;
             FloatingPanelPage.recents++;
             FloatingPanelPage.windows.Add(this);
+            ContentPanel = ContentStackPanel;
 
             this.Top = property.top == 0 ? Top : property.top;
             this.Left = property.left == 0 ? Left : property.left;
@@ -39,7 +41,7 @@ namespace OverTop.Floatings
             this.Background = new SolidColorBrush(color);
             this.ToolTip = "Recent Window - " + FloatingPanelPage.recents;
             this.Title = "Recent Window";
-            if (!property.isTop)
+            if (!Property.isTop)
             {
                 ChangeStatus(false, this);
             }
@@ -52,7 +54,7 @@ namespace OverTop.Floatings
             try
             {
                 Dictionary<string, Bitmap> fileInfo = new();
-                string[] files = Directory.GetFiles(Recent);
+                string[] files = Directory.GetFiles(RecentPath);
                 foreach (string filePath in files)
                 {
                     if (!filePath.EndsWith(".lnk"))
@@ -113,7 +115,7 @@ namespace OverTop.Floatings
         {
             if (Keyboard.IsKeyDown(Key.LeftCtrl))
             {
-                string filePath = Recent + ((TextBlock)((StackPanel)sender).Children[1]).Text + ".lnk";
+                string filePath = RecentPath + ((TextBlock)((StackPanel)sender).Children[1]).Text + ".lnk";
                 IWshRuntimeLibrary.WshShell shell = new();
                 IWshRuntimeLibrary.IWshShortcut wshShortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(filePath);
                 Process.Start("explorer.exe", wshShortcut.TargetPath);
@@ -137,7 +139,7 @@ namespace OverTop.Floatings
 
         private unsafe void Window_MouseEnter(object sender, MouseEventArgs e)
         {
-            CommonWindowOps.ChangeZIndex(isBottom, this);
+            CommonWindowOps.ChangeZIndex(Property.isTop, this);
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
             fixed (bool* MouseIn = &isMouseIn)
             {
@@ -147,7 +149,7 @@ namespace OverTop.Floatings
 
         private unsafe void Window_MouseLeave(object sender, MouseEventArgs e)
         {
-            CommonWindowOps.ChangeZIndex(isBottom, this);
+            CommonWindowOps.ChangeZIndex(Property.isTop, this);
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
             fixed (bool* MouseIn = &isMouseIn)
             {
@@ -159,7 +161,7 @@ namespace OverTop.Floatings
         {
             if (e.Key == System.Windows.Input.Key.Tab)
             {
-                isBottom = CommonWindowOps.ChangeStatus(isBottom, this);
+                Property.isTop = CommonWindowOps.ChangeStatus(Property.isTop, this);
                 return;
             }
             try

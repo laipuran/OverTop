@@ -47,7 +47,7 @@ namespace OverTop.Floatings
         }
     }
 
-    public class RecentWindowProperty : IProperty
+    public class ContentWindowProperty
     {
         public string backgroundColor = "";
         public int width;
@@ -55,7 +55,10 @@ namespace OverTop.Floatings
         public double left;
         public double top;
         public bool isTop;
+    }
 
+    public class RecentWindowProperty : ContentWindowProperty, IProperty
+    {
         public Window GetWindow()
         {
             if (this is null)
@@ -82,19 +85,10 @@ namespace OverTop.Floatings
         }
     }
 
-    public class HangerWindowProperty : IProperty
+    public class HangerWindowProperty : ContentWindowProperty, IProperty
     {
         public List<KeyValuePair<ContentType, string>> contents = new();
-#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
-        public string backgroundColor;
-        public int width;
-        public int height;
-        public double alpha;
-        public double left;
-        public double top;
-        public string guid;
-        public bool isTop;
-#pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+        public string guid = "";
 
         public enum ContentType
         {

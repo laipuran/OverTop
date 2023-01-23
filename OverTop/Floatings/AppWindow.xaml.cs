@@ -23,11 +23,11 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class AppWindow : Window
     {
-        public bool isMouseIn = false;
         [DllImport("user32.dll")]
         private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
-
-        private static bool isBottom = false;
+        public bool isMouseIn = false;
+        public StackPanel ContentPanel;
+        private static bool isTop = true;
         private static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\AppWindow.json";
 
         public static Dictionary<string, StackPanel> controls = new();
@@ -35,6 +35,7 @@ namespace OverTop.Floatings
         public AppWindow()
         {
             InitializeComponent();
+            ContentPanel = ContentStackPanel;
         }
 
         public static void AppPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -76,7 +77,6 @@ namespace OverTop.Floatings
         private void Window_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Window chooserWindow = new ChooserWindow();
-            App.contentStackPanel = ContentStackPanel;
             try
             {
                 chooserWindow.ShowDialog();
@@ -116,13 +116,13 @@ namespace OverTop.Floatings
         {
             if (e.Key == System.Windows.Input.Key.Tab)
             {
-                isBottom = CommonWindowOps.ChangeStatus(isBottom, this);
+                isTop = CommonWindowOps.ChangeStatus(isTop, this);
             }
         }
 
         private unsafe void Window_MouseEnter(object sender, MouseEventArgs e)
         {
-            CommonWindowOps.ChangeZIndex(isBottom, this);
+            CommonWindowOps.ChangeZIndex(isTop, this);
             fixed (bool* MouseIn = &isMouseIn)
             {
                 this.ChangeOpacity(OpacityOptions._75, MouseIn);
@@ -131,7 +131,7 @@ namespace OverTop.Floatings
 
         private unsafe void Window_MouseLeave(object sender, MouseEventArgs e)
         {
-            CommonWindowOps.ChangeZIndex(isBottom, this);
+            CommonWindowOps.ChangeZIndex(isTop, this);
             fixed (bool* MouseIn = &isMouseIn)
             {
                 this.ChangeOpacity(OpacityOptions._25, MouseIn);
@@ -160,9 +160,11 @@ namespace OverTop.Floatings
 #pragma warning disable CS8602 // 解引用可能出现空引用。
                     Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(item).ToBitmap();
 #pragma warning restore CS8602 // 解引用可能出现空引用。
-                    App.contentStackPanel = ContentStackPanel;
-                    AddFile(item, System.Windows.Interop.Imaging
-                        .CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()));
+                    AddFile(item,
+                        System.Windows.Interop.Imaging.
+                        CreateBitmapSourceFromHBitmap(
+                            icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()
+                            ));
                 }
                 catch
                 {
