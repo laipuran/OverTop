@@ -20,7 +20,8 @@ namespace OverTop.Floatings
     public partial class PropertyWindow : Window
     {
         bool saveSettings = true;
-        public PropertyWindow()
+        Window CurrentWindow;
+        public PropertyWindow(HangerWindow window)
         {
             InitializeComponent();
             CurrentWindow = window;
@@ -30,10 +31,21 @@ namespace OverTop.Floatings
             ColorTextBox.Text = ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
             Title += " - " + CurrentWindow.Title;
 
-            if (App.currentWindowType == WindowType.Hanger)
-            {
-                ButtonStackPanel.Visibility = Visibility.Visible;
-            }
+            ButtonStackPanel.Visibility = Visibility.Visible;
+            ToolTip = Title;
+
+            AddTextContentImage.Source = MainWindow.GetIcon("Text");
+            AddImageContentImage.Source = MainWindow.GetIcon("Image");
+        }
+        public PropertyWindow(RecentWindow window)
+        {
+            InitializeComponent();
+            CurrentWindow = window;
+            WidthTextBox.Text = CurrentWindow.Width.ToString();
+            HeightTextBox.Text = CurrentWindow.Height.ToString();
+            System.Windows.Media.Color color = ((SolidColorBrush)CurrentWindow.Background).Color;
+            ColorTextBox.Text = ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
+            Title += " - " + CurrentWindow.Title;
 
             ToolTip = Title;
 
@@ -59,7 +71,7 @@ namespace OverTop.Floatings
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            App.currentWindow.Close();
+            CurrentWindow.Close();
             Close();
         }
 
@@ -73,34 +85,35 @@ namespace OverTop.Floatings
             if (result.message != "")
             {
                 MessageBox.Show(result.message);
-                WidthTextBox.Text = App.currentWindow.Width.ToString();
+                WidthTextBox.Text = CurrentWindow.Width.ToString();
                 e.Cancel = true;
             }
-            App.tempProperty.width = Parse.ParseFromString(WidthTextBox.Text, 1200).number;
+            CurrentWindow.Width = Parse.ParseFromString(WidthTextBox.Text, 1200).number;
 
             result = Parse.ParseFromString(HeightTextBox.Text, 800);
             if (result.message != "")
             {
                 MessageBox.Show(result.message);
-                HeightTextBox.Text = App.currentWindow.Height.ToString();
+                HeightTextBox.Text = CurrentWindow.Height.ToString();
                 e.Cancel = true;
             }
-            App.tempProperty.height = Parse.ParseFromString(HeightTextBox.Text, 1200).number;
+            CurrentWindow.Height = Parse.ParseFromString(HeightTextBox.Text, 1200).number;
 
             System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
-            App.tempProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
+            var mediaColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
+            CurrentWindow.Background = new SolidColorBrush(mediaColor);
         }
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
         {
             WindowProperty hangerProperty = new(), recentProperty = new();
-            if (App.currentWindowType == WindowType.Hanger)
+            if (CurrentWindow is HangerWindow)
             {
                 ParsingResult union = Parse.ParseFromString(WidthTextBox.Text, 800);
                 if (union.message != "")
                 {
                     MessageBox.Show(union.message);
-                    WidthTextBox.Text = App.currentWindow.Width.ToString();
+                    WidthTextBox.Text = CurrentWindow.Width.ToString();
                     return;
                 }
                 hangerProperty.width = Parse.ParseFromString(WidthTextBox.Text, 1200).number;
@@ -109,22 +122,22 @@ namespace OverTop.Floatings
                 if (union.message != "")
                 {
                     MessageBox.Show(union.message);
-                    HeightTextBox.Text = App.currentWindow.Height.ToString();
+                    HeightTextBox.Text = CurrentWindow.Height.ToString();
                     return;
                 }
                 hangerProperty.height = Parse.ParseFromString(HeightTextBox.Text, 1200).number;
 
                 System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
                 hangerProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
-                App.settings.HangerWindowSettings = hangerProperty;
+                App.AppSettings.HangerWindowSettings = hangerProperty;
             }
-            else
+            else if (CurrentWindow is RecentWindow)
             {
                 ParsingResult union = Parse.ParseFromString(WidthTextBox.Text, 800);
                 if (union.message != "")
                 {
                     MessageBox.Show(union.message);
-                    WidthTextBox.Text = App.currentWindow.Width.ToString();
+                    WidthTextBox.Text = CurrentWindow.Width.ToString();
                     return;
                 }
                 recentProperty.width = Parse.ParseFromString(WidthTextBox.Text, 1200).number;
@@ -133,17 +146,17 @@ namespace OverTop.Floatings
                 if (union.message != "")
                 {
                     MessageBox.Show(union.message);
-                    HeightTextBox.Text = App.currentWindow.Height.ToString();
+                    HeightTextBox.Text = CurrentWindow.Height.ToString();
                     return;
                 }
                 recentProperty.height = Parse.ParseFromString(HeightTextBox.Text, 1200).number;
 
                 System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
                 recentProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
-                App.settings.RecentWindowSettings = recentProperty;
+                App.AppSettings.RecentWindowSettings = recentProperty;
             }
 
-            App.settings.Save();
+            App.AppSettings.Save();
         }
 
         private void AddTextButton_Click(object sender, RoutedEventArgs e)
@@ -165,7 +178,7 @@ namespace OverTop.Floatings
             StackPanel textPanel = new();
             textPanel.MouseLeftButtonDown += TextPanel_MouseLeftButtonDown;
             textPanel.Children.Add(newTextBlock);
-            App.contentStackPanel.Children.Add(textPanel);
+            ((HangerWindow)CurrentWindow).ContentPanel.Children.Add(textPanel);
 
             Close();
         }
@@ -188,7 +201,7 @@ namespace OverTop.Floatings
                     StackPanel imagePanel = new();
                     imagePanel.Children.Add(newImage);
                     imagePanel.MouseLeftButtonDown += ImagePanel_MouseLeftButtonDown;
-                    App.contentStackPanel.Children.Add(imagePanel);
+                    ((HangerWindow)CurrentWindow).ContentPanel.Children.Add(imagePanel);
                 }
                 catch { }
             }
