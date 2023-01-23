@@ -22,13 +22,14 @@ namespace OverTop.Floatings
     {
         public bool isMouseIn = false;
         List<KeyValuePair<HangerWindowProperty, string>> contents = new();
-
         private static bool isBottom = false;
+
+        public StackPanel ContentPanel;
 
         public HangerWindow(HangerWindowProperty property)
         {
             InitializeComponent();
-
+            
             FloatingPanelPage.hangers++;
             FloatingPanelPage.windows.Add(this);
 
@@ -75,6 +76,7 @@ namespace OverTop.Floatings
                     }
                 }
             }
+            ContentPanel = ContentStackPanel;
         }
 
         private void NewStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -171,17 +173,11 @@ namespace OverTop.Floatings
 
         private void Window_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            App.currentWindow = this;
-            App.contentStackPanel = ContentStackPanel;
-            App.currentWindowType = CommonWindowOps.WindowType.Hanger;
-            Window propertyWindow = new PropertyWindow
+            Window propertyWindow = new PropertyWindow(this)
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
             propertyWindow.ShowDialog();
-            Width = App.tempProperty.width;
-            Height = App.tempProperty.height;
-            Background = new SolidColorBrush(App.tempProperty.backGroundColor);
         }
 
         private void Window_Closed(object sender, EventArgs e)

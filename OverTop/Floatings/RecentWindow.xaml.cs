@@ -121,16 +121,11 @@ namespace OverTop.Floatings
         }
         private void Window_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            App.currentWindow = this;
-            App.currentWindowType = CommonWindowOps.WindowType.Recent;
-            Window propertyWindow = new PropertyWindow
+            Window propertyWindow = new PropertyWindow(this)
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
             propertyWindow.ShowDialog();
-            Width = App.tempProperty.width;
-            Height = App.tempProperty.height;
-            Background = new SolidColorBrush(App.tempProperty.backGroundColor);
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
