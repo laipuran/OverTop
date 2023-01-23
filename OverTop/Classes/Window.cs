@@ -38,7 +38,6 @@ namespace OverTop
             windowClass.backgroundColor = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
             windowClass.width = (int)window.Width;
             windowClass.height = (int)window.Height;
-            windowClass.alpha = window.Opacity;
             windowClass.left = window.Left;
             windowClass.top = window.Top;
             windowClass.isTop = window.Topmost;

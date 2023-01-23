@@ -52,7 +52,6 @@ namespace OverTop.Floatings
         public string backgroundColor = "";
         public int width;
         public int height;
-        public double alpha;
         public double left;
         public double top;
         public bool isTop;
