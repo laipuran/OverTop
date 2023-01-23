@@ -27,12 +27,8 @@ namespace OverTop
         public MainWindow()
         {
             InitializeComponent();
-            App.MainWindow = this;
-
-            FloatingListBoxItem.IsSelected = true;
-            TitleTextBlock.Text = "浮窗控制面板";
-            ContentFrame.NavigationService.Navigate(FloatingUri);
-
+            Task.Run(() => Dispatcher.BeginInvoke(() =>
+            {
             Icon = GetIcon("icon");
             IconImage.Source = GetIcon("icon");
             BackContentImage.Source = GetIcon("Back");
@@ -43,6 +39,12 @@ namespace OverTop
             MinimizeImage.Source = GetIcon("Minimize");
             DisappearImage.Source = GetIcon("Disappear");
             CloseWindowImage.Source = GetIcon("Window_Close");
+            }));
+            App.MainWindow = this;
+
+            FloatingListBoxItem.IsSelected = true;
+            TitleTextBlock.Text = "浮窗控制面板";
+            ContentFrame.NavigationService.Navigate(FloatingUri);
 
             Pages.StaticPropertyPage.ColorChanged();
 
