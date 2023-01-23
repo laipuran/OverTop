@@ -213,14 +213,59 @@ namespace OverTop
             }
         }
 
-        private async void Window_KeyDown(object sender, KeyEventArgs e)
+        private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Tab)
             {
-                WhenCloseAnimation();
-                await Task.Delay(500);
-                this.Visibility = Visibility.Collapsed;
+                Disappear();
             }
+        }
+
+        private void DockPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private async void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Disappear();
+            await Task.Delay(500);
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private async void DisappearButton_Click(object sender, RoutedEventArgs e)
+        {
+            Disappear();
+                await Task.Delay(500);
+            Visibility = Visibility.Collapsed;
+        }
+
+        private void CloseWindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Disappear()
+        {
+            Action<double> SetOpacity = new((double value) =>
+            {
+                double opacity = value;
+                Action<double> set = new((double value) =>
+                {
+                    Opacity = opacity;
+                });
+                Dispatcher.Invoke(set, opacity);
+            });
+            unsafe
+            {
+                Animation animation = new(500, Opacity, 0, Animation.GetLinearValue, SetOpacity);
+                animation.StartAnimationAsync();
+            }
+            }
+
+        private void Window_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.Opacity = 1;
         }
     }
 }

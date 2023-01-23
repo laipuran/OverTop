@@ -102,12 +102,11 @@ namespace OverTop.Floatings
 #pragma warning disable CS8602 // 解引用可能出现空引用。
             try
             {
-                Color color = ((SolidColorBrush)App.mainWindow.Background).Color;
-                color.A = 255;
-                App.mainWindow.Background = new SolidColorBrush(color);
-                App.mainWindow.Visibility = Visibility.Visible;
-                App.mainWindow.Activate();
-                App.mainWindow.Focus();
+                App.MainWindow.WindowState = WindowState.Normal;
+                App.MainWindow.Opacity = 1;
+                App.MainWindow.Visibility = Visibility.Visible;
+                App.MainWindow.Activate();
+                App.MainWindow.Focus();
             }
             catch { }
 #pragma warning restore CS8602 // 解引用可能出现空引用。
