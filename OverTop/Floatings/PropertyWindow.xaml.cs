@@ -23,12 +23,12 @@ namespace OverTop.Floatings
         public PropertyWindow()
         {
             InitializeComponent();
-            AlphaSlider.Value = App.currentWindow.Opacity;
-            WidthTextBox.Text = App.currentWindow.Width.ToString();
-            HeightTextBox.Text = App.currentWindow.Height.ToString();
-            System.Windows.Media.Color color = ((SolidColorBrush)App.currentWindow.Background).Color;
+            CurrentWindow = window;
+            WidthTextBox.Text = CurrentWindow.Width.ToString();
+            HeightTextBox.Text = CurrentWindow.Height.ToString();
+            System.Windows.Media.Color color = ((SolidColorBrush)CurrentWindow.Background).Color;
             ColorTextBox.Text = ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
-            Title += " - " + App.currentWindow.Title;
+            Title += " - " + CurrentWindow.Title;
 
             if (App.currentWindowType == WindowType.Hanger)
             {
@@ -55,16 +55,6 @@ namespace OverTop.Floatings
             {
                 ((StackPanel)currentStackPanel.Parent).Children.Remove(currentStackPanel);
             }
-        }
-
-        private void AlphaSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (AlphaSlider.Value == 0.0)
-            {
-                AlphaSlider.Value = 0.8;
-                return;
-            }
-            AlphaTextBlock.Text = Math.Round(AlphaSlider.Value, 2).ToString();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

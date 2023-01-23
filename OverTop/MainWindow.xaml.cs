@@ -27,7 +27,7 @@ namespace OverTop
         public MainWindow()
         {
             InitializeComponent();
-            App.mainWindow = this;
+            App.MainWindow = this;
 
             FloatingListBoxItem.IsSelected = true;
             TitleTextBlock.Text = "浮窗控制面板";

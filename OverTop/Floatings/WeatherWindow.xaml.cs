@@ -44,12 +44,12 @@ namespace OverTop.Floatings
 
         private void ShowWeatherOnce()
         {
-            if (App.settings.ip is null || settings.i2 is null)
+            if (App.AppSettings.ip is null || AppSettings.i2 is null)
             {
                 this.Visibility = Visibility.Collapsed;
                 return;
             }
-            WeatherInformation? wi = GetWeatherInformation(settings.i2.adcode);
+            WeatherInformation? wi = GetWeatherInformation(AppSettings.i2.adcode);
 
             if (wi is null)
             {
@@ -61,7 +61,7 @@ namespace OverTop.Floatings
                 " " + wi.lives[0].winddirection +
                 " " + wi.lives[0].windpower + "级";
             TempTextBlock.Text = wi.lives[0].temperature + "℃";
-            LocationTextBlock.Text = settings.i2.province + "\n" + settings.i2.city;
+            LocationTextBlock.Text = AppSettings.i2.province + "\n" + AppSettings.i2.city;
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)

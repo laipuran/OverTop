@@ -31,7 +31,7 @@ namespace OverTop.Pages
             WeatherContentImage.Source = MainWindow.GetIcon("Open");
             ImportContentImage.Source = MainWindow.GetIcon("Import");
 
-            if (App.settings.ip is null)
+            if (App.AppSettings.ip is null)
             {
                 WeatherStackPanel.Visibility = Visibility.Collapsed;
             }
@@ -114,7 +114,7 @@ namespace OverTop.Pages
 
         private void WeatherWindowButton_Click(object sender, RoutedEventArgs e)
         {
-            App.weatherWindow.Show();
+            App.WeatherWindow.Show();
         }
 
         private void ImportButton_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
