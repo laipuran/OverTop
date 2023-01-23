@@ -1,7 +1,8 @@
 ﻿using OverTop.Floatings;
 using OverTop.Pages;
+using PuranLai.Algorithms;
+using PuranLai.Tools;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Resources;
 using System.Threading.Tasks;
@@ -10,8 +11,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using PuranLai.Algorithms;
-using Newtonsoft.Json;
+using Color = System.Windows.Media.Color;
 
 namespace OverTop
 {
@@ -34,14 +34,19 @@ namespace OverTop
             ContentFrame.NavigationService.Navigate(FloatingUri);
 
             Icon = GetIcon("icon");
+            IconImage.Source = GetIcon("icon");
             BackContentImage.Source = GetIcon("Back");
             MenuContentImage.Source = GetIcon("Menu");
             FloatingsContentImage.Source = GetIcon("Floatings");
             PropertiesContentImage.Source = GetIcon("Properties");
 
+            MinimizeImage.Source = GetIcon("Minimize");
+            DisappearImage.Source = GetIcon("Disappear");
+            CloseWindowImage.Source = GetIcon("Window_Close");
+
             Pages.StaticPropertyPage.ColorChanged();
 
-            App.appWindow.Show();
+            App.AppWindow.Show();
         }
 
         public static ImageSource GetIcon(string name)
@@ -110,7 +115,7 @@ namespace OverTop
             }
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             MessageBoxResult messageBoxResult = MessageBox.Show("是否要退出 Over Top ？", "退出 Over Top", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.No)
@@ -120,16 +125,16 @@ namespace OverTop
             }
             else
             {
-                App.appWindow.Save();
+                App.AppWindow.Save();
 
                 int RecentWindows = 0, HangerWindows = 0;
-                App.settings.HangerWindows = new();
-                foreach (Window window in FloatingPanelPage.windows)
+                App.AppSettings.HangerWindows = new();
+                foreach (System.Windows.Window window in FloatingPanelPage.windows)
                 {
                     if (window is RecentWindow)
                     {
                         RecentWindows++;
-                        App.settings.RecentWindow = ((RecentWindow)window).Save();
+                        App.AppSettings.RecentWindow = ((RecentWindow)window).Save();
                     }
                     else if (window is HangerWindow)
                     {
@@ -139,55 +144,17 @@ namespace OverTop
                             continue;
                         }
                         HangerWindows++;
-                        App.settings.HangerWindows.Add(property);
+                        App.AppSettings.HangerWindows.Add(property);
                     }
                 }
-                if (RecentWindows == 0) App.settings.RecentWindow = null;
-                if (HangerWindows == 0) App.settings.HangerWindows = null;
-                App.settings.WeatherWindow = App.weatherWindow.Save();
+                if (RecentWindows == 0) App.AppSettings.RecentWindow = null;
+                if (HangerWindows == 0) App.AppSettings.HangerWindows = null;
+                App.AppSettings.WeatherWindow = App.WeatherWindow.Save();
 
+                Disappear();
+                await Task.Delay(500);
                 App.Current.Shutdown();
             }
-        }
-
-        private void WhenCloseAnimation()
-        {
-            Action<double> SetWidth = new((double value) =>
-            {
-                double width = value;
-                Action<double> set = new((double value) => { Width = value; });
-                Dispatcher.Invoke(set, width);
-                return;
-            });
-            Action<double> SetHeight = new((double value) =>
-            {
-                double height = value;
-                Action<double> set = new((double value) => { Height = value; });
-                Dispatcher.Invoke(set, height);
-                return;
-            });
-            Action<double> SetTop = new((double value) =>
-            {
-                double top = value;
-                Action<double> set = new((double value) => { Top = value; });
-                Dispatcher.Invoke(set, top);
-                return;
-            });
-            Action<double> SetLeft = new((double value) =>
-            {
-                double left = value;
-                Action<double> set = new((double value) => { Left = value; });
-                Dispatcher.Invoke(set, left);
-                return;
-            });
-            AnimationPool pool = new();
-
-            pool.Add(500, Width, 0, Animation.GetLinearValue, SetWidth);
-            pool.Add(500, Height, 0, Animation.GetLinearValue, SetHeight);
-            pool.Add(500, Top, 0, Animation.GetLinearValue, SetTop);
-            pool.Add(500, Left, 0, Animation.GetLinearValue, SetLeft);
-
-            pool.StartAllAnimations();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -236,7 +203,7 @@ namespace OverTop
         private async void DisappearButton_Click(object sender, RoutedEventArgs e)
         {
             Disappear();
-                await Task.Delay(500);
+            await Task.Delay(500);
             Visibility = Visibility.Collapsed;
         }
 
@@ -261,7 +228,7 @@ namespace OverTop
                 Animation animation = new(500, Opacity, 0, Animation.GetLinearValue, SetOpacity);
                 animation.StartAnimationAsync();
             }
-            }
+        }
 
         private void Window_GotFocus(object sender, RoutedEventArgs e)
         {
