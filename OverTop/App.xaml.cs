@@ -70,6 +70,32 @@ namespace OverTop
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
+            App.AppWindow.Save();
+
+            int RecentWindows = 0, HangerWindows = 0;
+            App.AppSettings.HangerWindows = new();
+            foreach (System.Windows.Window window in FloatingPanelPage.windows)
+            {
+                if (window is RecentWindow)
+                {
+                    RecentWindows++;
+                    App.AppSettings.RecentWindow = ((RecentWindow)window).Property;
+                }
+                else if (window is HangerWindow)
+                {
+                    HangerWindowProperty? property = ((HangerWindow)window).Property;
+                    if (property is null)
+                    {
+                        continue;
+                    }
+                    HangerWindows++;
+                    App.AppSettings.HangerWindows.Add(property);
+                }
+            }
+            if (RecentWindows == 0) App.AppSettings.RecentWindow = null;
+            if (HangerWindows == 0) App.AppSettings.HangerWindows = null;
+            App.AppSettings.WeatherWindow = App.WeatherWindow.Save();
+
             App.AppSettings.Save();
         }
     }

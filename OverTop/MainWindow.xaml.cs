@@ -29,16 +29,16 @@ namespace OverTop
             InitializeComponent();
             Task.Run(() => Dispatcher.BeginInvoke(() =>
             {
-            Icon = GetIcon("icon");
-            IconImage.Source = GetIcon("icon");
-            BackContentImage.Source = GetIcon("Back");
-            MenuContentImage.Source = GetIcon("Menu");
-            FloatingsContentImage.Source = GetIcon("Floatings");
-            PropertiesContentImage.Source = GetIcon("Properties");
+                Icon = GetIcon("icon");
+                IconImage.Source = GetIcon("icon");
+                BackContentImage.Source = GetIcon("Back");
+                MenuContentImage.Source = GetIcon("Menu");
+                FloatingsContentImage.Source = GetIcon("Floatings");
+                PropertiesContentImage.Source = GetIcon("Properties");
 
-            MinimizeImage.Source = GetIcon("Minimize");
-            DisappearImage.Source = GetIcon("Disappear");
-            CloseWindowImage.Source = GetIcon("Window_Close");
+                MinimizeImage.Source = GetIcon("Minimize");
+                DisappearImage.Source = GetIcon("Disappear");
+                CloseWindowImage.Source = GetIcon("Window_Close");
             }));
             App.MainWindow = this;
 
@@ -127,32 +127,6 @@ namespace OverTop
             }
             else
             {
-                App.AppWindow.Save();
-
-                int RecentWindows = 0, HangerWindows = 0;
-                App.AppSettings.HangerWindows = new();
-                foreach (System.Windows.Window window in FloatingPanelPage.windows)
-                {
-                    if (window is RecentWindow)
-                    {
-                        RecentWindows++;
-                        App.AppSettings.RecentWindow = ((RecentWindow)window).Save();
-                    }
-                    else if (window is HangerWindow)
-                    {
-                        HangerWindowProperty? property = ((HangerWindow)window).Save();
-                        if (property is null)
-                        {
-                            continue;
-                        }
-                        HangerWindows++;
-                        App.AppSettings.HangerWindows.Add(property);
-                    }
-                }
-                if (RecentWindows == 0) App.AppSettings.RecentWindow = null;
-                if (HangerWindows == 0) App.AppSettings.HangerWindows = null;
-                App.AppSettings.WeatherWindow = App.WeatherWindow.Save();
-
                 Disappear();
                 await Task.Delay(500);
                 App.Current.Shutdown();
