@@ -27,27 +27,26 @@ namespace OverTop
         public MainWindow()
         {
             InitializeComponent();
-            Task.Run(() => Dispatcher.BeginInvoke(() =>
-            {
-                Icon = GetIcon("icon");
-                IconImage.Source = GetIcon("icon");
-                BackContentImage.Source = GetIcon("Back");
-                MenuContentImage.Source = GetIcon("Menu");
-                FloatingsContentImage.Source = GetIcon("Floatings");
-                PropertiesContentImage.Source = GetIcon("Properties");
-
-                MinimizeImage.Source = GetIcon("Minimize");
-                DisappearImage.Source = GetIcon("Disappear");
-                CloseWindowImage.Source = GetIcon("Window_Close");
-            }));
+            Task.Run(() => Dispatcher.BeginInvoke(() => { LoadIcons(); }));
             App.MainWindow = this;
 
             FloatingListBoxItem.IsSelected = true;
             TitleTextBlock.Text = "浮窗控制面板";
             ContentFrame.NavigationService.Navigate(FloatingUri);
+        }
 
-            Pages.StaticPropertyPage.ColorChanged();
+        private void LoadIcons()
+        {
+            Icon = GetIcon("icon");
+            IconImage.Source = GetIcon("icon");
+            BackContentImage.Source = GetIcon("Back");
+            MenuContentImage.Source = GetIcon("Menu");
+            FloatingsContentImage.Source = GetIcon("Floatings");
+            PropertiesContentImage.Source = GetIcon("Properties");
 
+            MinimizeImage.Source = GetIcon("Minimize");
+            DisappearImage.Source = GetIcon("Disappear");
+            CloseWindowImage.Source = GetIcon("Window_Close");
         }
 
         public static ImageSource GetIcon(string name)

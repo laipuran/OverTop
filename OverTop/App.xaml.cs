@@ -1,10 +1,13 @@
-﻿using OverTop.Floatings;
+﻿using Newtonsoft.Json;
+using OverTop.Floatings;
 using OverTop.Pages;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
+using static OverTop.AppWindowOps;
 using static OverTop.Settings;
 
 namespace OverTop
@@ -20,12 +23,33 @@ namespace OverTop
         // The Variables needed in the whole application
 
         public static new MainWindow? MainWindow;
-        public static AppWindow AppWindow = new();
+        public static AppWindow AppWindow = (AppWindow)new AppWindowProperty().GetWindow();
         public static WeatherWindow WeatherWindow = new(WeatherWindowProperty.GetDefaultProperty());
         public static List<Window> FloatingWindows = new();
         public static Settings AppSettings = new();
         public static int Recents = 0, Hangers = 0;
         public static string? CurrentIP = "";
+
+        public App()
+        {
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\AppWindow.json";
+
+            if (File.Exists(filePath))
+            {
+                string json = File.ReadAllText(filePath);
+
+                AppWindowProperty? appWindowClass = JsonConvert.DeserializeObject<AppWindowProperty>(json);
+                if (appWindowClass is not null)
+                    AppWindow = new(appWindowClass);
+                else
+                    AppWindow = (AppWindow)new AppWindowProperty().GetWindow();
+            }
+            else
+            {
+                AppWindow = (AppWindow)new AppWindowProperty().GetWindow();
+                AppWindow.SetWindowPos(AppWindow.Property.screenPart);
+            }
+        }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -66,7 +90,8 @@ namespace OverTop
                     newHanger.Show();
                 }
             }
-            App.AppWindow.Show();
+
+            Pages.StaticPropertyPage.ColorChanged();
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
@@ -85,17 +110,13 @@ namespace OverTop
                 else if (window is HangerWindow)
                 {
                     HangerWindowProperty? property = ((HangerWindow)window).Property;
-                    if (property is null)
-                    {
-                        continue;
-                    }
-                    HangerWindows++;
                     App.AppSettings.HangerWindows.Add(property);
+                    HangerWindows++;
                 }
             }
             if (RecentWindows == 0) App.AppSettings.RecentWindow = null;
             if (HangerWindows == 0) App.AppSettings.HangerWindows = null;
-            App.AppSettings.WeatherWindow = App.WeatherWindow.Save();
+            App.AppSettings.WeatherWindow = App.WeatherWindow.Property;
 
             App.AppSettings.Save();
         }

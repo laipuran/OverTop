@@ -25,39 +25,17 @@ namespace OverTop.Floatings
     {
         [DllImport("user32.dll")]
         private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+        private static bool isTop = true;
+
         public bool isMouseIn = false;
         public StackPanel ContentPanel;
-        private static bool isTop = true;
-        private static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\AppWindow.json";
+        public AppWindowProperty Property;
 
-        public static Dictionary<string, StackPanel> controls = new();
-
-        public AppWindow()
+        public AppWindow(AppWindowProperty property)
         {
             InitializeComponent();
+            Property = property;
             ContentPanel = ContentStackPanel;
-        }
-
-        public static void AppPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-#pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-            string path = ((StackPanel)sender).ToolTip.ToString();
-#pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-            if (Keyboard.IsKeyDown(Key.R) || !File.Exists(path))
-            {
-#pragma warning disable CS8604 // 引用类型参数可能为 null。
-                controls.Remove(path);
-                ((StackPanel)((StackPanel)sender).Parent).Children.Remove(sender as UIElement);
-            }
-            else if (Keyboard.IsKeyDown(Key.LeftCtrl))
-            {
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-                Process.Start("explorer.exe", Directory.GetParent(path).ToString());
-#pragma warning restore CS8602 // 解引用可能出现空引用。
-            }
-            else
-                Process.Start("explorer.exe", path);
-#pragma warning restore CS8604 // 引用类型参数可能为 null。
         }
 
         private async void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -138,45 +116,9 @@ namespace OverTop.Floatings
             }
         }
 
-        private void LoadFilesFromString(string filePath)
-        {
-            if (!File.Exists(filePath))
-            {
-                this.SetWindowPos(ScreenPart.TopPart);
-                return;
-            }
-            string json = File.ReadAllText(filePath);
-
-#pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-            AppWindowOps appWindowClass = JsonConvert.DeserializeObject<AppWindowOps>(json);
-#pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-            foreach (string item in appWindowClass.filePath)
-#pragma warning restore CS8602 // 解引用可能出现空引用。
-            {
-                try
-                {
-                    System.Windows.Controls.Image image = new();
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-                    Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(item).ToBitmap();
-#pragma warning restore CS8602 // 解引用可能出现空引用。
-                    AddFile(item,
-                        System.Windows.Interop.Imaging.
-                        CreateBitmapSourceFromHBitmap(
-                            icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()
-                            ));
-                }
-                catch
-                {
-                    continue;
-                }
-            }
-            this.SetWindowPos(appWindowClass.screenPart);
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadFilesFromString(filePath);
+            Property.ReloadWindow(this);
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OverTop.Floatings;
 using PuranLai.Algorithms;
 using PuranLai.Tools;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -21,33 +23,6 @@ namespace OverTop
 {
     public static class ExtentedWindowOps
     {
-        public static WeatherWindowProperty Save(this WeatherWindow window)
-        {
-            WeatherWindowProperty windowClass = new();
-            windowClass.left = window.Left;
-            windowClass.top = window.Top;
-            if (window.Visibility == Visibility.Visible)
-            {
-                windowClass.isVisible = true;
-            }
-            else windowClass.isVisible = false;
-
-            return windowClass;
-        }
-
-        public static RecentWindowProperty Save(this RecentWindow window)
-        {
-            RecentWindowProperty windowClass = new();
-            System.Windows.Media.Color color = ((SolidColorBrush)window.Background).Color;
-            windowClass.backgroundColor = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
-            windowClass.width = (int)window.Width;
-            windowClass.height = (int)window.Height;
-            windowClass.left = window.Left;
-            windowClass.top = window.Top;
-            windowClass.isTop = window.Topmost;
-            return windowClass;
-        }
-
         public static void ToBottom(this Window window)
         {
             CommonWindowOps.SetWindowPos(new WindowInteropHelper(window).Handle,
@@ -62,19 +37,14 @@ namespace OverTop
                 (int)window.Top, (int)window.Width, (int)window.Height, 0);
         }
 
-        public static HangerWindowProperty? Save(this HangerWindow window)
-        {
-            return window.Property;
-        }
-
         public static void Save(this AppWindow window)
         {
-            AppWindowOps appWindow = new();
+            AppWindowProperty appWindow = new();
             appWindow.screenPart = window.GetMiddlePoint().GetPart();
             foreach (StackPanel item in window.ContentStackPanel.Children)
             {
 #pragma warning disable CS8604 // 引用类型参数可能为 null。
-                appWindow.filePath.Add(item.ToolTip.ToString());
+                appWindow.FilePaths.Add(item.ToolTip.ToString());
 #pragma warning restore CS8604 // 引用类型参数可能为 null。
             }
             string json = JsonConvert.SerializeObject(appWindow);
@@ -113,7 +83,7 @@ namespace OverTop
             {
                 return ScreenPart.TopPart;
             }
-            else // if (point.Y > screenSize.Y / 2)
+            else
             {
                 return ScreenPart.BottomPart;
             }
@@ -275,9 +245,6 @@ namespace OverTop
 
     public class AppWindowOps
     {
-        public ScreenPart screenPart;
-        public List<string> filePath = new();
-
         public enum Quadrant // not used
         {
             Quadrant1,
@@ -316,33 +283,5 @@ namespace OverTop
                 return Quadrant.Quadrant4;
             }
         }
-
-        public static void AddFile(string path, ImageSource source)
-        {
-            if (AppWindow.controls.ContainsKey(path))
-            {
-                return;
-            }
-
-            StackPanel appPanel = new();
-            System.Windows.Controls.Image image = new();
-            image.Source = source;
-            image.Width = 40;
-            Thickness margin = new(10, 10, 10, 10);
-            appPanel.Children.Add(image);
-            appPanel.Margin = margin;
-            appPanel.ToolTip = path;
-            appPanel.MouseLeftButtonDown += AppWindow.AppPanel_MouseLeftButtonDown;
-            appPanel.AllowDrop = true;
-
-            if (AppWindow.controls.Count >= 9)
-            {
-                return;
-            }
-
-            AppWindow.controls.Add(path, appPanel);
-            App.AppWindow.ContentPanel.Children.Add(appPanel);
-        }
     }
-
 }
