@@ -48,7 +48,6 @@ namespace OverTop
 
             Pages.StaticPropertyPage.ColorChanged();
 
-            App.AppWindow.Show();
         }
 
         public static ImageSource GetIcon(string name)

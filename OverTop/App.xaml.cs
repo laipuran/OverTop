@@ -1,6 +1,7 @@
 ﻿using OverTop.Floatings;
 using OverTop.Pages;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,9 +22,9 @@ namespace OverTop
         public static new MainWindow? MainWindow;
         public static AppWindow AppWindow = new();
         public static WeatherWindow WeatherWindow = new(WeatherWindowProperty.GetDefaultProperty());
-
+        public static List<Window> FloatingWindows = new();
         public static Settings AppSettings = new();
-
+        public static int Recents = 0, Hangers = 0;
         public static string? CurrentIP = "";
 
         private void Application_Startup(object sender, StartupEventArgs e)
@@ -48,12 +49,12 @@ namespace OverTop
                 {
                     WeatherWindow.Show();
                 }
+                FloatingWindows.Add(WeatherWindow);
             }
 
             if (AppSettings.RecentWindow is not null)
             {
-                FloatingPanelPage.recents++;
-                RecentWindow newRecent = (RecentWindow)AppSettings.RecentWindow.GetWindow();
+                RecentWindow newRecent = new(AppSettings.RecentWindow);
                 newRecent.Show();
             }
 
@@ -61,11 +62,11 @@ namespace OverTop
             {
                 foreach (HangerWindowProperty windowClass in AppSettings.HangerWindows)
                 {
-                    FloatingPanelPage.hangers++;
-                    HangerWindow newHanger = (HangerWindow)windowClass.GetWindow();
+                    HangerWindow newHanger = new(windowClass);
                     newHanger.Show();
                 }
             }
+            App.AppWindow.Show();
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
@@ -74,7 +75,7 @@ namespace OverTop
 
             int RecentWindows = 0, HangerWindows = 0;
             App.AppSettings.HangerWindows = new();
-            foreach (System.Windows.Window window in FloatingPanelPage.windows)
+            foreach (System.Windows.Window window in App.FloatingWindows)
             {
                 if (window is RecentWindow)
                 {

@@ -28,8 +28,8 @@ namespace OverTop.Floatings
         {
             InitializeComponent();
             Property = property;
-            FloatingPanelPage.recents++;
-            FloatingPanelPage.windows.Add(this);
+            App.Recents++;
+            App.FloatingWindows.Add(this);
             ContentPanel = ContentStackPanel;
 
             this.Top = property.top == 0 ? Top : property.top;
@@ -39,7 +39,7 @@ namespace OverTop.Floatings
             System.Drawing.Color tempColor = ColorTranslator.FromHtml(property.backgroundColor);
             System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(tempColor.R, tempColor.G, tempColor.B);
             this.Background = new SolidColorBrush(color);
-            this.ToolTip = "Recent Window - " + FloatingPanelPage.recents;
+            this.ToolTip = "Recent Window - " + App.Recents;
             this.Title = "Recent Window";
             if (!Property.isTop)
             {
@@ -192,8 +192,8 @@ namespace OverTop.Floatings
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            FloatingPanelPage.recents--;
-            FloatingPanelPage.windows.Remove(this);
+            App.Recents--;
+            App.FloatingWindows.Remove(this);
         }
     }
 }

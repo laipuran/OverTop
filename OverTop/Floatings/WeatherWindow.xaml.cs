@@ -21,8 +21,6 @@ namespace OverTop.Floatings
         {
             InitializeComponent();
 
-            FloatingPanelPage.windows.Add(this);
-
             this.Top = property.top == 0 ? Top : property.top;
             this.Left = property.left == 0 ? Left : property.left;
 

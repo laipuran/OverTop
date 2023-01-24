@@ -28,9 +28,9 @@ namespace OverTop.Floatings
         {
             InitializeComponent();
             Property = property;
-            FloatingPanelPage.hangers++;
-            FloatingPanelPage.windows.Add(this);
-            this.ToolTip = "Hanger Window - " + FloatingPanelPage.windows.IndexOf(this);
+            App.Hangers++;
+            App.FloatingWindows.Add(this);
+            this.ToolTip = "Hanger Window - " + App.FloatingWindows.IndexOf(this);
 
             if (!Property.isTop)
             {
@@ -120,8 +120,8 @@ namespace OverTop.Floatings
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            FloatingPanelPage.hangers--;
-            FloatingPanelPage.windows.Remove(this);
+            App.Hangers--;
+            App.FloatingWindows.Remove(this);
         }
     }
 }

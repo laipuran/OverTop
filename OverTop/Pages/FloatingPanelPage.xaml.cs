@@ -17,9 +17,6 @@ namespace OverTop.Pages
     /// </summary>
     public partial class FloatingPanelPage : Page
     {
-        public static List<Window> windows = new();
-        public static int recents = 0, hangers = 0;
-
         public FloatingPanelPage()
         {
             InitializeComponent();
@@ -39,14 +36,14 @@ namespace OverTop.Pages
 
         private void HangerWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            hangers++;
+            App.Hangers++;
             Window newHanger = new Floatings.HangerWindow(HangerWindowProperty.GetDefaultProperty());
             newHanger.Show();
         }
 
         private void RecentWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            recents++;
+            App.Recents++;
             Window newRecent = new Floatings.RecentWindow(RecentWindowProperty.GetDefaultProperty());
             newRecent.Show();
         }
@@ -76,7 +73,7 @@ namespace OverTop.Pages
 
         private void GetWindowFromString(string json, string fileName)
         {
-            hangers++;
+            App.Hangers++;
             HangerWindowProperty windowClass = new();
             try
             {
@@ -129,7 +126,7 @@ namespace OverTop.Pages
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             List<Window> copy = new();
-            copy.AddRange(windows);
+            copy.AddRange(App.FloatingWindows);
             try
             {
                 foreach (Window window in copy)
