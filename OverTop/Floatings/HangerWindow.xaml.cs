@@ -76,7 +76,7 @@ namespace OverTop.Floatings
         {
             if (System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl))
             {
-                string json = JsonConvert.SerializeObject(this.Save());
+                string json = JsonConvert.SerializeObject(Property);
                 string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\HangerWindows\\" + Title + ".json";
 #pragma warning disable CS8602 // 解引用可能出现空引用。
                 Directory.CreateDirectory(Directory.GetParent(filePath).FullName);
