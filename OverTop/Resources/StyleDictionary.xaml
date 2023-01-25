@@ -199,7 +199,7 @@
     <Style x:Key="WindowChromeButton" TargetType="Button">
         <!--WindowChrome按钮-->
         <Setter Property="Height" Value="17.5"/>
-        <Setter Property="Width" Value="30"/>
+        <Setter Property="Width" Value="17.5"/>
         <!--<Setter Property="OverridesDefaultStyle" Value="True"/>-->
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>

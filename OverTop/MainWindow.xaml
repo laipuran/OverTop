@@ -17,7 +17,7 @@
         Topmost="False">
     <Window.Resources>
         <Style TargetType="{x:Type Border}">
-            <Setter Property="CornerRadius" Value="10"></Setter>
+            <Setter Property="CornerRadius" Value="10"/>
         </Style>
     </Window.Resources>
     <StackPanel Orientation="Vertical">
@@ -32,7 +32,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
+            
             <StackPanel
                 Orientation="Horizontal"
                 HorizontalAlignment="Left"
@@ -40,7 +40,7 @@
                 Grid.Column="0">
                 <Image
                     x:Name="IconImage"
-                    Height="20"/>
+                    Height="25"/>
                 <TextBlock
                     VerticalAlignment="Center"
                     Margin="3,0,0,0"
