@@ -20,10 +20,9 @@ namespace OverTop
         [DllImport("user32.dll", EntryPoint = "FindWindow")]
         private extern static IntPtr FindWindow(string? lpClassName, string? lpWindowName);
 
-        // The Variables needed in the whole application
-
-        public static new MainWindow? MainWindow;
-        public static AppWindow AppWindow = (AppWindow)new AppWindowProperty().GetWindow();
+        #region The variables needed in the whole application
+        public static new MainWindow MainWindow = new();
+        public static AppWindow DockPanel = new();
         public static WeatherWindow WeatherWindow = new(WeatherWindowProperty.GetDefaultProperty());
         public static List<Window> FloatingWindows = new();
         public static Settings AppSettings = new();
@@ -71,12 +70,30 @@ namespace OverTop
                 }
             }
 
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\AppWindow.json";
+
+            if (File.Exists(filePath))
+            {
+                string json = File.ReadAllText(filePath);
+
+                AppWindowProperty? appWindowClass = JsonConvert.DeserializeObject<AppWindowProperty>(json);
+                if (appWindowClass is not null)
+                    DockPanel = new(appWindowClass);
+                else
+                    DockPanel = (AppWindow)new AppWindowProperty().GetWindow();
+            }
+            else
+            {
+                DockPanel = (AppWindow)new AppWindowProperty().GetWindow();
+            }
+            DockPanel.Show();
+
             Pages.StaticPropertyPage.ColorChanged();
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            App.AppWindow.Save();
+            App.DockPanel.Save();
 
             int RecentWindows = 0, HangerWindows = 0;
             App.AppSettings.HangerWindows = new();

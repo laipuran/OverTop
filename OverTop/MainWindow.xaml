@@ -8,13 +8,13 @@
         WindowStartupLocation="CenterScreen"
         Title="Over Top" Height="450" Width="750"
         Keyboard.KeyDown="Window_KeyDown"
-        GotFocus="Window_GotFocus"
+        MouseEnter="Window_MouseEnter"
         Closing="Window_Closing"
         Background="#3c3c3c"
         ResizeMode="CanMinimize"
         WindowStyle="None"
         AllowsTransparency="True"
-        Topmost="True">
+        Topmost="False">
     <Window.Resources>
         <Style TargetType="{x:Type Border}">
             <Setter Property="CornerRadius" Value="10"></Setter>

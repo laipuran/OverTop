@@ -30,9 +30,7 @@
                     <Image x:Name="AddImageContentImage"/>
                 </Button>
             </StackPanel>
-            <TextBlock Text="颜色透明度 Alpha通道：" Margin="0,10,0,0" Foreground="White"/>
-            <TextBlock x:Name="AlphaTextBlock" Foreground="White"/>
-
+            
             <TextBlock Text="窗口宽度 Width：" Margin="0,10,0,0" Foreground="White"/>
             <TextBox x:Name="WidthTextBox" Style="{StaticResource ContentTextBoxStyle}" Margin="5,10,5,0"/>
 

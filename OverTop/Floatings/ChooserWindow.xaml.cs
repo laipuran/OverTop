@@ -23,8 +23,9 @@ namespace OverTop.Floatings
 
         List<String> filePaths = new();
         List<String> folders = new();
+        AppWindow Dock;
 
-        public ChooserWindow()
+        public ChooserWindow(AppWindow window)
         {
             InitializeComponent();
             folders.Add(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu));
@@ -32,6 +33,8 @@ namespace OverTop.Floatings
             folders.Add(Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms));
             folders.Add(Environment.GetFolderPath(Environment.SpecialFolder.Programs));
             Task.Run(() => Dispatcher.BeginInvoke(() => { GetShortCuts(); }));
+
+            Dock = window;
         }
 
         private void GetFiles(string path)
@@ -134,24 +137,22 @@ namespace OverTop.Floatings
 
         private void ItemStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-#pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-            string path = ((StackPanel)sender).ToolTip.ToString();
-#pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
+            string? path = ((StackPanel)sender).ToolTip.ToString();
+            if (path is null)
+                return;
             if (!File.Exists(path))
             {
-                ((StackPanel)((StackPanel)sender).Parent).Children.Remove(sender as UIElement);
+                Dock.Property.RemoveApplication(path);
                 return;
             }
             if (Keyboard.IsKeyDown(Key.LeftCtrl))
             {
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-                Process.Start("explorer.exe", Directory.GetParent(path).ToString());
-#pragma warning restore CS8602 // 解引用可能出现空引用。
+                DirectoryInfo? info = Directory.GetParent(path);
+                if (info is not null)
+                    Process.Start("explorer.exe", info.ToString());
             }
             else
-            {
-                AppWindowOps.AddFile(path, ((System.Windows.Controls.Image)((StackPanel)sender).Children[0]).Source);
-            }
+                Dock.Property.AddApplication(path, Dock);
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -164,6 +165,7 @@ namespace OverTop.Floatings
                 Filter = "可运行文件|*.exe",
                 FilterIndex = 1
             };
+
             if (openFileDialog.ShowDialog() == true)
             {
                 foreach (string fileName in openFileDialog.FileNames)
@@ -171,8 +173,7 @@ namespace OverTop.Floatings
 #pragma warning disable CS8602 // 解引用可能出现空引用。
                     Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(fileName).ToBitmap();
 #pragma warning restore CS8602 // 解引用可能出现空引用。
-                    AppWindowOps.AddFile(fileName, System.Windows.Interop.Imaging
-                        .CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()));
+                    Dock.Property.AddApplication(fileName, Dock);
                 }
             }
         }

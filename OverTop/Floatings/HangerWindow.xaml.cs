@@ -30,7 +30,7 @@ namespace OverTop.Floatings
             Property = property;
             App.Hangers++;
             App.FloatingWindows.Add(this);
-            this.ToolTip = "Hanger Window - " + App.FloatingWindows.IndexOf(this);
+            this.ToolTip = "Hanger Window - " + (App.FloatingWindows.IndexOf(this) + 1);
 
             if (!Property.isTop)
             {
@@ -107,6 +107,8 @@ namespace OverTop.Floatings
             {
                 this.ChangeOpacity(ExtendedWindowOps.OpacityOptions._25, MouseIn);
             }
+            Property.top = Top;
+            Property.left = Left;
         }
 
         private void Window_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

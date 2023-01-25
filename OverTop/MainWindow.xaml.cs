@@ -115,7 +115,7 @@ namespace OverTop
             }
         }
 
-        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             MessageBoxResult messageBoxResult = MessageBox.Show("是否要退出 Over Top ？", "退出 Over Top", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.No)
@@ -125,8 +125,6 @@ namespace OverTop
             }
             else
             {
-                Disappear();
-                await Task.Delay(500);
                 App.Current.Shutdown();
             }
         }
@@ -204,7 +202,7 @@ namespace OverTop
             }
         }
 
-        private void Window_GotFocus(object sender, RoutedEventArgs e)
+        private void Window_MouseEnter(object sender, MouseEventArgs e)
         {
             this.Opacity = 1;
         }

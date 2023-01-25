@@ -38,6 +38,12 @@ namespace OverTop.Floatings
             ContentPanel = ContentStackPanel;
         }
 
+        public AppWindow()
+        {
+            ContentPanel = new();
+            Property = new();
+        }
+
         private async void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.C))
@@ -48,21 +54,21 @@ namespace OverTop.Floatings
             else if (e.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
-                await Task.Run(() => Dispatcher.BeginInvoke(new Action(TrySetPosition)));
+                await Task.Run(() => Dispatcher.BeginInvoke(new Action(SetSide)));
             }
         }
 
         private void Window_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Window chooserWindow = new ChooserWindow();
+            Window chooserWindow = new ChooserWindow(this);
             try
             {
-                chooserWindow.ShowDialog();
+                chooserWindow.Show();
             }
             catch { }
         }
 
-        private void TrySetPosition()
+        private void SetSide()
         {
             while (true)
             {
@@ -77,7 +83,6 @@ namespace OverTop.Floatings
 
         private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-#pragma warning disable CS8602 // 解引用可能出现空引用。
             try
             {
                 App.MainWindow.WindowState = WindowState.Normal;
@@ -87,7 +92,6 @@ namespace OverTop.Floatings
                 App.MainWindow.Focus();
             }
             catch { }
-#pragma warning restore CS8602 // 解引用可能出现空引用。
         }
 
         private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)

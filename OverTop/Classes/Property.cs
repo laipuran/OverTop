@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OverTop.Pages;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -151,7 +152,7 @@ namespace OverTop.Floatings
 
         public void FromProperty(WindowProperty property)
         {
-            // Emplty
+            // Empty
         }
 
         public static AppWindowProperty GetDefaultProperty()
@@ -159,7 +160,7 @@ namespace OverTop.Floatings
             return new();
         }
 
-        public void AddFile(string path)
+        public void AddApplication(string path, AppWindow window)
         {
             if (this.FilePaths.Contains(path) || this.FilePaths.Count >= 9)
             {
@@ -167,15 +168,21 @@ namespace OverTop.Floatings
             }
 
             this.FilePaths.Add(path);
-            ReloadWindow(App.AppWindow);
+            ReloadWindow(window);
+        }
+
+        public void RemoveApplication(string path)
+        {
+            this.FilePaths.Remove(path);
+            ReloadWindow(App.DockPanel);
         }
 
         public void ReloadWindow(AppWindow window)
         {
             AppWindowProperty property = window.Property;
-            if (property is not null)
+            if (property.FilePaths.Count != 0)
             {
-                window.ContentPanel = new();
+                window.ContentPanel.Children.RemoveRange(0, window.ContentPanel.Children.Count);
                 foreach (string path in property.FilePaths)
                 {
                     try
@@ -199,15 +206,12 @@ namespace OverTop.Floatings
                         };
                         IconStackPanel.Children.Add(image);
                         IconStackPanel.MouseLeftButtonDown += IconStackPanel_MouseLeftButtonDown;
-                        App.AppWindow.ContentPanel.Children.Add(IconStackPanel);
+                        window.ContentPanel.Children.Add(IconStackPanel);
                     }
-                    catch
-                    {
-                        continue;
-                    }
+                    catch { }
                 }
-                window.SetWindowPos(property.screenPart);
             }
+            window.SetWindowPos(property.screenPart);
         }
 
         public void IconStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -219,13 +223,10 @@ namespace OverTop.Floatings
             DirectoryInfo? info = Directory.GetParent(path);
             if (Keyboard.IsKeyDown(Key.R) || !File.Exists(path))
             {
-                this.FilePaths.Remove(path);
-                ((StackPanel)((StackPanel)sender).Parent).Children.Remove(sender as UIElement);
+                this.RemoveApplication(path);
             }
             else if (Keyboard.IsKeyDown(Key.LeftCtrl) && info is not null)
-            {
                 Process.Start("explorer.exe", info.ToString());
-            }
             else
                 Process.Start("explorer.exe", path);
         }

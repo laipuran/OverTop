@@ -52,9 +52,6 @@ namespace OverTop.Floatings
             Title += " - " + CurrentWindow.Title;
 
             ToolTip = Title;
-
-            AddTextContentImage.Source = MainWindow.GetIcon("Text");
-            AddImageContentImage.Source = MainWindow.GetIcon("Image");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -91,7 +88,14 @@ namespace OverTop.Floatings
             var mediaColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
             CurrentWindow.Background = new SolidColorBrush(mediaColor);
 
-            ReloadWindow(CurrentWindow, ((HangerWindow)CurrentWindow).Property);
+            if (CurrentWindow is HangerWindow)
+            {
+                ReloadWindow(CurrentWindow, ((HangerWindow)CurrentWindow).Property);
+            }
+            else if (CurrentWindow is RecentWindow)
+            {
+                ReloadWindow(CurrentWindow, ((RecentWindow)CurrentWindow).Property);
+            }
             
         }
 

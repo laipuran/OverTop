@@ -150,7 +150,7 @@
         <Setter Property="ResizeMode" Value="NoResize"/>
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
-                <Setter Property="CornerRadius" Value="5"></Setter>
+                <Setter Property="CornerRadius" Value="5"/>
             </Style>
         </Style.Resources>
     </Style>
