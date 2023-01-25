@@ -29,27 +29,7 @@ namespace OverTop
         public static Settings AppSettings = new();
         public static int Recents = 0, Hangers = 0;
         public static string? CurrentIP = "";
-
-        public App()
-        {
-            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\AppWindow.json";
-
-            if (File.Exists(filePath))
-            {
-                string json = File.ReadAllText(filePath);
-
-                AppWindowProperty? appWindowClass = JsonConvert.DeserializeObject<AppWindowProperty>(json);
-                if (appWindowClass is not null)
-                    AppWindow = new(appWindowClass);
-                else
-                    AppWindow = (AppWindow)new AppWindowProperty().GetWindow();
-            }
-            else
-            {
-                AppWindow = (AppWindow)new AppWindowProperty().GetWindow();
-                AppWindow.SetWindowPos(AppWindow.Property.screenPart);
-            }
-        }
+        #endregion
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
