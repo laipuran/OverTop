@@ -3,17 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OverTop"
+        xmlns:icon="clr-namespace:OverTop.Resources.Icons"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
         Title="Over Top" Height="450" Width="750"
+        WindowStartupLocation="CenterScreen"
         Keyboard.KeyDown="Window_KeyDown"
-        MouseEnter="Window_MouseEnter"
-        Background="#3c3c3c"
-        ResizeMode="CanMinimize"
-        WindowStyle="None"
-        AllowsTransparency="True"
-        Topmost="False">
+        MouseEnter="Window_MouseEnter" Topmost="False"
+        ResizeMode="CanMinimize" WindowStyle="None"
+        AllowsTransparency="True" Background="#3c3c3c">
     <Window.Resources>
         <Style TargetType="{x:Type Border}">
             <Setter Property="CornerRadius" Value="10"/>
@@ -37,9 +34,7 @@
                 HorizontalAlignment="Left"
                 Margin="5,0,0,0"
                 Grid.Column="0">
-                <Image
-                    x:Name="IconImage"
-                    Height="25"/>
+                <icon:MainIcon Width="25" Height="25"/>
                 <TextBlock
                     VerticalAlignment="Center"
                     Margin="3,0,0,0"

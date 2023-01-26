@@ -34,26 +34,18 @@ namespace OverTop
         private void LoadIcons()
         {
             Icon = GetIcon("icon");
-            IconImage.Source = GetIcon("icon");
-            BackContentImage.Source = GetIcon("Back");
-            MenuContentImage.Source = GetIcon("Menu");
-            FloatingsContentImage.Source = GetIcon("Floatings");
-            PropertiesContentImage.Source = GetIcon("Properties");
-
-            MinimizeImage.Source = GetIcon("Minimize");
-            DisappearImage.Source = GetIcon("Disappear");
-            CloseWindowImage.Source = GetIcon("Window_Close");
         }
 
         public static ImageSource GetIcon(string name)
         {
             ResourceManager Loader = OverTop.Resources.ResourcesFile.ResourceManager;
-#pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-#pragma warning disable CS8604 // 引用类型参数可能为 null。
-            Bitmap icon = new((System.Drawing.Image)Loader.GetObject(name));
-#pragma warning restore CS8604 // 引用类型参数可能为 null。
-#pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-            return Imaging.CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            object? resObj = Loader.GetObject(name);
+            if (resObj is not null)
+            {
+                Bitmap icon = new((System.Drawing.Image)resObj);
+                return Imaging.CreateBitmapSourceFromHBitmap(icon.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            }
+            return Imaging.CreateBitmapSourceFromHBitmap(0, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
         }
 
         private void NavigationButton_Click(object sender, RoutedEventArgs e)
