@@ -1,7 +1,4 @@
-﻿using OverTop.Floatings;
-using OverTop.Pages;
-using PuranLai.Algorithms;
-using PuranLai.Tools;
+﻿using PuranLai.Algorithms;
 using System;
 using System.Drawing;
 using System.Resources;
@@ -11,7 +8,6 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Color = System.Windows.Media.Color;
 
 namespace OverTop
 {
@@ -81,7 +77,7 @@ namespace OverTop
                 Action<double> set = new((double value) => { MenuStackPanel.Width = value; });
                 Dispatcher.Invoke(set, width);
             });
-            fixed(bool* isOpened = &MenuClosed)
+            fixed (bool* isOpened = &MenuClosed)
             {
                 Animation open = new Animation(200, MenuStackPanel.Width, 160, Animation.GetSineValue, SetPanelWidth, 50, Flag: isOpened);
                 open.StartAnimationAsync();
@@ -126,12 +122,12 @@ namespace OverTop
 
         private void ContentFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
-            if ("/" + ContentFrame.Source.ToString() == PropertyUri.ToString())
+            if (ContentFrame.Source == PropertyUri)
             {
                 TitleTextBlock.Text = "系统属性";
                 PropertyListBoxItem.IsSelected = true;
             }
-            else if ("/" + ContentFrame.Source.ToString() == FloatingUri.ToString())
+            else if (ContentFrame.Source == FloatingUri)
             {
                 TitleTextBlock.Text = "浮窗控制";
                 FloatingListBoxItem.IsSelected = true;

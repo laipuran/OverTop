@@ -2,18 +2,13 @@
 using PuranLai.Algorithms;
 using PuranLai.Tools;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Net.Mime;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using static OverTop.CommonWindowOps;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.DataFormats;
 
 namespace OverTop.Floatings
 {
@@ -96,7 +91,7 @@ namespace OverTop.Floatings
             {
                 ReloadWindow(CurrentWindow, ((RecentWindow)CurrentWindow).Property);
             }
-            
+
         }
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
@@ -181,7 +176,14 @@ namespace OverTop.Floatings
             {
                 try
                 {
-                    ((HangerWindow)CurrentWindow).Property.contents.Add(new(HangerWindowProperty.ContentType.Image, openFileDialog.FileName));
+                    MemoryStream ms = new();
+                    Bitmap bitmap = new Bitmap(openFileDialog.FileName);
+                    bitmap.Save(ms, bitmap.RawFormat);
+                    byte[] bytes = ms.GetBuffer();
+                    string base64 = Convert.ToBase64String(bytes);
+                    ms.Close();
+
+                    ((HangerWindow)CurrentWindow).Property.contents.Add(new(HangerWindowProperty.ContentType.Image, base64));
                 }
                 catch { }
             }

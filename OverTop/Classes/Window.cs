@@ -1,11 +1,9 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using OverTop.Floatings;
 using PuranLai.Algorithms;
 using PuranLai.Tools;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -201,8 +199,16 @@ namespace OverTop
                     {
                         try
                         {
-                            System.Windows.Controls.Image newImage = new();
-                            newImage.Source = new BitmapImage(new Uri(pair.Value));
+                            MemoryStream ms = new(Convert.FromBase64String(pair.Value));
+                            Bitmap bitmap = new(ms);
+                            ms.Close();
+
+                            System.Windows.Controls.Image newImage = new()
+                            {
+                                Source = Imaging.CreateBitmapSourceFromHBitmap(
+                                    bitmap.GetHbitmap(), IntPtr.Zero,
+                                    Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()),
+                            };
                             StackPanel newStackPanel = new();
                             newStackPanel.Children.Add(newImage);
                             newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown;

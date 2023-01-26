@@ -1,13 +1,10 @@
 ﻿using Newtonsoft.Json;
 using OverTop.Floatings;
-using OverTop.Pages;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Controls;
-using static OverTop.AppWindowOps;
 using static OverTop.Settings;
 
 namespace OverTop

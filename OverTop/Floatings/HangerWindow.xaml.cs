@@ -1,16 +1,10 @@
 ﻿using Newtonsoft.Json;
-using OverTop.Pages;
-using PuranLai.Algorithms;
 using PuranLai.Tools;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using static OverTop.CommonWindowOps;
 
 namespace OverTop.Floatings

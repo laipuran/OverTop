@@ -1,20 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using static OverTop.AppWindowOps;
-using static OverTop.CommonWindowOps;
 using static PuranLai.Tools.ExtendedWindowOps;
-using Color = System.Windows.Media.Color;
 
 namespace OverTop.Floatings
 {
