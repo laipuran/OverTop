@@ -128,7 +128,6 @@ namespace OverTop.Floatings
                 return GetDefaultProperty().GetWindow();
             }
             return new HangerWindow(this);
-            // TODO: Not understanding this if structure
         }
     }
 

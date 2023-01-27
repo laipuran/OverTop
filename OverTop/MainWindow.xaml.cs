@@ -27,7 +27,7 @@ namespace OverTop
             App.MainWindow = this;
 
             FloatingListBoxItem.IsSelected = true;
-            TitleTextBlock.Text = "浮窗控制面板";
+            TitleTextBlock.Text = "浮窗控制";
             ContentFrame.NavigationService.Navigate(FloatingUri);
         }
 
