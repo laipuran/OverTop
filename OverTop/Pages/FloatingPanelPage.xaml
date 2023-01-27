@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:OverTop.Pages"
+      xmlns:local="clr-namespace:OverTop.Pages" xmlns:svg="http://sharpvectors.codeplex.com/svgc/"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="FloatingPanelPage"
@@ -25,7 +25,10 @@
                     Style="{StaticResource IconButton}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource ContentTextBlockStyle}" Text="新建"/>
-                    <Image Margin="5,0,0,0" x:Name="HangerContentImage"/>
+                    <svg:SvgViewbox
+                        Margin="5,0,0,0"
+                        Width="30"
+                        Source="/Resources/Icons/New.svg"/>
                 </StackPanel>
                 <Button.ToolTip>
                     <ToolTip Style="{StaticResource RoundToolTipStyle}">
@@ -45,7 +48,10 @@
                     Style="{StaticResource IconButton}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource ContentTextBlockStyle}" Text="导入"/>
-                    <Image Margin="5,0,0,0" x:Name="ImportContentImage"/>
+                    <svg:SvgViewbox
+                        Margin="5,0,0,0"
+                        Width="30"
+                        Source="/Resources/Icons/Import.svg"/>
                 </StackPanel>
             </Button>
         </StackPanel>
@@ -59,7 +65,10 @@
                     Click="RecentWindowButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource ContentTextBlockStyle}" Text="新建"/>
-                    <Image Margin="5,0,0,0" x:Name="RecentContentImage"/>
+                    <svg:SvgViewbox
+                        Margin="5,0,0,0"
+                        Width="30"
+                        Source="/Resources/Icons/New.svg"/>
                 </StackPanel>
                 <Button.ToolTip>
                     <ToolTip Style="{StaticResource RoundToolTipStyle}">
@@ -83,13 +92,14 @@
                     Click="WeatherWindowButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource ContentTextBlockStyle}" Text="打开"/>
-                    <Image Margin="5,0,0,0" x:Name="WeatherContentImage"/>
+                    <svg:SvgViewbox
+                            Margin="5,0,0,0"
+                            Width="30"
+                            Source="\Resources\Icons\Open.svg"/>
                 </StackPanel>
                 <Button.ToolTip>
                     <StackPanel>
                         <TextBlock Margin="5">天气窗口</TextBlock>
-                        <Image Margin="5"
-                               x:Name="WeatherToolTipImage"/>
                     </StackPanel>
                 </Button.ToolTip>
             </Button>

@@ -20,13 +20,6 @@ namespace OverTop.Pages
         public FloatingPanelPage()
         {
             InitializeComponent();
-            HangerToolTipImage.Source = MainWindow.GetIcon("HangerWindow");
-            RecentToolTipImage.Source = MainWindow.GetIcon("RecentWindow");
-            WeatherToolTipImage.Source = MainWindow.GetIcon("WeatherWindow");
-            HangerContentImage.Source = MainWindow.GetIcon("New");
-            RecentContentImage.Source = MainWindow.GetIcon("New");
-            WeatherContentImage.Source = MainWindow.GetIcon("Open");
-            ImportContentImage.Source = MainWindow.GetIcon("Import");
 
             if (App.AppSettings.ip is null)
             {

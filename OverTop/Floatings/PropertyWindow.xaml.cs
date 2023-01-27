@@ -31,9 +31,6 @@ namespace OverTop.Floatings
 
             ButtonStackPanel.Visibility = Visibility.Visible;
             ToolTip = Title;
-
-            AddTextContentImage.Source = MainWindow.GetIcon("Text");
-            AddImageContentImage.Source = MainWindow.GetIcon("Image");
         }
 
         public PropertyWindow(RecentWindow window)

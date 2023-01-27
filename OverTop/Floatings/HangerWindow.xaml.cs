@@ -99,7 +99,10 @@ namespace OverTop.Floatings
             Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
             fixed (bool* MouseIn = &isMouseIn)
             {
-                this.ChangeOpacity(ExtendedWindowOps.OpacityOptions._25, MouseIn);
+                if (this.Property.contents.Count == 0)
+                    this.ChangeOpacity(5, MouseIn);
+                else
+                    this.ChangeOpacity(ExtendedWindowOps.OpacityOptions._25, MouseIn);
             }
             Property.top = Top;
             Property.left = Left;

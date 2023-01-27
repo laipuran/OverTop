@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:icon="clr-namespace:OverTop.Resources.Icons"
+        xmlns:svg="http://sharpvectors.codeplex.com/svgc/"
         mc:Ignorable="d"
         Title="Over Top" Height="450" Width="750"
         WindowStartupLocation="CenterScreen"
@@ -34,7 +34,10 @@
                 HorizontalAlignment="Left"
                 Margin="5,0,0,0"
                 Grid.Column="0">
-                <icon:MainIcon Width="25" Height="25"/>
+                <svg:SvgViewbox
+                    Height="22.5"
+                    Width="22.5"
+                    Source="/Resources/Icons/Icon.svg"/>
                 <TextBlock
                     VerticalAlignment="Center"
                     Margin="3,0,0,0"
@@ -42,6 +45,7 @@
             </StackPanel>
 
             <StackPanel
+                Margin="0,0,10,0"
                 Grid.Column="1"
                 Orientation="Horizontal"
                 HorizontalAlignment="Right">
@@ -49,19 +53,22 @@
                     Style="{StaticResource WindowChromeButton}"
                     x:Name="MinimizeButton"
                     Click="MinimizeButton_Click">
-                    <Image x:Name="MinimizeImage"/>
+                    <svg:SvgViewbox
+                        Source="/Resources/Icons/Minimize.svg"/>
                 </Button>
                 <Button
                     Style="{StaticResource WindowChromeButton}"
                     x:Name="DisappearButton"
                     Click="DisappearButton_Click">
-                    <Image x:Name="DisappearImage"/>
+                    <svg:SvgViewbox
+                        Source="/Resources/Icons/Disappear.svg"/>
                 </Button>
                 <Button
                     Style="{StaticResource WindowChromeButton}"
                     x:Name="CloseWindowButton"
                     Click="CloseWindowButton_Click">
-                    <Image x:Name="CloseWindowImage"/>
+                    <svg:SvgViewbox
+                        Source="/Resources/Icons/Window_Close.svg"/>
                 </Button>
             </StackPanel>
         </Grid>
@@ -74,13 +81,17 @@
                     <Button x:Name="BackButton"
                             Style="{StaticResource NavigationButtonStyle}"
                             Click="BackButton_Click">
-                        <Image x:Name="BackContentImage"/>
+                        <svg:SvgViewbox
+                            Source="/Resources/Icons/Back.svg"
+                            Width="30"/>
                     </Button>
 
                     <Button x:Name="NavigationButton"
                             Style="{StaticResource NavigationButtonStyle}"
                             Click="NavigationButton_Click">
-                        <Image x:Name="MenuContentImage"/>
+                        <svg:SvgViewbox
+                            Source="/Resources/Icons/Menu.svg"
+                            Width="30"/>
                     </Button>
                 </StackPanel>
                 <StackPanel x:Name="Selector">
@@ -93,7 +104,9 @@
                             x:Name="FloatingListBoxItem"
                             Style="{StaticResource ContentListBoxItemStyle}">
                             <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
-                                <Image x:Name="FloatingsContentImage" Margin="-3,0,0,0"/>
+                                <svg:SvgViewbox
+                                    Source="/Resources/Icons/Floatings.svg"
+                                    Width="30"/>
                                 <TextBlock
                                     Text="浮窗控制"
                                     Style="{StaticResource NavigationTextBlockStyle}"
@@ -104,7 +117,9 @@
                         <ListBoxItem x:Name="PropertyListBoxItem"
                                  Style="{StaticResource ContentListBoxItemStyle}">
                             <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
-                                <Image x:Name="PropertiesContentImage" Margin="-3,0,0,0"/>
+                                <svg:SvgViewbox
+                                    Source="/Resources/Icons/Properties.svg"
+                                    Width="30"/>
                                 <TextBlock Text="系统属性"
                                        Style="{StaticResource NavigationTextBlockStyle}"
                                        Margin="5,0,0,0"/>
