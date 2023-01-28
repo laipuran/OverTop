@@ -42,16 +42,18 @@ namespace OverTop
             appWindow.screenPart = window.GetMiddlePoint().GetPart();
             foreach (StackPanel item in window.ContentStackPanel.Children)
             {
-#pragma warning disable CS8604 // 引用类型参数可能为 null。
-                appWindow.FilePaths.Add(item.ToolTip.ToString());
-#pragma warning restore CS8604 // 引用类型参数可能为 null。
+                string? path = item.ToolTip.ToString();
+                if (path is not null)
+                    appWindow.FilePaths.Add(path);
             }
             string json = JsonConvert.SerializeObject(appWindow);
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\AppWindow.json";
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-            Directory.CreateDirectory(Directory.GetParent(filePath).FullName);
-#pragma warning restore CS8602 // 解引用可能出现空引用。
-            File.WriteAllText(filePath, json);
+            DirectoryInfo? info = Directory.GetParent(filePath);
+            if (info is not null)
+            {
+                Directory.CreateDirectory(info.FullName);
+                File.WriteAllText(filePath, json);
+            }
         }
 
         public static Point GetMiddlePoint(this Window window)

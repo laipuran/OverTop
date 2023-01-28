@@ -52,7 +52,7 @@ namespace OverTop
 
                 if (settings is null)
                 {
-                    Exception ex = new CustomException("You are using the Settings file in old version!");
+                    Exception ex = new CustomException("The Settings file you are using is in old version.");
                     throw ex;
                 }
             }

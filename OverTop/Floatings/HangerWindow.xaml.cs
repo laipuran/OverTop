@@ -107,5 +107,11 @@ namespace OverTop.Floatings
         {
             App.FloatingWindows.Remove(this);
         }
+
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            this.Property.top = Top;
+            this.Property.left = Left;
+        }
     }
 }

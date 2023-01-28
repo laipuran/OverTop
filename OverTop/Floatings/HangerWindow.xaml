@@ -12,6 +12,7 @@
         Topmost="True" Title="Hanger Window"
         KeyDown="Window_KeyDown"
         ShowInTaskbar="False"
+        MouseMove="Window_MouseMove"
         MouseEnter="Window_MouseEnter"
         MouseLeave="Window_MouseLeave">
     <ScrollViewer Margin="10,10,10,10" CanContentScroll="True"

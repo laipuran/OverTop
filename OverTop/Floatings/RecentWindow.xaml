@@ -11,6 +11,7 @@
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Topmost="True" ShowInTaskbar="False"
         KeyDown="Window_KeyDown"
+        MouseMove="Window_MouseMove"
         MouseEnter="Window_MouseEnter"
         MouseLeave="Window_MouseLeave"
         Style="{StaticResource FloatingWindowStyle}">
