@@ -27,7 +27,6 @@ namespace OverTop.Floatings
         {
             InitializeComponent();
             Property = property;
-            App.Recents++;
             App.FloatingWindows.Add(this);
             ContentPanel = ContentStackPanel;
 
@@ -38,7 +37,7 @@ namespace OverTop.Floatings
             System.Drawing.Color tempColor = ColorTranslator.FromHtml(property.backgroundColor);
             System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(tempColor.R, tempColor.G, tempColor.B);
             this.Background = new SolidColorBrush(color);
-            this.ToolTip = "Recent Window - " + App.Recents;
+            this.ToolTip = "Recent Window";
             this.Title = "Recent Window";
             if (!Property.isTop)
             {
@@ -79,7 +78,7 @@ namespace OverTop.Floatings
                 {
                     Thickness margin = new(10, 0, 0, 0);
                     Thickness margin1 = new(5, 5, 5, 5);
-                    StackPanel newStackPanel = new()
+                    StackPanel LinkStackPanel = new()
                     {
                         Height = 30,
                         Margin = margin1,
@@ -95,13 +94,13 @@ namespace OverTop.Floatings
                         Style = (Style)FindResource("ContentTextBlockStyle"),
                         Margin = margin
                     };
-                    newStackPanel.Children.Add(image);
-                    newStackPanel.Children.Add(textBlock);
+                    LinkStackPanel.Children.Add(image);
+                    LinkStackPanel.Children.Add(textBlock);
 
-                    newStackPanel.ToolTip = file.Key;
-                    newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown;
+                    LinkStackPanel.ToolTip = file.Key;
+                    LinkStackPanel.MouseLeftButtonDown += LinkStackPanel_MouseLeftButtonDown;
 
-                    await Task.Run(() => Dispatcher.BeginInvoke(new Action(() => { ContentStackPanel.Children.Add(newStackPanel); })));
+                    await Task.Run(() => Dispatcher.BeginInvoke(new Action(() => { ContentStackPanel.Children.Add(LinkStackPanel); })));
                 }
             }
             catch (Exception e)
@@ -110,7 +109,7 @@ namespace OverTop.Floatings
             }
         }
 
-        private void NewStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void LinkStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.LeftCtrl))
             {
@@ -120,17 +119,24 @@ namespace OverTop.Floatings
                 Process.Start("explorer.exe", wshShortcut.TargetPath);
             }
         }
+
         private void Window_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Window propertyWindow = new PropertyWindow(this)
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
-            propertyWindow.ShowDialog();
+            propertyWindow.Show();
         }
+
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (Mouse.LeftButton == MouseButtonState.Pressed)
+            if (Keyboard.IsKeyDown(Key.R))
+            {
+                ContentStackPanel.Children.Clear();
+                Task.Run(() => Dispatcher.BeginInvoke(new Action(LoadRecentFiles)));
+            }
+            else if (Mouse.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
             }
@@ -179,19 +185,8 @@ namespace OverTop.Floatings
             catch { }
         }
 
-        private void ContentStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (Keyboard.IsKeyDown(Key.R))
-            {
-                ContentStackPanel.Children.Clear();
-                Task.Run(() => Dispatcher.BeginInvoke(new Action(LoadRecentFiles)));
-            }
-            DragMove();
-        }
-
         private void Window_Closed(object sender, EventArgs e)
         {
-            App.Recents--;
             App.FloatingWindows.Remove(this);
         }
     }

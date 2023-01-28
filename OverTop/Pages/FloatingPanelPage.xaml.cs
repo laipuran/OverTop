@@ -29,14 +29,12 @@ namespace OverTop.Pages
 
         private void HangerWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            App.Hangers++;
             Window newHanger = new Floatings.HangerWindow(HangerWindowProperty.GetDefaultProperty());
             newHanger.Show();
         }
 
         private void RecentWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            App.Recents++;
             Window newRecent = new Floatings.RecentWindow(RecentWindowProperty.GetDefaultProperty());
             newRecent.Show();
         }
@@ -66,7 +64,6 @@ namespace OverTop.Pages
 
         private void GetWindowFromString(string json, string fileName)
         {
-            App.Hangers++;
             HangerWindowProperty windowClass = new();
             try
             {

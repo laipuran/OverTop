@@ -51,6 +51,7 @@
                 HorizontalAlignment="Right">
                 <Button
                     Style="{StaticResource WindowChromeButton}"
+                    Template="{StaticResource OverrideDefault}"
                     x:Name="MinimizeButton"
                     Click="MinimizeButton_Click">
                     <svg:SvgViewbox
@@ -58,6 +59,7 @@
                 </Button>
                 <Button
                     Style="{StaticResource WindowChromeButton}"
+                    Template="{StaticResource OverrideDefault}"
                     x:Name="DisappearButton"
                     Click="DisappearButton_Click">
                     <svg:SvgViewbox
@@ -65,6 +67,7 @@
                 </Button>
                 <Button
                     Style="{StaticResource WindowChromeButton}"
+                    Template="{StaticResource OverrideDefault}"
                     x:Name="CloseWindowButton"
                     Click="CloseWindowButton_Click">
                     <svg:SvgViewbox

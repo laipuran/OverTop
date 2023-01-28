@@ -22,9 +22,8 @@ namespace OverTop.Floatings
         {
             InitializeComponent();
             Property = property;
-            App.Hangers++;
             App.FloatingWindows.Add(this);
-            this.ToolTip = "Hanger Window - " + (App.FloatingWindows.IndexOf(this) + 1);
+            this.ToolTip = "Hanger Window - " + this.Property.guid;
 
             if (!Property.isTop)
             {
@@ -37,7 +36,17 @@ namespace OverTop.Floatings
 
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (System.Windows.Input.Mouse.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
+            if (System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl))
+            {
+                string json = JsonConvert.SerializeObject(Property);
+                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\HangerWindows\\" + Title + ".json";
+                DirectoryInfo? info = Directory.GetParent(filePath);
+                if (info is null)
+                    return;
+                Directory.CreateDirectory(info.FullName);
+                File.WriteAllText(filePath, json);
+            }
+            else if (Mouse.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
             }
@@ -54,33 +63,16 @@ namespace OverTop.Floatings
             {
                 switch (e.Key)
                 {
-                    case Key.Left: this.Left -= 1; break;
-                    case Key.Right: Left += 1; break;
-                    case Key.Up: Top -= 1; break;
-                    case Key.Down: Top += 1; break;
+                    case Key.Left: Left -= 5; break;
+                    case Key.Right: Left += 5; break;
+                    case Key.Up: Top -= 5; break;
+                    case Key.Down: Top += 5; break;
                     case Key.Escape: Close(); break;
                     default: break;
                         //TODO: Fix needed
                 }
             }
             catch { }
-        }
-
-        private void ContentStackPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftCtrl))
-            {
-                string json = JsonConvert.SerializeObject(Property);
-                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\OverTop\\HangerWindows\\" + Title + ".json";
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-                Directory.CreateDirectory(Directory.GetParent(filePath).FullName);
-#pragma warning restore CS8602 // 解引用可能出现空引用。
-                File.WriteAllText(filePath, json);
-            }
-            if (Mouse.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
         }
 
         private unsafe void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -114,12 +106,11 @@ namespace OverTop.Floatings
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
-            propertyWindow.ShowDialog();
+            propertyWindow.Show();
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            App.Hangers--;
             App.FloatingWindows.Remove(this);
         }
     }

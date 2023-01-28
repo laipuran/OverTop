@@ -23,7 +23,6 @@ namespace OverTop
         public static WeatherWindow WeatherWindow = new(WeatherWindowProperty.GetDefaultProperty());
         public static List<Window> FloatingWindows = new();
         public static Settings AppSettings = new();
-        public static int Recents = 0, Hangers = 0;
         public static string? CurrentIP = "";
         #endregion
 
