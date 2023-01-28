@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static OverTop.AppWindowOps;
 using static OverTop.CommonWindowOps;
+using Image = System.Windows.Controls.Image;
 using Point = System.Windows.Point;
 
 namespace OverTop
@@ -190,10 +191,10 @@ namespace OverTop
                         TextBlock newTextBlock = new();
                         newTextBlock.Style = (Style)window.FindResource("ContentTextBlockStyle");
                         newTextBlock.Text = pair.Value;
-                        StackPanel newStackPanel = new();
-                        newStackPanel.Children.Add(newTextBlock);
-                        newStackPanel.MouseLeftButtonDown += TextPanel_MouseLeftButtonDown;
-                        ((HangerWindow)window).ContentPanel.Children.Add(newStackPanel);
+                        StackPanel TextStackPanel = new();
+                        TextStackPanel.Children.Add(newTextBlock);
+                        TextStackPanel.MouseLeftButtonDown += TextPanel_MouseLeftButtonDown;
+                        ((HangerWindow)window).ContentPanel.Children.Add(TextStackPanel);
                     }
                     else if (pair.Key == HangerWindowProperty.ContentType.Image)
                     {
@@ -209,10 +210,10 @@ namespace OverTop
                                     bitmap.GetHbitmap(), IntPtr.Zero,
                                     Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()),
                             };
-                            StackPanel newStackPanel = new();
-                            newStackPanel.Children.Add(newImage);
-                            newStackPanel.MouseLeftButtonDown += NewStackPanel_MouseLeftButtonDown;
-                            ((HangerWindow)window).ContentPanel.Children.Add(newStackPanel);
+                            StackPanel ImageStackPanel = new();
+                            ImageStackPanel.Children.Add(newImage);
+                            ImageStackPanel.MouseLeftButtonDown += ImagePanel_MouseRightButtonDown;
+                            ((HangerWindow)window).ContentPanel.Children.Add(ImageStackPanel);
                         }
                         catch
                         {
@@ -223,28 +224,78 @@ namespace OverTop
             }
         }
 
-        private static void NewStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private static void ImagePanel_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
+            StackPanel currentStackPanel = (StackPanel)sender;
+            Image currentImage = (Image)currentStackPanel.Children[0];
+            HangerWindow currentWindow = (HangerWindow)((ScrollViewer)((StackPanel)currentStackPanel.Parent).Parent).Parent;
             if (Keyboard.IsKeyDown(Key.R))
             {
-                ((StackPanel)((StackPanel)sender).Parent).Children.Remove((StackPanel)sender);
+                BitmapSource source = (BitmapSource)currentImage.Source;
+                MemoryStream stream1 = new();
+                BmpBitmapEncoder encoder = new();
+                encoder.Frames.Add(BitmapFrame.Create(source));
+                encoder.Save(stream1);
+                Bitmap image = new(stream1);
+                stream1.Close();
+
+                List<KeyValuePair<HangerWindowProperty.ContentType, string>> list = new();
+                list.AddRange(currentWindow.Property.contents);
+                foreach (var pair in list)
+                {
+                    if (pair.Key == HangerWindowProperty.ContentType.Text)
+                        continue;
+
+                    MemoryStream ms = new(Convert.FromBase64String(pair.Value));
+                    Bitmap bitmap = new(ms);
+                    ms.Close();
+                    bool flag = true;
+                    for (int i = 0; i < bitmap.Width; i++)
+                    {
+                        if (!flag)
+                            break;
+                        for (int j = 0; j < bitmap.Height; j++)
+                        {
+                            if (!flag)
+                                break;
+                            if (bitmap.GetPixel(i, j) != (bitmap.GetPixel(i, j)))
+                            {
+                                flag = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (flag)
+                    {
+                        currentWindow.Property.contents.Remove(pair);
+                    }
+                }
             }
+            ReloadWindow(currentWindow, currentWindow.Property);
         }
 
         public static void TextPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             StackPanel currentStackPanel = (StackPanel)sender;
             TextBlock currentTextBlock = (TextBlock)currentStackPanel.Children[0];
+            HangerWindow currentWindow = (HangerWindow)((ScrollViewer)((StackPanel)currentStackPanel.Parent).Parent).Parent;
             if (Keyboard.IsKeyDown(Key.M))
             {
+                int index = currentWindow.Property.contents.IndexOf(new(HangerWindowProperty.ContentType.Text, currentTextBlock.Text));
                 TextWindow textWindow = new("请输入文本：", currentTextBlock.Text);
                 textWindow.ShowDialog();
-                currentTextBlock.Text = textWindow.result;
+                if (textWindow.result is null)
+                {
+                    return;
+                }
+                currentWindow.Property.contents[index] = new(HangerWindowProperty.ContentType.Text, textWindow.result);
+
             }
             else if (Keyboard.IsKeyDown(Key.R))
             {
-                ((StackPanel)currentStackPanel.Parent).Children.Remove(currentStackPanel);
+                currentWindow.Property.contents.Remove(new(HangerWindowProperty.ContentType.Text, currentTextBlock.Text));
             }
+            ReloadWindow(currentWindow, currentWindow.Property);
         }
 
     }
