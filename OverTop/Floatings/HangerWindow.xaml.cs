@@ -46,6 +46,14 @@ namespace OverTop.Floatings
                 Directory.CreateDirectory(info.FullName);
                 File.WriteAllText(filePath, json);
             }
+            else if (Keyboard.IsKeyDown(Key.Left))
+                Left -= 5;
+            else if (Keyboard.IsKeyDown(Key.Right))
+                Left += 5;
+            else if (Keyboard.IsKeyDown(Key.Up))
+                Top -= 5;
+            else if (Keyboard.IsKeyDown(Key.Down))
+                Top += 5;
             else if (Mouse.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
@@ -59,20 +67,6 @@ namespace OverTop.Floatings
                 Property.isTop = CommonWindowOps.ChangeStatus(Property.isTop, this);
                 return;
             }
-            try
-            {
-                switch (e.Key)
-                {
-                    case Key.Left: Left -= 5; break;
-                    case Key.Right: Left += 5; break;
-                    case Key.Up: Top -= 5; break;
-                    case Key.Down: Top += 5; break;
-                    case Key.Escape: Close(); break;
-                    default: break;
-                        //TODO: Fix needed
-                }
-            }
-            catch { }
         }
 
         private unsafe void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -106,7 +100,7 @@ namespace OverTop.Floatings
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
-            propertyWindow.Show();
+            propertyWindow.ShowDialog();
         }
 
         private void Window_Closed(object sender, EventArgs e)

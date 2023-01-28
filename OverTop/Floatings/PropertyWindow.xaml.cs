@@ -156,8 +156,7 @@ namespace OverTop.Floatings
                 return;
 
             ((HangerWindow)CurrentWindow).Property.contents.Add(new(HangerWindowProperty.ContentType.Text, text));
-
-            Close();
+            ReloadWindow((HangerWindow)CurrentWindow, ((HangerWindow)CurrentWindow).Property);
         }
 
         private void AddPictureButton_Click(object sender, RoutedEventArgs e)
@@ -184,7 +183,7 @@ namespace OverTop.Floatings
                 }
                 catch { }
             }
-            Close();
+            ReloadWindow((HangerWindow)CurrentWindow, ((HangerWindow)CurrentWindow).Property);
         }
 
         public static void ImagePanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

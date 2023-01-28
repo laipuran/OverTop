@@ -118,6 +118,15 @@ namespace OverTop.Floatings
                 IWshRuntimeLibrary.IWshShortcut wshShortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(filePath);
                 Process.Start("explorer.exe", wshShortcut.TargetPath);
             }
+            else if (Keyboard.IsKeyDown(Key.Left))
+                Left -= 5;
+            else if (Keyboard.IsKeyDown(Key.Right))
+                Left += 5;
+            else if (Keyboard.IsKeyDown(Key.Up))
+                Top -= 5;
+            else if (Keyboard.IsKeyDown(Key.Down))
+                Top += 5;
+
         }
 
         private void Window_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -126,7 +135,7 @@ namespace OverTop.Floatings
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
-            propertyWindow.Show();
+            propertyWindow.ShowDialog();
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -169,20 +178,6 @@ namespace OverTop.Floatings
                 Property.isTop = CommonWindowOps.ChangeStatus(Property.isTop, this);
                 return;
             }
-            try
-            {
-                switch (e.Key)
-                {
-                    //TODO: Fix needed
-                    case Key.Left: Left -= 5; break;
-                    case Key.Right: Left += 5; break;
-                    case Key.Up: Top -= 5; break;
-                    case Key.Down: Top += 5; break;
-                    case Key.Escape: Close(); break;
-                    default: break;
-                }
-            }
-            catch { }
         }
 
         private void Window_Closed(object sender, EventArgs e)
