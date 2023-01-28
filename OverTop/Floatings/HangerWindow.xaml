@@ -20,8 +20,7 @@
 
         <StackPanel x:Name="ContentStackPanel"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    MouseLeftButtonDown="ContentStackPanel_MouseLeftButtonDown">
+                    VerticalAlignment="Top">
         </StackPanel>
     </ScrollViewer>
 
