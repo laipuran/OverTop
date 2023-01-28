@@ -33,6 +33,15 @@
                         Source="/Resources/Icons/Image.svg"
                         Width="30"/>
                 </Button>
+                <Button Style="{StaticResource NavigationButtonStyle}"
+                            x:Name="AddLinkButton"
+                            Margin="10,0,0,0"
+                            Click="AddLinkButton_Click"
+                            ToolTip="添加链接">
+                    <svg:SvgViewbox
+                        Source="/Resources/Icons/Text.svg"
+                        Width="30"/>
+                </Button>
             </StackPanel>
             
             <TextBlock Text="窗口宽度 Width：" Margin="0,10,0,0" Foreground="White"/>

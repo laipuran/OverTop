@@ -17,7 +17,7 @@
         MouseLeave="Window_MouseLeave">
     <ScrollViewer Margin="10,10,10,10" CanContentScroll="True"
                   VerticalScrollBarVisibility="Hidden" x:Name="Scroller"
-                  MouseDoubleClick="Window_MouseLeftButtonDown">
+                  MouseDoubleClick="Scroller_MouseDoubleClick">
 
         <StackPanel x:Name="ContentStackPanel"
                     HorizontalAlignment="Left"

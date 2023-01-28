@@ -186,6 +186,18 @@ namespace OverTop.Floatings
             ReloadWindow((HangerWindow)CurrentWindow, ((HangerWindow)CurrentWindow).Property);
         }
 
+        private void AddLinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            TextWindow textWindow = new("请输入文本：", null);
+            textWindow.ShowDialog();
+            string? text = textWindow.result;
+
+            if (string.IsNullOrEmpty(text))
+                return;
+
+            ((HangerWindow)CurrentWindow).Property.link = text;
+        }
+
         public static void ImagePanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.R))

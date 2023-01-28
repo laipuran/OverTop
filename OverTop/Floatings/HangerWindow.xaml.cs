@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using PuranLai.Tools;
 using System;
+using System.Diagnostics;
+using System.Diagnostics.Tracing;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -112,6 +114,13 @@ namespace OverTop.Floatings
         {
             this.Property.top = Top;
             this.Property.left = Left;
+        }
+
+        private void Scroller_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+            if (!string.IsNullOrEmpty(this.Property.link))
+                Process.Start("explorer.exe", this.Property.link);
         }
     }
 }

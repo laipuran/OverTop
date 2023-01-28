@@ -97,6 +97,7 @@ namespace OverTop.Floatings
     {
         public List<KeyValuePair<ContentType, string>> contents = new();
         public string guid = "";
+        public string link = "";
 
         public enum ContentType
         {
