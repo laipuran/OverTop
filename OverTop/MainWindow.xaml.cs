@@ -1,4 +1,5 @@
-﻿using PuranLai.Algorithms;
+﻿using OverTop.Pages;
+using PuranLai.Algorithms;
 using System;
 using System.Drawing;
 using System.Resources;
@@ -18,8 +19,8 @@ namespace OverTop
     {
         bool MenuClosed = true;
 
-        Uri PropertyUri = new Uri("/Pages/StaticPropertyPage.xaml", UriKind.Relative);
-        Uri FloatingUri = new Uri("/Pages/FloatingPanelPage.xaml", UriKind.Relative);
+        readonly Uri PropertyUri = new Uri("Pages/StaticPropertyPage.xaml", UriKind.Relative);
+        readonly Uri FloatingUri = new Uri("Pages/FloatingPanelPage.xaml", UriKind.Relative);
         public MainWindow()
         {
             InitializeComponent();
@@ -96,20 +97,21 @@ namespace OverTop
             if (ContentListBox.SelectedItem == PropertyListBoxItem)
             {
                 ContentFrame.NavigationService.Navigate(PropertyUri);
+                TitleTextBlock.Text = "系统属性";
             }
             else if (ContentListBox.SelectedItem == FloatingListBoxItem)
             {
                 ContentFrame.NavigationService.Navigate(FloatingUri);
+                TitleTextBlock.Text = "浮窗控制";
             }
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!ContentFrame.CanGoBack)
+            if (ContentFrame.CanGoBack)
             {
-                return;
+                ContentFrame.GoBack();
             }
-            ContentFrame.GoBack();
         }
 
         private void ContentFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)

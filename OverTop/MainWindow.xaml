@@ -18,59 +18,60 @@
     </Window.Resources>
     <StackPanel Orientation="Vertical">
         <Grid
-            Background="White"
-            Height="30"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Stretch"
-            MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
+                Height="30" Margin="0,0,0,0"
+                Background="White"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Stretch"
+                MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
+
             <StackPanel
-                Orientation="Horizontal"
-                HorizontalAlignment="Left"
-                Margin="5,0,0,0"
-                Grid.Column="0">
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    Margin="5,0,0,0"
+                    Grid.Column="0">
                 <svg:SvgViewbox
-                    Height="22.5"
-                    Width="22.5"
-                    Source="/Resources/Icons/Icon.svg"/>
+                        Height="22.5"
+                        Width="22.5"
+                        Source="/Resources/Icons/Icon.svg"/>
                 <TextBlock
-                    VerticalAlignment="Center"
-                    Margin="3,0,0,0"
-                    Text="Over Top"/>
+                        VerticalAlignment="Center"
+                        Margin="5,0,0,0"
+                        Text="Over Top"/>
             </StackPanel>
 
             <StackPanel
-                Margin="0,0,10,0"
-                Grid.Column="1"
-                Orientation="Horizontal"
-                HorizontalAlignment="Right">
+                    Margin="0,0,10,0"
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
                 <Button
-                    Style="{StaticResource WindowChromeButton}"
-                    Template="{StaticResource OverrideDefault}"
-                    x:Name="MinimizeButton"
-                    Click="MinimizeButton_Click">
+                        Style="{StaticResource WindowChromeButton}"
+                        Template="{StaticResource OverrideDefault}"
+                        x:Name="MinimizeButton"
+                        Click="MinimizeButton_Click">
                     <svg:SvgViewbox
-                        Source="/Resources/Icons/Minimize.svg"/>
+                            Source="/Resources/Icons/Minimize.svg"/>
                 </Button>
                 <Button
-                    Style="{StaticResource WindowChromeButton}"
-                    Template="{StaticResource OverrideDefault}"
-                    x:Name="DisappearButton"
-                    Click="DisappearButton_Click">
+                        Style="{StaticResource WindowChromeButton}"
+                        Template="{StaticResource OverrideDefault}"
+                        x:Name="DisappearButton"
+                        Click="DisappearButton_Click">
                     <svg:SvgViewbox
-                        Source="/Resources/Icons/Disappear.svg"/>
+                            Source="/Resources/Icons/Disappear.svg"/>
                 </Button>
                 <Button
-                    Style="{StaticResource WindowChromeButton}"
-                    Template="{StaticResource OverrideDefault}"
-                    x:Name="CloseWindowButton"
-                    Click="CloseWindowButton_Click">
+                        Style="{StaticResource WindowChromeButton}"
+                        Template="{StaticResource OverrideDefault}"
+                        x:Name="CloseWindowButton"
+                        Click="CloseWindowButton_Click">
                     <svg:SvgViewbox
+                        Width="15"
                         Source="/Resources/Icons/Window_Close.svg"/>
                 </Button>
             </StackPanel>
