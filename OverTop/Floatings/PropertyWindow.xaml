@@ -39,7 +39,7 @@
                             Click="AddLinkButton_Click"
                             ToolTip="添加链接">
                     <svg:SvgViewbox
-                        Source="/Resources/Icons/Text.svg"
+                        Source="/Resources/Icons/Link.svg"
                         Width="30"/>
                 </Button>
             </StackPanel>

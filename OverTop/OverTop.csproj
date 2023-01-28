@@ -40,6 +40,7 @@
     <None Remove="Resources\Icons\Icon.svg" />
     <None Remove="Resources\Icons\Image.svg" />
     <None Remove="Resources\Icons\Import.svg" />
+    <None Remove="Resources\Icons\Link.svg" />
     <None Remove="Resources\Icons\Menu.svg" />
     <None Remove="Resources\Icons\Minimize.svg" />
     <None Remove="Resources\Icons\New.svg" />
@@ -95,6 +96,7 @@
     <Resource Include="Resources\Icons\Icon.svg" />
     <Resource Include="Resources\Icons\Image.svg" />
     <Resource Include="Resources\Icons\Import.svg" />
+    <Resource Include="Resources\Icons\Link.svg" />
     <Resource Include="Resources\Icons\Menu.svg" />
     <Resource Include="Resources\Icons\Minimize.svg" />
     <Resource Include="Resources\Icons\New.svg" />
