@@ -54,6 +54,7 @@ namespace OverTop.Floatings
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            //TODO: Not applying new color
             if (!saveSettings)
             {
                 return;
@@ -81,14 +82,9 @@ namespace OverTop.Floatings
             CurrentWindow.Background = new SolidColorBrush(mediaColor);
 
             if (CurrentWindow is HangerWindow)
-            {
-                ReloadWindow(CurrentWindow, ((HangerWindow)CurrentWindow).Property);
-            }
+                ((HangerWindow)CurrentWindow).Reload();
             else if (CurrentWindow is RecentWindow)
-            {
-                ReloadWindow(CurrentWindow, ((RecentWindow)CurrentWindow).Property);
-            }
-
+                ((RecentWindow)CurrentWindow).Reload();
         }
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
@@ -156,7 +152,8 @@ namespace OverTop.Floatings
                 return;
 
             ((HangerWindow)CurrentWindow).Property.contents.Add(new(HangerWindowProperty.ContentType.Text, text));
-            ReloadWindow((HangerWindow)CurrentWindow, ((HangerWindow)CurrentWindow).Property);
+
+            ((HangerWindow)CurrentWindow).Reload();
         }
 
         private void AddPictureButton_Click(object sender, RoutedEventArgs e)
@@ -183,7 +180,7 @@ namespace OverTop.Floatings
                 }
                 catch { }
             }
-            ReloadWindow((HangerWindow)CurrentWindow, ((HangerWindow)CurrentWindow).Property);
+            ((HangerWindow)CurrentWindow).Reload();
         }
 
         private void AddLinkButton_Click(object sender, RoutedEventArgs e)
@@ -196,14 +193,6 @@ namespace OverTop.Floatings
                 return;
 
             ((HangerWindow)CurrentWindow).Property.link = text;
-        }
-
-        public static void ImagePanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (Keyboard.IsKeyDown(Key.R))
-            {
-                ((StackPanel)((StackPanel)sender).Parent).Children.Remove((StackPanel)sender);
-            }
         }
 
         private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
