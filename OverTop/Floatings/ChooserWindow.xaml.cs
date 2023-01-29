@@ -152,7 +152,7 @@ namespace OverTop.Floatings
                     Process.Start("explorer.exe", info.ToString());
             }
             else
-                Dock.Property.AddApplication(path, Dock);
+                Dock.Property.AddApplication(path);
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -173,7 +173,7 @@ namespace OverTop.Floatings
 #pragma warning disable CS8602 // 解引用可能出现空引用。
                     Bitmap icon = System.Drawing.Icon.ExtractAssociatedIcon(fileName).ToBitmap();
 #pragma warning restore CS8602 // 解引用可能出现空引用。
-                    Dock.Property.AddApplication(fileName, Dock);
+                    Dock.Property.AddApplication(fileName);
                 }
             }
         }

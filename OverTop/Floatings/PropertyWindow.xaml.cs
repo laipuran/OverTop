@@ -20,21 +20,20 @@ namespace OverTop.Floatings
         public PropertyWindow(HangerWindow window)
         {
             InitializeComponent();
-            CurrentWindow = window;
-            WidthTextBox.Text = CurrentWindow.Width.ToString();
-            HeightTextBox.Text = CurrentWindow.Height.ToString();
-            System.Windows.Media.Color color = ((SolidColorBrush)CurrentWindow.Background).Color;
-            ColorTextBox.Text = ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.R, color.G, color.B));
-            Title += " - " + CurrentWindow.Title;
-
             ButtonStackPanel.Visibility = Visibility.Visible;
-            ToolTip = Title;
+            CurrentWindow = window;
+            CommonSettings(window);
         }
 
         public PropertyWindow(RecentWindow window)
         {
             InitializeComponent();
             CurrentWindow = window;
+            CommonSettings(window);
+        }
+
+        private void CommonSettings(Window window)
+        {
             WidthTextBox.Text = CurrentWindow.Width.ToString();
             HeightTextBox.Text = CurrentWindow.Height.ToString();
             System.Windows.Media.Color color = ((SolidColorBrush)CurrentWindow.Background).Color;
@@ -56,87 +55,69 @@ namespace OverTop.Floatings
             {
                 return;
             }
-            ParsingResult result = Parse.ParseFromString(WidthTextBox.Text, 800);
-            if (result.message != "")
-            {
-                MessageBox.Show(result.message);
-                WidthTextBox.Text = CurrentWindow.Width.ToString();
-                e.Cancel = true;
-            }
-            CurrentWindow.Width = result.number;
+            WindowProperty? property = GetWindowProperty();
 
-            result = Parse.ParseFromString(HeightTextBox.Text, 800);
-            if (result.message != "")
-            {
-                MessageBox.Show(result.message);
-                HeightTextBox.Text = CurrentWindow.Height.ToString();
-                e.Cancel = true;
-            }
-            CurrentWindow.Height = result.number;
-
-            System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
-            var mediaColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
-            CurrentWindow.Background = new SolidColorBrush(mediaColor);
+            if (property == null)
+                return;
 
             if (CurrentWindow is HangerWindow)
+            {
+                ((HangerWindow)CurrentWindow).Property.FromProperty(property);
                 ((HangerWindow)CurrentWindow).Reload();
+            }
             else if (CurrentWindow is RecentWindow)
+            {
+                ((RecentWindow)CurrentWindow).Property.FromProperty(property);
                 ((RecentWindow)CurrentWindow).Reload();
+            }
         }
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
         {
-            WindowProperty hangerProperty = new(), recentProperty = new();
             if (CurrentWindow is HangerWindow)
             {
-                ParsingResult union = Parse.ParseFromString(WidthTextBox.Text, 800);
-                if (union.message != "")
-                {
-                    MessageBox.Show(union.message);
-                    WidthTextBox.Text = CurrentWindow.Width.ToString();
+                WindowProperty? hangerProperty = GetWindowProperty();
+                if (hangerProperty is null)
                     return;
-                }
-                hangerProperty.width = Parse.ParseFromString(WidthTextBox.Text, 1200).number;
 
-                union = Parse.ParseFromString(HeightTextBox.Text, 800);
-                if (union.message != "")
-                {
-                    MessageBox.Show(union.message);
-                    HeightTextBox.Text = CurrentWindow.Height.ToString();
-                    return;
-                }
-                hangerProperty.height = Parse.ParseFromString(HeightTextBox.Text, 1200).number;
-
-                System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
-                hangerProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
                 App.AppSettings.HangerWindowSettings = hangerProperty;
             }
             else if (CurrentWindow is RecentWindow)
             {
-                ParsingResult union = Parse.ParseFromString(WidthTextBox.Text, 800);
-                if (union.message != "")
-                {
-                    MessageBox.Show(union.message);
-                    WidthTextBox.Text = CurrentWindow.Width.ToString();
+                WindowProperty? recentProperty = GetWindowProperty();
+                if (recentProperty is null)
                     return;
-                }
-                recentProperty.width = Parse.ParseFromString(WidthTextBox.Text, 1200).number;
 
-                union = Parse.ParseFromString(HeightTextBox.Text, 800);
-                if (union.message != "")
-                {
-                    MessageBox.Show(union.message);
-                    HeightTextBox.Text = CurrentWindow.Height.ToString();
-                    return;
-                }
-                recentProperty.height = Parse.ParseFromString(HeightTextBox.Text, 1200).number;
-
-                System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
-                recentProperty.backGroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
                 App.AppSettings.RecentWindowSettings = recentProperty;
             }
 
             App.AppSettings.Save();
+        }
+
+        private WindowProperty? GetWindowProperty()
+        {
+            WindowProperty hangerProperty = new();
+            ParsingResult union = Parse.ParseFromString(WidthTextBox.Text, 800);
+            if (union.message != "")
+            {
+                MessageBox.Show(union.message);
+                WidthTextBox.Text = CurrentWindow.Width.ToString();
+                return null;
+            }
+            hangerProperty.width = union.number;
+
+            union = Parse.ParseFromString(HeightTextBox.Text, 800);
+            if (union.message != "")
+            {
+                MessageBox.Show(union.message);
+                HeightTextBox.Text = CurrentWindow.Height.ToString();
+                return null;
+            }
+            hangerProperty.height = union.number;
+
+            System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
+            hangerProperty.backgroundColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
+            return hangerProperty;
         }
 
         private void AddTextButton_Click(object sender, RoutedEventArgs e)

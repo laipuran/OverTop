@@ -21,7 +21,7 @@ namespace OverTop
 
     public class WindowProperty
     {
-        public System.Windows.Media.Color backGroundColor;
+        public System.Windows.Media.Color backgroundColor;
         public int width;
         public int height;
     }
@@ -81,7 +81,7 @@ namespace OverTop
         {
             this.width = property.width;
             this.height = property.height;
-            System.Windows.Media.Color tempColor = property.backGroundColor;
+            System.Windows.Media.Color tempColor = property.backgroundColor;
             this.backgroundColor = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(tempColor.R, tempColor.G, tempColor.B));
         }
 
@@ -110,7 +110,7 @@ namespace OverTop
         {
             this.width = property.width;
             this.height = property.height;
-            System.Windows.Media.Color tempColor = property.backGroundColor;
+            System.Windows.Media.Color tempColor = property.backgroundColor;
             this.backgroundColor = System.Drawing.ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(tempColor.R, tempColor.G, tempColor.B));
         }
 
@@ -153,12 +153,7 @@ namespace OverTop
             // Empty
         }
 
-        public static AppWindowProperty GetDefaultProperty()
-        {
-            return new();
-        }
-
-        public void AddApplication(string path, AppWindow window)
+        public void AddApplication(string path)
         {
             if (this.FilePaths.Contains(path) || this.FilePaths.Count >= 9)
             {
@@ -166,53 +161,16 @@ namespace OverTop
             }
 
             this.FilePaths.Add(path);
-            ReloadWindow(window);
+            App.DockPanel.Reload();
         }
 
         public void RemoveApplication(string path)
         {
             this.FilePaths.Remove(path);
-            ReloadWindow(App.DockPanel);
+            App.DockPanel.Reload();
         }
 
-        public void ReloadWindow(AppWindow window)
-        {
-            AppWindowProperty property = window.Property;
-            if (property.FilePaths.Count != 0)
-            {
-                window.ContentPanel.Children.RemoveRange(0, window.ContentPanel.Children.Count);
-                foreach (string path in property.FilePaths)
-                {
-                    try
-                    {
-                        Icon? icon = System.Drawing.Icon.ExtractAssociatedIcon(path);
-                        Bitmap bitmap;
-                        if (icon is null)
-                            continue;
-                        else
-                            bitmap = icon.ToBitmap();
-
-                        System.Windows.Controls.Image image = new();
-                        image.Source = Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                        image.Width = 40;
-                        Thickness margin = new(10, 10, 10, 10);
-                        StackPanel IconStackPanel = new()
-                        {
-                            Margin = margin,
-                            ToolTip = path,
-                            AllowDrop = true,
-                        };
-                        IconStackPanel.Children.Add(image);
-                        IconStackPanel.MouseLeftButtonDown += IconStackPanel_MouseLeftButtonDown;
-                        window.ContentPanel.Children.Add(IconStackPanel);
-                    }
-                    catch { }
-                }
-            }
-            window.SetWindowPos(property.screenPart);
-        }
-
-        public void IconStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        public static void IconStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             string? path = ((StackPanel)sender).ToolTip.ToString();
             if (path is null)
@@ -221,7 +179,7 @@ namespace OverTop
             DirectoryInfo? info = Directory.GetParent(path);
             if (Keyboard.IsKeyDown(Key.R) || !File.Exists(path))
             {
-                this.RemoveApplication(path);
+                App.DockPanel.Property.RemoveApplication(path);
             }
             else if (Keyboard.IsKeyDown(Key.LeftCtrl) && info is not null)
                 Process.Start("explorer.exe", info.ToString());

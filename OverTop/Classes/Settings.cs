@@ -76,11 +76,11 @@ namespace OverTop
             WindowProperty hanger = new(), recent = new();
             hanger.height = 150;
             hanger.width = 200;
-            hanger.backGroundColor = System.Windows.Media.Color.FromRgb(102, 111, 255);
+            hanger.backgroundColor = System.Windows.Media.Color.FromRgb(102, 111, 255);
 
             recent.height = 350;
             recent.width = 250;
-            recent.backGroundColor = System.Windows.Media.Color.FromRgb(69, 181, 255);
+            recent.backgroundColor = System.Windows.Media.Color.FromRgb(69, 181, 255);
 
             settings.HangerWindowSettings = hanger;
             settings.RecentWindowSettings = recent;
