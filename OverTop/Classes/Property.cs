@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OverTop.Floatings;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -10,7 +11,7 @@ using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using static OverTop.AppWindowOps;
 
-namespace OverTop.Floatings
+namespace OverTop
 {
     interface IProperty
     {

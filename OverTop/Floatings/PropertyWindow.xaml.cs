@@ -5,10 +5,8 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using static OverTop.CommonWindowOps;
 
 namespace OverTop.Floatings
 {
@@ -54,7 +52,6 @@ namespace OverTop.Floatings
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //TODO: Not applying new color
             if (!saveSettings)
             {
                 return;
@@ -66,7 +63,7 @@ namespace OverTop.Floatings
                 WidthTextBox.Text = CurrentWindow.Width.ToString();
                 e.Cancel = true;
             }
-            CurrentWindow.Width = Parse.ParseFromString(WidthTextBox.Text, 1200).number;
+            CurrentWindow.Width = result.number;
 
             result = Parse.ParseFromString(HeightTextBox.Text, 800);
             if (result.message != "")
@@ -75,7 +72,7 @@ namespace OverTop.Floatings
                 HeightTextBox.Text = CurrentWindow.Height.ToString();
                 e.Cancel = true;
             }
-            CurrentWindow.Height = Parse.ParseFromString(HeightTextBox.Text, 1200).number;
+            CurrentWindow.Height = result.number;
 
             System.Drawing.Color color = ColorTranslator.FromHtml(ColorTextBox.Text);
             var mediaColor = System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);

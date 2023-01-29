@@ -2,7 +2,6 @@
 using PuranLai.Tools;
 using System;
 using System.Diagnostics;
-using System.Diagnostics.Tracing;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,9 +15,10 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class HangerWindow : Window
     {
+
         public bool isMouseIn = false;
-        public HangerWindowProperty Property;
-        public StackPanel ContentPanel;
+        public HangerWindowProperty Property { get; set; }
+        public StackPanel ContentPanel { get; set; }
 
         public HangerWindow(HangerWindowProperty property)
         {
@@ -74,7 +74,6 @@ namespace OverTop.Floatings
         private unsafe void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             CommonWindowOps.ChangeZIndex(Property.isTop, this);
-            Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
             fixed (bool* MouseIn = &isMouseIn)
             {
                 this.ChangeOpacity(ExtendedWindowOps.OpacityOptions._75, MouseIn);
@@ -84,7 +83,6 @@ namespace OverTop.Floatings
         private unsafe void Window_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             CommonWindowOps.ChangeZIndex(Property.isTop, this);
-            Scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
             fixed (bool* MouseIn = &isMouseIn)
             {
                 if (this.Property.contents.Count == 0)
@@ -98,7 +96,7 @@ namespace OverTop.Floatings
 
         private void Window_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Window propertyWindow = new PropertyWindow(this)
+            PropertyWindow propertyWindow = new(this)
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
