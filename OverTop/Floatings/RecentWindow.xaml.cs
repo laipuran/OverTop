@@ -29,21 +29,13 @@ namespace OverTop.Floatings
             Property = property;
             App.FloatingWindows.Add(this);
             ContentPanel = ContentStackPanel;
-
-            this.Top = property.top == 0 ? Top : property.top;
-            this.Left = property.left == 0 ? Left : property.left;
-            this.Width = property.width;
-            this.Height = property.height;
-            System.Drawing.Color tempColor = ColorTranslator.FromHtml(property.backgroundColor);
-            System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(tempColor.R, tempColor.G, tempColor.B);
-            this.Background = new SolidColorBrush(color);
-            this.ToolTip = "Recent Window";
-            this.Title = "Recent Window";
             if (!Property.isTop)
             {
                 ChangeStatus(false, this);
             }
             Task.Run(() => Dispatcher.BeginInvoke(() => { LoadRecentFiles(); }));
+
+            this.Reload();
         }
 
         // Get system recent files
