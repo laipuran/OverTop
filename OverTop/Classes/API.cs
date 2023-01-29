@@ -73,10 +73,10 @@ namespace OverTop
             string? json = GetData(amapBase + "ip?key=" + key + "&ip=" + ip);
             if (json is null) return null;
 #pragma warning disable CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
-            IpInformation iP = JsonConvert.DeserializeObject<IpInformation>(json);
+            IpInformation i2 = JsonConvert.DeserializeObject<IpInformation>(json);
 #pragma warning restore CS8600 // 将 null 字面量或可能为 null 的值转换为非 null 类型。
 
-            return iP;
+            return i2;
         }
 
         public static WeatherInformation? GetWeatherInformation(string adcode)
