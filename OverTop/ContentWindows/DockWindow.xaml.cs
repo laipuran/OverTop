@@ -197,5 +197,17 @@ namespace OverTop.ContentWindows
             currentWindowName = info.Title;
             SetForegroundWindow(info.Hwnd);
         }
+
+        private void Window_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (string filePath in files)
+                {
+                    App.DockPanel.Property.AddApplication(filePath);
+                }
+            }
+        }
     }
 }
