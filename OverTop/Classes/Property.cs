@@ -172,10 +172,8 @@ namespace OverTop
 
         public static void IconStackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            string? path = ((StackPanel)sender).ToolTip.ToString();
-            if (path is null)
-                return;
-
+            int index = App.DockPanel.ContentPanel.Children.IndexOf((StackPanel)sender);
+            string path = App.DockPanel.Property.FilePaths[index];
             DirectoryInfo? info = Directory.GetParent(path);
             if (Keyboard.IsKeyDown(Key.R) || !File.Exists(path))
             {

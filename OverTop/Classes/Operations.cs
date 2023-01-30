@@ -278,49 +278,12 @@ namespace OverTop
         public static void ImagePanel_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             StackPanel currentStackPanel = (StackPanel)sender;
-            Image currentImage = (Image)currentStackPanel.Children[0];
-            CustomWindow currentWindow = (CustomWindow)((ScrollViewer)((StackPanel)currentStackPanel.Parent).Parent).Parent;
+            StackPanel ContentPanel = (StackPanel)currentStackPanel.Parent;
+            CustomWindow currentWindow = GetHostWindow(currentStackPanel);
+            int index = ContentPanel.Children.IndexOf(currentStackPanel);
             if (Keyboard.IsKeyDown(Key.R))
             {
-                BitmapSource source = (BitmapSource)currentImage.Source;
-                MemoryStream stream1 = new();
-                BmpBitmapEncoder encoder = new();
-                encoder.Frames.Add(BitmapFrame.Create(source));
-                encoder.Save(stream1);
-                Bitmap image = new(stream1);
-                stream1.Close();
-
-                List<KeyValuePair<HangerWindowProperty.ContentType, string>> list = new();
-                list.AddRange(currentWindow.Property.contents);
-                foreach (var pair in list)
-                {
-                    if (pair.Key == HangerWindowProperty.ContentType.Text)
-                        continue;
-
-                    MemoryStream ms = new(Convert.FromBase64String(pair.Value));
-                    Bitmap bitmap = new(ms);
-                    ms.Close();
-                    bool flag = true;
-                    for (int i = 0; i < bitmap.Width; i++)
-                    {
-                        if (!flag)
-                            break;
-                        for (int j = 0; j < bitmap.Height; j++)
-                        {
-                            if (!flag)
-                                break;
-                            if (bitmap.GetPixel(i, j) != (bitmap.GetPixel(i, j)))
-                            {
-                                flag = false;
-                                break;
-                            }
-                        }
-                    }
-                    if (flag)
-                    {
-                        currentWindow.Property.contents.Remove(pair);
-                    }
-                }
+                currentWindow.Property.contents.RemoveAt(index);
             }
             currentWindow.Reload();
         }
@@ -328,11 +291,12 @@ namespace OverTop
         public static void TextPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             StackPanel currentStackPanel = (StackPanel)sender;
+            StackPanel ContentPanel = (StackPanel)currentStackPanel.Parent;
             TextBlock currentTextBlock = (TextBlock)currentStackPanel.Children[0];
-            CustomWindow currentWindow = (CustomWindow)((ScrollViewer)((StackPanel)currentStackPanel.Parent).Parent).Parent;
+            CustomWindow currentWindow = GetHostWindow(currentStackPanel);
+            int index = ContentPanel.Children.IndexOf(currentStackPanel);
             if (Keyboard.IsKeyDown(Key.M))
             {
-                int index = currentWindow.Property.contents.IndexOf(new(HangerWindowProperty.ContentType.Text, currentTextBlock.Text));
                 TextWindow textWindow = new("请输入文本：", currentTextBlock.Text);
                 textWindow.ShowDialog();
                 if (textWindow.result is null)
@@ -344,9 +308,17 @@ namespace OverTop
             }
             else if (Keyboard.IsKeyDown(Key.R))
             {
-                currentWindow.Property.contents.Remove(new(HangerWindowProperty.ContentType.Text, currentTextBlock.Text));
+                currentWindow.Property.contents.RemoveAt(index);
             }
             currentWindow.Reload();
+        }
+
+        public static CustomWindow GetHostWindow(StackPanel currentPanel)
+        {
+            StackPanel ContentPanel = (StackPanel)currentPanel.Parent;
+            StackPanel OriginStackPanel = (StackPanel)ContentPanel.Parent;
+            ScrollViewer Scroller = (ScrollViewer)OriginStackPanel.Parent;
+            return (CustomWindow)Scroller.Parent;
         }
     }
 
