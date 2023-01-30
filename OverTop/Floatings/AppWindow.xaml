@@ -3,17 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        
         mc:Ignorable="d"
         Style="{StaticResource FloatingWindowStyle}"
-        Title="AppWindow" Height="60" Width="560"
+        Title="DockPanel" Height="60" Width="560"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         MouseRightButtonDown="Window_MouseRightButtonDown"
         MouseDoubleClick="Window_MouseDoubleClick"
         Topmost="True" ShowInTaskbar="False"
         MouseEnter="Window_MouseEnter"
         MouseLeave="Window_MouseLeave"
-        KeyDown="Window_KeyDown" Loaded="Window_Loaded">
+        KeyDown="Window_KeyDown" Loaded="Window_Loaded"
+        MouseWheel="Window_MouseWheel">
     <StackPanel x:Name="ContentStackPanel"
                 Orientation="Horizontal"
                 HorizontalAlignment="Center"

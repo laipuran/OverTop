@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,14 +17,12 @@ namespace OverTop.Floatings
     /// </summary>
     public partial class AppWindow : Window
     {
-        [DllImport("user32.dll")]
-        private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
-        private static bool isTop = true;
-
+        public bool isTop = true;
         public bool isMouseIn = false;
         public StackPanel ContentPanel;
         public AppWindowProperty Property;
-
+        string currentWindowName = "";
+        List<WindowInfo> LatestWindows = new();
         public AppWindow(AppWindowProperty property)
         {
             InitializeComponent();
@@ -114,6 +115,86 @@ namespace OverTop.Floatings
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.Reload();
+        }
+
+        [DllImport("user32")]
+        private static extern void SetForegroundWindow(IntPtr hWnd);
+
+        private void Window_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            IReadOnlyList<WindowInfo> windows = WindowEnumerator.FindAll();
+            List<WindowInfo> WindowList = new(), temp = new();
+            temp.AddRange(windows);
+            foreach (var item in windows)
+            {
+                if (item.Title != "DockPanel"
+                    && item.Title != "Microsoft Text Input Application"
+                    && item.Title != "Program Manager")
+                {
+                    WindowList.Add(item);
+                }
+            }
+            bool flag = false;
+            if (LatestWindows.Count != WindowList.Count)
+            {
+                flag = true;
+            }
+            foreach (var item in WindowList)
+            {
+                if (!LatestWindows.Contains(item))
+                {
+                    flag = true;
+                }
+            }
+            if (flag)
+            {
+                LatestWindows = new();
+                LatestWindows.AddRange(WindowList);
+            }
+            else
+            {
+                WindowList = LatestWindows;
+            }
+
+            if (String.IsNullOrEmpty(currentWindowName))
+            {
+                WindowInfo first = WindowList[0];
+                currentWindowName = first.Title;
+                SetForegroundWindow(first.Hwnd);
+                return;
+            }
+
+            bool up = e.Delta > 0 ? true : false;
+            foreach (var WindowInfo in windows)
+            {
+                if (WindowInfo.Title == currentWindowName)
+                {
+                    int index = WindowList.IndexOf(WindowInfo);
+                    index = up ? index + 1 : index - 1;
+
+                    while (true)
+                    {
+                        if (index >= WindowList.Count)
+                        {
+                            index = 0;
+                        }
+                        else if (index < 0)
+                        {
+                            index = WindowList.Count - 1;
+                        }
+                        else
+                            break;
+                    }
+
+                    WindowInfo next = WindowList[index];
+                    currentWindowName = next.Title;
+                    SetForegroundWindow(next.Hwnd);
+                    return;
+                }
+            }
+            WindowInfo info = WindowList[0];
+            currentWindowName = info.Title;
+            SetForegroundWindow(info.Hwnd);
         }
     }
 }
