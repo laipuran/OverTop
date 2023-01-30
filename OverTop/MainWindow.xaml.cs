@@ -72,7 +72,7 @@ namespace OverTop
             fixed (bool* isOpened = &MenuClosed)
             {
                 Animation open = new Animation(200, MenuStackPanel.Width, 160, Animation.GetSineValue, SetPanelWidth, 50, Flag: isOpened);
-                open.StartAnimationAsync();
+                Task.Run(open.StartAnimationAsync);
             }
         }
 
@@ -87,7 +87,7 @@ namespace OverTop
             fixed (bool* isOpened = &MenuClosed)
             {
                 Animation open = new Animation(200, MenuStackPanel.Width, 45, Animation.GetSineValue, SetPanelWidth, 50, Flag: isOpened);
-                open.StartAnimationAsync();
+                Task.Run(open.StartAnimationAsync);
             }
         }
 
