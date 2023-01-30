@@ -180,7 +180,7 @@ namespace OverTop
             });
             unsafe
             {
-                Animation animation = new(500, Opacity, 0, Animation.GetLinearValue, SetOpacity);
+                Animation animation = new(500, Opacity, 0.1, Animation.GetLinearValue, SetOpacity);
                 animation.StartAnimationAsync();
             }
         }

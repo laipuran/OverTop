@@ -16,12 +16,13 @@
         MouseEnter="Window_MouseEnter"
         MouseLeave="Window_MouseLeave">
     <ScrollViewer Margin="10,10,10,10" CanContentScroll="True"
-                  VerticalScrollBarVisibility="Hidden" x:Name="Scroller"
-                  MouseDoubleClick="Scroller_MouseDoubleClick">
+                  VerticalScrollBarVisibility="Hidden" x:Name="Scroller">
 
         <StackPanel x:Name="ContentStackPanel"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top">
+                    Background="#01FFFFFF"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    MouseLeftButtonDown="ContentStackPanel_MouseButtonDown">
         </StackPanel>
     </ScrollViewer>
 

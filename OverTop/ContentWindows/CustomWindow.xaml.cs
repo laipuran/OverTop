@@ -115,7 +115,7 @@ namespace OverTop.ContentWindows
             this.Property.left = Left;
         }
 
-        private void Scroller_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ContentStackPanel_MouseButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
             if (!string.IsNullOrEmpty(this.Property.link))
