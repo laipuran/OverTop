@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using OverTop.Floatings;
+using OverTop.ContentWindows;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +19,7 @@ namespace OverTop
 
         #region The variables needed in the whole application
         public static new MainWindow MainWindow = new();
-        public static AppWindow DockPanel = new();
+        public static DockWindow DockPanel = new();
         public static WeatherWindow WeatherWindow = new(WeatherWindowProperty.GetDefaultProperty());
         public static List<Window> FloatingWindows = new();
         public static Settings AppSettings = new();
@@ -35,7 +35,7 @@ namespace OverTop
                 Environment.Exit(-1);
             }
 
-            CurrentIP = API.GetHostIp();
+            CurrentIP = WebApi.GetHostIp();
             if (CurrentIP is not null)
                 AppSettings = GetSettingsFromFile(CurrentIP);
             else
@@ -61,7 +61,7 @@ namespace OverTop
             {
                 foreach (HangerWindowProperty windowClass in AppSettings.HangerWindows)
                 {
-                    HangerWindow newHanger = new(windowClass);
+                    CustomWindow newHanger = new(windowClass);
                     newHanger.Show();
                 }
             }
@@ -76,15 +76,15 @@ namespace OverTop
                 if (appWindowClass is not null)
                     DockPanel = new(appWindowClass);
                 else
-                    DockPanel = (AppWindow)new AppWindowProperty().GetWindow();
+                    DockPanel = (DockWindow)new AppWindowProperty().GetWindow();
             }
             else
             {
-                DockPanel = (AppWindow)new AppWindowProperty().GetWindow();
+                DockPanel = (DockWindow)new AppWindowProperty().GetWindow();
             }
             DockPanel.Show();
 
-            Pages.StaticPropertyPage.ColorChanged();
+            Pages.PropertyPage.ColorChanged();
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
@@ -100,9 +100,9 @@ namespace OverTop
                     RecentWindows++;
                     App.AppSettings.RecentWindow = ((RecentWindow)window).Property;
                 }
-                else if (window is HangerWindow)
+                else if (window is CustomWindow)
                 {
-                    HangerWindowProperty? property = ((HangerWindow)window).Property;
+                    HangerWindowProperty? property = ((CustomWindow)window).Property;
                     App.AppSettings.HangerWindows.Add(property);
                     HangerWindows++;
                 }

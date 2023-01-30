@@ -10,22 +10,23 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using OverTop.ContentWindows;
 
-namespace OverTop.Floatings
+namespace OverTop.FunctionalWindows
 {
     /// <summary>
     /// ChooserWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class ChooserWindow : Window
+    public partial class SelectorWindow : Window
     {
         [DllImport("user32.dll")]
         private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
 
         List<String> filePaths = new();
         List<String> folders = new();
-        AppWindow Dock;
+        DockWindow Dock;
 
-        public ChooserWindow(AppWindow window)
+        public SelectorWindow(DockWindow window)
         {
             InitializeComponent();
             folders.Add(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu));

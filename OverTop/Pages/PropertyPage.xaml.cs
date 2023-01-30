@@ -10,9 +10,9 @@ namespace OverTop.Pages
     /// <summary>
     /// StaticPropertyPage.xaml 的交互逻辑
     /// </summary>
-    public partial class StaticPropertyPage : Page
+    public partial class PropertyPage : Page
     {
-        public StaticPropertyPage()
+        public PropertyPage()
         {
             InitializeComponent();
 

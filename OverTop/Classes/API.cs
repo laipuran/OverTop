@@ -8,7 +8,7 @@ using System.Text;
 
 namespace OverTop
 {
-    public class API
+    public class WebApi
     {
         private static string key = "ad768f25db9eb67e3883c2a16f59295b";
         private static string ipSrc = "https://ip.useragentinfo.com/myip";

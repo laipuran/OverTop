@@ -3,7 +3,7 @@ using PuranLai.Algorithms;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using static OverTop.API;
+using static OverTop.WebApi;
 
 namespace OverTop
 {
@@ -62,7 +62,7 @@ namespace OverTop
 
             if (ip != settings.ip && ip is not null)
             {
-                settings.i2 = API.GetIpInformation(ip);
+                settings.i2 = WebApi.GetIpInformation(ip);
                 settings.ip = ip;
             }
 

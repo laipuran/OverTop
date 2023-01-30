@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OverTop.FunctionalWindows;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -11,7 +12,7 @@ using System.Windows.Media.Imaging;
 using static OverTop.CommonWindowOps;
 using static PuranLai.Tools.ExtendedWindowOps;
 
-namespace OverTop.Floatings
+namespace OverTop.ContentWindows
 {
     /// <summary>
     /// RecentWindow.xaml 的交互逻辑
@@ -122,7 +123,7 @@ namespace OverTop.Floatings
 
         private void Window_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Window propertyWindow = new PropertyWindow(this)
+            PropertyWindow propertyWindow = new PropertyWindow(this)
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };

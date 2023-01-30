@@ -7,8 +7,9 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using OverTop.ContentWindows;
 
-namespace OverTop.Floatings
+namespace OverTop.FunctionalWindows
 {
     /// <summary>
     /// PropertyWindow.xaml 的交互逻辑
@@ -17,7 +18,7 @@ namespace OverTop.Floatings
     {
         bool saveSettings = true;
         Window CurrentWindow;
-        public PropertyWindow(HangerWindow window)
+        public PropertyWindow(CustomWindow window)
         {
             InitializeComponent();
             ButtonStackPanel.Visibility = Visibility.Visible;
@@ -60,10 +61,10 @@ namespace OverTop.Floatings
             if (property == null)
                 return;
 
-            if (CurrentWindow is HangerWindow)
+            if (CurrentWindow is CustomWindow)
             {
-                ((HangerWindow)CurrentWindow).Property.FromProperty(property);
-                ((HangerWindow)CurrentWindow).Reload();
+                ((CustomWindow)CurrentWindow).Property.FromProperty(property);
+                ((CustomWindow)CurrentWindow).Reload();
             }
             else if (CurrentWindow is RecentWindow)
             {
@@ -74,7 +75,7 @@ namespace OverTop.Floatings
 
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
         {
-            if (CurrentWindow is HangerWindow)
+            if (CurrentWindow is CustomWindow)
             {
                 WindowProperty? hangerProperty = GetWindowProperty();
                 if (hangerProperty is null)
@@ -129,9 +130,9 @@ namespace OverTop.Floatings
             if (string.IsNullOrEmpty(text))
                 return;
 
-            ((HangerWindow)CurrentWindow).Property.contents.Add(new(HangerWindowProperty.ContentType.Text, text));
+            ((CustomWindow)CurrentWindow).Property.contents.Add(new(HangerWindowProperty.ContentType.Text, text));
 
-            ((HangerWindow)CurrentWindow).Reload();
+            ((CustomWindow)CurrentWindow).Reload();
         }
 
         private void AddPictureButton_Click(object sender, RoutedEventArgs e)
@@ -154,11 +155,11 @@ namespace OverTop.Floatings
                     string base64 = Convert.ToBase64String(bytes);
                     ms.Close();
 
-                    ((HangerWindow)CurrentWindow).Property.contents.Add(new(HangerWindowProperty.ContentType.Image, base64));
+                    ((CustomWindow)CurrentWindow).Property.contents.Add(new(HangerWindowProperty.ContentType.Image, base64));
                 }
                 catch { }
             }
-            ((HangerWindow)CurrentWindow).Reload();
+            ((CustomWindow)CurrentWindow).Reload();
         }
 
         private void AddLinkButton_Click(object sender, RoutedEventArgs e)
@@ -170,7 +171,7 @@ namespace OverTop.Floatings
             if (string.IsNullOrEmpty(text))
                 return;
 
-            ((HangerWindow)CurrentWindow).Property.link = text;
+            ((CustomWindow)CurrentWindow).Property.link = text;
         }
 
         private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)

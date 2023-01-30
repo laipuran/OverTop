@@ -7,7 +7,7 @@ namespace OverTop
     {
         public static HangerWindowProperty? OpenFromInternet(string site)
         {
-            string? json = API.GetData(site);
+            string? json = WebApi.GetData(site);
             if (json is null) return null;
 
             HangerWindowProperty? windowClass = JsonConvert.DeserializeObject<HangerWindowProperty>(json);

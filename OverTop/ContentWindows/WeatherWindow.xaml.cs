@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using static OverTop.API;
+using static OverTop.WebApi;
 using static OverTop.App;
 using static PuranLai.Tools.ExtendedWindowOps;
 
-namespace OverTop.Floatings
+namespace OverTop.ContentWindows
 {
     /// <summary>
     /// WeatherWindow.xaml 的交互逻辑

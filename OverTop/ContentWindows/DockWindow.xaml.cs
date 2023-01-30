@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OverTop.FunctionalWindows;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -10,12 +11,12 @@ using System.Windows.Input;
 using static OverTop.AppWindowOps;
 using static PuranLai.Tools.ExtendedWindowOps;
 
-namespace OverTop.Floatings
+namespace OverTop.ContentWindows
 {
     /// <summary>
     /// AppWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class AppWindow : Window
+    public partial class DockWindow : Window
     {
         public bool isTop = true;
         public bool isMouseIn = false;
@@ -23,14 +24,14 @@ namespace OverTop.Floatings
         public AppWindowProperty Property;
         string currentWindowName = "";
         List<WindowInfo> LatestWindows = new();
-        public AppWindow(AppWindowProperty property)
+        public DockWindow(AppWindowProperty property)
         {
             InitializeComponent();
             Property = property;
             ContentPanel = ContentStackPanel;
         }
 
-        public AppWindow()
+        public DockWindow()
         {
             ContentPanel = new();
             Property = new();
@@ -52,7 +53,7 @@ namespace OverTop.Floatings
 
         private void Window_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Window chooserWindow = new ChooserWindow(this);
+            SelectorWindow chooserWindow = new SelectorWindow(this);
             try
             {
                 chooserWindow.Show();

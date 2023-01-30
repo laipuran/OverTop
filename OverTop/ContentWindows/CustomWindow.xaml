@@ -1,26 +1,28 @@
-﻿<Window x:Class="OverTop.Floatings.RecentWindow"
+﻿<Window x:Class="OverTop.ContentWindows.CustomWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OverTop.Floatings"
+        xmlns:local="clr-namespace:OverTop.ContentWindows"
         mc:Ignorable="d" Closed="Window_Closed"
-        Title="Recent Window"
-        Width="100" Height="200"
-        MouseRightButtonDown="Window_MouseRightButtonDown"
+        Height="150" Width="180"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Topmost="True" ShowInTaskbar="False"
+        MouseRightButtonDown="Window_MouseRightButtonDown"
+        Style="{StaticResource FloatingWindowStyle}"
+        Topmost="True" Title="Hanger Window"
         KeyDown="Window_KeyDown"
+        ShowInTaskbar="False"
         MouseMove="Window_MouseMove"
         MouseEnter="Window_MouseEnter"
-        MouseLeave="Window_MouseLeave"
-        Style="{StaticResource FloatingWindowStyle}">
+        MouseLeave="Window_MouseLeave">
     <ScrollViewer Margin="10,10,10,10" CanContentScroll="True"
                   VerticalScrollBarVisibility="Hidden" x:Name="Scroller"
-                  MouseDoubleClick="Window_MouseLeftButtonDown">
+                  MouseDoubleClick="Scroller_MouseDoubleClick">
+
         <StackPanel x:Name="ContentStackPanel"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top">
         </StackPanel>
     </ScrollViewer>
+
 </Window>

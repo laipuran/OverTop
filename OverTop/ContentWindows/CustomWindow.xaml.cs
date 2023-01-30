@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using OverTop.FunctionalWindows;
 using PuranLai.Tools;
 using System;
 using System.Diagnostics;
@@ -8,19 +9,19 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using static OverTop.CommonWindowOps;
 
-namespace OverTop.Floatings
+namespace OverTop.ContentWindows
 {
     /// <summary>
     /// HangerWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class HangerWindow : Window
+    public partial class CustomWindow : Window
     {
 
         public bool isMouseIn = false;
         public HangerWindowProperty Property { get; set; }
         public StackPanel ContentPanel { get; set; }
 
-        public HangerWindow(HangerWindowProperty property)
+        public CustomWindow(HangerWindowProperty property)
         {
             InitializeComponent();
             Property = property;

@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using OverTop.Floatings;
+using OverTop.ContentWindows;
 using PuranLai.Tools;
 using System;
 using System.Collections.Generic;
@@ -37,7 +37,7 @@ namespace OverTop
                 (int)window.Top, (int)window.Width, (int)window.Height, 0);
         }
 
-        public static void Save(this AppWindow window)
+        public static void Save(this DockWindow window)
         {
             AppWindowProperty appWindow = window.Property;
             string json = JsonConvert.SerializeObject(appWindow);
@@ -84,7 +84,7 @@ namespace OverTop
             }
         }
 
-        public static void SetWindowPos(this AppWindow window, ScreenPart part)
+        public static void SetWindowPos(this DockWindow window, ScreenPart part)
         {
             if (part == ScreenPart.TopPart)
             {
@@ -122,9 +122,9 @@ namespace OverTop
 
         public static void Reload(this Window currentWindow)
         {
-            if (currentWindow is HangerWindow)
+            if (currentWindow is CustomWindow)
             {
-                HangerWindow window = (HangerWindow)currentWindow;
+                CustomWindow window = (CustomWindow)currentWindow;
                 HangerWindowProperty property = window.Property;
                 window.Top = property.top == 0 ? window.Top : property.top;
                 window.Left = property.left == 0 ? window.Left : property.left;
@@ -186,9 +186,9 @@ namespace OverTop
                 System.Windows.Media.Color color = System.Windows.Media.Color.FromRgb(tempColor.R, tempColor.G, tempColor.B);
                 window.Background = new SolidColorBrush(color);
             }
-            else if (currentWindow is AppWindow)
+            else if (currentWindow is DockWindow)
             {
-                AppWindow window = (AppWindow)currentWindow;
+                DockWindow window = (DockWindow)currentWindow;
                 AppWindowProperty property = window.Property;
                 if (property.FilePaths.Count != 0)
                 {
@@ -279,7 +279,7 @@ namespace OverTop
         {
             StackPanel currentStackPanel = (StackPanel)sender;
             Image currentImage = (Image)currentStackPanel.Children[0];
-            HangerWindow currentWindow = (HangerWindow)((ScrollViewer)((StackPanel)currentStackPanel.Parent).Parent).Parent;
+            CustomWindow currentWindow = (CustomWindow)((ScrollViewer)((StackPanel)currentStackPanel.Parent).Parent).Parent;
             if (Keyboard.IsKeyDown(Key.R))
             {
                 BitmapSource source = (BitmapSource)currentImage.Source;
@@ -329,7 +329,7 @@ namespace OverTop
         {
             StackPanel currentStackPanel = (StackPanel)sender;
             TextBlock currentTextBlock = (TextBlock)currentStackPanel.Children[0];
-            HangerWindow currentWindow = (HangerWindow)((ScrollViewer)((StackPanel)currentStackPanel.Parent).Parent).Parent;
+            CustomWindow currentWindow = (CustomWindow)((ScrollViewer)((StackPanel)currentStackPanel.Parent).Parent).Parent;
             if (Keyboard.IsKeyDown(Key.M))
             {
                 int index = currentWindow.Property.contents.IndexOf(new(HangerWindowProperty.ContentType.Text, currentTextBlock.Text));

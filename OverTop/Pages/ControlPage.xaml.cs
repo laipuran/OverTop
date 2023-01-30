@@ -1,6 +1,6 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
-using OverTop.Floatings;
+using OverTop.ContentWindows;
 using PuranLai.Algorithms;
 using PuranLai.Tools;
 using System;
@@ -15,9 +15,9 @@ namespace OverTop.Pages
     /// <summary>
     /// FloatingPanelPage.xaml 的交互逻辑
     /// </summary>
-    public partial class FloatingPanelPage : Page
+    public partial class ControlPage : Page
     {
-        public FloatingPanelPage()
+        public ControlPage()
         {
             InitializeComponent();
 
@@ -29,13 +29,13 @@ namespace OverTop.Pages
 
         private void HangerWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            Window newHanger = new Floatings.HangerWindow(HangerWindowProperty.GetDefaultProperty());
+            Window newHanger = new ContentWindows.CustomWindow(HangerWindowProperty.GetDefaultProperty());
             newHanger.Show();
         }
 
         private void RecentWindowButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            Window newRecent = new Floatings.RecentWindow(RecentWindowProperty.GetDefaultProperty());
+            Window newRecent = new ContentWindows.RecentWindow(RecentWindowProperty.GetDefaultProperty());
             newRecent.Show();
         }
 
@@ -79,7 +79,7 @@ namespace OverTop.Pages
 #pragma warning disable CS8602 // 解引用可能出现空引用。
             windowClass.guid = fileName;
 #pragma warning restore CS8602 // 解引用可能出现空引用。
-            HangerWindow newHanger = new Floatings.HangerWindow(windowClass);
+            CustomWindow newHanger = new ContentWindows.CustomWindow(windowClass);
 
             newHanger.Show();
         }

@@ -1,4 +1,4 @@
-﻿using OverTop.Floatings;
+﻿using OverTop.ContentWindows;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -129,7 +129,7 @@ namespace OverTop
             {
                 return GetDefaultProperty().GetWindow();
             }
-            return new HangerWindow(this);
+            return new CustomWindow(this);
         }
     }
 
@@ -145,7 +145,7 @@ namespace OverTop
 
         public Window GetWindow()
         {
-            return new AppWindow(this);
+            return new DockWindow(this);
         }
 
         public void FromProperty(WindowProperty property)
