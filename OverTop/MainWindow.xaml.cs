@@ -18,8 +18,8 @@ namespace OverTop
     {
         bool MenuClosed = true;
 
-        readonly Uri PropertyUri = new Uri("Pages/StaticPropertyPage.xaml", UriKind.Relative);
-        readonly Uri FloatingUri = new Uri("Pages/FloatingPanelPage.xaml", UriKind.Relative);
+        readonly Uri PropertyUri = new Uri("Pages/PropertyPage.xaml", UriKind.Relative);
+        readonly Uri FloatingUri = new Uri("Pages/ControlPage.xaml", UriKind.Relative);
         public MainWindow()
         {
             InitializeComponent();
