@@ -1,0 +1,94 @@
+﻿<Window x:Class="OverTop.FunctionalWindows.PropertyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OverTop.ContentWindows" xmlns:svg="http://sharpvectors.codeplex.com/svgc/"
+        mc:Ignorable="d"
+        Title="窗口属性" Height="375" Width="250"
+        Topmost="True" Icon="/Resources/Icons/icon.png"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Closing="Window_Closing"
+        Background="#3c3c3c"
+        WindowStartupLocation="CenterOwner"
+        KeyDown="Window_KeyDown">
+    
+    <ScrollViewer
+        VerticalScrollBarVisibility="Hidden"
+        Margin="20,20,20,20">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Visibility="Collapsed" x:Name="ButtonStackPanel">
+                <Button Style="{StaticResource IconButton}"
+                            x:Name="AddTextButton"
+                            Click="AddTextButton_Click"
+                            ToolTip="添加文本">
+                    <svg:SvgViewbox
+                        Source="/Resources/Icons/Text.svg"
+                        Width="30"/>
+                </Button>
+                <Button Style="{StaticResource IconButton}"
+                            x:Name="AddPictureButton"
+                            Click="AddPictureButton_Click"
+                            Margin="10,0,0,0"
+                            ToolTip="添加图片">
+                    <svg:SvgViewbox
+                        Source="/Resources/Icons/Image.svg"
+                        Width="30"/>
+                </Button>
+                <Button Style="{StaticResource IconButton}"
+                            x:Name="AddLinkButton"
+                            Margin="10,0,0,0"
+                            Click="AddLinkButton_Click"
+                            ToolTip="添加链接">
+                    <svg:SvgViewbox
+                        Source="/Resources/Icons/Link.svg"
+                        Width="30"/>
+                </Button>
+            </StackPanel>
+            
+            <TextBlock
+                Text="窗口宽度："
+                Margin="0,10,0,0"
+                Foreground="White"/>
+            
+            <TextBox
+                x:Name="WidthTextBox"
+                Style="{StaticResource ContentTextBoxStyle}"
+                Margin="0,10,0,0"/>
+
+            <TextBlock
+                Text="窗口长度："
+                Margin="0,10,0,0"
+                Foreground="White"/>
+            <TextBox
+                x:Name="HeightTextBox"
+                Style="{StaticResource ContentTextBoxStyle}"
+                Margin="0,10,0,0"/>
+
+            <TextBlock
+                Text="窗口背景颜色："
+                Margin="0,10,0,0"
+                Foreground="White"/>
+            
+            <TextBox
+                x:Name="ColorTextBox"
+                Style="{StaticResource ContentTextBoxStyle}"
+                Margin="0,10,0,0"/>
+            <StackPanel
+                Style="{StaticResource ContentStackPanelStyle}">
+                <Button
+                    Content="关闭"
+                    Click="Button_Click"
+                    Style="{StaticResource ContentButtonStyle}"
+                    FontSize="18" Width="30" Margin="0,10,0,0"/>
+                <Button
+                    Content="设为默认"
+                    x:Name="DefaultButton"
+                    Click="DefaultButton_Click"
+                    Style="{StaticResource ContentButtonStyle}"
+                    FontSize="18"
+                    Margin="5,10,0,0"/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

@@ -1,0 +1,88 @@
+﻿<Page x:Class="OverTop.Pages.ControlPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:OverTop.Pages" xmlns:svg="http://sharpvectors.codeplex.com/svgc/"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="FloatingPanelPage"
+      DragDrop.Drop="Page_Drop"
+      AllowDrop="True">
+
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+        <Button Style="{StaticResource ContentButtonStyle}"
+                Content="关闭全部"
+                x:Name="CloseButton"
+                Click="CloseButton_Click"
+                Margin="0,0,0,0"
+                HorizontalAlignment="Left"/>
+        <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
+            <TextBlock Text="便签窗口："
+                       Style="{StaticResource ContentTextBlockStyle}"/>
+            <Button x:Name="HangerWindowButton"
+                    Click="HangerWindowButton_Click"
+                    Style="{StaticResource IconButton}"
+                    ToolTip="新建窗口">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource ContentTextBlockStyle}" Text="新建"/>
+                    <svg:SvgViewbox
+                        Margin="5,0,0,0"
+                        Width="20"
+                        Source="/Resources/Icons/New.svg"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="ImportButton"
+                    Click="ImportButton_Click"
+                    MouseRightButtonDown="ImportButton_MouseRightButtonDown"
+                    Margin="10,0,0,0"
+                    ToolTip="从文件夹中导入 .json 文件"
+                    Style="{StaticResource IconButton}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource ContentTextBlockStyle}" Text="导入"/>
+                    <svg:SvgViewbox
+                        Margin="5,0,0,0"
+                        Width="25"
+                        Source="/Resources/Icons/Import.svg"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        
+        <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
+            <TextBlock Text="最近使用："
+                       Style="{StaticResource ContentTextBlockStyle}"/>
+            <Button x:Name="RecentWindowButton"
+                    FontSize="20" ToolTip="最近窗口"
+                    Style="{StaticResource IconButton}"
+                    Click="RecentWindowButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource ContentTextBlockStyle}" Text="新建"/>
+                    <svg:SvgViewbox
+                        Margin="5,0,0,0"
+                        Width="20"
+                        Source="/Resources/Icons/New.svg"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <StackPanel Style="{StaticResource ContentStackPanelStyle}"
+                    x:Name="WeatherStackPanel"
+                    Margin="0,20,0,0">
+            <TextBlock Text="天气组件："
+                       Style="{StaticResource ContentTextBlockStyle}"/>
+            <Button x:Name="WeatherWindowButton"
+                    Style="{StaticResource IconButton}"
+                    Click="WeatherWindowButton_Click"
+                    ToolTip="天气窗口">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource ContentTextBlockStyle}" Text="打开"/>
+                    <svg:SvgViewbox
+                            Margin="5,0,0,0"
+                            Width="20"
+                            Source="\Resources\Icons\Open.svg"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+    </StackPanel>
+</Page>

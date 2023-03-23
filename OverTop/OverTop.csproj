@@ -1,0 +1,108 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<RuntimeIdentifiers>win-x86</RuntimeIdentifiers>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>False</UseWindowsForms>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<Title>Over Top</Title>
+		<PackAsTool>true</PackAsTool>
+		<ToolCommandName>OverTop</ToolCommandName>
+		<Version>1.8.0</Version>
+		<ApplicationIcon>Resources\Icons\icon.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="OverTop.Package\**" />
+		<EmbeddedResource Remove="OverTop.Package\**" />
+		<None Remove="OverTop.Package\**" />
+		<Page Remove="OverTop.Package\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Resources\Icons\Back.svg" />
+		<None Remove="Resources\Icons\Close.svg" />
+		<None Remove="Resources\Icons\Disappear.svg" />
+		<None Remove="Resources\Icons\Floatings.svg" />
+		<None Remove="Resources\Icons\icon.ico" />
+		<None Remove="Resources\Icons\icon.png" />
+		<None Remove="Resources\Icons\Icon.svg" />
+		<None Remove="Resources\Icons\Image.svg" />
+		<None Remove="Resources\Icons\Import.svg" />
+		<None Remove="Resources\Icons\Link.svg" />
+		<None Remove="Resources\Icons\Menu.svg" />
+		<None Remove="Resources\Icons\Minimize.svg" />
+		<None Remove="Resources\Icons\New.svg" />
+		<None Remove="Resources\Icons\Open.svg" />
+		<None Remove="Resources\Icons\Properties.svg" />
+		<None Remove="Resources\Icons\Text.svg" />
+		<None Remove="Resources\Icons\Window_Close.svg" />
+		<None Remove="Resources\Splash Screen.svg" />
+		<None Remove="Resources\SplashScreen.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Win32.SystemEvents" Version="7.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+		<PackageReference Include="PuranLai.Algorithm" Version="2.0.1" />
+		<PackageReference Include="PuranLai.Tools" Version="1.0.0" />
+		<PackageReference Include="SharpVectors.Wpf" Version="1.8.1" />
+		<PackageReference Include="System.Collections" Version="4.3.0" />
+		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<COMReference Include="IWshRuntimeLibrary">
+			<WrapperTool>tlbimp</WrapperTool>
+			<VersionMinor>0</VersionMinor>
+			<VersionMajor>1</VersionMajor>
+			<Guid>f935dc20-1cf0-11d0-adb9-00c04fd58a0b</Guid>
+			<Lcid>0</Lcid>
+			<Isolated>false</Isolated>
+			<EmbedInteropTypes>true</EmbedInteropTypes>
+		</COMReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Resources\Icons\icon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\PuranLai\PuranLai.Algorithm\PuranLai.Algorithm.csproj" />
+	  <ProjectReference Include="..\..\PuranLai\PuranLai.Tools\PuranLai.Tools.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Resources\Icons\Back.svg" />
+		<Resource Include="Resources\Icons\Close.svg" />
+		<Resource Include="Resources\Icons\Disappear.svg" />
+		<Resource Include="Resources\Icons\Floatings.svg" />
+		<Resource Include="Resources\Icons\icon.ico" />
+		<Resource Include="Resources\Icons\icon.png" />
+		<Resource Include="Resources\Icons\Icon.svg" />
+		<Resource Include="Resources\Icons\Image.svg" />
+		<Resource Include="Resources\Icons\Import.svg" />
+		<Resource Include="Resources\Icons\Link.svg" />
+		<Resource Include="Resources\Icons\Menu.svg" />
+		<Resource Include="Resources\Icons\Minimize.svg" />
+		<Resource Include="Resources\Icons\New.svg" />
+		<Resource Include="Resources\Icons\Open.svg" />
+		<Resource Include="Resources\Icons\Properties.svg" />
+		<Resource Include="Resources\Icons\Text.svg" />
+		<Resource Include="Resources\Icons\Window_Close.svg" />
+		<Resource Include="Resources\SplashScreen.svg" />
+	</ItemGroup>
+
+</Project>

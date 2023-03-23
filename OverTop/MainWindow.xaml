@@ -1,0 +1,147 @@
+﻿<Window x:Class="OverTop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:svg="http://sharpvectors.codeplex.com/svgc/"
+        mc:Ignorable="d" Icon="/Resources/Icons/icon.png"
+        Title="Over Top" Height="450" Width="750"
+        WindowStartupLocation="CenterScreen"
+        Keyboard.KeyDown="Window_KeyDown"
+        MouseEnter="Window_MouseEnter" Topmost="False"
+        ResizeMode="CanMinimize" WindowStyle="None"
+        AllowsTransparency="True" Background="#3c3c3c">
+    <Window.Resources>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="CornerRadius" Value="10"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel Orientation="Vertical">
+        <Grid
+                Height="30" Margin="0,0,0,0"
+                Background="White"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Stretch"
+                MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    Margin="5,0,0,0"
+                    Grid.Column="0">
+                <svg:SvgViewbox
+                        Height="22.5"
+                        Width="22.5"
+                        Source="/Resources/Icons/Icon.svg"/>
+                <TextBlock
+                        VerticalAlignment="Center"
+                        Margin="5,0,0,0"
+                        Text="Over Top"/>
+            </StackPanel>
+
+            <StackPanel
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+                <Button
+                        Style="{StaticResource WindowChromeButton}"
+                        Template="{StaticResource OverrideDefault}"
+                        x:Name="DisappearButton"
+                        Click="DisappearButton_Click">
+                    <svg:SvgViewbox
+                            Width="20"
+                            Source="/Resources/Icons/Disappear.svg"/>
+                </Button>
+                <Button
+                        Style="{StaticResource WindowChromeButton}"
+                        Template="{StaticResource OverrideDefault}"
+                        x:Name="MinimizeButton"
+                        Click="MinimizeButton_Click">
+                    <svg:SvgViewbox
+                            Width="20"
+                            Source="/Resources/Icons/Minimize.svg"/>
+                </Button>
+                <Button
+                        Style="{StaticResource WindowChromeButton}"
+                        Template="{StaticResource OverrideDefault}"
+                        x:Name="CloseWindowButton"
+                        Click="CloseWindowButton_Click">
+                    <svg:SvgViewbox
+                        Width="15"
+                        Source="/Resources/Icons/Window_Close.svg"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Left" x:Name="MenuStackPanel"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Stretch"
+                        Width="42">
+                <StackPanel x:Name="Controller">
+                    <Button x:Name="BackButton"
+                            Style="{StaticResource NavigationButtonStyle}"
+                            Click="BackButton_Click">
+                        <svg:SvgViewbox
+                            Source="/Resources/Icons/Back.svg"
+                            Width="30"/>
+                    </Button>
+
+                    <Button x:Name="NavigationButton"
+                            Style="{StaticResource NavigationButtonStyle}"
+                            Click="NavigationButton_Click">
+                        <svg:SvgViewbox
+                            Source="/Resources/Icons/Menu.svg"
+                            Width="30"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel x:Name="Selector">
+                    <ListBox
+                        x:Name="ContentListBox" Style="{StaticResource ClearListBoxStyle}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        SelectionMode="Single" SelectionChanged="ContentListBox_SelectionChanged"
+                        Margin="-1,-1,-1,-1">
+                        <ListBoxItem
+                            x:Name="FloatingListBoxItem"
+                            Style="{StaticResource ContentListBoxItemStyle}">
+                            <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
+                                <svg:SvgViewbox
+                                    Source="/Resources/Icons/Floatings.svg"
+                                    Width="30"/>
+                                <TextBlock
+                                    Text="浮窗控制"
+                                    Style="{StaticResource NavigationTextBlockStyle}"
+                                    Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+
+                        <ListBoxItem x:Name="PropertyListBoxItem"
+                                 Style="{StaticResource ContentListBoxItemStyle}">
+                            <StackPanel Style="{StaticResource NavigationStackPanelStyle}">
+                                <svg:SvgViewbox
+                                    Source="/Resources/Icons/Properties.svg"
+                                    Width="30"/>
+                                <TextBlock Text="系统属性"
+                                       Style="{StaticResource NavigationTextBlockStyle}"
+                                       Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                    </ListBox>
+                </StackPanel>
+
+            </StackPanel>
+            <TextBlock DockPanel.Dock="Top" x:Name="TitleTextBlock" Style="{StaticResource TitleTextBlockStyle}" Margin="20,10,0,0"/>
+            <ScrollViewer DockPanel.Dock="Right"
+                      VerticalScrollBarVisibility="Hidden"
+                      Margin="20,20,0,0">
+                <Frame x:Name="ContentFrame"
+                   NavigationUIVisibility="Hidden"
+                   Navigated="ContentFrame_Navigated"></Frame>
+            </ScrollViewer>
+        </DockPanel>
+    </StackPanel>
+</Window>

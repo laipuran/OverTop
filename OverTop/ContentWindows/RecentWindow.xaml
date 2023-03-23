@@ -1,0 +1,26 @@
+﻿<Window x:Class="OverTop.ContentWindows.RecentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OverTop.ContentWindows"
+        mc:Ignorable="d" Closed="Window_Closed"
+        Title="Recent Window" Icon="/Resources/Icons/icon.png"
+        Width="100" Height="200"
+        MouseRightButtonDown="Window_MouseRightButtonDown"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Topmost="True" ShowInTaskbar="False"
+        KeyDown="Window_KeyDown"
+        MouseMove="Window_MouseMove"
+        MouseEnter="Window_MouseEnter"
+        MouseLeave="Window_MouseLeave"
+        Style="{StaticResource FloatingWindowStyle}">
+    <ScrollViewer Margin="10,10,10,10" CanContentScroll="True"
+                  VerticalScrollBarVisibility="Hidden" x:Name="Scroller"
+                  MouseDoubleClick="Window_MouseLeftButtonDown">
+        <StackPanel x:Name="ContentStackPanel"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+        </StackPanel>
+    </ScrollViewer>
+</Window>
