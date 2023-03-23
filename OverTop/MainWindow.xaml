@@ -4,20 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:svg="http://sharpvectors.codeplex.com/svgc/"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
         mc:Ignorable="d" Icon="/Resources/Icons/icon.png"
         Title="Over Top" Height="450" Width="750"
         WindowStartupLocation="CenterScreen"
         Keyboard.KeyDown="Window_KeyDown"
         MouseEnter="Window_MouseEnter" Topmost="False"
-        ResizeMode="CanMinimize" WindowStyle="None"
-        AllowsTransparency="True" Background="#3c3c3c">
+        ResizeMode="CanMinimize" Background="#3c3c3c"
+        >
+    <!--
+        WindowStyle="None" AllowsTransparency="True"
+    -->
     <Window.Resources>
-        <Style TargetType="{x:Type Border}">
+        <!--<Style TargetType="{x:Type Border}">
             <Setter Property="CornerRadius" Value="10"/>
-        </Style>
+        </Style>-->
     </Window.Resources>
     <StackPanel Orientation="Vertical">
-        <Grid
+        <Grid   Visibility="Collapsed"
                 Height="30" Margin="0,0,0,0"
                 Background="White"
                 VerticalAlignment="Center"

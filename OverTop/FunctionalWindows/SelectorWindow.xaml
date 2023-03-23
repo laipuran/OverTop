@@ -14,7 +14,7 @@
         <StackPanel x:Name="ContentStackPanel" Margin="5,5,5,5"
                     HorizontalAlignment="Left">
             <Button x:Name="AddButton"
-                    Style="{StaticResource ContentButtonStyle}"
+                    Style="{StaticResource AccentButtonStyle}"
                     Click="AddButton_Click"
                     Content="选取文件"
                     Width="100" Margin="5,0,0,5"/>

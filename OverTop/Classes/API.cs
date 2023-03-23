@@ -76,8 +76,12 @@ namespace OverTop
         {
             string? json = GetData(amapBase + "ip?key=" + key + "&ip=" + ip);
             if (json is null) return null;
-
-            IpInformation? i2 = JsonConvert.DeserializeObject<IpInformation>(json);
+            IpInformation? i2 = new();
+            try
+            {
+                i2 = JsonConvert.DeserializeObject<IpInformation>(json);
+            }
+            catch { }
 
             return i2 is null ? null : i2;
         }

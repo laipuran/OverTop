@@ -3,7 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OverTop.ContentWindows" xmlns:svg="http://sharpvectors.codeplex.com/svgc/"
+        xmlns:local="clr-namespace:OverTop.ContentWindows"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:svg="http://sharpvectors.codeplex.com/svgc/"
+        ui:WindowHelper.UseModernWindowStyle="True"
         mc:Ignorable="d"
         Title="窗口属性" Height="375" Width="250"
         Topmost="True" Icon="/Resources/Icons/icon.png"
@@ -18,7 +21,7 @@
         Margin="20,20,20,20">
         <StackPanel>
             <StackPanel Orientation="Horizontal" Visibility="Collapsed" x:Name="ButtonStackPanel">
-                <Button Style="{StaticResource IconButton}"
+                <Button Style="{StaticResource AccentButtonStyle}"
                             x:Name="AddTextButton"
                             Click="AddTextButton_Click"
                             ToolTip="添加文本">
@@ -26,7 +29,7 @@
                         Source="/Resources/Icons/Text.svg"
                         Width="30"/>
                 </Button>
-                <Button Style="{StaticResource IconButton}"
+                <Button Style="{StaticResource AccentButtonStyle}"
                             x:Name="AddPictureButton"
                             Click="AddPictureButton_Click"
                             Margin="10,0,0,0"
@@ -35,14 +38,14 @@
                         Source="/Resources/Icons/Image.svg"
                         Width="30"/>
                 </Button>
-                <Button Style="{StaticResource IconButton}"
+                <Button Style="{StaticResource AccentButtonStyle}"
                             x:Name="AddLinkButton"
                             Margin="10,0,0,0"
                             Click="AddLinkButton_Click"
                             ToolTip="添加链接">
                     <svg:SvgViewbox
                         Source="/Resources/Icons/Link.svg"
-                        Width="30"/>
+                        Width="30" Height="40"/>
                 </Button>
             </StackPanel>
             
@@ -74,21 +77,25 @@
                 x:Name="ColorTextBox"
                 Style="{StaticResource ContentTextBoxStyle}"
                 Margin="0,10,0,0"/>
-            <StackPanel
-                Style="{StaticResource ContentStackPanelStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
                 <Button
+                    
                     Content="关闭"
                     Click="Button_Click"
-                    Style="{StaticResource ContentButtonStyle}"
-                    FontSize="18" Width="30" Margin="0,10,0,0"/>
+                    Style="{StaticResource AccentButtonStyle}"
+                    FontSize="18" Width="75" Margin="0,10,0,0"/>
                 <Button
                     Content="设为默认"
                     x:Name="DefaultButton"
                     Click="DefaultButton_Click"
-                    Style="{StaticResource ContentButtonStyle}"
+                    Style="{StaticResource AccentButtonStyle}"
                     FontSize="18"
                     Margin="5,10,0,0"/>
-            </StackPanel>
+            </Grid>
         </StackPanel>
     </ScrollViewer>
 </Window>

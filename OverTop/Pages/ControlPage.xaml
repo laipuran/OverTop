@@ -3,7 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:OverTop.Pages" xmlns:svg="http://sharpvectors.codeplex.com/svgc/"
+      xmlns:local="clr-namespace:OverTop.Pages"
+      xmlns:svg="http://sharpvectors.codeplex.com/svgc/"
+      xmlns:ui="http://schemas.modernwpf.com/2019"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="FloatingPanelPage"
@@ -11,19 +13,21 @@
       AllowDrop="True">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
-        <Button Style="{StaticResource ContentButtonStyle}"
+        <Button Style="{StaticResource AccentButtonStyle}"
                 Content="关闭全部"
                 x:Name="CloseButton"
                 Click="CloseButton_Click"
                 Margin="0,0,0,0"
                 HorizontalAlignment="Left"/>
+        <!--Style="{StaticResource AccentButtonStyle}"-->
         <StackPanel Style="{StaticResource ContentStackPanelStyle}" Margin="0,20,0,0">
             <TextBlock Text="便签窗口："
                        Style="{StaticResource ContentTextBlockStyle}"/>
             <Button x:Name="HangerWindowButton"
                     Click="HangerWindowButton_Click"
-                    Style="{StaticResource IconButton}"
+                    Style="{StaticResource AccentButtonStyle}"
                     ToolTip="新建窗口">
+                <!--Style="{StaticResource IconButton}"-->
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource ContentTextBlockStyle}" Text="新建"/>
                     <svg:SvgViewbox
@@ -37,7 +41,7 @@
                     MouseRightButtonDown="ImportButton_MouseRightButtonDown"
                     Margin="10,0,0,0"
                     ToolTip="从文件夹中导入 .json 文件"
-                    Style="{StaticResource IconButton}">
+                    Style="{StaticResource AccentButtonStyle}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource ContentTextBlockStyle}" Text="导入"/>
                     <svg:SvgViewbox
@@ -53,7 +57,7 @@
                        Style="{StaticResource ContentTextBlockStyle}"/>
             <Button x:Name="RecentWindowButton"
                     FontSize="20" ToolTip="最近窗口"
-                    Style="{StaticResource IconButton}"
+                    Style="{StaticResource AccentButtonStyle}"
                     Click="RecentWindowButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource ContentTextBlockStyle}" Text="新建"/>
@@ -71,7 +75,7 @@
             <TextBlock Text="天气组件："
                        Style="{StaticResource ContentTextBlockStyle}"/>
             <Button x:Name="WeatherWindowButton"
-                    Style="{StaticResource IconButton}"
+                    Style="{StaticResource AccentButtonStyle}"
                     Click="WeatherWindowButton_Click"
                     ToolTip="天气窗口">
                 <StackPanel Orientation="Horizontal">
