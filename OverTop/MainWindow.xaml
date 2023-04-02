@@ -10,6 +10,7 @@
         Title="Over Top" Height="450" Width="750"
         WindowStartupLocation="CenterScreen"
         Keyboard.KeyDown="Window_KeyDown"
+        Closing="Window_Closing"
         MouseEnter="Window_MouseEnter" Topmost="False"
         ResizeMode="CanMinimize" Background="#3c3c3c"
         >

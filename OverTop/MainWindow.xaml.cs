@@ -168,5 +168,10 @@ namespace OverTop
         {
             this.Opacity = 1;
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            CloseWindowButton_Click(sender, null);
+        }
     }
 }
